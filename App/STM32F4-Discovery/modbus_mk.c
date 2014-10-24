@@ -1,3 +1,8 @@
+/*! \file modbus_mk.c
+ *  \brief modbus protocol functions and motor control
+ */
+
+
 #include "modbus_mk.h"
 
 /* Table of CRC values for high-order byte */
@@ -153,21 +158,23 @@ void init_USARTx(void)
 }
 
 
-/* This function is used to transmit a string of characters via 
- * the USART specified in USARTx.
- * 
- * It takes two arguments: USARTx --> can be any of the USARTs e.g. USART1, USART2 etc.
- * 						   (volatile) char *s is the string you want to send
- * 
- * Note: The string has to be passed to the function as a pointer because
- * 		 the compiler doesn't know the 'string' data type. In standard
- * 		 C a string is just an array of characters
- * 
- * Note 2: At the moment it takes a volatile char because the received_string variable
- * 		   declared as volatile char --> otherwise the compiler will spit out warnings
- * */
 void USART_puts(uint8_t *s, int nb)
 {
+
+	/*! This function is used to transmit a string of characters via 
+	 * the USART specified in USARTx.
+	 * 
+	 * It takes two arguments: USARTx --> can be any of the USARTs e.g. USART1, USART2 etc.
+	 * 						   (volatile) char *s is the string you want to send
+	 * 
+	 * Note: The string has to be passed to the function as a pointer because
+	 * 		 the compiler doesn't know the 'string' data type. In standard
+	 * 		 C a string is just an array of characters
+	 * 
+	 * Note 2: At the moment it takes a volatile char because the received_string variable
+	 * 		   declared as volatile char --> otherwise the compiler will spit out warnings
+	 * */
+
 	int i = 0;
 	while(i < nb && *s){
 		// wait until data register is empty
@@ -418,13 +425,17 @@ void modbus_RR( int address, int nb, uint16_t *src)
 	return 0;
 }
 
-/* set_speed 
- *
- *INPUT: speed = (actual speed)*100 in % 
- *
- * */
+
+
+/*===================================================================================
+=====================================================================================
+============    		TASKS SECTION			===================== 
+=====================================================================================
+====================================================================================*/
 void setSpeed_task(void * pvParameters)
 {
+	/*! sets speed of motor */
+
 	
 	struct Spd_Settings * spd_set;
 
@@ -450,46 +461,97 @@ void setSpeed_task(void * pvParameters)
 
 }
 
-void motorHeartBit_task(void * pvParameters)
+void motorControl_task(void * pvParameters)
 {
 	
 
-	uint8_t dest[8];
 	uint8_t src[4];
+	uint8_t stop[4]; 
 	uint16_t tab_reg[10];
 	uint16_t spd[5]; 
 	
-	
+
+	stop[0] = 0; stop[1] = 0; stop[2] = 0; stop[3] = 0; 
+
 	src[0]=1; src[1]=1; src[2]=1; src[3]=1;
 	
 	spd[0]=1500;spd[1]=0;spd[2]=2250;spd[3]=10;spd[4]=10;
 	
+	// create usart semaphore 
 	xSmphrUSART = xSemaphoreCreateBinary();	
 	
-	/*if ( modbus_RIB( 0,8,dest) < 0 )
-	{
-		 vTaskDelete( NULL );;
-	}
-	
-	modbus_RR(0,10,tab_reg);*/
 	portTickType xDelay = 100 / portTICK_RATE_MS;	
-	modbus_WIB( 0, 3, src);
-	vTaskDelay(xDelay);	
 	
-	modbus_WR( 0, 5, spd);
+	
+	
+	
+	
+	
 
-	vTaskDelay(xDelay);	
-	modbus_RR(0, 10, tab_reg);
-	
-	xDelay = 2000 / portTICK_RATE_MS;
+
+	QueueTelegram telegramR, telegramS; 
 	
 	while (1)
 	{
+
+		if (!xQueueReceive(QSpd_handle, &telegramR, 700))
+		{
+			switch ( telegramR.Qcmd )
+			{
+				case SETDATA:
+					
+					// write to modbus 
+					modbus_WIB ( 0 , 3, src);
+					modbus_WR(0, telegramR.size, telegramR.data);
+					
+					// send response to CLI 
+					telegramS.Qcmd = SUCCSESS;
+					xQueueSend(QSpd_handle, &telegramS, 500);
+
+					break;
+				       	
+				
+				case GETDATA:
+					modbus_RR(0, 10, telegramS.data);
+
+					// send response to CLI 
+					telegramS.Qcmd = SUCCSESS;
+					xQueueSend(QSpd_handle, &telegramS, 500);
+
+					break;
+
+				
+				case START: 
+					
+					// set motor speed to 10% 
+					modbus_WIB( 0 , 3, src); 
+					modbus_WR( 0, 5, spd);
+					
+					// send response to CLI 
+					telegramS.Qcmd = SUCCSESS;
+					xQueueSend(QSpd_handle, &telegramS, 500);
+
+					break;
+				
+				case STOP:
+					
+					// send stop bits to motor 
+					modbus_WIB ( 0 , 3 , stop);
+
+					// send response to CLI 
+					telegramS.Qcmd = SUCCSESS;
+					xQueueSend(QSpd_handle, &telegramS, 500);
+
+					break; 
+					
+
+
+					
+			}
+		}
+
 		vTaskDelay( xDelay );
-	//	modbus_WR(0, 5, spd); 	
-		modbus_RR(0, 10, tab_reg);
-		xQueueSend(QStatus_handle, &tab_reg, 500);
-		
+		modbus_RR(0, 10, tab_reg);		
 	
 	}
 	

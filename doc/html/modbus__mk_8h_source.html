@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.7"/>
-<title>STM32F4xx: modbus_mk.h Source File</title>
+<title>MOTOR TCP CLI v2010: modbus_mk.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">STM32F4xx
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">MOTOR TCP CLI v2010
    </div>
   </td>
  </tr>
@@ -85,87 +84,96 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">modbus_mk.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="main_8h.html">main.h</a>&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define     USARTx           USART6</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#define     USARTx_CLK       RCC_APB2Periph_USART6</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#define     USARTx_RX_GPIO_PIN   GPIO_Pin_6</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define     USARTx_RX_GPIO_PORT  GPIOC</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#define     USARTx_RX_GPIO_CLK       RCC_AHB1Periph_GPIOC</span></div>
+<a href="modbus__mk_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="main_8h.html">main.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define     USARTx           USART6</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#define     USARTx_CLK       RCC_APB2Periph_USART6</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define     USARTx_TX_GPIO_PIN   GPIO_Pin_7</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#define     USARTx_TX_GPIO_PORT  GPIOC</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define     USARTx_TX_GPIO_CLK       RCC_AHB1Periph_GPIOC</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define     USARTx_RX_GPIO_PIN   GPIO_Pin_6</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#define     USARTx_RX_GPIO_PORT  GPIOC</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define     USARTx_RX_GPIO_CLK       RCC_AHB1Periph_GPIOC</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define     USARTx_CS_GPIO_PIN   GPIO_Pin_8</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define     USARTx_CS_GPIO_PORT  GPIOG</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#define     USARTx_CS_GPIO_CLK       RCC_AHB1Periph_GPIOG</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define     USARTx_TX_GPIO_PIN   GPIO_Pin_7</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define     USARTx_TX_GPIO_PORT  GPIOC</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define     USARTx_TX_GPIO_CLK       RCC_AHB1Periph_GPIOC</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define DE()        USARTx_CS_GPIO_PORT-&gt;BSRRH |= GPIO_Pin_8; // chip select  </span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#define DD()        USARTx_CS_GPIO_PORT-&gt;BSRRL |= GPIO_Pin_8; // chip select  </span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#define     USARTx_CS_GPIO_PIN   GPIO_Pin_8</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define     USARTx_CS_GPIO_PORT  GPIOG</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define     USARTx_CS_GPIO_CLK       RCC_AHB1Periph_GPIOG</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define MAX_STRLEN 128</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#define REQ_MAX_LEN 512</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">int</span> fd; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//recived charachters</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">volatile</span> uint8_t received_string[MAX_STRLEN + 1 ]; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">int</span> rx_length; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> portBASE_TYPE xHigherPriorityTaskWoken_usart;</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="struct_spd___settings.html">   32</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_spd___settings.html">Spd_Settings</a>{</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    uint16_t speed ;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    uint16_t param1 ;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    uint16_t maxRPM ;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    uint16_t upRamp ;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    uint16_t downRamp ;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;uint16_t input_Register[10];</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//xSemaphoreHandle xSmphrUSART; </span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//xTaskHandle setSpeedHandle;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define DE()        USARTx_CS_GPIO_PORT-&gt;BSRRH |= GPIO_Pin_8; // chip select  </span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#define DD()        USARTx_CS_GPIO_PORT-&gt;BSRRL |= GPIO_Pin_8; // chip select  </span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define MAX_STRLEN 128</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#define REQ_MAX_LEN 512</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">int</span> fd; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">//recived charachters</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">volatile</span> uint8_t received_string[MAX_STRLEN + 1 ]; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">int</span> rx_length; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">static</span> <span class="keywordtype">unsigned</span> portBASE_TYPE xHigherPriorityTaskWoken_usart;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="struct_spd___settings.html">   36</a></span>&#160;<span class="keyword">struct </span><a class="code" href="struct_spd___settings.html">Spd_Settings</a>{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="struct_spd___settings.html#a59ce628eaf3b710aa50afbe015ff0898">   38</a></span>&#160;    uint16_t <a class="code" href="struct_spd___settings.html#a59ce628eaf3b710aa50afbe015ff0898">speed</a>; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="struct_spd___settings.html#a402baa8e8a697bbf87de1ed4cf9f6627">   39</a></span>&#160;    uint16_t <a class="code" href="struct_spd___settings.html#a402baa8e8a697bbf87de1ed4cf9f6627">param1</a>; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="struct_spd___settings.html#af47d1e0c9da2497e819c12ecf7a3b9d0">   40</a></span>&#160;    uint16_t <a class="code" href="struct_spd___settings.html#af47d1e0c9da2497e819c12ecf7a3b9d0">maxRPM</a> ; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="struct_spd___settings.html#a16f1cc3f4021c8e8cd8e14175ac0ba88">   41</a></span>&#160;    uint16_t <a class="code" href="struct_spd___settings.html#a16f1cc3f4021c8e8cd8e14175ac0ba88">upRamp</a> ; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="struct_spd___settings.html#a19db5e7c4993f3f2343d27998c3c9e5a">   42</a></span>&#160;    uint16_t <a class="code" href="struct_spd___settings.html#a19db5e7c4993f3f2343d27998c3c9e5a">downRamp</a> ; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> copy_inputregisters(uint16_t *);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;uint16_t input_Register[10];</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">void</span> init_USARTx(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">void</span> USART_puts(  uint8_t *, <span class="keywordtype">int</span>);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">/* function for  crc calculation */</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;uint16_t crc16(uint8_t *, uint16_t );</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">/* write read to modbus */</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keywordtype">void</span> write_read_modbus( uint8_t * , uint8_t * , <span class="keywordtype">int</span>, <span class="keywordtype">int</span> );</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span> copy_inputregisters(uint16_t *);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">void</span> <a class="code" href="modbus__mk_8h.html#ae1a86175665d4ff2dd79f3f1686920d7">init_USARTx</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">/* modbus read input bits */</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">void</span> modbus_RIB( int16_t , <span class="keywordtype">int</span>, uint8_t * );</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">/* modbus write input bits */</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">void</span> modbus_WIB( uint16_t , <span class="keywordtype">int</span> , uint8_t * );</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">/* Write the values from the array to the registers of the remote device */</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">void</span> modbus_WR( <span class="keywordtype">int</span> , <span class="keywordtype">int</span> , <span class="keyword">const</span> uint16_t *);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">/* Read the values from the array to the registers of the remote device */</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">void</span> modbus_RR( <span class="keywordtype">int</span> , <span class="keywordtype">int</span> , uint16_t *);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">void</span> setSpeed_task(<span class="keywordtype">void</span> *);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">void</span> motorHeartBit_task(<span class="keywordtype">void</span> *);</div>
-<div class="ttc" id="struct_spd___settings_html"><div class="ttname"><a href="struct_spd___settings.html">Spd_Settings</a></div><div class="ttdef"><b>Definition:</b> modbus_mk.h:32</div></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keywordtype">void</span> <a class="code" href="modbus__mk_8h.html#a311958bfd049859f23038c3f565bcb47">USART_puts</a>(  uint8_t *, <span class="keywordtype">int</span>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;uint16_t <a class="code" href="modbus__mk_8h.html#a8d12ff1a59f0452bf78d0304940f6858">crc16</a>(uint8_t *, uint16_t );</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keywordtype">void</span> <a class="code" href="modbus__mk_8h.html#ac97589c51e0db8a823944e96a220aba9">write_read_modbus</a>( uint8_t * , uint8_t * , <span class="keywordtype">int</span>, <span class="keywordtype">int</span> );</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> <a class="code" href="modbus__mk_8h.html#a07d54e2738ff87201a7256c1c1b1ae71">modbus_RIB</a>( int16_t , <span class="keywordtype">int</span>, uint8_t * );</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keywordtype">void</span> <a class="code" href="modbus__mk_8h.html#ac983946b659deee4f3d35d8bdafd6804">modbus_WIB</a>( uint16_t , <span class="keywordtype">int</span> , uint8_t * );</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordtype">void</span> <a class="code" href="modbus__mk_8h.html#af5bed61cfadeb4659861e969e7d96ca9">modbus_WR</a>( <span class="keywordtype">int</span> , <span class="keywordtype">int</span> , <span class="keyword">const</span> uint16_t *);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keywordtype">void</span> <a class="code" href="modbus__mk_8h.html#a8119daf7cd745f14f01b5679deaa9ce4">modbus_RR</a>( <span class="keywordtype">int</span> , <span class="keywordtype">int</span> , uint16_t *);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keywordtype">void</span> <a class="code" href="modbus__mk_8h.html#a2ef1be468093a6847ec11876deefb414">setSpeed_task</a>(<span class="keywordtype">void</span> *);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keywordtype">void</span> motorHeartBit_task(<span class="keywordtype">void</span> *);</div>
+<div class="ttc" id="modbus__mk_8h_html_a8d12ff1a59f0452bf78d0304940f6858"><div class="ttname"><a href="modbus__mk_8h.html#a8d12ff1a59f0452bf78d0304940f6858">crc16</a></div><div class="ttdeci">uint16_t crc16(uint8_t *, uint16_t)</div><div class="ttdoc">calculation of checksum </div><div class="ttdef"><b>Definition:</b> modbus_mk.c:232</div></div>
+<div class="ttc" id="struct_spd___settings_html_a59ce628eaf3b710aa50afbe015ff0898"><div class="ttname"><a href="struct_spd___settings.html#a59ce628eaf3b710aa50afbe015ff0898">Spd_Settings::speed</a></div><div class="ttdeci">uint16_t speed</div><div class="ttdoc">motor speed </div><div class="ttdef"><b>Definition:</b> modbus_mk.h:38</div></div>
+<div class="ttc" id="struct_spd___settings_html"><div class="ttname"><a href="struct_spd___settings.html">Spd_Settings</a></div><div class="ttdef"><b>Definition:</b> modbus_mk.h:36</div></div>
 <div class="ttc" id="main_8h_html"><div class="ttname"><a href="main_8h.html">main.h</a></div><div class="ttdoc">A main header file. </div></div>
+<div class="ttc" id="modbus__mk_8h_html_a07d54e2738ff87201a7256c1c1b1ae71"><div class="ttname"><a href="modbus__mk_8h.html#a07d54e2738ff87201a7256c1c1b1ae71">modbus_RIB</a></div><div class="ttdeci">void modbus_RIB(int16_t, int, uint8_t *)</div><div class="ttdoc">read input bits on motor side </div><div class="ttdef"><b>Definition:</b> modbus_mk.c:274</div></div>
+<div class="ttc" id="modbus__mk_8h_html_ae1a86175665d4ff2dd79f3f1686920d7"><div class="ttname"><a href="modbus__mk_8h.html#ae1a86175665d4ff2dd79f3f1686920d7">init_USARTx</a></div><div class="ttdeci">void init_USARTx(void)</div><div class="ttdoc">initialize USART pheriph </div><div class="ttdef"><b>Definition:</b> modbus_mk.c:79</div></div>
+<div class="ttc" id="modbus__mk_8h_html_a8119daf7cd745f14f01b5679deaa9ce4"><div class="ttname"><a href="modbus__mk_8h.html#a8119daf7cd745f14f01b5679deaa9ce4">modbus_RR</a></div><div class="ttdeci">void modbus_RR(int, int, uint16_t *)</div><div class="ttdoc">read from motor register </div><div class="ttdef"><b>Definition:</b> modbus_mk.c:387</div></div>
+<div class="ttc" id="modbus__mk_8h_html_af5bed61cfadeb4659861e969e7d96ca9"><div class="ttname"><a href="modbus__mk_8h.html#af5bed61cfadeb4659861e969e7d96ca9">modbus_WR</a></div><div class="ttdeci">void modbus_WR(int, int, const uint16_t *)</div><div class="ttdoc">write to register of motor </div><div class="ttdef"><b>Definition:</b> modbus_mk.c:350</div></div>
+<div class="ttc" id="struct_spd___settings_html_a19db5e7c4993f3f2343d27998c3c9e5a"><div class="ttname"><a href="struct_spd___settings.html#a19db5e7c4993f3f2343d27998c3c9e5a">Spd_Settings::downRamp</a></div><div class="ttdeci">uint16_t downRamp</div><div class="ttdoc">down ramp time </div><div class="ttdef"><b>Definition:</b> modbus_mk.h:42</div></div>
+<div class="ttc" id="struct_spd___settings_html_a16f1cc3f4021c8e8cd8e14175ac0ba88"><div class="ttname"><a href="struct_spd___settings.html#a16f1cc3f4021c8e8cd8e14175ac0ba88">Spd_Settings::upRamp</a></div><div class="ttdeci">uint16_t upRamp</div><div class="ttdoc">up ramp time </div><div class="ttdef"><b>Definition:</b> modbus_mk.h:41</div></div>
+<div class="ttc" id="modbus__mk_8h_html_ac97589c51e0db8a823944e96a220aba9"><div class="ttname"><a href="modbus__mk_8h.html#ac97589c51e0db8a823944e96a220aba9">write_read_modbus</a></div><div class="ttdeci">void write_read_modbus(uint8_t *, uint8_t *, int, int)</div><div class="ttdoc">write and read data to modbus line </div><div class="ttdef"><b>Definition:</b> modbus_mk.c:250</div></div>
+<div class="ttc" id="struct_spd___settings_html_af47d1e0c9da2497e819c12ecf7a3b9d0"><div class="ttname"><a href="struct_spd___settings.html#af47d1e0c9da2497e819c12ecf7a3b9d0">Spd_Settings::maxRPM</a></div><div class="ttdeci">uint16_t maxRPM</div><div class="ttdoc">maximum RPM </div><div class="ttdef"><b>Definition:</b> modbus_mk.h:40</div></div>
+<div class="ttc" id="modbus__mk_8h_html_a311958bfd049859f23038c3f565bcb47"><div class="ttname"><a href="modbus__mk_8h.html#a311958bfd049859f23038c3f565bcb47">USART_puts</a></div><div class="ttdeci">void USART_puts(uint8_t *, int)</div><div class="ttdef"><b>Definition:</b> modbus_mk.c:161</div></div>
+<div class="ttc" id="modbus__mk_8h_html_ac983946b659deee4f3d35d8bdafd6804"><div class="ttname"><a href="modbus__mk_8h.html#ac983946b659deee4f3d35d8bdafd6804">modbus_WIB</a></div><div class="ttdeci">void modbus_WIB(uint16_t, int, uint8_t *)</div><div class="ttdoc">write bits to register </div><div class="ttdef"><b>Definition:</b> modbus_mk.c:299</div></div>
+<div class="ttc" id="struct_spd___settings_html_a402baa8e8a697bbf87de1ed4cf9f6627"><div class="ttname"><a href="struct_spd___settings.html#a402baa8e8a697bbf87de1ed4cf9f6627">Spd_Settings::param1</a></div><div class="ttdeci">uint16_t param1</div><div class="ttdoc">parameter ??? </div><div class="ttdef"><b>Definition:</b> modbus_mk.h:39</div></div>
+<div class="ttc" id="modbus__mk_8h_html_a2ef1be468093a6847ec11876deefb414"><div class="ttname"><a href="modbus__mk_8h.html#a2ef1be468093a6847ec11876deefb414">setSpeed_task</a></div><div class="ttdeci">void setSpeed_task(void *)</div><div class="ttdef"><b>Definition:</b> modbus_mk.c:435</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 21 2014 17:32:05 for STM32F4xx by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 24 2014 10:09:57 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

@@ -2,7 +2,8 @@
  *  \brief A main header file.
 */
 
-
+#ifndef _MAIN_H_
+#define _MAIN_H_
 
 /* standard includes */
 #include <stdio.h>
@@ -77,28 +78,4 @@ xQueueHandle QSpd_handle,
  */	      
 int socket_0;
 
-/*!	\enum QueueCommand 
- * 	\brief Queue telegram command
- *
- * 	Queue telegram command for tasks commmunication
- */
-typedef enum
-{
-	DATA,	/**< enum DATA if sending data. */ 
-	IDLE,	/**< enum IDLE if task has to go to idle mode. */ 
-	DELETE	/**< enum DELETE if task has to delete itself. */
-
-} QueueCommand;
-
-/*!	\struct QueueTelegram struct
- * 	\brief Telegram communication betwen task
- *
- * 	Telegram communication between tasks in specific format 
- */
-typedef struct
-{
-	QueueCommand Qcmd; /**< QueueCommand what type of telegram we received */
-	size_t size; 	   /**< size of data transmited */ 
-	uint8_t data[100]; /**< data of telegram */ 
-
-}QueueTelegram; 
+#endif

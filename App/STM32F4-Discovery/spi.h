@@ -2,6 +2,9 @@
 #define SPI_H
 
 #include  "main.h"
+
+/*! \file spi.h */
+
 #define MAX_BUFFER_LENGTH 2000
 uint8_t bufferTX[MAX_BUFFER_LENGTH];
 uint8_t bufferRX[MAX_BUFFER_LENGTH];
@@ -81,19 +84,47 @@ int dat_lengthTX;
 #define CSOFF()		SPIx_CS_GPIO_PORT->BSRRL |= SPIx_CS_PIN; // chip select  
 
 
+/*! \fn void init_SPIx(void)
+ *  \brief initialize SPI pheriphal for work with wiznet
+ */
 void init_SPIx(void);
-uint8_t SPI1_recive(void);
-void spi_send(uint16_t address, uint16_t data_len, uint8_t *data_buf);
-void spi_read(uint16_t address, uint16_t data_len, uint8_t *data_buf);
-void spi_sendByte(uint16_t address, uint8_t data_buf);
-void spi_send2B(uint16_t address, uint16_t data_buf);
-uint16_t spi_read2B(uint16_t address);
+
+/*! \fn uint16_t spi_dma_read2B(uint16_t address)
+ *  \brief sends request to receieve 2 bytes
+ *  \param address - memory location address on wiznet
+ */
 uint16_t spi_dma_read2B(uint16_t address);
 
+/*! \fn void spi_dma_send(uint16_t address, uint16_t data_len, uint8_t *data_buf)
+ *  \brief send data via spi to wiznet
+ *  \param address - memory location address on wiznet 
+ *  \param data_len - length of data to send
+ *  \param *data_buf - pointer to data to send 
+ */
 void spi_dma_send(uint16_t address, uint16_t data_len, uint8_t *data_buf);
+
+
+/*! \fn void spi_dma_read(uint16_t address, uint16_t data_len)
+ *  \brief receive data -> READ NOTE !!! 
+ *  \param address - memory location address on wiznet 
+ *  \param data_len - length ofg data to receieve 
+ */
 void spi_dma_read(uint16_t address, uint16_t data_len);
+
+
+/*! \fn void spi_dma_sendByte(uint16_t address, uint8_t data_buf)
+ *  \brief send byte to spi
+ *  \param address - memory location address on wiznet 
+ *  \param data_buf - value where data to send is stored
+ */
 void spi_dma_sendByte(uint16_t address, uint8_t data_buf);
+
+
+/*! \fn void spi_dma_send2B(uint16_t address, uint16_t data_buf)
+ *  \brief send two bytes of data 
+ *  \param address - memory location address on wiznet 
+ *  \param data_buf - value where 2 bytes are stored
+ */
 void spi_dma_send2B(uint16_t address, uint16_t data_buf);
 
-int spi_master_transfer(uint32_t spiport, uint8_t *cmdbuff, uint8_t cmdbufflen, uint8_t *data, uint8_t datalen);
 #endif

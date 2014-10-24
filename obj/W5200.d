@@ -1,6 +1,7 @@
 obj/App/STM32F4-Discovery/W5200.o: App/STM32F4-Discovery/W5200.c \
  App/STM32F4-Discovery/W5200.h App/STM32F4-Discovery/main.h \
- App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_usart.h \
+ Source/include/FreeRTOS.h Source/include/projdefs.h \
+ App/STM32F4-Discovery/FreeRTOSConfig.h \
  App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h \
  App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h \
  App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cmInstr.h \
@@ -31,20 +32,24 @@ obj/App/STM32F4-Discovery/W5200.o: App/STM32F4-Discovery/W5200.c \
  App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_spi.h \
  App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_syscfg.h \
  App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_tim.h \
+ App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_usart.h \
  App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_wwdg.h \
  App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/misc.h \
- Source/include/FreeRTOS.h Source/include/projdefs.h \
- App/STM32F4-Discovery/FreeRTOSConfig.h Source/include/portable.h \
- Source/portable/GCC/ARM_CM4F/portmacro.h Source/include/mpu_wrappers.h \
- Source/include/task.h Source/include/list.h Source/include/timers.h \
- Source/include/task.h Source/include/semphr.h Source/include/queue.h \
+ Source/include/portable.h Source/portable/GCC/ARM_CM4F/portmacro.h \
+ Source/include/mpu_wrappers.h Source/include/task.h \
+ Source/include/list.h Source/include/timers.h Source/include/task.h \
+ Source/include/semphr.h Source/include/queue.h \
  App/STM32F4-Discovery/stm32f4xx_conf.h App/STM32F4-Discovery/spi.h
 
 App/STM32F4-Discovery/W5200.h:
 
 App/STM32F4-Discovery/main.h:
 
-App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_usart.h:
+Source/include/FreeRTOS.h:
+
+Source/include/projdefs.h:
+
+App/STM32F4-Discovery/FreeRTOSConfig.h:
 
 App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h:
 
@@ -106,15 +111,11 @@ App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_syscfg.
 
 App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_tim.h:
 
+App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_usart.h:
+
 App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_wwdg.h:
 
 App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/misc.h:
-
-Source/include/FreeRTOS.h:
-
-Source/include/projdefs.h:
-
-App/STM32F4-Discovery/FreeRTOSConfig.h:
 
 Source/include/portable.h:
 

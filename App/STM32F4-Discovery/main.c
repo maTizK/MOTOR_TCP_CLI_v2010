@@ -119,8 +119,8 @@ int main(void)
 	
 	// ============now register CLI commands ===================
 	
-	FreeRTOS_CLIRegisterCommand( &xMotorCommand2 );
-       	FreeRTOS_CLIRegisterCommand( &xMotorCommand1 ); 	
+	FreeRTOS_CLIRegisterCommand( &xMotorCommand );
+       		
 
 	// =============== register CLI commands ===================
 

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.7"/>
-<title>STM32F4xx: Globals</title>
+<title>MOTOR TCP CLI v2010: Globals</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,8 +22,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">STM32F4xx
-   &#160;<span id="projectnumber">1</span>
+   <div id="projectname">MOTOR TCP CLI v2010
    </div>
   </td>
  </tr>
@@ -86,6 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_q"><span>q</span></a></li>
       <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
+      <li><a href="#index_u"><span>u</span></a></li>
       <li><a href="#index_w"><span>w</span></a></li>
       <li class="current"><a href="#index_x"><span>x</span></a></li>
     </ul>
@@ -124,6 +124,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="_w5200_8c.html#a053abad8a21289463ebf0f00c95d7dfd">W5200.c</a>
 , <a class="el" href="_w5200_8h.html#a053abad8a21289463ebf0f00c95d7dfd">W5200.h</a>
 </li>
+<li>crc16()
+: <a class="el" href="modbus__mk_8c.html#a859b2f058944b311a3cee5aa0a746d8e">modbus_mk.c</a>
+, <a class="el" href="modbus__mk_8h.html#a8d12ff1a59f0452bf78d0304940f6858">modbus_mk.h</a>
+</li>
 </ul>
 
 
@@ -141,9 +145,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>IDLE
 : <a class="el" href="main_8h.html#a87d564e7bd6c8ad9e1088c17ba0f91f4afd6a0e4343048b10646dd2976cc5ad18">main.h</a>
 </li>
+<li>init_SPIx()
+: <a class="el" href="spi_8c.html#a4ebd81539d31503cd2d858491e85a229">spi.c</a>
+, <a class="el" href="spi_8h.html#a4ebd81539d31503cd2d858491e85a229">spi.h</a>
+</li>
+<li>init_USARTx()
+: <a class="el" href="modbus__mk_8c.html#ae1a86175665d4ff2dd79f3f1686920d7">modbus_mk.c</a>
+, <a class="el" href="modbus__mk_8h.html#ae1a86175665d4ff2dd79f3f1686920d7">modbus_mk.h</a>
+</li>
 <li>init_W5200()
-: <a class="el" href="_w5200_8h.html#a5ee62a3762c7f028b0e766483a651225">W5200.h</a>
-, <a class="el" href="_w5200_8c.html#a5ee62a3762c7f028b0e766483a651225">W5200.c</a>
+: <a class="el" href="_w5200_8c.html#a5ee62a3762c7f028b0e766483a651225">W5200.c</a>
+, <a class="el" href="_w5200_8h.html#a5ee62a3762c7f028b0e766483a651225">W5200.h</a>
 </li>
 </ul>
 
@@ -162,6 +174,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
 <li>mainFLASH_TASK_PRIORITY
 : <a class="el" href="main_8c.html#a43bdaa64180fb804d07dbce2a55ef3c7">main.c</a>
+</li>
+<li>modbus_RIB()
+: <a class="el" href="modbus__mk_8c.html#a7fb8c114e41f0cfb82b36095ff9d199d">modbus_mk.c</a>
+, <a class="el" href="modbus__mk_8h.html#a07d54e2738ff87201a7256c1c1b1ae71">modbus_mk.h</a>
+</li>
+<li>modbus_RR()
+: <a class="el" href="modbus__mk_8c.html#a07af3d991f39418f412352c96b71a8a5">modbus_mk.c</a>
+, <a class="el" href="modbus__mk_8h.html#a8119daf7cd745f14f01b5679deaa9ce4">modbus_mk.h</a>
+</li>
+<li>modbus_WIB()
+: <a class="el" href="modbus__mk_8c.html#a740ccaea46e256dfd32fb22c1c1a88de">modbus_mk.c</a>
+, <a class="el" href="modbus__mk_8h.html#ac983946b659deee4f3d35d8bdafd6804">modbus_mk.h</a>
+</li>
+<li>modbus_WR()
+: <a class="el" href="modbus__mk_8c.html#ace18133f61c61ccb510c59251d8e0949">modbus_mk.c</a>
+, <a class="el" href="modbus__mk_8h.html#af5bed61cfadeb4659861e969e7d96ca9">modbus_mk.h</a>
 </li>
 <li>motorHBHandle
 : <a class="el" href="main_8h.html#aead1f9185b05dea9ad0905cc182d88f9">main.h</a>
@@ -193,18 +221,50 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="_w5200_8h.html#ad60595785c5d0b70f82d0c1db13caca3">W5200.h</a>
 </li>
 <li>set_macTask()
-: <a class="el" href="_w5200_8h.html#a184964bffa01a3c8eba1231fd0bf876f">W5200.h</a>
-, <a class="el" href="_w5200_8c.html#a184964bffa01a3c8eba1231fd0bf876f">W5200.c</a>
+: <a class="el" href="_w5200_8c.html#a184964bffa01a3c8eba1231fd0bf876f">W5200.c</a>
+, <a class="el" href="_w5200_8h.html#a184964bffa01a3c8eba1231fd0bf876f">W5200.h</a>
+</li>
+<li>setSpeed_task()
+: <a class="el" href="modbus__mk_8c.html#a7c0cffce459c56625ecdbaeadf6e08cb">modbus_mk.c</a>
+, <a class="el" href="modbus__mk_8h.html#a2ef1be468093a6847ec11876deefb414">modbus_mk.h</a>
 </li>
 <li>setSpeedHandle
 : <a class="el" href="main_8h.html#ad24f5ee546cf5a2956dffb7a463a030e">main.h</a>
 </li>
 <li>socket()
-: <a class="el" href="_w5200_8h.html#a4c450c01f7c7ae1e2b3067bd9de7848f">W5200.h</a>
-, <a class="el" href="_w5200_8c.html#a4c450c01f7c7ae1e2b3067bd9de7848f">W5200.c</a>
+: <a class="el" href="_w5200_8c.html#a4c450c01f7c7ae1e2b3067bd9de7848f">W5200.c</a>
+, <a class="el" href="_w5200_8h.html#a4c450c01f7c7ae1e2b3067bd9de7848f">W5200.h</a>
 </li>
 <li>socket_0
 : <a class="el" href="main_8h.html#a7a5b3ff2160706f0aa5a84dad2012fba">main.h</a>
+</li>
+<li>spi_dma_read()
+: <a class="el" href="spi_8c.html#a9549d183c4cc3ae5109b16c648fd41bc">spi.c</a>
+, <a class="el" href="spi_8h.html#a9549d183c4cc3ae5109b16c648fd41bc">spi.h</a>
+</li>
+<li>spi_dma_read2B()
+: <a class="el" href="spi_8c.html#ad8c491c38ec945ab510d8eef89564e7f">spi.c</a>
+, <a class="el" href="spi_8h.html#ad8c491c38ec945ab510d8eef89564e7f">spi.h</a>
+</li>
+<li>spi_dma_send()
+: <a class="el" href="spi_8c.html#a1a134ecb1e96d534aeab2ebea75b1d9d">spi.c</a>
+, <a class="el" href="spi_8h.html#a1a134ecb1e96d534aeab2ebea75b1d9d">spi.h</a>
+</li>
+<li>spi_dma_send2B()
+: <a class="el" href="spi_8c.html#a3c6116ca24459086780e70ecfa0b93c7">spi.c</a>
+, <a class="el" href="spi_8h.html#a3c6116ca24459086780e70ecfa0b93c7">spi.h</a>
+</li>
+<li>spi_dma_sendByte()
+: <a class="el" href="spi_8c.html#ad95e8d35a18bf4693f0cf50b68671abe">spi.c</a>
+, <a class="el" href="spi_8h.html#ad95e8d35a18bf4693f0cf50b68671abe">spi.h</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>USART_puts()
+: <a class="el" href="modbus__mk_8c.html#a534849d0bcb0bdc5c131e0aa632b13de">modbus_mk.c</a>
+, <a class="el" href="modbus__mk_8h.html#a311958bfd049859f23038c3f565bcb47">modbus_mk.h</a>
 </li>
 </ul>
 
@@ -215,16 +275,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="_w5200_8h.html#a40cf245893230e906da7356d4664441d">W5200.h</a>
 </li>
 <li>W5200_get_hardware_address()
-: <a class="el" href="_w5200_8h.html#a5c215a901aed0bf72288c723c76453ef">W5200.h</a>
-, <a class="el" href="_w5200_8c.html#aa4ec311e1ea605bcc298ec60c572490f">W5200.c</a>
+: <a class="el" href="_w5200_8c.html#aa4ec311e1ea605bcc298ec60c572490f">W5200.c</a>
+, <a class="el" href="_w5200_8h.html#a5c215a901aed0bf72288c723c76453ef">W5200.h</a>
 </li>
 <li>W5200_get_ipaddress()
 : <a class="el" href="_w5200_8c.html#a5946b2751fcfd947ba8f41af28e8b578">W5200.c</a>
 , <a class="el" href="_w5200_8h.html#a5946b2751fcfd947ba8f41af28e8b578">W5200.h</a>
 </li>
 <li>W5200_set_hardware_address()
-: <a class="el" href="_w5200_8h.html#a968c4f334a2cf2815edb46974368be48">W5200.h</a>
-, <a class="el" href="_w5200_8c.html#a42a23a3184cca4deaad0170d42453361">W5200.c</a>
+: <a class="el" href="_w5200_8c.html#a42a23a3184cca4deaad0170d42453361">W5200.c</a>
+, <a class="el" href="_w5200_8h.html#a968c4f334a2cf2815edb46974368be48">W5200.h</a>
+</li>
+<li>write_read_modbus()
+: <a class="el" href="modbus__mk_8c.html#a9fd99d3fa9c3bff4a1898e0f890766a1">modbus_mk.c</a>
+, <a class="el" href="modbus__mk_8h.html#ac97589c51e0db8a823944e96a220aba9">modbus_mk.h</a>
 </li>
 </ul>
 
@@ -240,7 +304,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 21 2014 17:32:05 for STM32F4xx by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 24 2014 10:09:57 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

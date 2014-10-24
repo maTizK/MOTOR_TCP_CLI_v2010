@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['qcmd',['Qcmd',['../struct_queue_telegram.html#a752eb6858a0e18355371dc6cdc559e64',1,'QueueTelegram']]],
-  ['qstatus_5fhandle',['QStatus_handle',['../main_8h.html#aadcf80bbcfec98b9bfe1512e44634abc',1,'main.h']]]
+  ['param1',['param1',['../struct_spd___settings.html#a402baa8e8a697bbf87de1ed4cf9f6627',1,'Spd_Settings']]]
 ];

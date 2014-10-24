@@ -1,13 +1,26 @@
+/*! \file spi.c */ 
+
 #include "spi.h"
 #define pdFalse 0
 #define pdTrue 	1
-/* ----------------------------------------------------------*/
-/* --    this function initializes the SPI1 peripheral     --*/
 
-
-/* initialize SPI1 */
+/*============================================================================
+ * 	func void init_SPIx(void)
+ *===========================================================================*/ 
 void init_SPIx(void){
 	
+
+	/*! Initialize SPI pheriphial with DMA controller \n
+	 *  - SPI setup
+	 *  	+ MISO PA6
+	 *  	+ MOSI PA7
+	 *  	+ SCK PA5
+	 *	+ CS PA4
+	 *	+ HR pin PC5
+	 *\n
+	 * - WIZNET setup 
+	 *   	+ IT PC4 
+	 * */
 	GPIO_InitTypeDef GPIO_InitStruct;
 	SPI_InitTypeDef SPI_InitStruct;
 	DMA_InitTypeDef DMA_InitStruct;
@@ -352,6 +365,11 @@ uint16_t spi_dma_read2B(uint16_t address)
 }
 void spi_dma_read(uint16_t address, uint16_t data_len)
 {
+		
+		/*! spi_dma_read it has to be used with \n
+		 * memcpy from bufferRX right after it has recieve \n
+		 * data on SPI. */
+		
 		uint8_t buffer[data_len+4];
 		buffer[0] = ((address & 0xff00) >> 8); // addres byte 1 
 		buffer[1] = ((address & 0x00ff)); //address byte 2 
