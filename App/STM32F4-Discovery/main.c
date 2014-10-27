@@ -123,20 +123,21 @@ int main(void)
        		
 
 	// =============== register CLI commands ===================
-
+	int sr = sizeof(QueueTelegram);
+	sr = sizeof (QueueTelegram *);
 	// create queues 
-	QSpd_handle = xQueueCreate(1, sizeof(int));
+	QSpd_handle = xQueueCreate(1, sizeof(QueueTelegram));
 	QStatus_handle = xQueueCreate(10, sizeof(int16_t));
 
 /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
 
 	// echo server task 
-	xTaskCreate(set_macTask, "SETMAC", configMINIMAL_STACK_SIZE*5, 
+	xTaskCreate(set_macTask, "SETMAC", configMINIMAL_STACK_SIZE*100, 
 			NULL, mainFLASH_TASK_PRIORITY, &set_macTaskHandle);
 	
 	// run motor task 
-//	xTaskCreate(motorHeartBit_task, "motorH", configMINIMAL_STACK_SIZE*10,
-//		       	NULL, mainFLASH_TASK_PRIORITY, &motorHBHandle);
+	xTaskCreate(motorControl_task, "motorH", configMINIMAL_STACK_SIZE*10,
+		       	NULL, mainFLASH_TASK_PRIORITY, &motorHBHandle);
 
 	// set motor task 
 //	xTaskCreate(setSpeed_task, "set_speed", configMINIMAL_STACK_SIZE*10,

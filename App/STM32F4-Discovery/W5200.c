@@ -115,6 +115,8 @@ void init_W5200(void)
 	portTickType xLastWakeTime;	
 	
 	xSemaphoreDMASPI = xSemaphoreCreateBinary();
+
+//	vTaskSuspend(set_macTaskHandle);
 	
 	xLastWakeTime = xTaskGetTickCount();
 
@@ -166,7 +168,11 @@ void init_W5200(void)
 	vTaskDelayUntil(&xLastWakeTime, 500/portTICK_RATE_MS );		
 	// end of initialization W5200 
 	// delete task
+
+	// unblock set_macTask
 	
+	vTaskResume( set_macTaskHandle); 
+
 	vTaskDelete ( NULL );
 	
 	
@@ -734,26 +740,32 @@ void set_macTask(void *pvParameters)
 	 * suspend itself. If interrupt occures it process CLI command 
 	 * **********************************************************************/
 
+
+	/* suspend task until init_W5200 is finished */
+	//vTaskSuspend(set_macTaskHandle);
+	vTaskSuspend(NULL);
+	uint8_t	buf[100], buf1[100]; 
+	int len; 
+		/*create socket and send byte */
+	socket_0 = socket(W5200_Sn_MR_TCP, 80, 0);
+	listen(socket_0);
+
+
 	for( ;; )
         {
 
-		uint8_t	buf[20], buf1[20]; 
-		int len; 
-			/*create socket and send byte */
-		socket_0 = socket(W5200_Sn_MR_TCP, 80, 0);
-		listen(socket_0);
-
+	
 		/*we are now listening
 		suspend task set_macTask()*/
 		vTaskSuspend(NULL);
 		
 		// interrupt on W5200 occured 
 		// receive data 
-		len = recv(socket_0, buf, 20, 0);
+		len = recv(socket_0, buf, 100, 0);
 		
 		// proces data with CLI 
 		
-		FreeRTOS_CLIProcessCommand ( buf, buf1, 15);
+		FreeRTOS_CLIProcessCommand ( buf, buf1, 100);
 
 		
 

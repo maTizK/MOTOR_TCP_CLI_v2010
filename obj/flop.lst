@@ -1206,30 +1206,30 @@
  825              		.file 5 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 flop.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:20     .bss.usTaskCheck:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:23     .bss.usTaskCheck:0000000000000000 usTaskCheck
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:26     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:39     .text.vStartMathTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:44     .text.vStartMathTasks:0000000000000000 vStartMathTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:127    .text.vStartMathTasks:0000000000000080 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:151    .text.vCompetingMathTask1:0000000000000000 vCompetingMathTask1
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:280    .text.vCompetingMathTask2:0000000000000000 vCompetingMathTask2
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:408    .text.vCompetingMathTask3:0000000000000000 vCompetingMathTask3
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:579    .text.vCompetingMathTask4:0000000000000000 vCompetingMathTask4
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:147    .text.vCompetingMathTask1:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:263    .text.vCompetingMathTask1:00000000000000d8 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:276    .text.vCompetingMathTask2:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:392    .text.vCompetingMathTask2:00000000000000d8 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:404    .text.vCompetingMathTask3:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:568    .text.vCompetingMathTask3:0000000000000120 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:575    .text.vCompetingMathTask4:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:739    .text.vCompetingMathTask4:0000000000000120 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:747    .text.xAreMathsTaskStillRunning:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:752    .text.xAreMathsTaskStillRunning:0000000000000000 xAreMathsTaskStillRunning
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:816    .text.xAreMathsTaskStillRunning:0000000000000048 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:20     .bss.usTaskCheck:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:23     .bss.usTaskCheck:0000000000000000 usTaskCheck
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:26     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:39     .text.vStartMathTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:44     .text.vStartMathTasks:0000000000000000 vStartMathTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:127    .text.vStartMathTasks:0000000000000080 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:151    .text.vCompetingMathTask1:0000000000000000 vCompetingMathTask1
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:280    .text.vCompetingMathTask2:0000000000000000 vCompetingMathTask2
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:408    .text.vCompetingMathTask3:0000000000000000 vCompetingMathTask3
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:579    .text.vCompetingMathTask4:0000000000000000 vCompetingMathTask4
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:147    .text.vCompetingMathTask1:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:263    .text.vCompetingMathTask1:00000000000000d8 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:276    .text.vCompetingMathTask2:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:392    .text.vCompetingMathTask2:00000000000000d8 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:404    .text.vCompetingMathTask3:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:568    .text.vCompetingMathTask3:0000000000000120 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:575    .text.vCompetingMathTask4:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:739    .text.vCompetingMathTask4:0000000000000120 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:747    .text.xAreMathsTaskStillRunning:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:752    .text.xAreMathsTaskStillRunning:0000000000000000 xAreMathsTaskStillRunning
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:816    .text.xAreMathsTaskStillRunning:0000000000000048 $d
                      .debug_frame:0000000000000010 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:403    .text.vCompetingMathTask2:00000000000000f4 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccUvRl9Z.s:574    .text.vCompetingMathTask3:000000000000012c $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:403    .text.vCompetingMathTask2:00000000000000f4 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccU8c4DY.s:574    .text.vCompetingMathTask3:000000000000012c $t
 
 UNDEFINED SYMBOLS
 xTaskGenericCreate

@@ -20,7 +20,7 @@ static const CLI_Command_Definition_t xMotorCommand =
 	"motor",
 	"motor  [options] [parameters] : Controls motor speed, rpm, etc., .. \r\n",
 	prvMotorCommand,
-	4
+	-1
 };
 
 /*!	\enum QueueCommand 

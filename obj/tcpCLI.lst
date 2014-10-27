@@ -57,7 +57,7 @@
   52 0000 00000000 		.word	.LC0
   53 0004 08000000 		.word	.LC1
   54 0008 00000000 		.word	prvMotorCommand
-  55 000c 04       		.byte	4
+  55 000c FF       		.byte	-1
   56 000d 000000   		.space	3
   57              		.section	.rodata
   58 0051 000000   		.align	2
@@ -82,19 +82,35 @@
   69      6C792073 
   70 008a 0000     		.align	2
   71              	.LC6:
-  72 008c 4572726F 		.ascii	"Error sending Queue!\012\012\000"
-  72      72207365 
-  72      6E64696E 
-  72      67205175 
-  72      65756521 
-  73              		.section	.text.handleVariable_set,"ax",%progbits
-  74              		.align	2
-  75              		.global	handleVariable_set
-  76              		.thumb
-  77              		.thumb_func
-  79              	handleVariable_set:
-  80              	.LFB110:
-  81              		.file 1 "App/STM32F4-Discovery/tcpCLI.c"
+  72 008c 4572726F 		.ascii	"Error recieving response!\012\012\000"
+  72      72207265 
+  72      63696576 
+  72      696E6720 
+  72      72657370 
+  73              		.align	2
+  74              	.LC7:
+  75 00a8 4572726F 		.ascii	"Error sending Queue!\012\012\000"
+  75      72207365 
+  75      6E64696E 
+  75      67205175 
+  75      65756521 
+  76 00bf 00       		.align	2
+  77              	.LC8:
+  78 00c0 75707261 		.ascii	"upramp\000"
+  78      6D7000
+  79 00c7 00       		.align	2
+  80              	.LC9:
+  81 00c8 646F776E 		.ascii	"downramp\000"
+  81      72616D70 
+  81      00
+  82              		.section	.text.handleVariable_set,"ax",%progbits
+  83              		.align	2
+  84              		.global	handleVariable_set
+  85              		.thumb
+  86              		.thumb_func
+  88              	handleVariable_set:
+  89              	.LFB110:
+  90              		.file 1 "App/STM32F4-Discovery/tcpCLI.c"
    1:App/STM32F4-Discovery/tcpCLI.c **** #include "tcpCLI.h"
    2:App/STM32F4-Discovery/tcpCLI.c **** 
    3:App/STM32F4-Discovery/tcpCLI.c **** 
@@ -108,564 +124,1522 @@
   11:App/STM32F4-Discovery/tcpCLI.c **** 				int xValueLength,
   12:App/STM32F4-Discovery/tcpCLI.c **** 				int socket )
   13:App/STM32F4-Discovery/tcpCLI.c **** {
-  82              		.loc 1 13 0
-  83              		.cfi_startproc
-  84              		@ args = 52, pretend = 16, frame = 32
-  85              		@ frame_needed = 1, uses_anonymous_args = 0
-  86 0000 84B0     		sub	sp, sp, #16
-  87              	.LCFI0:
-  88              		.cfi_def_cfa_offset 16
-  89 0002 2DE9F043 		push	{r4, r5, r6, r7, r8, r9, lr}
-  90              	.LCFI1:
-  91              		.cfi_def_cfa_offset 44
-  92              		.cfi_offset 4, -44
-  93              		.cfi_offset 5, -40
-  94              		.cfi_offset 6, -36
-  95              		.cfi_offset 7, -32
-  96              		.cfi_offset 8, -28
-  97              		.cfi_offset 9, -24
-  98              		.cfi_offset 14, -20
-  99 0006 89B0     		sub	sp, sp, #36
- 100              	.LCFI2:
- 101              		.cfi_def_cfa_offset 80
- 102 0008 00AF     		add	r7, sp, #0
- 103              	.LCFI3:
- 104              		.cfi_def_cfa_register 7
- 105 000a 07F1400C 		add	ip, r7, #64
- 106 000e 8CE80F00 		stmia	ip, {r0, r1, r2, r3}
+  91              		.loc 1 13 0
+  92              		.cfi_startproc
+  93              		@ args = 52, pretend = 16, frame = 136
+  94              		@ frame_needed = 1, uses_anonymous_args = 0
+  95 0000 84B0     		sub	sp, sp, #16
+  96              	.LCFI0:
+  97              		.cfi_def_cfa_offset 16
+  98 0002 2DE9904F 		push	{r4, r7, r8, r9, r10, fp, lr}
+  99              	.LCFI1:
+ 100              		.cfi_def_cfa_offset 44
+ 101              		.cfi_offset 4, -44
+ 102              		.cfi_offset 7, -40
+ 103              		.cfi_offset 8, -36
+ 104              		.cfi_offset 9, -32
+ 105              		.cfi_offset 10, -28
+ 106              		.cfi_offset 11, -24
+ 107              		.cfi_offset 14, -20
+ 108 0006 A3B0     		sub	sp, sp, #140
+ 109              	.LCFI2:
+ 110              		.cfi_def_cfa_offset 184
+ 111 0008 00AF     		add	r7, sp, #0
+ 112              	.LCFI3:
+ 113              		.cfi_def_cfa_register 7
+ 114 000a 07F1A80C 		add	ip, r7, #168
+ 115 000e 8CE80F00 		stmia	ip, {r0, r1, r2, r3}
   14:App/STM32F4-Discovery/tcpCLI.c **** 
-  15:App/STM32F4-Discovery/tcpCLI.c **** 	if ( !strncmp ( Param, "speed", 5))
- 107              		.loc 1 15 0
- 108 0012 F86D     		ldr	r0, [r7, #92]
- 109 0014 5849     		ldr	r1, .L9
- 110 0016 0522     		movs	r2, #5
- 111 0018 FFF7FEFF 		bl	strncmp
- 112 001c 0346     		mov	r3, r0
- 113 001e 002B     		cmp	r3, #0
- 114 0020 40F0A180 		bne	.L2
- 115              	.LBB2:
-  16:App/STM32F4-Discovery/tcpCLI.c **** 	{	
-  17:App/STM32F4-Discovery/tcpCLI.c **** 		// now convert parameter to proper value and check if it is in range 
-  18:App/STM32F4-Discovery/tcpCLI.c ****         	Value[xValueLength-2] = '\0'; 	
- 116              		.loc 1 18 0
- 117 0024 FB6E     		ldr	r3, [r7, #108]
- 118 0026 023B     		subs	r3, r3, #2
- 119 0028 BA6E     		ldr	r2, [r7, #104]
- 120 002a 1344     		add	r3, r3, r2
- 121 002c 0022     		movs	r2, #0
- 122 002e 1A70     		strb	r2, [r3]
-  19:App/STM32F4-Discovery/tcpCLI.c **** 		uint16_t s1 = atoi ( Value ); 
- 123              		.loc 1 19 0
- 124 0030 B86E     		ldr	r0, [r7, #104]
- 125 0032 FFF7FEFF 		bl	atoi
- 126 0036 0346     		mov	r3, r0
- 127 0038 9BB2     		uxth	r3, r3
- 128 003a 7B80     		strh	r3, [r7, #2]	@ movhi
-  20:App/STM32F4-Discovery/tcpCLI.c **** 		// if speed is in range
-  21:App/STM32F4-Discovery/tcpCLI.c **** 		if(s1 < 10 ||  s1 > 100 )
- 129              		.loc 1 21 0
- 130 003c 7B88     		ldrh	r3, [r7, #2]
- 131 003e 092B     		cmp	r3, #9
- 132 0040 02D9     		bls	.L3
- 133              		.loc 1 21 0 is_stmt 0 discriminator 1
- 134 0042 7B88     		ldrh	r3, [r7, #2]
- 135 0044 642B     		cmp	r3, #100
- 136 0046 3FD9     		bls	.L4
- 137              	.L3:
- 138              	.LBB3:
- 139 0048 6B46     		mov	r3, sp
- 140 004a 1E46     		mov	r6, r3
-  22:App/STM32F4-Discovery/tcpCLI.c **** 		{
-  23:App/STM32F4-Discovery/tcpCLI.c **** 			// send error via TCP
-  24:App/STM32F4-Discovery/tcpCLI.c **** 			//
-  25:App/STM32F4-Discovery/tcpCLI.c **** 			int len = strlen ( Value ) + 11 ; 
- 141              		.loc 1 25 0 is_stmt 1
- 142 004c B86E     		ldr	r0, [r7, #104]
- 143 004e FFF7FEFF 		bl	strlen
- 144 0052 0346     		mov	r3, r0
- 145 0054 0B33     		adds	r3, r3, #11
- 146 0056 FB60     		str	r3, [r7, #12]
-  26:App/STM32F4-Discovery/tcpCLI.c **** 			uint8_t buf [len]; //= "Error: speed is out of range!\n\n";
- 147              		.loc 1 26 0
- 148 0058 F968     		ldr	r1, [r7, #12]
- 149 005a 4B1E     		subs	r3, r1, #1
- 150 005c BB60     		str	r3, [r7, #8]
- 151 005e 0B46     		mov	r3, r1
- 152 0060 1A46     		mov	r2, r3
- 153 0062 4FF00003 		mov	r3, #0
- 154 0066 4FEAC309 		lsl	r9, r3, #3
- 155 006a 49EA5279 		orr	r9, r9, r2, lsr #29
- 156 006e 4FEAC208 		lsl	r8, r2, #3
- 157 0072 0B46     		mov	r3, r1
- 158 0074 1A46     		mov	r2, r3
- 159 0076 4FF00003 		mov	r3, #0
- 160 007a DD00     		lsls	r5, r3, #3
- 161 007c 45EA5275 		orr	r5, r5, r2, lsr #29
- 162 0080 D400     		lsls	r4, r2, #3
- 163 0082 0B46     		mov	r3, r1
- 164 0084 0733     		adds	r3, r3, #7
- 165 0086 DB08     		lsrs	r3, r3, #3
- 166 0088 DB00     		lsls	r3, r3, #3
- 167 008a ADEB030D 		sub	sp, sp, r3
- 168 008e 6B46     		mov	r3, sp
- 169 0090 0033     		adds	r3, r3, #0
- 170 0092 7B60     		str	r3, [r7, #4]
-  27:App/STM32F4-Discovery/tcpCLI.c **** 			sprintf(buf, "Errror : %d\n\n", s1);
- 171              		.loc 1 27 0
- 172 0094 7A68     		ldr	r2, [r7, #4]
- 173 0096 7B88     		ldrh	r3, [r7, #2]
- 174 0098 1046     		mov	r0, r2
- 175 009a 3849     		ldr	r1, .L9+4
- 176 009c 1A46     		mov	r2, r3
- 177 009e FFF7FEFF 		bl	sprintf
-  28:App/STM32F4-Discovery/tcpCLI.c **** 			buf[11+ 3] = "\0"; 
- 178              		.loc 1 28 0
- 179 00a2 374B     		ldr	r3, .L9+8
- 180 00a4 DAB2     		uxtb	r2, r3
- 181 00a6 7B68     		ldr	r3, [r7, #4]
- 182 00a8 9A73     		strb	r2, [r3, #14]
-  29:App/STM32F4-Discovery/tcpCLI.c **** 			send( socket_0, buf, len, 0);
- 183              		.loc 1 29 0
- 184 00aa 364B     		ldr	r3, .L9+12
- 185 00ac 1B68     		ldr	r3, [r3]
- 186 00ae D9B2     		uxtb	r1, r3
- 187 00b0 7A68     		ldr	r2, [r7, #4]
- 188 00b2 FB68     		ldr	r3, [r7, #12]
- 189 00b4 9BB2     		uxth	r3, r3
- 190 00b6 0846     		mov	r0, r1
- 191 00b8 1146     		mov	r1, r2
- 192 00ba 1A46     		mov	r2, r3
- 193 00bc 0023     		movs	r3, #0
- 194 00be FFF7FEFF 		bl	send
-  30:App/STM32F4-Discovery/tcpCLI.c **** 
-  31:App/STM32F4-Discovery/tcpCLI.c **** 	       		return pdFALSE; 	
- 195              		.loc 1 31 0
- 196 00c2 0023     		movs	r3, #0
- 197 00c4 B546     		mov	sp, r6
- 198              	.LBE3:
- 199 00c6 4FE0     		b	.L8
- 200              	.L4:
-  32:App/STM32F4-Discovery/tcpCLI.c **** 		}	
-  33:App/STM32F4-Discovery/tcpCLI.c **** 	
-  34:App/STM32F4-Discovery/tcpCLI.c **** 		// convert to correct value ( * 100 ) 
-  35:App/STM32F4-Discovery/tcpCLI.c **** 		s1 *= 100; 
- 201              		.loc 1 35 0
- 202 00c8 7B88     		ldrh	r3, [r7, #2]
- 203 00ca 1A46     		mov	r2, r3	@ movhi
- 204 00cc 9200     		lsls	r2, r2, #2
- 205 00ce 1344     		add	r3, r3, r2
- 206 00d0 1A46     		mov	r2, r3	@ movhi
- 207 00d2 9100     		lsls	r1, r2, #2
- 208 00d4 1A46     		mov	r2, r3	@ movhi
- 209 00d6 0B46     		mov	r3, r1	@ movhi
- 210 00d8 1344     		add	r3, r3, r2
- 211 00da 9B00     		lsls	r3, r3, #2
- 212 00dc 9BB2     		uxth	r3, r3
- 213 00de 7B80     		strh	r3, [r7, #2]	@ movhi
-  36:App/STM32F4-Discovery/tcpCLI.c **** 		
-  37:App/STM32F4-Discovery/tcpCLI.c **** 		
-  38:App/STM32F4-Discovery/tcpCLI.c **** 		// setup telegram 
-  39:App/STM32F4-Discovery/tcpCLI.c **** 		
-  40:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.data[0] = s1; 
- 214              		.loc 1 40 0
- 215 00e0 7B88     		ldrh	r3, [r7, #2]
- 216 00e2 A7F84830 		strh	r3, [r7, #72]	@ movhi
-  41:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.Qcmd = SETDATA;
- 217              		.loc 1 41 0
- 218 00e6 0023     		movs	r3, #0
- 219 00e8 87F84030 		strb	r3, [r7, #64]
-  42:App/STM32F4-Discovery/tcpCLI.c **** 		
-  43:App/STM32F4-Discovery/tcpCLI.c **** 
-  44:App/STM32F4-Discovery/tcpCLI.c **** 		// send value to setSpeed_task via Queue 
-  45:App/STM32F4-Discovery/tcpCLI.c **** 		if ( !xQueueSend ( QSpd_handle, &s1, 500 ) )
- 220              		.loc 1 45 0
- 221 00ec 264B     		ldr	r3, .L9+16
- 222 00ee 1A68     		ldr	r2, [r3]
- 223 00f0 BB1C     		adds	r3, r7, #2
- 224 00f2 1046     		mov	r0, r2
- 225 00f4 1946     		mov	r1, r3
- 226 00f6 4FF4FA72 		mov	r2, #500
- 227 00fa 0023     		movs	r3, #0
- 228 00fc FFF7FEFF 		bl	xQueueGenericSend
- 229 0100 0346     		mov	r3, r0
- 230 0102 002B     		cmp	r3, #0
- 231 0104 1FD1     		bne	.L6
-  46:App/STM32F4-Discovery/tcpCLI.c **** 		{	
-  47:App/STM32F4-Discovery/tcpCLI.c **** 					
-  48:App/STM32F4-Discovery/tcpCLI.c **** 			if ( ! xQueueReceive ( QSpd_handle, &telegram, 500))
- 232              		.loc 1 48 0
- 233 0106 204B     		ldr	r3, .L9+16
- 234 0108 1B68     		ldr	r3, [r3]
- 235 010a 1846     		mov	r0, r3
- 236 010c 07F14001 		add	r1, r7, #64
- 237 0110 4FF4FA72 		mov	r2, #500
- 238 0114 0023     		movs	r3, #0
- 239 0116 FFF7FEFF 		bl	xQueueGenericReceive
- 240 011a 0346     		mov	r3, r0
- 241 011c 002B     		cmp	r3, #0
- 242 011e 22D1     		bne	.L2
-  49:App/STM32F4-Discovery/tcpCLI.c **** 			{
-  50:App/STM32F4-Discovery/tcpCLI.c **** 				if ( telegram.Qcmd = SUCCSESS) 
- 243              		.loc 1 50 0
- 244 0120 0623     		movs	r3, #6
- 245 0122 87F84030 		strb	r3, [r7, #64]
- 246              	.LBB4:
-  51:App/STM32F4-Discovery/tcpCLI.c **** 				{	
-  52:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "Speed succsesfully set.\n\n";
- 247              		.loc 1 52 0
- 248 0126 194B     		ldr	r3, .L9+20
- 249 0128 FB61     		str	r3, [r7, #28]
-  53:App/STM32F4-Discovery/tcpCLI.c **** 			   		int len = 25; 	
- 250              		.loc 1 53 0
- 251 012a 1923     		movs	r3, #25
- 252 012c BB61     		str	r3, [r7, #24]
-  54:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket, buf, len, 0);
- 253              		.loc 1 54 0
- 254 012e 3B6F     		ldr	r3, [r7, #112]
- 255 0130 DAB2     		uxtb	r2, r3
- 256 0132 BB69     		ldr	r3, [r7, #24]
- 257 0134 9BB2     		uxth	r3, r3
- 258 0136 1046     		mov	r0, r2
- 259 0138 F969     		ldr	r1, [r7, #28]
- 260 013a 1A46     		mov	r2, r3
- 261 013c 0023     		movs	r3, #0
- 262 013e FFF7FEFF 		bl	send
-  55:App/STM32F4-Discovery/tcpCLI.c **** 
-  56:App/STM32F4-Discovery/tcpCLI.c **** 					return pdPASS;
- 263              		.loc 1 56 0
- 264 0142 0123     		movs	r3, #1
- 265 0144 10E0     		b	.L8
- 266              	.L6:
- 267              	.LBE4:
- 268              	.LBB5:
-  57:App/STM32F4-Discovery/tcpCLI.c **** 
-  58:App/STM32F4-Discovery/tcpCLI.c **** 				}
-  59:App/STM32F4-Discovery/tcpCLI.c **** 				else
-  60:App/STM32F4-Discovery/tcpCLI.c **** 				{
-  61:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
-  62:App/STM32F4-Discovery/tcpCLI.c **** 			       		int len = 19; 	
+  15:App/STM32F4-Discovery/tcpCLI.c **** 
+  16:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+  17:App/STM32F4-Discovery/tcpCLI.c **** 	//		CASE PARAMETER speed [value]
+  18:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+  19:App/STM32F4-Discovery/tcpCLI.c **** 
+  20:App/STM32F4-Discovery/tcpCLI.c **** 	if ( !strncmp ( Param, "speed", 5))
+ 116              		.loc 1 20 0
+ 117 0012 D7F8C400 		ldr	r0, [r7, #196]
+ 118 0016 9F49     		ldr	r1, .L16
+ 119 0018 0522     		movs	r2, #5
+ 120 001a FFF7FEFF 		bl	strncmp
+ 121 001e 0346     		mov	r3, r0
+ 122 0020 002B     		cmp	r3, #0
+ 123 0022 40F0CB80 		bne	.L2
+ 124              	.LBB2:
+  21:App/STM32F4-Discovery/tcpCLI.c **** 	{	
+  22:App/STM32F4-Discovery/tcpCLI.c **** 	
+  23:App/STM32F4-Discovery/tcpCLI.c **** 	
+  24:App/STM32F4-Discovery/tcpCLI.c **** 		
+  25:App/STM32F4-Discovery/tcpCLI.c **** 		// now convert parameter to proper value and check if it is in range 
+  26:App/STM32F4-Discovery/tcpCLI.c ****         	Value[xValueLength-2] = '\0'; 	
+ 125              		.loc 1 26 0
+ 126 0026 D7F8D430 		ldr	r3, [r7, #212]
+ 127 002a 023B     		subs	r3, r3, #2
+ 128 002c D7F8D020 		ldr	r2, [r7, #208]
+ 129 0030 1344     		add	r3, r3, r2
+ 130 0032 0022     		movs	r2, #0
+ 131 0034 1A70     		strb	r2, [r3]
+  27:App/STM32F4-Discovery/tcpCLI.c **** 		uint16_t s1 = atoi ( Value ); 
+ 132              		.loc 1 27 0
+ 133 0036 D7F8D000 		ldr	r0, [r7, #208]
+ 134 003a FFF7FEFF 		bl	atoi
+ 135 003e 0346     		mov	r3, r0
+ 136 0040 A7F88630 		strh	r3, [r7, #134]	@ movhi
+  28:App/STM32F4-Discovery/tcpCLI.c **** 		// if speed is in range
+  29:App/STM32F4-Discovery/tcpCLI.c **** 		if(s1 < 10 ||  s1 > 100 )
+ 137              		.loc 1 29 0
+ 138 0044 B7F88630 		ldrh	r3, [r7, #134]
+ 139 0048 092B     		cmp	r3, #9
+ 140 004a 03D9     		bls	.L3
+ 141              		.loc 1 29 0 is_stmt 0 discriminator 1
+ 142 004c B7F88630 		ldrh	r3, [r7, #134]
+ 143 0050 642B     		cmp	r3, #100
+ 144 0052 4AD9     		bls	.L4
+ 145              	.L3:
+ 146              	.LBB3:
+ 147 0054 6B46     		mov	r3, sp
+ 148 0056 1C46     		mov	r4, r3
+  30:App/STM32F4-Discovery/tcpCLI.c **** 		{
+  31:App/STM32F4-Discovery/tcpCLI.c **** 			// send error via TCP
+  32:App/STM32F4-Discovery/tcpCLI.c **** 			//
+  33:App/STM32F4-Discovery/tcpCLI.c **** 			int len = strlen ( Value ) + 11 ; 
+ 149              		.loc 1 33 0 is_stmt 1
+ 150 0058 D7F8D000 		ldr	r0, [r7, #208]
+ 151 005c FFF7FEFF 		bl	strlen
+ 152 0060 0346     		mov	r3, r0
+ 153 0062 0B33     		adds	r3, r3, #11
+ 154 0064 BB66     		str	r3, [r7, #104]
+  34:App/STM32F4-Discovery/tcpCLI.c **** 			uint8_t buf [len]; //= "Error: speed is out of range!\n\n";
+ 155              		.loc 1 34 0
+ 156 0066 B96E     		ldr	r1, [r7, #104]
+ 157 0068 4B1E     		subs	r3, r1, #1
+ 158 006a 7B66     		str	r3, [r7, #100]
+ 159 006c 0B46     		mov	r3, r1
+ 160 006e 1A46     		mov	r2, r3
+ 161 0070 4FF00003 		mov	r3, #0
+ 162 0074 D800     		lsls	r0, r3, #3
+ 163 0076 F861     		str	r0, [r7, #28]
+ 164 0078 D7F81CC0 		ldr	ip, [r7, #28]
+ 165 007c 4CEA527C 		orr	ip, ip, r2, lsr #29
+ 166 0080 C7F81CC0 		str	ip, [r7, #28]
+ 167 0084 D000     		lsls	r0, r2, #3
+ 168 0086 0B46     		mov	r3, r1
+ 169 0088 1A46     		mov	r2, r3
+ 170 008a 4FF00003 		mov	r3, #0
+ 171 008e 4FEAC30C 		lsl	ip, r3, #3
+ 172 0092 C7F814C0 		str	ip, [r7, #20]
+ 173 0096 7869     		ldr	r0, [r7, #20]
+ 174 0098 40EA5270 		orr	r0, r0, r2, lsr #29
+ 175 009c 7861     		str	r0, [r7, #20]
+ 176 009e 4FEAC20C 		lsl	ip, r2, #3
+ 177 00a2 0B46     		mov	r3, r1
+ 178 00a4 0733     		adds	r3, r3, #7
+ 179 00a6 DB08     		lsrs	r3, r3, #3
+ 180 00a8 DB00     		lsls	r3, r3, #3
+ 181 00aa ADEB030D 		sub	sp, sp, r3
+ 182 00ae 6B46     		mov	r3, sp
+ 183 00b0 0033     		adds	r3, r3, #0
+ 184 00b2 3B66     		str	r3, [r7, #96]
+  35:App/STM32F4-Discovery/tcpCLI.c **** 			sprintf(buf, "Errror : %d\n\n", s1);
+ 185              		.loc 1 35 0
+ 186 00b4 3A6E     		ldr	r2, [r7, #96]
+ 187 00b6 B7F88630 		ldrh	r3, [r7, #134]
+ 188 00ba 1046     		mov	r0, r2
+ 189 00bc 7649     		ldr	r1, .L16+4
+ 190 00be 1A46     		mov	r2, r3
+ 191 00c0 FFF7FEFF 		bl	sprintf
+  36:App/STM32F4-Discovery/tcpCLI.c **** 			buf[11+ 3] = "\0"; 
+ 192              		.loc 1 36 0
+ 193 00c4 754B     		ldr	r3, .L16+8
+ 194 00c6 DAB2     		uxtb	r2, r3
+ 195 00c8 3B6E     		ldr	r3, [r7, #96]
+ 196 00ca 9A73     		strb	r2, [r3, #14]
+  37:App/STM32F4-Discovery/tcpCLI.c **** 			send( socket_0, buf, len, 0);
+ 197              		.loc 1 37 0
+ 198 00cc 744B     		ldr	r3, .L16+12
+ 199 00ce 1B68     		ldr	r3, [r3]
+ 200 00d0 D9B2     		uxtb	r1, r3
+ 201 00d2 3A6E     		ldr	r2, [r7, #96]
+ 202 00d4 BB6E     		ldr	r3, [r7, #104]
+ 203 00d6 9BB2     		uxth	r3, r3
+ 204 00d8 0846     		mov	r0, r1
+ 205 00da 1146     		mov	r1, r2
+ 206 00dc 1A46     		mov	r2, r3
+ 207 00de 0023     		movs	r3, #0
+ 208 00e0 FFF7FEFF 		bl	send
+  38:App/STM32F4-Discovery/tcpCLI.c **** 
+  39:App/STM32F4-Discovery/tcpCLI.c **** 	       		return pdFALSE; 	
+ 209              		.loc 1 39 0
+ 210 00e4 0023     		movs	r3, #0
+ 211 00e6 A546     		mov	sp, r4
+ 212 00e8 F1E1     		b	.L5
+ 213              	.L4:
+ 214              	.LBE3:
+  40:App/STM32F4-Discovery/tcpCLI.c **** 		}	
+  41:App/STM32F4-Discovery/tcpCLI.c **** 	
+  42:App/STM32F4-Discovery/tcpCLI.c **** 		// convert to correct value ( * 100 ) 
+  43:App/STM32F4-Discovery/tcpCLI.c **** 		s1 *= 100; 
+ 215              		.loc 1 43 0
+ 216 00ea B7F88630 		ldrh	r3, [r7, #134]	@ movhi
+ 217 00ee 1A46     		mov	r2, r3	@ movhi
+ 218 00f0 9200     		lsls	r2, r2, #2
+ 219 00f2 1344     		add	r3, r3, r2
+ 220 00f4 1A46     		mov	r2, r3	@ movhi
+ 221 00f6 9100     		lsls	r1, r2, #2
+ 222 00f8 1A46     		mov	r2, r3	@ movhi
+ 223 00fa 0B46     		mov	r3, r1	@ movhi
+ 224 00fc 1344     		add	r3, r3, r2
+ 225 00fe 9B00     		lsls	r3, r3, #2
+ 226 0100 A7F88630 		strh	r3, [r7, #134]	@ movhi
+  44:App/STM32F4-Discovery/tcpCLI.c **** 		
+  45:App/STM32F4-Discovery/tcpCLI.c **** 		
+  46:App/STM32F4-Discovery/tcpCLI.c **** 		// setup telegram 
+  47:App/STM32F4-Discovery/tcpCLI.c **** 		
+  48:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.data[0] = s1; 
+ 227              		.loc 1 48 0
+ 228 0104 B7F88630 		ldrh	r3, [r7, #134]	@ movhi
+ 229 0108 A7F8B030 		strh	r3, [r7, #176]	@ movhi
+  49:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.size = 1; 
+ 230              		.loc 1 49 0
+ 231 010c 0123     		movs	r3, #1
+ 232 010e C7F8AC30 		str	r3, [r7, #172]
+  50:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.Qcmd = SETDATA;
+ 233              		.loc 1 50 0
+ 234 0112 0023     		movs	r3, #0
+ 235 0114 87F8A830 		strb	r3, [r7, #168]
+  51:App/STM32F4-Discovery/tcpCLI.c **** 		
+  52:App/STM32F4-Discovery/tcpCLI.c **** 	
+  53:App/STM32F4-Discovery/tcpCLI.c **** 		// send value to setSpeed_task via Queue 
+  54:App/STM32F4-Discovery/tcpCLI.c **** 		if ( xQueueSend ( QSpd_handle, (void *)&telegram, portMAX_DELAY ) == pdPASS )
+ 236              		.loc 1 54 0
+ 237 0118 624B     		ldr	r3, .L16+16
+ 238 011a 1B68     		ldr	r3, [r3]
+ 239 011c 1846     		mov	r0, r3
+ 240 011e 07F1A801 		add	r1, r7, #168
+ 241 0122 4FF0FF32 		mov	r2, #-1
+ 242 0126 0023     		movs	r3, #0
+ 243 0128 FFF7FEFF 		bl	xQueueGenericSend
+ 244 012c 0346     		mov	r3, r0
+ 245 012e 012B     		cmp	r3, #1
+ 246 0130 33D1     		bne	.L6
+  55:App/STM32F4-Discovery/tcpCLI.c **** 		{	
+  56:App/STM32F4-Discovery/tcpCLI.c **** 					
+  57:App/STM32F4-Discovery/tcpCLI.c **** 			if (  xQueueReceive ( QSpd_handle, &telegram, portMAX_DELAY)== pdPASS)
+ 247              		.loc 1 57 0
+ 248 0132 5C4B     		ldr	r3, .L16+16
+ 249 0134 1B68     		ldr	r3, [r3]
+ 250 0136 1846     		mov	r0, r3
+ 251 0138 07F1A801 		add	r1, r7, #168
+ 252 013c 4FF0FF32 		mov	r2, #-1
+ 253 0140 0023     		movs	r3, #0
+ 254 0142 FFF7FEFF 		bl	xQueueGenericReceive
+ 255 0146 0346     		mov	r3, r0
+ 256 0148 012B     		cmp	r3, #1
+ 257 014a 15D1     		bne	.L7
+  58:App/STM32F4-Discovery/tcpCLI.c **** 			{
+  59:App/STM32F4-Discovery/tcpCLI.c **** 				if ( telegram.Qcmd = SUCCSESS) 
+ 258              		.loc 1 59 0
+ 259 014c 0623     		movs	r3, #6
+ 260 014e 87F8A830 		strb	r3, [r7, #168]
+ 261              	.LBB4:
+  60:App/STM32F4-Discovery/tcpCLI.c **** 				{	
+  61:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "Speed succsesfully set.\n\n";
+ 262              		.loc 1 61 0
+ 263 0152 554B     		ldr	r3, .L16+20
+ 264 0154 C7F88030 		str	r3, [r7, #128]
+  62:App/STM32F4-Discovery/tcpCLI.c **** 					int len = 25; 	
+ 265              		.loc 1 62 0
+ 266 0158 1923     		movs	r3, #25
+ 267 015a FB67     		str	r3, [r7, #124]
   63:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket, buf, len, 0);
+ 268              		.loc 1 63 0
+ 269 015c D7F8D830 		ldr	r3, [r7, #216]
+ 270 0160 DAB2     		uxtb	r2, r3
+ 271 0162 FB6F     		ldr	r3, [r7, #124]
+ 272 0164 9BB2     		uxth	r3, r3
+ 273 0166 1046     		mov	r0, r2
+ 274 0168 D7F88010 		ldr	r1, [r7, #128]
+ 275 016c 1A46     		mov	r2, r3
+ 276 016e 0023     		movs	r3, #0
+ 277 0170 FFF7FEFF 		bl	send
   64:App/STM32F4-Discovery/tcpCLI.c **** 
-  65:App/STM32F4-Discovery/tcpCLI.c **** 					return pdFALSE;
-  66:App/STM32F4-Discovery/tcpCLI.c **** 
+  65:App/STM32F4-Discovery/tcpCLI.c **** 
+  66:App/STM32F4-Discovery/tcpCLI.c **** 					return pdPASS;
+ 278              		.loc 1 66 0
+ 279 0174 0123     		movs	r3, #1
+ 280 0176 AAE1     		b	.L5
+ 281              	.L7:
+ 282              	.LBE4:
+ 283              	.LBB5:
   67:App/STM32F4-Discovery/tcpCLI.c **** 
   68:App/STM32F4-Discovery/tcpCLI.c **** 				}
-  69:App/STM32F4-Discovery/tcpCLI.c **** 						
-  70:App/STM32F4-Discovery/tcpCLI.c **** 			}
-  71:App/STM32F4-Discovery/tcpCLI.c **** 
-  72:App/STM32F4-Discovery/tcpCLI.c **** 		}
-  73:App/STM32F4-Discovery/tcpCLI.c **** 		else
-  74:App/STM32F4-Discovery/tcpCLI.c **** 		{
-  75:App/STM32F4-Discovery/tcpCLI.c **** 			// send to Queue was unsuccsessful
-  76:App/STM32F4-Discovery/tcpCLI.c **** 			// send error via TCP 
-  77:App/STM32F4-Discovery/tcpCLI.c **** 		
-  78:App/STM32F4-Discovery/tcpCLI.c **** 			uint8_t * buf = "Error sending Queue!\n\n";
- 269              		.loc 1 78 0
- 270 0146 124B     		ldr	r3, .L9+24
- 271 0148 7B61     		str	r3, [r7, #20]
-  79:App/STM32F4-Discovery/tcpCLI.c **** 	 		int len = 22; 	
- 272              		.loc 1 79 0
- 273 014a 1623     		movs	r3, #22
- 274 014c 3B61     		str	r3, [r7, #16]
-  80:App/STM32F4-Discovery/tcpCLI.c **** 			send( socket, buf, len, 0);
- 275              		.loc 1 80 0
- 276 014e 3B6F     		ldr	r3, [r7, #112]
- 277 0150 DAB2     		uxtb	r2, r3
- 278 0152 3B69     		ldr	r3, [r7, #16]
- 279 0154 9BB2     		uxth	r3, r3
- 280 0156 1046     		mov	r0, r2
- 281 0158 7969     		ldr	r1, [r7, #20]
- 282 015a 1A46     		mov	r2, r3
- 283 015c 0023     		movs	r3, #0
- 284 015e FFF7FEFF 		bl	send
-  81:App/STM32F4-Discovery/tcpCLI.c **** 
-  82:App/STM32F4-Discovery/tcpCLI.c **** 			return pdFALSE; 	
- 285              		.loc 1 82 0
- 286 0162 0023     		movs	r3, #0
- 287 0164 00E0     		b	.L8
- 288              	.L2:
- 289              	.LBE5:
- 290              	.LBE2:
-  83:App/STM32F4-Discovery/tcpCLI.c **** 		}
-  84:App/STM32F4-Discovery/tcpCLI.c **** 	}
-  85:App/STM32F4-Discovery/tcpCLI.c **** 
-  86:App/STM32F4-Discovery/tcpCLI.c **** 			return 0; 
- 291              		.loc 1 86 0
- 292 0166 0023     		movs	r3, #0
- 293              	.L8:
-  87:App/STM32F4-Discovery/tcpCLI.c **** 
-  88:App/STM32F4-Discovery/tcpCLI.c **** }
- 294              		.loc 1 88 0
- 295 0168 1846     		mov	r0, r3
- 296 016a 2437     		adds	r7, r7, #36
- 297 016c BD46     		mov	sp, r7
- 298              		@ sp needed
- 299 016e BDE8F043 		pop	{r4, r5, r6, r7, r8, r9, lr}
- 300 0172 04B0     		add	sp, sp, #16
- 301 0174 7047     		bx	lr
- 302              	.L10:
- 303 0176 00BF     		.align	2
- 304              	.L9:
- 305 0178 54000000 		.word	.LC2
- 306 017c 5C000000 		.word	.LC3
- 307 0180 6C000000 		.word	.LC4
- 308 0184 00000000 		.word	socket_0
- 309 0188 00000000 		.word	QSpd_handle
- 310 018c 70000000 		.word	.LC5
- 311 0190 8C000000 		.word	.LC6
- 312              		.cfi_endproc
- 313              	.LFE110:
- 315              		.section	.rodata
- 316 00a3 00       		.align	2
- 317              	.LC7:
- 318 00a4 73657400 		.ascii	"set\000"
- 319              		.align	2
- 320              	.LC8:
- 321 00a8 67657400 		.ascii	"get\000"
- 322              		.align	2
- 323              	.LC9:
- 324 00ac 73746F70 		.ascii	"stop\000"
- 324      00
- 325 00b1 000000   		.align	2
- 326              	.LC10:
- 327 00b4 73746172 		.ascii	"start\000"
- 327      7400
- 328 00ba 0000     		.section	.text.prvMotorCommand,"ax",%progbits
- 329              		.align	2
- 330              		.global	prvMotorCommand
- 331              		.thumb
- 332              		.thumb_func
- 334              	prvMotorCommand:
- 335              	.LFB111:
-  89:App/STM32F4-Discovery/tcpCLI.c **** 			
-  90:App/STM32F4-Discovery/tcpCLI.c **** 
-  91:App/STM32F4-Discovery/tcpCLI.c **** 
+  69:App/STM32F4-Discovery/tcpCLI.c **** 				else
+  70:App/STM32F4-Discovery/tcpCLI.c **** 				{
+  71:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
+  72:App/STM32F4-Discovery/tcpCLI.c **** 			       		int len = 19; 	
+  73:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket, buf, len, 0);
+  74:App/STM32F4-Discovery/tcpCLI.c **** 
+  75:App/STM32F4-Discovery/tcpCLI.c **** 					return pdFALSE;
+  76:App/STM32F4-Discovery/tcpCLI.c **** 
+  77:App/STM32F4-Discovery/tcpCLI.c **** 
+  78:App/STM32F4-Discovery/tcpCLI.c **** 				}
+  79:App/STM32F4-Discovery/tcpCLI.c **** 						
+  80:App/STM32F4-Discovery/tcpCLI.c **** 			}
+  81:App/STM32F4-Discovery/tcpCLI.c **** 			else
+  82:App/STM32F4-Discovery/tcpCLI.c **** 			{
+  83:App/STM32F4-Discovery/tcpCLI.c **** 					// send to Queue was unsuccsessful
+  84:App/STM32F4-Discovery/tcpCLI.c **** 				// send error via TCP 
+  85:App/STM32F4-Discovery/tcpCLI.c **** 		
+  86:App/STM32F4-Discovery/tcpCLI.c **** 				uint8_t * buf = "Error recieving response!\n\n";
+ 284              		.loc 1 86 0
+ 285 0178 4C4B     		ldr	r3, .L16+24
+ 286 017a BB67     		str	r3, [r7, #120]
+  87:App/STM32F4-Discovery/tcpCLI.c **** 	 			int len = 27; 	
+ 287              		.loc 1 87 0
+ 288 017c 1B23     		movs	r3, #27
+ 289 017e 7B67     		str	r3, [r7, #116]
+  88:App/STM32F4-Discovery/tcpCLI.c **** 				send( socket_0, buf, len, 0);
+ 290              		.loc 1 88 0
+ 291 0180 474B     		ldr	r3, .L16+12
+ 292 0182 1B68     		ldr	r3, [r3]
+ 293 0184 DAB2     		uxtb	r2, r3
+ 294 0186 7B6F     		ldr	r3, [r7, #116]
+ 295 0188 9BB2     		uxth	r3, r3
+ 296 018a 1046     		mov	r0, r2
+ 297 018c B96F     		ldr	r1, [r7, #120]
+ 298 018e 1A46     		mov	r2, r3
+ 299 0190 0023     		movs	r3, #0
+ 300 0192 FFF7FEFF 		bl	send
+  89:App/STM32F4-Discovery/tcpCLI.c **** 
+  90:App/STM32F4-Discovery/tcpCLI.c **** 				return pdFALSE; 	
+ 301              		.loc 1 90 0
+ 302 0196 0023     		movs	r3, #0
+ 303 0198 99E1     		b	.L5
+ 304              	.L6:
+ 305              	.LBE5:
+ 306              	.LBB6:
+  91:App/STM32F4-Discovery/tcpCLI.c **** 			}
   92:App/STM32F4-Discovery/tcpCLI.c **** 
   93:App/STM32F4-Discovery/tcpCLI.c **** 
-  94:App/STM32F4-Discovery/tcpCLI.c **** 
-  95:App/STM32F4-Discovery/tcpCLI.c **** 
-  96:App/STM32F4-Discovery/tcpCLI.c **** 
-  97:App/STM32F4-Discovery/tcpCLI.c **** 
-  98:App/STM32F4-Discovery/tcpCLI.c **** 
-  99:App/STM32F4-Discovery/tcpCLI.c **** 
- 100:App/STM32F4-Discovery/tcpCLI.c **** 
- 101:App/STM32F4-Discovery/tcpCLI.c **** 
- 102:App/STM32F4-Discovery/tcpCLI.c **** 
- 103:App/STM32F4-Discovery/tcpCLI.c **** // prototypes of CLI functions 
- 104:App/STM32F4-Discovery/tcpCLI.c **** 
- 105:App/STM32F4-Discovery/tcpCLI.c **** portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer, 
- 106:App/STM32F4-Discovery/tcpCLI.c **** 						size_t xWriteBufferLen, 
- 107:App/STM32F4-Discovery/tcpCLI.c **** 						const int8_t *pcCommandString)
- 108:App/STM32F4-Discovery/tcpCLI.c **** {
- 336              		.loc 1 108 0
- 337              		.cfi_startproc
- 338              		@ args = 0, pretend = 0, frame = 72
- 339              		@ frame_needed = 1, uses_anonymous_args = 0
- 340 0000 90B5     		push	{r4, r7, lr}
- 341              	.LCFI4:
- 342              		.cfi_def_cfa_offset 12
- 343              		.cfi_offset 4, -12
- 344              		.cfi_offset 7, -8
- 345              		.cfi_offset 14, -4
- 346 0002 9DB0     		sub	sp, sp, #116
- 347              	.LCFI5:
- 348              		.cfi_def_cfa_offset 128
- 349 0004 0AAF     		add	r7, sp, #40
- 350              	.LCFI6:
- 351              		.cfi_def_cfa 7, 88
- 352 0006 F860     		str	r0, [r7, #12]
- 353 0008 B960     		str	r1, [r7, #8]
- 354 000a 7A60     		str	r2, [r7, #4]
- 109:App/STM32F4-Discovery/tcpCLI.c **** 	/* globals: 
- 110:App/STM32F4-Discovery/tcpCLI.c **** 	 * 	socket 
- 111:App/STM32F4-Discovery/tcpCLI.c **** 	 * 	setSpeedHandle
- 112:App/STM32F4-Discovery/tcpCLI.c **** 	 * 	QSpd_Handle
- 113:App/STM32F4-Discovery/tcpCLI.c **** 	 * 	QStatus_handle
- 114:App/STM32F4-Discovery/tcpCLI.c **** 	 * 	
- 115:App/STM32F4-Discovery/tcpCLI.c **** 	 **/
- 116:App/STM32F4-Discovery/tcpCLI.c **** 
- 117:App/STM32F4-Discovery/tcpCLI.c **** 	int8_t *Option, *Param, *Value;
- 118:App/STM32F4-Discovery/tcpCLI.c **** 	int xOptionLength, xParamLength, xValueLength; 
- 119:App/STM32F4-Discovery/tcpCLI.c **** 	QueueTelegram telegram; 
- 120:App/STM32F4-Discovery/tcpCLI.c **** 	
- 121:App/STM32F4-Discovery/tcpCLI.c **** 	// get option from command line 
- 122:App/STM32F4-Discovery/tcpCLI.c **** 
- 123:App/STM32F4-Discovery/tcpCLI.c **** 	Option = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
- 355              		.loc 1 123 0
- 356 000c 07F13803 		add	r3, r7, #56
- 357 0010 7868     		ldr	r0, [r7, #4]
- 358 0012 0121     		movs	r1, #1
- 359 0014 1A46     		mov	r2, r3
- 360 0016 FFF7FEFF 		bl	FreeRTOS_CLIGetParameter
- 361 001a 7864     		str	r0, [r7, #68]
- 124:App/STM32F4-Discovery/tcpCLI.c **** 					  1,  		   // first parameter
- 125:App/STM32F4-Discovery/tcpCLI.c **** 				  	  &xOptionLength // parameter string length
- 126:App/STM32F4-Discovery/tcpCLI.c **** 					  
- 127:App/STM32F4-Discovery/tcpCLI.c **** 					 );
- 128:App/STM32F4-Discovery/tcpCLI.c **** 	// get parameter from command line 
- 129:App/STM32F4-Discovery/tcpCLI.c **** 	
- 130:App/STM32F4-Discovery/tcpCLI.c **** 	Param = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
- 362              		.loc 1 130 0
- 363 001c 07F13403 		add	r3, r7, #52
- 364 0020 7868     		ldr	r0, [r7, #4]
- 365 0022 0221     		movs	r1, #2
- 366 0024 1A46     		mov	r2, r3
- 367 0026 FFF7FEFF 		bl	FreeRTOS_CLIGetParameter
- 368 002a 3864     		str	r0, [r7, #64]
- 131:App/STM32F4-Discovery/tcpCLI.c **** 					  2,  		   // 2nd parameter
- 132:App/STM32F4-Discovery/tcpCLI.c **** 				  	  &xParamLength // parameter string length
- 133:App/STM32F4-Discovery/tcpCLI.c **** 					  
- 134:App/STM32F4-Discovery/tcpCLI.c **** 					 );
- 135:App/STM32F4-Discovery/tcpCLI.c **** 	Value = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
- 369              		.loc 1 135 0
- 370 002c 07F13003 		add	r3, r7, #48
- 371 0030 7868     		ldr	r0, [r7, #4]
- 372 0032 0321     		movs	r1, #3
- 373 0034 1A46     		mov	r2, r3
- 374 0036 FFF7FEFF 		bl	FreeRTOS_CLIGetParameter
- 375 003a F863     		str	r0, [r7, #60]
- 136:App/STM32F4-Discovery/tcpCLI.c **** 					  3,  		   // 2nd parameter
- 137:App/STM32F4-Discovery/tcpCLI.c **** 				  	  &xValueLength // parameter string length
- 138:App/STM32F4-Discovery/tcpCLI.c **** 					  
- 139:App/STM32F4-Discovery/tcpCLI.c **** 					 );
- 140:App/STM32F4-Discovery/tcpCLI.c **** 
- 141:App/STM32F4-Discovery/tcpCLI.c **** 
- 142:App/STM32F4-Discovery/tcpCLI.c **** 
- 143:App/STM32F4-Discovery/tcpCLI.c **** 
- 144:App/STM32F4-Discovery/tcpCLI.c **** 
- 145:App/STM32F4-Discovery/tcpCLI.c **** 
- 146:App/STM32F4-Discovery/tcpCLI.c **** 	if( !strncmp( Option, "set", 3) ) 
- 376              		.loc 1 146 0
- 377 003c 786C     		ldr	r0, [r7, #68]
- 378 003e 1D49     		ldr	r1, .L16
- 379 0040 0322     		movs	r2, #3
- 380 0042 FFF7FEFF 		bl	strncmp
- 381 0046 0346     		mov	r3, r0
- 382 0048 002B     		cmp	r3, #0
- 383 004a 1FD1     		bne	.L12
- 147:App/STM32F4-Discovery/tcpCLI.c **** 	{
- 148:App/STM32F4-Discovery/tcpCLI.c **** 		
- 149:App/STM32F4-Discovery/tcpCLI.c **** 		if ( handleVariable_set ( telegram, 
- 384              		.loc 1 149 0
- 385 004c 786B     		ldr	r0, [r7, #52]
- 386 004e 1A4B     		ldr	r3, .L16+4
- 387 0050 1968     		ldr	r1, [r3]
- 388 0052 3A6B     		ldr	r2, [r7, #48]
- 389 0054 194B     		ldr	r3, .L16+8
- 390 0056 1B68     		ldr	r3, [r3]
- 391 0058 3C6C     		ldr	r4, [r7, #64]
- 392 005a 0394     		str	r4, [sp, #12]
- 393 005c 0490     		str	r0, [sp, #16]
- 394 005e 0591     		str	r1, [sp, #20]
- 395 0060 F96B     		ldr	r1, [r7, #60]
- 396 0062 0691     		str	r1, [sp, #24]
- 397 0064 0792     		str	r2, [sp, #28]
- 398 0066 0893     		str	r3, [sp, #32]
- 399 0068 6B46     		mov	r3, sp
- 400 006a 07F12402 		add	r2, r7, #36
- 401 006e 07CA     		ldmia	r2, {r0, r1, r2}
- 402 0070 83E80700 		stmia	r3, {r0, r1, r2}
- 403 0074 07F11403 		add	r3, r7, #20
- 404 0078 0FCB     		ldmia	r3, {r0, r1, r2, r3}
- 405 007a FFF7FEFF 		bl	handleVariable_set
- 406 007e 0346     		mov	r3, r0
- 407 0080 002B     		cmp	r3, #0
- 408 0082 01D0     		beq	.L13
- 150:App/STM32F4-Discovery/tcpCLI.c **** 				           Param, 
- 151:App/STM32F4-Discovery/tcpCLI.c **** 					   xParamLength, 
- 152:App/STM32F4-Discovery/tcpCLI.c **** 					   QSpd_handle, 
- 153:App/STM32F4-Discovery/tcpCLI.c **** 					   Value,
- 154:App/STM32F4-Discovery/tcpCLI.c **** 					   xValueLength,  
- 155:App/STM32F4-Discovery/tcpCLI.c **** 					   socket_0)) return pdPASS;
- 409              		.loc 1 155 0
- 410 0084 0123     		movs	r3, #1
- 411 0086 11E0     		b	.L15
- 412              	.L13:
- 156:App/STM32F4-Discovery/tcpCLI.c **** 		return pdFALSE;
- 413              		.loc 1 156 0
- 414 0088 0023     		movs	r3, #0
- 415 008a 0FE0     		b	.L15
- 416              	.L12:
+  94:App/STM32F4-Discovery/tcpCLI.c **** 		}
+  95:App/STM32F4-Discovery/tcpCLI.c **** 		else
+  96:App/STM32F4-Discovery/tcpCLI.c **** 		{
+  97:App/STM32F4-Discovery/tcpCLI.c **** 			// send to Queue was unsuccsessful
+  98:App/STM32F4-Discovery/tcpCLI.c **** 			// send error via TCP 
+  99:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 100:App/STM32F4-Discovery/tcpCLI.c **** 			uint8_t * buf = "Error sending Queue!\n\n";
+ 307              		.loc 1 100 0
+ 308 019a 454B     		ldr	r3, .L16+28
+ 309 019c 3B67     		str	r3, [r7, #112]
+ 101:App/STM32F4-Discovery/tcpCLI.c **** 	 		int len = 22; 	
+ 310              		.loc 1 101 0
+ 311 019e 1623     		movs	r3, #22
+ 312 01a0 FB66     		str	r3, [r7, #108]
+ 102:App/STM32F4-Discovery/tcpCLI.c **** 			send( socket, buf, len, 0);
+ 313              		.loc 1 102 0
+ 314 01a2 D7F8D830 		ldr	r3, [r7, #216]
+ 315 01a6 DAB2     		uxtb	r2, r3
+ 316 01a8 FB6E     		ldr	r3, [r7, #108]
+ 317 01aa 9BB2     		uxth	r3, r3
+ 318 01ac 1046     		mov	r0, r2
+ 319 01ae 396F     		ldr	r1, [r7, #112]
+ 320 01b0 1A46     		mov	r2, r3
+ 321 01b2 0023     		movs	r3, #0
+ 322 01b4 FFF7FEFF 		bl	send
+ 103:App/STM32F4-Discovery/tcpCLI.c **** 
+ 104:App/STM32F4-Discovery/tcpCLI.c **** 			return pdFALSE; 	
+ 323              		.loc 1 104 0
+ 324 01b8 0023     		movs	r3, #0
+ 325 01ba 88E1     		b	.L5
+ 326              	.L2:
+ 327              	.LBE6:
+ 328              	.LBE2:
+ 105:App/STM32F4-Discovery/tcpCLI.c **** 		}
+ 106:App/STM32F4-Discovery/tcpCLI.c **** 	}
+ 107:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 108:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 109:App/STM32F4-Discovery/tcpCLI.c **** 	//		CASE PARAMETER upramp [value]
+ 110:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 111:App/STM32F4-Discovery/tcpCLI.c **** 
+ 112:App/STM32F4-Discovery/tcpCLI.c **** 	if ( !strncmp ( Param, "upramp", 6))
+ 329              		.loc 1 112 0
+ 330 01bc D7F8C400 		ldr	r0, [r7, #196]
+ 331 01c0 3C49     		ldr	r1, .L16+32
+ 332 01c2 0622     		movs	r2, #6
+ 333 01c4 FFF7FEFF 		bl	strncmp
+ 334 01c8 0346     		mov	r3, r0
+ 335 01ca 002B     		cmp	r3, #0
+ 336 01cc 40F0CA80 		bne	.L8
+ 337              	.LBB7:
+ 113:App/STM32F4-Discovery/tcpCLI.c **** 	{	
+ 114:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 115:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 116:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 117:App/STM32F4-Discovery/tcpCLI.c **** 		// now convert parameter to proper value and check if it is in range 
+ 118:App/STM32F4-Discovery/tcpCLI.c ****         	Value[xValueLength-2] = '\0'; 	
+ 338              		.loc 1 118 0
+ 339 01d0 D7F8D430 		ldr	r3, [r7, #212]
+ 340 01d4 023B     		subs	r3, r3, #2
+ 341 01d6 D7F8D020 		ldr	r2, [r7, #208]
+ 342 01da 1344     		add	r3, r3, r2
+ 343 01dc 0022     		movs	r2, #0
+ 344 01de 1A70     		strb	r2, [r3]
+ 119:App/STM32F4-Discovery/tcpCLI.c **** 		uint16_t s1 = atoi ( Value ); 
+ 345              		.loc 1 119 0
+ 346 01e0 D7F8D000 		ldr	r0, [r7, #208]
+ 347 01e4 FFF7FEFF 		bl	atoi
+ 348 01e8 0346     		mov	r3, r0
+ 349 01ea A7F85E30 		strh	r3, [r7, #94]	@ movhi
+ 120:App/STM32F4-Discovery/tcpCLI.c **** 		// if speed is in range
+ 121:App/STM32F4-Discovery/tcpCLI.c **** 		if(s1 < 10 ||  s1 > 100 )
+ 350              		.loc 1 121 0
+ 351 01ee B7F85E30 		ldrh	r3, [r7, #94]
+ 352 01f2 092B     		cmp	r3, #9
+ 353 01f4 03D9     		bls	.L9
+ 354              		.loc 1 121 0 is_stmt 0 discriminator 1
+ 355 01f6 B7F85E30 		ldrh	r3, [r7, #94]
+ 356 01fa 642B     		cmp	r3, #100
+ 357 01fc 5CD9     		bls	.L10
+ 358              	.L9:
+ 359              	.LBB8:
+ 360 01fe 6B46     		mov	r3, sp
+ 361 0200 1C46     		mov	r4, r3
+ 122:App/STM32F4-Discovery/tcpCLI.c **** 		{
+ 123:App/STM32F4-Discovery/tcpCLI.c **** 			// send error via TCP
+ 124:App/STM32F4-Discovery/tcpCLI.c **** 			//
+ 125:App/STM32F4-Discovery/tcpCLI.c **** 			int len = strlen ( Value ) + 11 ; 
+ 362              		.loc 1 125 0 is_stmt 1
+ 363 0202 D7F8D000 		ldr	r0, [r7, #208]
+ 364 0206 FFF7FEFF 		bl	strlen
+ 365 020a 0346     		mov	r3, r0
+ 366 020c 0B33     		adds	r3, r3, #11
+ 367 020e BB64     		str	r3, [r7, #72]
+ 126:App/STM32F4-Discovery/tcpCLI.c **** 			uint8_t buf [len]; //= "Error: speed is out of range!\n\n";
+ 368              		.loc 1 126 0
+ 369 0210 B96C     		ldr	r1, [r7, #72]
+ 370 0212 4B1E     		subs	r3, r1, #1
+ 371 0214 7B64     		str	r3, [r7, #68]
+ 372 0216 0B46     		mov	r3, r1
+ 373 0218 1A46     		mov	r2, r3
+ 374 021a 4FF00003 		mov	r3, #0
+ 375 021e D800     		lsls	r0, r3, #3
+ 376 0220 F860     		str	r0, [r7, #12]
+ 377 0222 D7F80CC0 		ldr	ip, [r7, #12]
+ 378 0226 4CEA527C 		orr	ip, ip, r2, lsr #29
+ 379 022a C7F80CC0 		str	ip, [r7, #12]
+ 380 022e D000     		lsls	r0, r2, #3
+ 381 0230 0B46     		mov	r3, r1
+ 382 0232 1A46     		mov	r2, r3
+ 383 0234 4FF00003 		mov	r3, #0
+ 384 0238 4FEAC30C 		lsl	ip, r3, #3
+ 385 023c C7F804C0 		str	ip, [r7, #4]
+ 386 0240 7868     		ldr	r0, [r7, #4]
+ 387 0242 40EA5270 		orr	r0, r0, r2, lsr #29
+ 388 0246 7860     		str	r0, [r7, #4]
+ 389 0248 4FEAC20C 		lsl	ip, r2, #3
+ 390 024c 0B46     		mov	r3, r1
+ 391 024e 0733     		adds	r3, r3, #7
+ 392 0250 DB08     		lsrs	r3, r3, #3
+ 393 0252 DB00     		lsls	r3, r3, #3
+ 394 0254 ADEB030D 		sub	sp, sp, r3
+ 395 0258 6B46     		mov	r3, sp
+ 396 025a 0033     		adds	r3, r3, #0
+ 397 025c 3B64     		str	r3, [r7, #64]
+ 127:App/STM32F4-Discovery/tcpCLI.c **** 			sprintf(buf, "Errror : %d\n\n", s1);
+ 398              		.loc 1 127 0
+ 399 025e 3A6C     		ldr	r2, [r7, #64]
+ 400 0260 B7F85E30 		ldrh	r3, [r7, #94]
+ 401 0264 1046     		mov	r0, r2
+ 402 0266 0C49     		ldr	r1, .L16+4
+ 403 0268 1A46     		mov	r2, r3
+ 404 026a FFF7FEFF 		bl	sprintf
+ 128:App/STM32F4-Discovery/tcpCLI.c **** 			buf[11+ 3] = "\0"; 
+ 405              		.loc 1 128 0
+ 406 026e 0B4B     		ldr	r3, .L16+8
+ 407 0270 DAB2     		uxtb	r2, r3
+ 408 0272 3B6C     		ldr	r3, [r7, #64]
+ 409 0274 9A73     		strb	r2, [r3, #14]
+ 129:App/STM32F4-Discovery/tcpCLI.c **** 			send( socket_0, buf, len, 0);
+ 410              		.loc 1 129 0
+ 411 0276 0A4B     		ldr	r3, .L16+12
+ 412 0278 1B68     		ldr	r3, [r3]
+ 413 027a D9B2     		uxtb	r1, r3
+ 414 027c 3A6C     		ldr	r2, [r7, #64]
+ 415 027e BB6C     		ldr	r3, [r7, #72]
+ 416 0280 9BB2     		uxth	r3, r3
+ 417 0282 0846     		mov	r0, r1
+ 418 0284 1146     		mov	r1, r2
+ 419 0286 1A46     		mov	r2, r3
+ 420 0288 0023     		movs	r3, #0
+ 421 028a FFF7FEFF 		bl	send
+ 130:App/STM32F4-Discovery/tcpCLI.c **** 
+ 131:App/STM32F4-Discovery/tcpCLI.c **** 	       		return pdFALSE; 	
+ 422              		.loc 1 131 0
+ 423 028e 0023     		movs	r3, #0
+ 424 0290 A546     		mov	sp, r4
+ 425 0292 1CE1     		b	.L5
+ 426              	.L17:
+ 427              		.align	2
+ 428              	.L16:
+ 429 0294 54000000 		.word	.LC2
+ 430 0298 5C000000 		.word	.LC3
+ 431 029c 6C000000 		.word	.LC4
+ 432 02a0 00000000 		.word	socket_0
+ 433 02a4 00000000 		.word	QSpd_handle
+ 434 02a8 70000000 		.word	.LC5
+ 435 02ac 8C000000 		.word	.LC6
+ 436 02b0 A8000000 		.word	.LC7
+ 437 02b4 C0000000 		.word	.LC8
+ 438              	.L10:
+ 439              	.LBE8:
+ 132:App/STM32F4-Discovery/tcpCLI.c **** 		}	
+ 133:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 134:App/STM32F4-Discovery/tcpCLI.c **** 		// convert to correct value ( * 100 ) 
+ 135:App/STM32F4-Discovery/tcpCLI.c **** 		s1 *= 100; 
+ 440              		.loc 1 135 0
+ 441 02b8 B7F85E30 		ldrh	r3, [r7, #94]	@ movhi
+ 442 02bc 1A46     		mov	r2, r3	@ movhi
+ 443 02be 9200     		lsls	r2, r2, #2
+ 444 02c0 1344     		add	r3, r3, r2
+ 445 02c2 1A46     		mov	r2, r3	@ movhi
+ 446 02c4 9100     		lsls	r1, r2, #2
+ 447 02c6 1A46     		mov	r2, r3	@ movhi
+ 448 02c8 0B46     		mov	r3, r1	@ movhi
+ 449 02ca 1344     		add	r3, r3, r2
+ 450 02cc 9B00     		lsls	r3, r3, #2
+ 451 02ce A7F85E30 		strh	r3, [r7, #94]	@ movhi
+ 136:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 137:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 138:App/STM32F4-Discovery/tcpCLI.c **** 		// setup telegram 
+ 139:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 140:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.data[0] = s1; 
+ 452              		.loc 1 140 0
+ 453 02d2 B7F85E30 		ldrh	r3, [r7, #94]	@ movhi
+ 454 02d6 A7F8B030 		strh	r3, [r7, #176]	@ movhi
+ 141:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.size = 1; 
+ 455              		.loc 1 141 0
+ 456 02da 0123     		movs	r3, #1
+ 457 02dc C7F8AC30 		str	r3, [r7, #172]
+ 142:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.Qcmd = SETDATA;
+ 458              		.loc 1 142 0
+ 459 02e0 0023     		movs	r3, #0
+ 460 02e2 87F8A830 		strb	r3, [r7, #168]
+ 143:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 144:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 145:App/STM32F4-Discovery/tcpCLI.c **** 		// send value to setSpeed_task via Queue 
+ 146:App/STM32F4-Discovery/tcpCLI.c **** 		if ( xQueueSend ( QSpd_handle, (void *)&telegram, portMAX_DELAY ) == pdPASS )
+ 461              		.loc 1 146 0
+ 462 02e6 7D4B     		ldr	r3, .L18
+ 463 02e8 1B68     		ldr	r3, [r3]
+ 464 02ea 1846     		mov	r0, r3
+ 465 02ec 07F1A801 		add	r1, r7, #168
+ 466 02f0 4FF0FF32 		mov	r2, #-1
+ 467 02f4 0023     		movs	r3, #0
+ 468 02f6 FFF7FEFF 		bl	xQueueGenericSend
+ 469 02fa 0346     		mov	r3, r0
+ 470 02fc 012B     		cmp	r3, #1
+ 471 02fe 20D1     		bne	.L11
+ 147:App/STM32F4-Discovery/tcpCLI.c **** 		{	
+ 148:App/STM32F4-Discovery/tcpCLI.c **** 					
+ 149:App/STM32F4-Discovery/tcpCLI.c **** 			if (  xQueueReceive ( QSpd_handle, &telegram, 500))
+ 472              		.loc 1 149 0
+ 473 0300 764B     		ldr	r3, .L18
+ 474 0302 1B68     		ldr	r3, [r3]
+ 475 0304 1846     		mov	r0, r3
+ 476 0306 07F1A801 		add	r1, r7, #168
+ 477 030a 4FF4FA72 		mov	r2, #500
+ 478 030e 0023     		movs	r3, #0
+ 479 0310 FFF7FEFF 		bl	xQueueGenericReceive
+ 480 0314 0346     		mov	r3, r0
+ 481 0316 002B     		cmp	r3, #0
+ 482 0318 24D0     		beq	.L8
+ 150:App/STM32F4-Discovery/tcpCLI.c **** 			{
+ 151:App/STM32F4-Discovery/tcpCLI.c **** 				if ( telegram.Qcmd = SUCCSESS) 
+ 483              		.loc 1 151 0
+ 484 031a 0623     		movs	r3, #6
+ 485 031c 87F8A830 		strb	r3, [r7, #168]
+ 486              	.LBB9:
+ 152:App/STM32F4-Discovery/tcpCLI.c **** 				{	
+ 153:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "Speed succsesfully set.\n\n";
+ 487              		.loc 1 153 0
+ 488 0320 6F4B     		ldr	r3, .L18+4
+ 489 0322 BB65     		str	r3, [r7, #88]
+ 154:App/STM32F4-Discovery/tcpCLI.c **** 					int len = 25; 	
+ 490              		.loc 1 154 0
+ 491 0324 1923     		movs	r3, #25
+ 492 0326 7B65     		str	r3, [r7, #84]
+ 155:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket, buf, len, 0);
+ 493              		.loc 1 155 0
+ 494 0328 D7F8D830 		ldr	r3, [r7, #216]
+ 495 032c DAB2     		uxtb	r2, r3
+ 496 032e 7B6D     		ldr	r3, [r7, #84]
+ 497 0330 9BB2     		uxth	r3, r3
+ 498 0332 1046     		mov	r0, r2
+ 499 0334 B96D     		ldr	r1, [r7, #88]
+ 500 0336 1A46     		mov	r2, r3
+ 501 0338 0023     		movs	r3, #0
+ 502 033a FFF7FEFF 		bl	send
+ 156:App/STM32F4-Discovery/tcpCLI.c **** 
  157:App/STM32F4-Discovery/tcpCLI.c **** 
- 158:App/STM32F4-Discovery/tcpCLI.c **** 	}
- 159:App/STM32F4-Discovery/tcpCLI.c **** 	if (!strncmp ( Option, "get", 3))
- 417              		.loc 1 159 0
- 418 008c 786C     		ldr	r0, [r7, #68]
- 419 008e 0C49     		ldr	r1, .L16+12
- 420 0090 0322     		movs	r2, #3
- 421 0092 FFF7FEFF 		bl	strncmp
- 160:App/STM32F4-Discovery/tcpCLI.c **** 	{
- 161:App/STM32F4-Discovery/tcpCLI.c **** 
- 162:App/STM32F4-Discovery/tcpCLI.c **** 
- 163:App/STM32F4-Discovery/tcpCLI.c **** 	}
- 164:App/STM32F4-Discovery/tcpCLI.c **** 		
- 165:App/STM32F4-Discovery/tcpCLI.c **** 	if (!strncmp ( Option, "stop", 4))
- 422              		.loc 1 165 0
- 423 0096 786C     		ldr	r0, [r7, #68]
- 424 0098 0A49     		ldr	r1, .L16+16
- 425 009a 0422     		movs	r2, #4
- 426 009c FFF7FEFF 		bl	strncmp
- 166:App/STM32F4-Discovery/tcpCLI.c **** 	{
- 167:App/STM32F4-Discovery/tcpCLI.c **** 
+ 158:App/STM32F4-Discovery/tcpCLI.c **** 					return pdPASS;
+ 503              		.loc 1 158 0
+ 504 033e 0123     		movs	r3, #1
+ 505 0340 C5E0     		b	.L5
+ 506              	.L11:
+ 507              	.LBE9:
+ 508              	.LBB10:
+ 159:App/STM32F4-Discovery/tcpCLI.c **** 
+ 160:App/STM32F4-Discovery/tcpCLI.c **** 				}
+ 161:App/STM32F4-Discovery/tcpCLI.c **** 				else
+ 162:App/STM32F4-Discovery/tcpCLI.c **** 				{
+ 163:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
+ 164:App/STM32F4-Discovery/tcpCLI.c **** 			       		int len = 19; 	
+ 165:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket, buf, len, 0);
+ 166:App/STM32F4-Discovery/tcpCLI.c **** 
+ 167:App/STM32F4-Discovery/tcpCLI.c **** 					return pdFALSE;
  168:App/STM32F4-Discovery/tcpCLI.c **** 
- 169:App/STM32F4-Discovery/tcpCLI.c **** 	}
- 170:App/STM32F4-Discovery/tcpCLI.c **** 
- 171:App/STM32F4-Discovery/tcpCLI.c **** 	if (!strncmp ( Option, "start", 4))
- 427              		.loc 1 171 0
- 428 00a0 786C     		ldr	r0, [r7, #68]
- 429 00a2 0949     		ldr	r1, .L16+20
- 430 00a4 0422     		movs	r2, #4
- 431 00a6 FFF7FEFF 		bl	strncmp
- 172:App/STM32F4-Discovery/tcpCLI.c **** 	{
+ 169:App/STM32F4-Discovery/tcpCLI.c **** 
+ 170:App/STM32F4-Discovery/tcpCLI.c **** 				}
+ 171:App/STM32F4-Discovery/tcpCLI.c **** 						
+ 172:App/STM32F4-Discovery/tcpCLI.c **** 			}
  173:App/STM32F4-Discovery/tcpCLI.c **** 
- 174:App/STM32F4-Discovery/tcpCLI.c **** 
- 175:App/STM32F4-Discovery/tcpCLI.c **** 	}
- 176:App/STM32F4-Discovery/tcpCLI.c **** 
- 177:App/STM32F4-Discovery/tcpCLI.c **** 
- 178:App/STM32F4-Discovery/tcpCLI.c **** 
- 179:App/STM32F4-Discovery/tcpCLI.c **** 	return pdFALSE;
- 432              		.loc 1 179 0
- 433 00aa 0023     		movs	r3, #0
- 434              	.L15:
- 180:App/STM32F4-Discovery/tcpCLI.c **** 
- 181:App/STM32F4-Discovery/tcpCLI.c **** 
- 182:App/STM32F4-Discovery/tcpCLI.c **** }
- 435              		.loc 1 182 0
- 436 00ac 1846     		mov	r0, r3
- 437 00ae 4C37     		adds	r7, r7, #76
- 438 00b0 BD46     		mov	sp, r7
- 439              		@ sp needed
- 440 00b2 90BD     		pop	{r4, r7, pc}
- 441              	.L17:
- 442              		.align	2
- 443              	.L16:
- 444 00b4 A4000000 		.word	.LC7
- 445 00b8 00000000 		.word	QSpd_handle
- 446 00bc 00000000 		.word	socket_0
- 447 00c0 A8000000 		.word	.LC8
- 448 00c4 AC000000 		.word	.LC9
- 449 00c8 B4000000 		.word	.LC10
- 450              		.cfi_endproc
- 451              	.LFE111:
- 453              		.text
- 454              	.Letext0:
- 455              		.file 2 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/lib/gcc/arm-none-eabi/4.8.4/include/std
- 456              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
- 457              		.file 4 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
- 458              		.file 5 "Source/include/task.h"
- 459              		.file 6 "Source/include/queue.h"
- 460              		.file 7 "Source/include/semphr.h"
- 461              		.file 8 "Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h"
- 462              		.file 9 "App/STM32F4-Discovery/tcpCLI.h"
- 463              		.file 10 "App/STM32F4-Discovery/main.h"
- 464              		.file 11 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
- 465              		.file 12 "App/STM32F4-Discovery/spi.h"
- 466              		.file 13 "App/STM32F4-Discovery/W5200.h"
+ 174:App/STM32F4-Discovery/tcpCLI.c **** 		}
+ 175:App/STM32F4-Discovery/tcpCLI.c **** 		else
+ 176:App/STM32F4-Discovery/tcpCLI.c **** 		{
+ 177:App/STM32F4-Discovery/tcpCLI.c **** 			// send to Queue was unsuccsessful
+ 178:App/STM32F4-Discovery/tcpCLI.c **** 			// send error via TCP 
+ 179:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 180:App/STM32F4-Discovery/tcpCLI.c **** 			uint8_t * buf = "Error sending Queue!\n\n";
+ 509              		.loc 1 180 0
+ 510 0342 684B     		ldr	r3, .L18+8
+ 511 0344 3B65     		str	r3, [r7, #80]
+ 181:App/STM32F4-Discovery/tcpCLI.c **** 	 		int len = 22; 	
+ 512              		.loc 1 181 0
+ 513 0346 1623     		movs	r3, #22
+ 514 0348 FB64     		str	r3, [r7, #76]
+ 182:App/STM32F4-Discovery/tcpCLI.c **** 			send( socket, buf, len, 0);
+ 515              		.loc 1 182 0
+ 516 034a D7F8D830 		ldr	r3, [r7, #216]
+ 517 034e DAB2     		uxtb	r2, r3
+ 518 0350 FB6C     		ldr	r3, [r7, #76]
+ 519 0352 9BB2     		uxth	r3, r3
+ 520 0354 1046     		mov	r0, r2
+ 521 0356 396D     		ldr	r1, [r7, #80]
+ 522 0358 1A46     		mov	r2, r3
+ 523 035a 0023     		movs	r3, #0
+ 524 035c FFF7FEFF 		bl	send
+ 183:App/STM32F4-Discovery/tcpCLI.c **** 
+ 184:App/STM32F4-Discovery/tcpCLI.c **** 			return pdFALSE; 	
+ 525              		.loc 1 184 0
+ 526 0360 0023     		movs	r3, #0
+ 527 0362 B4E0     		b	.L5
+ 528              	.L8:
+ 529              	.LBE10:
+ 530              	.LBE7:
+ 185:App/STM32F4-Discovery/tcpCLI.c **** 		}
+ 186:App/STM32F4-Discovery/tcpCLI.c **** 	}
+ 187:App/STM32F4-Discovery/tcpCLI.c **** 
+ 188:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 189:App/STM32F4-Discovery/tcpCLI.c **** 	//		CASE PARAMETER downramp [value]
+ 190:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 191:App/STM32F4-Discovery/tcpCLI.c **** 
+ 192:App/STM32F4-Discovery/tcpCLI.c **** 	if ( !strncmp ( Param, "downramp", 8))
+ 531              		.loc 1 192 0
+ 532 0364 D7F8C400 		ldr	r0, [r7, #196]
+ 533 0368 5F49     		ldr	r1, .L18+12
+ 534 036a 0822     		movs	r2, #8
+ 535 036c FFF7FEFF 		bl	strncmp
+ 536 0370 0346     		mov	r3, r0
+ 537 0372 002B     		cmp	r3, #0
+ 538 0374 40F0AA80 		bne	.L12
+ 539              	.LBB11:
+ 193:App/STM32F4-Discovery/tcpCLI.c **** 	{	
+ 194:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 195:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 196:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 197:App/STM32F4-Discovery/tcpCLI.c **** 		// now convert parameter to proper value and check if it is in range 
+ 198:App/STM32F4-Discovery/tcpCLI.c ****         	Value[xValueLength-2] = '\0'; 	
+ 540              		.loc 1 198 0
+ 541 0378 D7F8D430 		ldr	r3, [r7, #212]
+ 542 037c 023B     		subs	r3, r3, #2
+ 543 037e D7F8D020 		ldr	r2, [r7, #208]
+ 544 0382 1344     		add	r3, r3, r2
+ 545 0384 0022     		movs	r2, #0
+ 546 0386 1A70     		strb	r2, [r3]
+ 199:App/STM32F4-Discovery/tcpCLI.c **** 		uint16_t s1 = atoi ( Value ); 
+ 547              		.loc 1 199 0
+ 548 0388 D7F8D000 		ldr	r0, [r7, #208]
+ 549 038c FFF7FEFF 		bl	atoi
+ 550 0390 0346     		mov	r3, r0
+ 551 0392 FB87     		strh	r3, [r7, #62]	@ movhi
+ 200:App/STM32F4-Discovery/tcpCLI.c **** 		// if speed is in range
+ 201:App/STM32F4-Discovery/tcpCLI.c **** 		if(s1 < 10 ||  s1 > 100 )
+ 552              		.loc 1 201 0
+ 553 0394 FB8F     		ldrh	r3, [r7, #62]
+ 554 0396 092B     		cmp	r3, #9
+ 555 0398 02D9     		bls	.L13
+ 556              		.loc 1 201 0 is_stmt 0 discriminator 1
+ 557 039a FB8F     		ldrh	r3, [r7, #62]
+ 558 039c 642B     		cmp	r3, #100
+ 559 039e 42D9     		bls	.L14
+ 560              	.L13:
+ 561              	.LBB12:
+ 562 03a0 6B46     		mov	r3, sp
+ 563 03a2 1C46     		mov	r4, r3
+ 202:App/STM32F4-Discovery/tcpCLI.c **** 		{
+ 203:App/STM32F4-Discovery/tcpCLI.c **** 			// send error via TCP
+ 204:App/STM32F4-Discovery/tcpCLI.c **** 			//
+ 205:App/STM32F4-Discovery/tcpCLI.c **** 			int len = strlen ( Value ) + 11 ; 
+ 564              		.loc 1 205 0 is_stmt 1
+ 565 03a4 D7F8D000 		ldr	r0, [r7, #208]
+ 566 03a8 FFF7FEFF 		bl	strlen
+ 567 03ac 0346     		mov	r3, r0
+ 568 03ae 0B33     		adds	r3, r3, #11
+ 569 03b0 BB62     		str	r3, [r7, #40]
+ 206:App/STM32F4-Discovery/tcpCLI.c **** 			uint8_t buf [len]; //= "Error: speed is out of range!\n\n";
+ 570              		.loc 1 206 0
+ 571 03b2 B96A     		ldr	r1, [r7, #40]
+ 572 03b4 4B1E     		subs	r3, r1, #1
+ 573 03b6 7B62     		str	r3, [r7, #36]
+ 574 03b8 0B46     		mov	r3, r1
+ 575 03ba 1A46     		mov	r2, r3
+ 576 03bc 4FF00003 		mov	r3, #0
+ 577 03c0 4FEAC30B 		lsl	fp, r3, #3
+ 578 03c4 4BEA527B 		orr	fp, fp, r2, lsr #29
+ 579 03c8 4FEAC20A 		lsl	r10, r2, #3
+ 580 03cc 0B46     		mov	r3, r1
+ 581 03ce 1A46     		mov	r2, r3
+ 582 03d0 4FF00003 		mov	r3, #0
+ 583 03d4 4FEAC309 		lsl	r9, r3, #3
+ 584 03d8 49EA5279 		orr	r9, r9, r2, lsr #29
+ 585 03dc 4FEAC208 		lsl	r8, r2, #3
+ 586 03e0 0B46     		mov	r3, r1
+ 587 03e2 0733     		adds	r3, r3, #7
+ 588 03e4 DB08     		lsrs	r3, r3, #3
+ 589 03e6 DB00     		lsls	r3, r3, #3
+ 590 03e8 ADEB030D 		sub	sp, sp, r3
+ 591 03ec 6B46     		mov	r3, sp
+ 592 03ee 0033     		adds	r3, r3, #0
+ 593 03f0 3B62     		str	r3, [r7, #32]
+ 207:App/STM32F4-Discovery/tcpCLI.c **** 			sprintf(buf, "Errror : %d\n\n", s1);
+ 594              		.loc 1 207 0
+ 595 03f2 3A6A     		ldr	r2, [r7, #32]
+ 596 03f4 FB8F     		ldrh	r3, [r7, #62]
+ 597 03f6 1046     		mov	r0, r2
+ 598 03f8 3C49     		ldr	r1, .L18+16
+ 599 03fa 1A46     		mov	r2, r3
+ 600 03fc FFF7FEFF 		bl	sprintf
+ 208:App/STM32F4-Discovery/tcpCLI.c **** 			buf[11+ 3] = "\0"; 
+ 601              		.loc 1 208 0
+ 602 0400 3B4B     		ldr	r3, .L18+20
+ 603 0402 DAB2     		uxtb	r2, r3
+ 604 0404 3B6A     		ldr	r3, [r7, #32]
+ 605 0406 9A73     		strb	r2, [r3, #14]
+ 209:App/STM32F4-Discovery/tcpCLI.c **** 			send( socket_0, buf, len, 0);
+ 606              		.loc 1 209 0
+ 607 0408 3A4B     		ldr	r3, .L18+24
+ 608 040a 1B68     		ldr	r3, [r3]
+ 609 040c D9B2     		uxtb	r1, r3
+ 610 040e 3A6A     		ldr	r2, [r7, #32]
+ 611 0410 BB6A     		ldr	r3, [r7, #40]
+ 612 0412 9BB2     		uxth	r3, r3
+ 613 0414 0846     		mov	r0, r1
+ 614 0416 1146     		mov	r1, r2
+ 615 0418 1A46     		mov	r2, r3
+ 616 041a 0023     		movs	r3, #0
+ 617 041c FFF7FEFF 		bl	send
+ 210:App/STM32F4-Discovery/tcpCLI.c **** 
+ 211:App/STM32F4-Discovery/tcpCLI.c **** 	       		return pdFALSE; 	
+ 618              		.loc 1 211 0
+ 619 0420 0023     		movs	r3, #0
+ 620 0422 A546     		mov	sp, r4
+ 621 0424 53E0     		b	.L5
+ 622              	.L14:
+ 623              	.LBE12:
+ 212:App/STM32F4-Discovery/tcpCLI.c **** 		}	
+ 213:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 214:App/STM32F4-Discovery/tcpCLI.c **** 		// convert to correct value ( * 100 ) 
+ 215:App/STM32F4-Discovery/tcpCLI.c **** 		s1 *= 100; 
+ 624              		.loc 1 215 0
+ 625 0426 FB8F     		ldrh	r3, [r7, #62]	@ movhi
+ 626 0428 1A46     		mov	r2, r3	@ movhi
+ 627 042a 9200     		lsls	r2, r2, #2
+ 628 042c 1344     		add	r3, r3, r2
+ 629 042e 1A46     		mov	r2, r3	@ movhi
+ 630 0430 9100     		lsls	r1, r2, #2
+ 631 0432 1A46     		mov	r2, r3	@ movhi
+ 632 0434 0B46     		mov	r3, r1	@ movhi
+ 633 0436 1344     		add	r3, r3, r2
+ 634 0438 9B00     		lsls	r3, r3, #2
+ 635 043a FB87     		strh	r3, [r7, #62]	@ movhi
+ 216:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 217:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 218:App/STM32F4-Discovery/tcpCLI.c **** 		// setup telegram 
+ 219:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 220:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.data[0] = s1; 
+ 636              		.loc 1 220 0
+ 637 043c FB8F     		ldrh	r3, [r7, #62]	@ movhi
+ 638 043e A7F8B030 		strh	r3, [r7, #176]	@ movhi
+ 221:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.size = 1; 
+ 639              		.loc 1 221 0
+ 640 0442 0123     		movs	r3, #1
+ 641 0444 C7F8AC30 		str	r3, [r7, #172]
+ 222:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.Qcmd = SETDATA;
+ 642              		.loc 1 222 0
+ 643 0448 0023     		movs	r3, #0
+ 644 044a 87F8A830 		strb	r3, [r7, #168]
+ 223:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 224:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 225:App/STM32F4-Discovery/tcpCLI.c **** 		// send value to setSpeed_task via Queue 
+ 226:App/STM32F4-Discovery/tcpCLI.c **** 		if ( xQueueSend ( QSpd_handle, (void *)&telegram, portMAX_DELAY ) == pdPASS )
+ 645              		.loc 1 226 0
+ 646 044e 234B     		ldr	r3, .L18
+ 647 0450 1B68     		ldr	r3, [r3]
+ 648 0452 1846     		mov	r0, r3
+ 649 0454 07F1A801 		add	r1, r7, #168
+ 650 0458 4FF0FF32 		mov	r2, #-1
+ 651 045c 0023     		movs	r3, #0
+ 652 045e FFF7FEFF 		bl	xQueueGenericSend
+ 653 0462 0346     		mov	r3, r0
+ 654 0464 012B     		cmp	r3, #1
+ 655 0466 20D1     		bne	.L15
+ 227:App/STM32F4-Discovery/tcpCLI.c **** 		{	
+ 228:App/STM32F4-Discovery/tcpCLI.c **** 					
+ 229:App/STM32F4-Discovery/tcpCLI.c **** 			if (  xQueueReceive ( QSpd_handle, &telegram, 500))
+ 656              		.loc 1 229 0
+ 657 0468 1C4B     		ldr	r3, .L18
+ 658 046a 1B68     		ldr	r3, [r3]
+ 659 046c 1846     		mov	r0, r3
+ 660 046e 07F1A801 		add	r1, r7, #168
+ 661 0472 4FF4FA72 		mov	r2, #500
+ 662 0476 0023     		movs	r3, #0
+ 663 0478 FFF7FEFF 		bl	xQueueGenericReceive
+ 664 047c 0346     		mov	r3, r0
+ 665 047e 002B     		cmp	r3, #0
+ 666 0480 24D0     		beq	.L12
+ 230:App/STM32F4-Discovery/tcpCLI.c **** 			{
+ 231:App/STM32F4-Discovery/tcpCLI.c **** 				if ( telegram.Qcmd = SUCCSESS) 
+ 667              		.loc 1 231 0
+ 668 0482 0623     		movs	r3, #6
+ 669 0484 87F8A830 		strb	r3, [r7, #168]
+ 670              	.LBB13:
+ 232:App/STM32F4-Discovery/tcpCLI.c **** 				{	
+ 233:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "Speed succsesfully set.\n\n";
+ 671              		.loc 1 233 0
+ 672 0488 154B     		ldr	r3, .L18+4
+ 673 048a BB63     		str	r3, [r7, #56]
+ 234:App/STM32F4-Discovery/tcpCLI.c **** 					int len = 25; 	
+ 674              		.loc 1 234 0
+ 675 048c 1923     		movs	r3, #25
+ 676 048e 7B63     		str	r3, [r7, #52]
+ 235:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket, buf, len, 0);
+ 677              		.loc 1 235 0
+ 678 0490 D7F8D830 		ldr	r3, [r7, #216]
+ 679 0494 DAB2     		uxtb	r2, r3
+ 680 0496 7B6B     		ldr	r3, [r7, #52]
+ 681 0498 9BB2     		uxth	r3, r3
+ 682 049a 1046     		mov	r0, r2
+ 683 049c B96B     		ldr	r1, [r7, #56]
+ 684 049e 1A46     		mov	r2, r3
+ 685 04a0 0023     		movs	r3, #0
+ 686 04a2 FFF7FEFF 		bl	send
+ 236:App/STM32F4-Discovery/tcpCLI.c **** 
+ 237:App/STM32F4-Discovery/tcpCLI.c **** 
+ 238:App/STM32F4-Discovery/tcpCLI.c **** 					return pdPASS;
+ 687              		.loc 1 238 0
+ 688 04a6 0123     		movs	r3, #1
+ 689 04a8 11E0     		b	.L5
+ 690              	.L15:
+ 691              	.LBE13:
+ 692              	.LBB14:
+ 239:App/STM32F4-Discovery/tcpCLI.c **** 
+ 240:App/STM32F4-Discovery/tcpCLI.c **** 				}
+ 241:App/STM32F4-Discovery/tcpCLI.c **** 				else
+ 242:App/STM32F4-Discovery/tcpCLI.c **** 				{
+ 243:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
+ 244:App/STM32F4-Discovery/tcpCLI.c **** 			       		int len = 19; 	
+ 245:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket, buf, len, 0);
+ 246:App/STM32F4-Discovery/tcpCLI.c **** 
+ 247:App/STM32F4-Discovery/tcpCLI.c **** 					return pdFALSE;
+ 248:App/STM32F4-Discovery/tcpCLI.c **** 
+ 249:App/STM32F4-Discovery/tcpCLI.c **** 
+ 250:App/STM32F4-Discovery/tcpCLI.c **** 				}
+ 251:App/STM32F4-Discovery/tcpCLI.c **** 						
+ 252:App/STM32F4-Discovery/tcpCLI.c **** 			}
+ 253:App/STM32F4-Discovery/tcpCLI.c **** 
+ 254:App/STM32F4-Discovery/tcpCLI.c **** 		}
+ 255:App/STM32F4-Discovery/tcpCLI.c **** 		else
+ 256:App/STM32F4-Discovery/tcpCLI.c **** 		{
+ 257:App/STM32F4-Discovery/tcpCLI.c **** 			// send to Queue was unsuccsessful
+ 258:App/STM32F4-Discovery/tcpCLI.c **** 			// send error via TCP 
+ 259:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 260:App/STM32F4-Discovery/tcpCLI.c **** 			uint8_t * buf = "Error sending Queue!\n\n";
+ 693              		.loc 1 260 0
+ 694 04aa 0E4B     		ldr	r3, .L18+8
+ 695 04ac 3B63     		str	r3, [r7, #48]
+ 261:App/STM32F4-Discovery/tcpCLI.c **** 	 		int len = 22; 	
+ 696              		.loc 1 261 0
+ 697 04ae 1623     		movs	r3, #22
+ 698 04b0 FB62     		str	r3, [r7, #44]
+ 262:App/STM32F4-Discovery/tcpCLI.c **** 			send( socket, buf, len, 0);
+ 699              		.loc 1 262 0
+ 700 04b2 D7F8D830 		ldr	r3, [r7, #216]
+ 701 04b6 DAB2     		uxtb	r2, r3
+ 702 04b8 FB6A     		ldr	r3, [r7, #44]
+ 703 04ba 9BB2     		uxth	r3, r3
+ 704 04bc 1046     		mov	r0, r2
+ 705 04be 396B     		ldr	r1, [r7, #48]
+ 706 04c0 1A46     		mov	r2, r3
+ 707 04c2 0023     		movs	r3, #0
+ 708 04c4 FFF7FEFF 		bl	send
+ 263:App/STM32F4-Discovery/tcpCLI.c **** 
+ 264:App/STM32F4-Discovery/tcpCLI.c **** 			return pdFALSE; 	
+ 709              		.loc 1 264 0
+ 710 04c8 0023     		movs	r3, #0
+ 711 04ca 00E0     		b	.L5
+ 712              	.L12:
+ 713              	.LBE14:
+ 714              	.LBE11:
+ 265:App/STM32F4-Discovery/tcpCLI.c **** 		}
+ 266:App/STM32F4-Discovery/tcpCLI.c **** 	}
+ 267:App/STM32F4-Discovery/tcpCLI.c **** 
+ 268:App/STM32F4-Discovery/tcpCLI.c **** 
+ 269:App/STM32F4-Discovery/tcpCLI.c **** 			return 0; 
+ 715              		.loc 1 269 0
+ 716 04cc 0023     		movs	r3, #0
+ 717              	.L5:
+ 270:App/STM32F4-Discovery/tcpCLI.c **** 
+ 271:App/STM32F4-Discovery/tcpCLI.c **** }
+ 718              		.loc 1 271 0
+ 719 04ce 1846     		mov	r0, r3
+ 720 04d0 8C37     		adds	r7, r7, #140
+ 721 04d2 BD46     		mov	sp, r7
+ 722              		@ sp needed
+ 723 04d4 BDE8904F 		pop	{r4, r7, r8, r9, r10, fp, lr}
+ 724 04d8 04B0     		add	sp, sp, #16
+ 725 04da 7047     		bx	lr
+ 726              	.L19:
+ 727              		.align	2
+ 728              	.L18:
+ 729 04dc 00000000 		.word	QSpd_handle
+ 730 04e0 70000000 		.word	.LC5
+ 731 04e4 A8000000 		.word	.LC7
+ 732 04e8 C8000000 		.word	.LC9
+ 733 04ec 5C000000 		.word	.LC3
+ 734 04f0 6C000000 		.word	.LC4
+ 735 04f4 00000000 		.word	socket_0
+ 736              		.cfi_endproc
+ 737              	.LFE110:
+ 739              		.section	.rodata
+ 740 00d1 000000   		.align	2
+ 741              	.LC10:
+ 742 00d4 73657400 		.ascii	"set\000"
+ 743              		.align	2
+ 744              	.LC11:
+ 745 00d8 67657400 		.ascii	"get\000"
+ 746              		.align	2
+ 747              	.LC12:
+ 748 00dc 73746F70 		.ascii	"stop\000"
+ 748      00
+ 749 00e1 000000   		.align	2
+ 750              	.LC13:
+ 751 00e4 4D6F746F 		.ascii	"Motor succsesfully stopped.\012\012\000"
+ 751      72207375 
+ 751      63637365 
+ 751      7366756C 
+ 751      6C792073 
+ 752 0102 0000     		.align	2
+ 753              	.LC14:
+ 754 0104 73746172 		.ascii	"start\000"
+ 754      7400
+ 755 010a 0000     		.align	2
+ 756              	.LC15:
+ 757 010c 4D6F746F 		.ascii	"Motor succsesfully started.\012\012\000"
+ 757      72207375 
+ 757      63637365 
+ 757      7366756C 
+ 757      6C792073 
+ 758 012a 0000     		.section	.text.prvMotorCommand,"ax",%progbits
+ 759              		.align	2
+ 760              		.global	prvMotorCommand
+ 761              		.thumb
+ 762              		.thumb_func
+ 764              	prvMotorCommand:
+ 765              	.LFB111:
+ 272:App/STM32F4-Discovery/tcpCLI.c **** 			
+ 273:App/STM32F4-Discovery/tcpCLI.c **** 
+ 274:App/STM32F4-Discovery/tcpCLI.c **** 
+ 275:App/STM32F4-Discovery/tcpCLI.c **** 
+ 276:App/STM32F4-Discovery/tcpCLI.c **** 
+ 277:App/STM32F4-Discovery/tcpCLI.c **** 
+ 278:App/STM32F4-Discovery/tcpCLI.c **** 
+ 279:App/STM32F4-Discovery/tcpCLI.c **** 
+ 280:App/STM32F4-Discovery/tcpCLI.c **** 
+ 281:App/STM32F4-Discovery/tcpCLI.c **** 
+ 282:App/STM32F4-Discovery/tcpCLI.c **** 
+ 283:App/STM32F4-Discovery/tcpCLI.c **** 
+ 284:App/STM32F4-Discovery/tcpCLI.c **** 
+ 285:App/STM32F4-Discovery/tcpCLI.c **** 
+ 286:App/STM32F4-Discovery/tcpCLI.c **** // prototypes of CLI functions 
+ 287:App/STM32F4-Discovery/tcpCLI.c **** 
+ 288:App/STM32F4-Discovery/tcpCLI.c **** portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer, 
+ 289:App/STM32F4-Discovery/tcpCLI.c **** 						size_t xWriteBufferLen, 
+ 290:App/STM32F4-Discovery/tcpCLI.c **** 						const int8_t *pcCommandString)
+ 291:App/STM32F4-Discovery/tcpCLI.c **** {
+ 766              		.loc 1 291 0
+ 767              		.cfi_startproc
+ 768              		@ args = 0, pretend = 0, frame = 120
+ 769              		@ frame_needed = 1, uses_anonymous_args = 0
+ 770 0000 90B5     		push	{r4, r7, lr}
+ 771              	.LCFI4:
+ 772              		.cfi_def_cfa_offset 12
+ 773              		.cfi_offset 4, -12
+ 774              		.cfi_offset 7, -8
+ 775              		.cfi_offset 14, -4
+ 776 0002 A9B0     		sub	sp, sp, #164
+ 777              	.LCFI5:
+ 778              		.cfi_def_cfa_offset 176
+ 779 0004 0AAF     		add	r7, sp, #40
+ 780              	.LCFI6:
+ 781              		.cfi_def_cfa 7, 136
+ 782 0006 F860     		str	r0, [r7, #12]
+ 783 0008 B960     		str	r1, [r7, #8]
+ 784 000a 7A60     		str	r2, [r7, #4]
+ 292:App/STM32F4-Discovery/tcpCLI.c **** 	/* globals: 
+ 293:App/STM32F4-Discovery/tcpCLI.c **** 	 * 	socket 
+ 294:App/STM32F4-Discovery/tcpCLI.c **** 	 * 	setSpeedHandle
+ 295:App/STM32F4-Discovery/tcpCLI.c **** 	 * 	QSpd_Handle
+ 296:App/STM32F4-Discovery/tcpCLI.c **** 	 * 	QStatus_handle
+ 297:App/STM32F4-Discovery/tcpCLI.c **** 	 * 	
+ 298:App/STM32F4-Discovery/tcpCLI.c **** 	 **/
+ 299:App/STM32F4-Discovery/tcpCLI.c **** 
+ 300:App/STM32F4-Discovery/tcpCLI.c **** 	int8_t *Option, *Param, *Value;
+ 301:App/STM32F4-Discovery/tcpCLI.c **** 	int xOptionLength, xParamLength, xValueLength; 
+ 302:App/STM32F4-Discovery/tcpCLI.c **** 	QueueTelegram telegram; 
+ 303:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 304:App/STM32F4-Discovery/tcpCLI.c **** 	// get option from command line 
+ 305:App/STM32F4-Discovery/tcpCLI.c **** 
+ 306:App/STM32F4-Discovery/tcpCLI.c **** 	Option = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
+ 785              		.loc 1 306 0
+ 786 000c 07F13803 		add	r3, r7, #56
+ 787 0010 7868     		ldr	r0, [r7, #4]
+ 788 0012 0121     		movs	r1, #1
+ 789 0014 1A46     		mov	r2, r3
+ 790 0016 FFF7FEFF 		bl	FreeRTOS_CLIGetParameter
+ 791 001a 7867     		str	r0, [r7, #116]
+ 307:App/STM32F4-Discovery/tcpCLI.c **** 					  1,  		   // first parameter
+ 308:App/STM32F4-Discovery/tcpCLI.c **** 				  	  &xOptionLength // parameter string length
+ 309:App/STM32F4-Discovery/tcpCLI.c **** 					  
+ 310:App/STM32F4-Discovery/tcpCLI.c **** 					 );
+ 311:App/STM32F4-Discovery/tcpCLI.c **** 
+ 312:App/STM32F4-Discovery/tcpCLI.c **** 
+ 313:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 314:App/STM32F4-Discovery/tcpCLI.c **** 	//		CASE COMMAND SET [parameter name] [value]
+ 315:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 316:App/STM32F4-Discovery/tcpCLI.c **** 
+ 317:App/STM32F4-Discovery/tcpCLI.c **** 	if( !strncmp( Option, "set", 3) ) 
+ 792              		.loc 1 317 0
+ 793 001c 786F     		ldr	r0, [r7, #116]
+ 794 001e 7F49     		ldr	r1, .L32
+ 795 0020 0322     		movs	r2, #3
+ 796 0022 FFF7FEFF 		bl	strncmp
+ 797 0026 0346     		mov	r3, r0
+ 798 0028 002B     		cmp	r3, #0
+ 799 002a 34D1     		bne	.L21
+ 318:App/STM32F4-Discovery/tcpCLI.c **** 	{
+ 319:App/STM32F4-Discovery/tcpCLI.c **** 
+ 320:App/STM32F4-Discovery/tcpCLI.c **** 		// get parameter from command line 
+ 321:App/STM32F4-Discovery/tcpCLI.c **** 	
+ 322:App/STM32F4-Discovery/tcpCLI.c **** 		Param = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
+ 800              		.loc 1 322 0
+ 801 002c 07F13403 		add	r3, r7, #52
+ 802 0030 7868     		ldr	r0, [r7, #4]
+ 803 0032 0221     		movs	r1, #2
+ 804 0034 1A46     		mov	r2, r3
+ 805 0036 FFF7FEFF 		bl	FreeRTOS_CLIGetParameter
+ 806 003a 3867     		str	r0, [r7, #112]
+ 323:App/STM32F4-Discovery/tcpCLI.c **** 					  2,  		   // 2nd parameter
+ 324:App/STM32F4-Discovery/tcpCLI.c **** 				  	  &xParamLength // parameter string length
+ 325:App/STM32F4-Discovery/tcpCLI.c **** 					  
+ 326:App/STM32F4-Discovery/tcpCLI.c **** 					 );
+ 327:App/STM32F4-Discovery/tcpCLI.c **** 		Value = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
+ 807              		.loc 1 327 0
+ 808 003c 07F13003 		add	r3, r7, #48
+ 809 0040 7868     		ldr	r0, [r7, #4]
+ 810 0042 0321     		movs	r1, #3
+ 811 0044 1A46     		mov	r2, r3
+ 812 0046 FFF7FEFF 		bl	FreeRTOS_CLIGetParameter
+ 813 004a F866     		str	r0, [r7, #108]
+ 328:App/STM32F4-Discovery/tcpCLI.c **** 					  3,  		   // 2nd parameter
+ 329:App/STM32F4-Discovery/tcpCLI.c **** 				  	  &xValueLength // parameter string length
+ 330:App/STM32F4-Discovery/tcpCLI.c **** 					  
+ 331:App/STM32F4-Discovery/tcpCLI.c **** 					 );
+ 332:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 333:App/STM32F4-Discovery/tcpCLI.c **** 		// return pdFALSE if there is no 3rd parameter 
+ 334:App/STM32F4-Discovery/tcpCLI.c **** 
+ 335:App/STM32F4-Discovery/tcpCLI.c **** 		if (Value == NULL) return pdFALSE; 
+ 814              		.loc 1 335 0
+ 815 004c FB6E     		ldr	r3, [r7, #108]
+ 816 004e 002B     		cmp	r3, #0
+ 817 0050 01D1     		bne	.L22
+ 818              		.loc 1 335 0 is_stmt 0 discriminator 1
+ 819 0052 0023     		movs	r3, #0
+ 820 0054 DEE0     		b	.L31
+ 821              	.L22:
+ 336:App/STM32F4-Discovery/tcpCLI.c **** 
+ 337:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 338:App/STM32F4-Discovery/tcpCLI.c **** 		if ( handleVariable_set ( telegram, 
+ 822              		.loc 1 338 0 is_stmt 1
+ 823 0056 786B     		ldr	r0, [r7, #52]
+ 824 0058 714B     		ldr	r3, .L32+4
+ 825 005a 1968     		ldr	r1, [r3]
+ 826 005c 3A6B     		ldr	r2, [r7, #48]
+ 827 005e 714B     		ldr	r3, .L32+8
+ 828 0060 1B68     		ldr	r3, [r3]
+ 829 0062 3C6F     		ldr	r4, [r7, #112]
+ 830 0064 0394     		str	r4, [sp, #12]
+ 831 0066 0490     		str	r0, [sp, #16]
+ 832 0068 0591     		str	r1, [sp, #20]
+ 833 006a F96E     		ldr	r1, [r7, #108]
+ 834 006c 0691     		str	r1, [sp, #24]
+ 835 006e 0792     		str	r2, [sp, #28]
+ 836 0070 0893     		str	r3, [sp, #32]
+ 837 0072 6B46     		mov	r3, sp
+ 838 0074 07F12402 		add	r2, r7, #36
+ 839 0078 07CA     		ldmia	r2, {r0, r1, r2}
+ 840 007a 83E80700 		stmia	r3, {r0, r1, r2}
+ 841 007e 07F11403 		add	r3, r7, #20
+ 842 0082 0FCB     		ldmia	r3, {r0, r1, r2, r3}
+ 843 0084 FFF7FEFF 		bl	handleVariable_set
+ 844 0088 0346     		mov	r3, r0
+ 845 008a 002B     		cmp	r3, #0
+ 846 008c 01D0     		beq	.L24
+ 339:App/STM32F4-Discovery/tcpCLI.c **** 				           Param, 
+ 340:App/STM32F4-Discovery/tcpCLI.c **** 					   xParamLength, 
+ 341:App/STM32F4-Discovery/tcpCLI.c **** 					   QSpd_handle, 
+ 342:App/STM32F4-Discovery/tcpCLI.c **** 					   Value,
+ 343:App/STM32F4-Discovery/tcpCLI.c **** 					   xValueLength,  
+ 344:App/STM32F4-Discovery/tcpCLI.c **** 					   socket_0)) return pdPASS;
+ 847              		.loc 1 344 0
+ 848 008e 0123     		movs	r3, #1
+ 849 0090 C0E0     		b	.L31
+ 850              	.L24:
+ 345:App/STM32F4-Discovery/tcpCLI.c **** 		return pdFALSE;
+ 851              		.loc 1 345 0
+ 852 0092 0023     		movs	r3, #0
+ 853 0094 BEE0     		b	.L31
+ 854              	.L21:
+ 346:App/STM32F4-Discovery/tcpCLI.c **** 
+ 347:App/STM32F4-Discovery/tcpCLI.c **** 	}
+ 348:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 349:App/STM32F4-Discovery/tcpCLI.c **** 	//		CASE COMMAND GET [parameter name] [value]
+ 350:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 351:App/STM32F4-Discovery/tcpCLI.c **** 
+ 352:App/STM32F4-Discovery/tcpCLI.c **** 
+ 353:App/STM32F4-Discovery/tcpCLI.c **** 	if (!strncmp ( Option, "get", 3))
+ 855              		.loc 1 353 0
+ 856 0096 786F     		ldr	r0, [r7, #116]
+ 857 0098 6349     		ldr	r1, .L32+12
+ 858 009a 0322     		movs	r2, #3
+ 859 009c FFF7FEFF 		bl	strncmp
+ 354:App/STM32F4-Discovery/tcpCLI.c **** 	{
+ 355:App/STM32F4-Discovery/tcpCLI.c **** 
+ 356:App/STM32F4-Discovery/tcpCLI.c **** 
+ 357:App/STM32F4-Discovery/tcpCLI.c **** 	}
+ 358:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 359:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 360:App/STM32F4-Discovery/tcpCLI.c **** 	//		CASE COMMAND STOP 
+ 361:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 362:App/STM32F4-Discovery/tcpCLI.c **** 	if (!strncmp ( Option, "stop", 4))
+ 860              		.loc 1 362 0
+ 861 00a0 786F     		ldr	r0, [r7, #116]
+ 862 00a2 6249     		ldr	r1, .L32+16
+ 863 00a4 0422     		movs	r2, #4
+ 864 00a6 FFF7FEFF 		bl	strncmp
+ 865 00aa 0346     		mov	r3, r0
+ 866 00ac 002B     		cmp	r3, #0
+ 867 00ae 53D1     		bne	.L25
+ 363:App/STM32F4-Discovery/tcpCLI.c **** 	{
+ 364:App/STM32F4-Discovery/tcpCLI.c **** 
+ 365:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.Qcmd = STOP; 
+ 868              		.loc 1 365 0
+ 869 00b0 0523     		movs	r3, #5
+ 870 00b2 3B75     		strb	r3, [r7, #20]
+ 366:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.size = 0; 
+ 871              		.loc 1 366 0
+ 872 00b4 0023     		movs	r3, #0
+ 873 00b6 BB61     		str	r3, [r7, #24]
+ 367:App/STM32F4-Discovery/tcpCLI.c **** 			// send value to setSpeed_task via Queue 
+ 368:App/STM32F4-Discovery/tcpCLI.c **** 		if ( xQueueSend ( QSpd_handle, (void *)&telegram, 500 ) )
+ 874              		.loc 1 368 0
+ 875 00b8 594B     		ldr	r3, .L32+4
+ 876 00ba 1A68     		ldr	r2, [r3]
+ 877 00bc 07F11403 		add	r3, r7, #20
+ 878 00c0 1046     		mov	r0, r2
+ 879 00c2 1946     		mov	r1, r3
+ 880 00c4 4FF4FA72 		mov	r2, #500
+ 881 00c8 0023     		movs	r3, #0
+ 882 00ca FFF7FEFF 		bl	xQueueGenericSend
+ 883 00ce 0346     		mov	r3, r0
+ 884 00d0 002B     		cmp	r3, #0
+ 885 00d2 31D0     		beq	.L26
+ 369:App/STM32F4-Discovery/tcpCLI.c **** 		{	
+ 370:App/STM32F4-Discovery/tcpCLI.c **** 					
+ 371:App/STM32F4-Discovery/tcpCLI.c **** 			if (  xQueueReceive ( QSpd_handle, &telegram, 500))
+ 886              		.loc 1 371 0
+ 887 00d4 524B     		ldr	r3, .L32+4
+ 888 00d6 1A68     		ldr	r2, [r3]
+ 889 00d8 07F11403 		add	r3, r7, #20
+ 890 00dc 1046     		mov	r0, r2
+ 891 00de 1946     		mov	r1, r3
+ 892 00e0 4FF4FA72 		mov	r2, #500
+ 893 00e4 0023     		movs	r3, #0
+ 894 00e6 FFF7FEFF 		bl	xQueueGenericReceive
+ 895 00ea 0346     		mov	r3, r0
+ 896 00ec 002B     		cmp	r3, #0
+ 897 00ee 12D0     		beq	.L27
+ 372:App/STM32F4-Discovery/tcpCLI.c **** 			{
+ 373:App/STM32F4-Discovery/tcpCLI.c **** 				if ( telegram.Qcmd = SUCCSESS) 
+ 898              		.loc 1 373 0
+ 899 00f0 0623     		movs	r3, #6
+ 900 00f2 3B75     		strb	r3, [r7, #20]
+ 901              	.LBB15:
+ 374:App/STM32F4-Discovery/tcpCLI.c **** 				{	
+ 375:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "Motor succsesfully stopped.\n\n";
+ 902              		.loc 1 375 0
+ 903 00f4 4E4B     		ldr	r3, .L32+20
+ 904 00f6 BB66     		str	r3, [r7, #104]
+ 376:App/STM32F4-Discovery/tcpCLI.c **** 					int len = 29; 	
+ 905              		.loc 1 376 0
+ 906 00f8 1D23     		movs	r3, #29
+ 907 00fa 7B66     		str	r3, [r7, #100]
+ 377:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket_0, buf, len, 0);
+ 908              		.loc 1 377 0
+ 909 00fc 494B     		ldr	r3, .L32+8
+ 910 00fe 1B68     		ldr	r3, [r3]
+ 911 0100 DAB2     		uxtb	r2, r3
+ 912 0102 7B6E     		ldr	r3, [r7, #100]
+ 913 0104 9BB2     		uxth	r3, r3
+ 914 0106 1046     		mov	r0, r2
+ 915 0108 B96E     		ldr	r1, [r7, #104]
+ 916 010a 1A46     		mov	r2, r3
+ 917 010c 0023     		movs	r3, #0
+ 918 010e FFF7FEFF 		bl	send
+ 378:App/STM32F4-Discovery/tcpCLI.c **** 
+ 379:App/STM32F4-Discovery/tcpCLI.c **** 					
+ 380:App/STM32F4-Discovery/tcpCLI.c **** 					return pdPASS;
+ 919              		.loc 1 380 0
+ 920 0112 0123     		movs	r3, #1
+ 921 0114 7EE0     		b	.L31
+ 922              	.L27:
+ 923              	.LBE15:
+ 924              	.LBB16:
+ 381:App/STM32F4-Discovery/tcpCLI.c **** 
+ 382:App/STM32F4-Discovery/tcpCLI.c **** 				}
+ 383:App/STM32F4-Discovery/tcpCLI.c **** 				else
+ 384:App/STM32F4-Discovery/tcpCLI.c **** 				{
+ 385:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
+ 386:App/STM32F4-Discovery/tcpCLI.c **** 			       		int len = 19; 	
+ 387:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket_0, buf, len, 0);
+ 388:App/STM32F4-Discovery/tcpCLI.c **** 
+ 389:App/STM32F4-Discovery/tcpCLI.c **** 					return pdFALSE;
+ 390:App/STM32F4-Discovery/tcpCLI.c **** 
+ 391:App/STM32F4-Discovery/tcpCLI.c **** 
+ 392:App/STM32F4-Discovery/tcpCLI.c **** 				}
+ 393:App/STM32F4-Discovery/tcpCLI.c **** 			}
+ 394:App/STM32F4-Discovery/tcpCLI.c **** 			else
+ 395:App/STM32F4-Discovery/tcpCLI.c **** 			{
+ 396:App/STM32F4-Discovery/tcpCLI.c **** 					// send to Queue was unsuccsessful
+ 397:App/STM32F4-Discovery/tcpCLI.c **** 				// send error via TCP 
+ 398:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 399:App/STM32F4-Discovery/tcpCLI.c **** 				uint8_t * buf = "Error recieving response!\n\n";
+ 925              		.loc 1 399 0
+ 926 0116 474B     		ldr	r3, .L32+24
+ 927 0118 3B66     		str	r3, [r7, #96]
+ 400:App/STM32F4-Discovery/tcpCLI.c **** 	 			int len = 27; 	
+ 928              		.loc 1 400 0
+ 929 011a 1B23     		movs	r3, #27
+ 930 011c FB65     		str	r3, [r7, #92]
+ 401:App/STM32F4-Discovery/tcpCLI.c **** 				send( socket_0, buf, len, 0);
+ 931              		.loc 1 401 0
+ 932 011e 414B     		ldr	r3, .L32+8
+ 933 0120 1B68     		ldr	r3, [r3]
+ 934 0122 DAB2     		uxtb	r2, r3
+ 935 0124 FB6D     		ldr	r3, [r7, #92]
+ 936 0126 9BB2     		uxth	r3, r3
+ 937 0128 1046     		mov	r0, r2
+ 938 012a 396E     		ldr	r1, [r7, #96]
+ 939 012c 1A46     		mov	r2, r3
+ 940 012e 0023     		movs	r3, #0
+ 941 0130 FFF7FEFF 		bl	send
+ 402:App/STM32F4-Discovery/tcpCLI.c **** 
+ 403:App/STM32F4-Discovery/tcpCLI.c **** 				return pdFALSE; 	
+ 942              		.loc 1 403 0
+ 943 0134 0023     		movs	r3, #0
+ 944 0136 6DE0     		b	.L31
+ 945              	.L26:
+ 946              	.LBE16:
+ 947              	.LBB17:
+ 404:App/STM32F4-Discovery/tcpCLI.c **** 			}
+ 405:App/STM32F4-Discovery/tcpCLI.c **** 		}
+ 406:App/STM32F4-Discovery/tcpCLI.c **** 		else
+ 407:App/STM32F4-Discovery/tcpCLI.c **** 		{
+ 408:App/STM32F4-Discovery/tcpCLI.c **** 			
+ 409:App/STM32F4-Discovery/tcpCLI.c **** 			// send to Queue was unsuccsessful
+ 410:App/STM32F4-Discovery/tcpCLI.c **** 			// send error via TCP 
+ 411:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 412:App/STM32F4-Discovery/tcpCLI.c **** 			uint8_t * buf = "Error sending Queue!\n\n";
+ 948              		.loc 1 412 0
+ 949 0138 3F4B     		ldr	r3, .L32+28
+ 950 013a BB65     		str	r3, [r7, #88]
+ 413:App/STM32F4-Discovery/tcpCLI.c **** 	 		int len = 22; 	
+ 951              		.loc 1 413 0
+ 952 013c 1623     		movs	r3, #22
+ 953 013e 7B65     		str	r3, [r7, #84]
+ 414:App/STM32F4-Discovery/tcpCLI.c **** 			send( socket, buf, len, 0);
+ 954              		.loc 1 414 0
+ 955 0140 3E4B     		ldr	r3, .L32+32
+ 956 0142 DAB2     		uxtb	r2, r3
+ 957 0144 7B6D     		ldr	r3, [r7, #84]
+ 958 0146 9BB2     		uxth	r3, r3
+ 959 0148 1046     		mov	r0, r2
+ 960 014a B96D     		ldr	r1, [r7, #88]
+ 961 014c 1A46     		mov	r2, r3
+ 962 014e 0023     		movs	r3, #0
+ 963 0150 FFF7FEFF 		bl	send
+ 415:App/STM32F4-Discovery/tcpCLI.c **** 
+ 416:App/STM32F4-Discovery/tcpCLI.c **** 			return pdFALSE; 	
+ 964              		.loc 1 416 0
+ 965 0154 0023     		movs	r3, #0
+ 966 0156 5DE0     		b	.L31
+ 967              	.L25:
+ 968              	.LBE17:
+ 417:App/STM32F4-Discovery/tcpCLI.c **** 		}
+ 418:App/STM32F4-Discovery/tcpCLI.c **** 					
+ 419:App/STM32F4-Discovery/tcpCLI.c **** 	}
+ 420:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 421:App/STM32F4-Discovery/tcpCLI.c **** 	//		CASE COMMAND START
+ 422:App/STM32F4-Discovery/tcpCLI.c **** 	//================================================================================//
+ 423:App/STM32F4-Discovery/tcpCLI.c **** 
+ 424:App/STM32F4-Discovery/tcpCLI.c **** 	if (!strncmp ( Option, "start", 5))
+ 969              		.loc 1 424 0
+ 970 0158 786F     		ldr	r0, [r7, #116]
+ 971 015a 3949     		ldr	r1, .L32+36
+ 972 015c 0522     		movs	r2, #5
+ 973 015e FFF7FEFF 		bl	strncmp
+ 974 0162 0346     		mov	r3, r0
+ 975 0164 002B     		cmp	r3, #0
+ 976 0166 54D1     		bne	.L28
+ 425:App/STM32F4-Discovery/tcpCLI.c **** 	{
+ 426:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.Qcmd = START; 
+ 977              		.loc 1 426 0
+ 978 0168 0423     		movs	r3, #4
+ 979 016a 3B75     		strb	r3, [r7, #20]
+ 427:App/STM32F4-Discovery/tcpCLI.c **** 		telegram.size = 0; 
+ 980              		.loc 1 427 0
+ 981 016c 0023     		movs	r3, #0
+ 982 016e BB61     		str	r3, [r7, #24]
+ 428:App/STM32F4-Discovery/tcpCLI.c **** 			// send value to setSpeed_task via Queue 
+ 429:App/STM32F4-Discovery/tcpCLI.c **** 		if ( xQueueSend ( QSpd_handle, (void *)&telegram, 500 ) == pdPASS )
+ 983              		.loc 1 429 0
+ 984 0170 2B4B     		ldr	r3, .L32+4
+ 985 0172 1A68     		ldr	r2, [r3]
+ 986 0174 07F11403 		add	r3, r7, #20
+ 987 0178 1046     		mov	r0, r2
+ 988 017a 1946     		mov	r1, r3
+ 989 017c 4FF4FA72 		mov	r2, #500
+ 990 0180 0023     		movs	r3, #0
+ 991 0182 FFF7FEFF 		bl	xQueueGenericSend
+ 992 0186 0346     		mov	r3, r0
+ 993 0188 012B     		cmp	r3, #1
+ 994 018a 31D1     		bne	.L29
+ 430:App/STM32F4-Discovery/tcpCLI.c **** 		{	
+ 431:App/STM32F4-Discovery/tcpCLI.c **** 					
+ 432:App/STM32F4-Discovery/tcpCLI.c **** 			if (  xQueueReceive ( QSpd_handle, &telegram, 500) == pdPASS)
+ 995              		.loc 1 432 0
+ 996 018c 244B     		ldr	r3, .L32+4
+ 997 018e 1A68     		ldr	r2, [r3]
+ 998 0190 07F11403 		add	r3, r7, #20
+ 999 0194 1046     		mov	r0, r2
+ 1000 0196 1946     		mov	r1, r3
+ 1001 0198 4FF4FA72 		mov	r2, #500
+ 1002 019c 0023     		movs	r3, #0
+ 1003 019e FFF7FEFF 		bl	xQueueGenericReceive
+ 1004 01a2 0346     		mov	r3, r0
+ 1005 01a4 012B     		cmp	r3, #1
+ 1006 01a6 12D1     		bne	.L30
+ 433:App/STM32F4-Discovery/tcpCLI.c **** 			{
+ 434:App/STM32F4-Discovery/tcpCLI.c **** 				if ( telegram.Qcmd = SUCCSESS) 
+ 1007              		.loc 1 434 0
+ 1008 01a8 0623     		movs	r3, #6
+ 1009 01aa 3B75     		strb	r3, [r7, #20]
+ 1010              	.LBB18:
+ 435:App/STM32F4-Discovery/tcpCLI.c **** 				{	
+ 436:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "Motor succsesfully started.\n\n";
+ 1011              		.loc 1 436 0
+ 1012 01ac 254B     		ldr	r3, .L32+40
+ 1013 01ae 3B65     		str	r3, [r7, #80]
+ 437:App/STM32F4-Discovery/tcpCLI.c **** 					int len = 29; 	
+ 1014              		.loc 1 437 0
+ 1015 01b0 1D23     		movs	r3, #29
+ 1016 01b2 FB64     		str	r3, [r7, #76]
+ 438:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket_0, buf, len, 0);
+ 1017              		.loc 1 438 0
+ 1018 01b4 1B4B     		ldr	r3, .L32+8
+ 1019 01b6 1B68     		ldr	r3, [r3]
+ 1020 01b8 DAB2     		uxtb	r2, r3
+ 1021 01ba FB6C     		ldr	r3, [r7, #76]
+ 1022 01bc 9BB2     		uxth	r3, r3
+ 1023 01be 1046     		mov	r0, r2
+ 1024 01c0 396D     		ldr	r1, [r7, #80]
+ 1025 01c2 1A46     		mov	r2, r3
+ 1026 01c4 0023     		movs	r3, #0
+ 1027 01c6 FFF7FEFF 		bl	send
+ 439:App/STM32F4-Discovery/tcpCLI.c **** 
+ 440:App/STM32F4-Discovery/tcpCLI.c **** 					
+ 441:App/STM32F4-Discovery/tcpCLI.c **** 					return pdPASS;
+ 1028              		.loc 1 441 0
+ 1029 01ca 0123     		movs	r3, #1
+ 1030 01cc 22E0     		b	.L31
+ 1031              	.L30:
+ 1032              	.LBE18:
+ 1033              	.LBB19:
+ 442:App/STM32F4-Discovery/tcpCLI.c **** 
+ 443:App/STM32F4-Discovery/tcpCLI.c **** 				}
+ 444:App/STM32F4-Discovery/tcpCLI.c **** 				else
+ 445:App/STM32F4-Discovery/tcpCLI.c **** 				{
+ 446:App/STM32F4-Discovery/tcpCLI.c **** 					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
+ 447:App/STM32F4-Discovery/tcpCLI.c **** 			       		int len = 19; 	
+ 448:App/STM32F4-Discovery/tcpCLI.c **** 					send( socket_0, buf, len, 0);
+ 449:App/STM32F4-Discovery/tcpCLI.c **** 
+ 450:App/STM32F4-Discovery/tcpCLI.c **** 					return pdFALSE;
+ 451:App/STM32F4-Discovery/tcpCLI.c **** 
+ 452:App/STM32F4-Discovery/tcpCLI.c **** 
+ 453:App/STM32F4-Discovery/tcpCLI.c **** 				}
+ 454:App/STM32F4-Discovery/tcpCLI.c **** 			}
+ 455:App/STM32F4-Discovery/tcpCLI.c **** 			else
+ 456:App/STM32F4-Discovery/tcpCLI.c **** 			{
+ 457:App/STM32F4-Discovery/tcpCLI.c **** 					// send to Queue was unsuccsessful
+ 458:App/STM32F4-Discovery/tcpCLI.c **** 				// send error via TCP 
+ 459:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 460:App/STM32F4-Discovery/tcpCLI.c **** 				uint8_t * buf = "Error recieving response!\n\n";
+ 1034              		.loc 1 460 0
+ 1035 01ce 194B     		ldr	r3, .L32+24
+ 1036 01d0 BB64     		str	r3, [r7, #72]
+ 461:App/STM32F4-Discovery/tcpCLI.c **** 	 			int len = 27; 	
+ 1037              		.loc 1 461 0
+ 1038 01d2 1B23     		movs	r3, #27
+ 1039 01d4 7B64     		str	r3, [r7, #68]
+ 462:App/STM32F4-Discovery/tcpCLI.c **** 				send( socket_0, buf, len, 0);
+ 1040              		.loc 1 462 0
+ 1041 01d6 134B     		ldr	r3, .L32+8
+ 1042 01d8 1B68     		ldr	r3, [r3]
+ 1043 01da DAB2     		uxtb	r2, r3
+ 1044 01dc 7B6C     		ldr	r3, [r7, #68]
+ 1045 01de 9BB2     		uxth	r3, r3
+ 1046 01e0 1046     		mov	r0, r2
+ 1047 01e2 B96C     		ldr	r1, [r7, #72]
+ 1048 01e4 1A46     		mov	r2, r3
+ 1049 01e6 0023     		movs	r3, #0
+ 1050 01e8 FFF7FEFF 		bl	send
+ 463:App/STM32F4-Discovery/tcpCLI.c **** 
+ 464:App/STM32F4-Discovery/tcpCLI.c **** 				return pdFALSE; 	
+ 1051              		.loc 1 464 0
+ 1052 01ec 0023     		movs	r3, #0
+ 1053 01ee 11E0     		b	.L31
+ 1054              	.L29:
+ 1055              	.LBE19:
+ 1056              	.LBB20:
+ 465:App/STM32F4-Discovery/tcpCLI.c **** 			}
+ 466:App/STM32F4-Discovery/tcpCLI.c **** 		}
+ 467:App/STM32F4-Discovery/tcpCLI.c **** 		else
+ 468:App/STM32F4-Discovery/tcpCLI.c **** 		{
+ 469:App/STM32F4-Discovery/tcpCLI.c **** 			
+ 470:App/STM32F4-Discovery/tcpCLI.c **** 			// send to Queue was unsuccsessful
+ 471:App/STM32F4-Discovery/tcpCLI.c **** 			// send error via TCP 
+ 472:App/STM32F4-Discovery/tcpCLI.c **** 		
+ 473:App/STM32F4-Discovery/tcpCLI.c **** 			uint8_t * buf = "Error sending Queue!\n\n";
+ 1057              		.loc 1 473 0
+ 1058 01f0 114B     		ldr	r3, .L32+28
+ 1059 01f2 3B64     		str	r3, [r7, #64]
+ 474:App/STM32F4-Discovery/tcpCLI.c **** 	 		int len = 22; 	
+ 1060              		.loc 1 474 0
+ 1061 01f4 1623     		movs	r3, #22
+ 1062 01f6 FB63     		str	r3, [r7, #60]
+ 475:App/STM32F4-Discovery/tcpCLI.c **** 			send( socket_0, buf, len, 0);
+ 1063              		.loc 1 475 0
+ 1064 01f8 0A4B     		ldr	r3, .L32+8
+ 1065 01fa 1B68     		ldr	r3, [r3]
+ 1066 01fc DAB2     		uxtb	r2, r3
+ 1067 01fe FB6B     		ldr	r3, [r7, #60]
+ 1068 0200 9BB2     		uxth	r3, r3
+ 1069 0202 1046     		mov	r0, r2
+ 1070 0204 396C     		ldr	r1, [r7, #64]
+ 1071 0206 1A46     		mov	r2, r3
+ 1072 0208 0023     		movs	r3, #0
+ 1073 020a FFF7FEFF 		bl	send
+ 476:App/STM32F4-Discovery/tcpCLI.c **** 
+ 477:App/STM32F4-Discovery/tcpCLI.c **** 			return pdFALSE; 	
+ 1074              		.loc 1 477 0
+ 1075 020e 0023     		movs	r3, #0
+ 1076 0210 00E0     		b	.L31
+ 1077              	.L28:
+ 1078              	.LBE20:
+ 478:App/STM32F4-Discovery/tcpCLI.c **** 		}
+ 479:App/STM32F4-Discovery/tcpCLI.c **** 
+ 480:App/STM32F4-Discovery/tcpCLI.c **** 
+ 481:App/STM32F4-Discovery/tcpCLI.c **** 	}
+ 482:App/STM32F4-Discovery/tcpCLI.c **** 
+ 483:App/STM32F4-Discovery/tcpCLI.c **** 
+ 484:App/STM32F4-Discovery/tcpCLI.c **** 
+ 485:App/STM32F4-Discovery/tcpCLI.c **** 	return pdFALSE;
+ 1079              		.loc 1 485 0
+ 1080 0212 0023     		movs	r3, #0
+ 1081              	.L31:
+ 486:App/STM32F4-Discovery/tcpCLI.c **** 
+ 487:App/STM32F4-Discovery/tcpCLI.c **** 
+ 488:App/STM32F4-Discovery/tcpCLI.c **** }
+ 1082              		.loc 1 488 0
+ 1083 0214 1846     		mov	r0, r3
+ 1084 0216 7C37     		adds	r7, r7, #124
+ 1085 0218 BD46     		mov	sp, r7
+ 1086              		@ sp needed
+ 1087 021a 90BD     		pop	{r4, r7, pc}
+ 1088              	.L33:
+ 1089              		.align	2
+ 1090              	.L32:
+ 1091 021c D4000000 		.word	.LC10
+ 1092 0220 00000000 		.word	QSpd_handle
+ 1093 0224 00000000 		.word	socket_0
+ 1094 0228 D8000000 		.word	.LC11
+ 1095 022c DC000000 		.word	.LC12
+ 1096 0230 E4000000 		.word	.LC13
+ 1097 0234 8C000000 		.word	.LC6
+ 1098 0238 A8000000 		.word	.LC7
+ 1099 023c 00000000 		.word	socket
+ 1100 0240 04010000 		.word	.LC14
+ 1101 0244 0C010000 		.word	.LC15
+ 1102              		.cfi_endproc
+ 1103              	.LFE111:
+ 1105              		.text
+ 1106              	.Letext0:
+ 1107              		.file 2 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/lib/gcc/arm-none-eabi/4.8.4/include/std
+ 1108              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
+ 1109              		.file 4 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
+ 1110              		.file 5 "Source/portable/GCC/ARM_CM4F/portmacro.h"
+ 1111              		.file 6 "Source/include/task.h"
+ 1112              		.file 7 "Source/include/queue.h"
+ 1113              		.file 8 "Source/include/semphr.h"
+ 1114              		.file 9 "Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h"
+ 1115              		.file 10 "App/STM32F4-Discovery/tcpCLI.h"
+ 1116              		.file 11 "App/STM32F4-Discovery/main.h"
+ 1117              		.file 12 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
+ 1118              		.file 13 "App/STM32F4-Discovery/spi.h"
+ 1119              		.file 14 "App/STM32F4-Discovery/W5200.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 tcpCLI.c
                             *COM*:0000000000000004 xSemaphoreDMASPI
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:21     .bss.xHigherPriorityTaskWoken:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:24     .bss.xHigherPriorityTaskWoken:0000000000000000 xHigherPriorityTaskWoken
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:21     .bss.xHigherPriorityTaskWoken:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:24     .bss.xHigherPriorityTaskWoken:0000000000000000 xHigherPriorityTaskWoken
                             *COM*:0000000000000004 xSmphrUSART
                             *COM*:0000000000000004 setSpeedHandle
                             *COM*:0000000000000004 motorHBHandle
@@ -679,15 +1653,17 @@ DEFINED SYMBOLS
                             *COM*:0000000000000004 dat_lengthRX
                             *COM*:0000000000000004 dat_lengthTX
                             *COM*:0000000000000004 set_macTaskHandle
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:40     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:48     .rodata.xMotorCommand:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:51     .rodata.xMotorCommand:0000000000000000 xMotorCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:334    .text.prvMotorCommand:0000000000000000 prvMotorCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:74     .text.handleVariable_set:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:79     .text.handleVariable_set:0000000000000000 handleVariable_set
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:305    .text.handleVariable_set:0000000000000178 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:329    .text.prvMotorCommand:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccVBUPfE.s:444    .text.prvMotorCommand:00000000000000b4 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:40     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:48     .rodata.xMotorCommand:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:51     .rodata.xMotorCommand:0000000000000000 xMotorCommand
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:764    .text.prvMotorCommand:0000000000000000 prvMotorCommand
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:83     .text.handleVariable_set:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:88     .text.handleVariable_set:0000000000000000 handleVariable_set
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:429    .text.handleVariable_set:0000000000000294 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:441    .text.handleVariable_set:00000000000002b8 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:729    .text.handleVariable_set:00000000000004dc $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:759    .text.prvMotorCommand:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccGoxlS3.s:1091   .text.prvMotorCommand:000000000000021c $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
@@ -699,3 +1675,4 @@ send
 xQueueGenericSend
 xQueueGenericReceive
 FreeRTOS_CLIGetParameter
+socket

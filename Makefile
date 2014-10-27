@@ -23,6 +23,7 @@ SOURCES += App/STM32F4-Discovery/W5200.c
 SOURCES += App/STM32F4-Discovery/modbus_mk.c
 SOURCES += App/STM32F4-Discovery/tcpCLI.c
 
+#SOURCES += App/STM32F4-Discovery/printf_my.c
 SOURCES += App/STM32F4-Discovery/printf-stdarg.c
 
 

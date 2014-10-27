@@ -12,8 +12,16 @@ int handleVariable_set (	QueueTelegram telegram,
 				int socket )
 {
 
+
+	//================================================================================//
+	//		CASE PARAMETER speed [value]
+	//================================================================================//
+
 	if ( !strncmp ( Param, "speed", 5))
 	{	
+	
+	
+		
 		// now convert parameter to proper value and check if it is in range 
         	Value[xValueLength-2] = '\0'; 	
 		uint16_t s1 = atoi ( Value ); 
@@ -38,20 +46,114 @@ int handleVariable_set (	QueueTelegram telegram,
 		// setup telegram 
 		
 		telegram.data[0] = s1; 
+		telegram.size = 1; 
 		telegram.Qcmd = SETDATA;
 		
-
+	
 		// send value to setSpeed_task via Queue 
-		if ( !xQueueSend ( QSpd_handle, &s1, 500 ) )
+		if ( xQueueSend ( QSpd_handle, (void *)&telegram, portMAX_DELAY ) == pdPASS )
 		{	
 					
-			if ( ! xQueueReceive ( QSpd_handle, &telegram, 500))
+			if (  xQueueReceive ( QSpd_handle, &telegram, portMAX_DELAY)== pdPASS)
 			{
 				if ( telegram.Qcmd = SUCCSESS) 
 				{	
 					uint8_t * buf = "Speed succsesfully set.\n\n";
-			   		int len = 25; 	
+					int len = 25; 	
 					send( socket, buf, len, 0);
+
+
+					return pdPASS;
+
+				}
+				else
+				{
+					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
+			       		int len = 19; 	
+					send( socket, buf, len, 0);
+
+					return pdFALSE;
+
+
+				}
+						
+			}
+			else
+			{
+					// send to Queue was unsuccsessful
+				// send error via TCP 
+		
+				uint8_t * buf = "Error recieving response!\n\n";
+	 			int len = 27; 	
+				send( socket_0, buf, len, 0);
+
+				return pdFALSE; 	
+			}
+
+
+		}
+		else
+		{
+			// send to Queue was unsuccsessful
+			// send error via TCP 
+		
+			uint8_t * buf = "Error sending Queue!\n\n";
+	 		int len = 22; 	
+			send( socket, buf, len, 0);
+
+			return pdFALSE; 	
+		}
+	}
+	
+	//================================================================================//
+	//		CASE PARAMETER upramp [value]
+	//================================================================================//
+
+	if ( !strncmp ( Param, "upramp", 6))
+	{	
+	
+	
+		
+		// now convert parameter to proper value and check if it is in range 
+        	Value[xValueLength-2] = '\0'; 	
+		uint16_t s1 = atoi ( Value ); 
+		// if speed is in range
+		if(s1 < 10 ||  s1 > 100 )
+		{
+			// send error via TCP
+			//
+			int len = strlen ( Value ) + 11 ; 
+			uint8_t buf [len]; //= "Error: speed is out of range!\n\n";
+			sprintf(buf, "Errror : %d\n\n", s1);
+			buf[11+ 3] = "\0"; 
+			send( socket_0, buf, len, 0);
+
+	       		return pdFALSE; 	
+		}	
+	
+		// convert to correct value ( * 100 ) 
+		s1 *= 100; 
+		
+		
+		// setup telegram 
+		
+		telegram.data[0] = s1; 
+		telegram.size = 1; 
+		telegram.Qcmd = SETDATA;
+		
+	
+		// send value to setSpeed_task via Queue 
+		if ( xQueueSend ( QSpd_handle, (void *)&telegram, portMAX_DELAY ) == pdPASS )
+		{	
+					
+			if (  xQueueReceive ( QSpd_handle, &telegram, 500))
+			{
+				if ( telegram.Qcmd = SUCCSESS) 
+				{	
+					uint8_t * buf = "Speed succsesfully set.\n\n";
+					int len = 25; 	
+					send( socket, buf, len, 0);
+
 
 					return pdPASS;
 
@@ -82,6 +184,87 @@ int handleVariable_set (	QueueTelegram telegram,
 			return pdFALSE; 	
 		}
 	}
+
+	//================================================================================//
+	//		CASE PARAMETER downramp [value]
+	//================================================================================//
+
+	if ( !strncmp ( Param, "downramp", 8))
+	{	
+	
+	
+		
+		// now convert parameter to proper value and check if it is in range 
+        	Value[xValueLength-2] = '\0'; 	
+		uint16_t s1 = atoi ( Value ); 
+		// if speed is in range
+		if(s1 < 10 ||  s1 > 100 )
+		{
+			// send error via TCP
+			//
+			int len = strlen ( Value ) + 11 ; 
+			uint8_t buf [len]; //= "Error: speed is out of range!\n\n";
+			sprintf(buf, "Errror : %d\n\n", s1);
+			buf[11+ 3] = "\0"; 
+			send( socket_0, buf, len, 0);
+
+	       		return pdFALSE; 	
+		}	
+	
+		// convert to correct value ( * 100 ) 
+		s1 *= 100; 
+		
+		
+		// setup telegram 
+		
+		telegram.data[0] = s1; 
+		telegram.size = 1; 
+		telegram.Qcmd = SETDATA;
+		
+	
+		// send value to setSpeed_task via Queue 
+		if ( xQueueSend ( QSpd_handle, (void *)&telegram, portMAX_DELAY ) == pdPASS )
+		{	
+					
+			if (  xQueueReceive ( QSpd_handle, &telegram, 500))
+			{
+				if ( telegram.Qcmd = SUCCSESS) 
+				{	
+					uint8_t * buf = "Speed succsesfully set.\n\n";
+					int len = 25; 	
+					send( socket, buf, len, 0);
+
+
+					return pdPASS;
+
+				}
+				else
+				{
+					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
+			       		int len = 19; 	
+					send( socket, buf, len, 0);
+
+					return pdFALSE;
+
+
+				}
+						
+			}
+
+		}
+		else
+		{
+			// send to Queue was unsuccsessful
+			// send error via TCP 
+		
+			uint8_t * buf = "Error sending Queue!\n\n";
+	 		int len = 22; 	
+			send( socket, buf, len, 0);
+
+			return pdFALSE; 	
+		}
+	}
+
 
 			return 0; 
 
@@ -125,26 +308,32 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 				  	  &xOptionLength // parameter string length
 					  
 					 );
-	// get parameter from command line 
+
+
+	//================================================================================//
+	//		CASE COMMAND SET [parameter name] [value]
+	//================================================================================//
+
+	if( !strncmp( Option, "set", 3) ) 
+	{
+
+		// get parameter from command line 
 	
-	Param = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
+		Param = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
 					  2,  		   // 2nd parameter
 				  	  &xParamLength // parameter string length
 					  
 					 );
-	Value = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
+		Value = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
 					  3,  		   // 2nd parameter
 				  	  &xValueLength // parameter string length
 					  
 					 );
+		
+		// return pdFALSE if there is no 3rd parameter 
 
+		if (Value == NULL) return pdFALSE; 
 
-
-
-
-
-	if( !strncmp( Option, "set", 3) ) 
-	{
 		
 		if ( handleVariable_set ( telegram, 
 				           Param, 
@@ -156,20 +345,137 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 		return pdFALSE;
 
 	}
+	//================================================================================//
+	//		CASE COMMAND GET [parameter name] [value]
+	//================================================================================//
+
+
 	if (!strncmp ( Option, "get", 3))
 	{
 
 
 	}
 		
+	//================================================================================//
+	//		CASE COMMAND STOP 
+	//================================================================================//
 	if (!strncmp ( Option, "stop", 4))
 	{
 
+		telegram.Qcmd = STOP; 
+		telegram.size = 0; 
+			// send value to setSpeed_task via Queue 
+		if ( xQueueSend ( QSpd_handle, (void *)&telegram, 500 ) )
+		{	
+					
+			if (  xQueueReceive ( QSpd_handle, &telegram, 500))
+			{
+				if ( telegram.Qcmd = SUCCSESS) 
+				{	
+					uint8_t * buf = "Motor succsesfully stopped.\n\n";
+					int len = 29; 	
+					send( socket_0, buf, len, 0);
 
+					
+					return pdPASS;
+
+				}
+				else
+				{
+					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
+			       		int len = 19; 	
+					send( socket_0, buf, len, 0);
+
+					return pdFALSE;
+
+
+				}
+			}
+			else
+			{
+					// send to Queue was unsuccsessful
+				// send error via TCP 
+		
+				uint8_t * buf = "Error recieving response!\n\n";
+	 			int len = 27; 	
+				send( socket_0, buf, len, 0);
+
+				return pdFALSE; 	
+			}
+		}
+		else
+		{
+			
+			// send to Queue was unsuccsessful
+			// send error via TCP 
+		
+			uint8_t * buf = "Error sending Queue!\n\n";
+	 		int len = 22; 	
+			send( socket, buf, len, 0);
+
+			return pdFALSE; 	
+		}
+					
 	}
+	//================================================================================//
+	//		CASE COMMAND START
+	//================================================================================//
 
-	if (!strncmp ( Option, "start", 4))
+	if (!strncmp ( Option, "start", 5))
 	{
+		telegram.Qcmd = START; 
+		telegram.size = 0; 
+			// send value to setSpeed_task via Queue 
+		if ( xQueueSend ( QSpd_handle, (void *)&telegram, 500 ) == pdPASS )
+		{	
+					
+			if (  xQueueReceive ( QSpd_handle, &telegram, 500) == pdPASS)
+			{
+				if ( telegram.Qcmd = SUCCSESS) 
+				{	
+					uint8_t * buf = "Motor succsesfully started.\n\n";
+					int len = 29; 	
+					send( socket_0, buf, len, 0);
+
+					
+					return pdPASS;
+
+				}
+				else
+				{
+					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
+			       		int len = 19; 	
+					send( socket_0, buf, len, 0);
+
+					return pdFALSE;
+
+
+				}
+			}
+			else
+			{
+					// send to Queue was unsuccsessful
+				// send error via TCP 
+		
+				uint8_t * buf = "Error recieving response!\n\n";
+	 			int len = 27; 	
+				send( socket_0, buf, len, 0);
+
+				return pdFALSE; 	
+			}
+		}
+		else
+		{
+			
+			// send to Queue was unsuccsessful
+			// send error via TCP 
+		
+			uint8_t * buf = "Error sending Queue!\n\n";
+	 		int len = 22; 	
+			send( socket_0, buf, len, 0);
+
+			return pdFALSE; 	
+		}
 
 
 	}
