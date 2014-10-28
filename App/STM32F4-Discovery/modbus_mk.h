@@ -172,6 +172,13 @@ void modbus_WIB( uint16_t , int , uint8_t * );
  */
 void modbus_WR( int , int , const uint16_t *);
 
+/*! \fn void modbus_WSR( int , const uint16_t)
+ *  \brief write to single register of motor 
+ *  \param address - register address 
+ *  \param src -  data to send 
+ */
+void modbus_WSR( int , const uint16_t );
+
 /*! \fn void modbus_RR( int , int , uint16_t *)
  *  \brief read from motor register 
  *  \param address - register address 
@@ -181,7 +188,7 @@ void modbus_WR( int , int , const uint16_t *);
 void modbus_RR( int , int , uint16_t *);
 
 
-void setSpeed_task(void *);
+void motorHeartBeat_task(void *);
 void motorControl_task(void *);
 
 #endif

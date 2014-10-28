@@ -50,8 +50,10 @@ typedef struct
 {
 	QueueCommand Qcmd; /**< QueueCommand what type of telegram we received */
 	size_t size; 	   /**< size of data transmited */ 
-	uint16_t data[10]; /**< data of telegram */ 
+	uint16_t  data[10]; /**< data of telegram */ 
 
 }QueueTelegram; 
 
+
+				
 #endif

@@ -127,21 +127,21 @@ int main(void)
 	sr = sizeof (QueueTelegram *);
 	// create queues 
 	QSpd_handle = xQueueCreate(1, sizeof(QueueTelegram));
-	QStatus_handle = xQueueCreate(10, sizeof(int16_t));
+
 
 /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
 
 	// echo server task 
-	xTaskCreate(set_macTask, "SETMAC", configMINIMAL_STACK_SIZE*100, 
+	xTaskCreate(set_macTask, "SETMAC", configMINIMAL_STACK_SIZE*5, 
 			NULL, mainFLASH_TASK_PRIORITY, &set_macTaskHandle);
 	
 	// run motor task 
-	xTaskCreate(motorControl_task, "motorH", configMINIMAL_STACK_SIZE*10,
+	xTaskCreate(motorControl_task, "motorH", configMINIMAL_STACK_SIZE*20,
 		       	NULL, mainFLASH_TASK_PRIORITY, &motorHBHandle);
 
 	// set motor task 
-//	xTaskCreate(setSpeed_task, "set_speed", configMINIMAL_STACK_SIZE*10,
-//		       	NULL, mainFLASH_TASK_PRIORITY, &setSpeedHandle);
+	xTaskCreate(motorHeartBeat_task, "mHeratBeat", configMINIMAL_STACK_SIZE,		       				
+			NULL, mainFLASH_TASK_PRIORITY, &motorHeartBeatHandle);
 	
 
 /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/

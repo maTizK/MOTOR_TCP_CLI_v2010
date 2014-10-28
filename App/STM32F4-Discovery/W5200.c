@@ -693,13 +693,21 @@ void locate_interrupt()
 	switch (code )
 	{
 		case 0x1: 
+			vTaskSuspend(motorHBHandle);
 			// connection established 
 			// do nothing wait for input. 
 			break;
 		case 0x2:
+
+			
+			vTaskSuspend(motorHBHandle);
+
 			break;
 		case 0x4:
+			vTaskResume(motorHBHandle);
 			vTaskResume(set_macTaskHandle); 
+			break;
+		case 0x10:
 			break;
 		default:
 			break;		

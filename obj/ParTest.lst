@@ -300,16 +300,16 @@
  185              		.file 5 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ParTest.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoLs4sX.s:20     .rodata.xLEDs:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoLs4sX.s:23     .rodata.xLEDs:0000000000000000 xLEDs
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoLs4sX.s:29     .text.vParTestInitialise:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoLs4sX.s:34     .text.vParTestInitialise:0000000000000000 vParTestInitialise
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoLs4sX.s:67     .text.vParTestSetLED:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoLs4sX.s:72     .text.vParTestSetLED:0000000000000000 vParTestSetLED
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoLs4sX.s:124    .text.vParTestSetLED:000000000000003c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoLs4sX.s:129    .text.vParTestToggleLED:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoLs4sX.s:134    .text.vParTestToggleLED:0000000000000000 vParTestToggleLED
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoLs4sX.s:176    .text.vParTestToggleLED:000000000000002c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccscXBvm.s:20     .rodata.xLEDs:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccscXBvm.s:23     .rodata.xLEDs:0000000000000000 xLEDs
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccscXBvm.s:29     .text.vParTestInitialise:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccscXBvm.s:34     .text.vParTestInitialise:0000000000000000 vParTestInitialise
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccscXBvm.s:67     .text.vParTestSetLED:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccscXBvm.s:72     .text.vParTestSetLED:0000000000000000 vParTestSetLED
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccscXBvm.s:124    .text.vParTestSetLED:000000000000003c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccscXBvm.s:129    .text.vParTestToggleLED:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccscXBvm.s:134    .text.vParTestToggleLED:0000000000000000 vParTestToggleLED
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccscXBvm.s:176    .text.vParTestToggleLED:000000000000002c $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

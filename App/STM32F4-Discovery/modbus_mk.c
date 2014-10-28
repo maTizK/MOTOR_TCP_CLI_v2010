@@ -322,6 +322,42 @@ void modbus_WR( int address, int nb, const uint16_t *src)
 
 }
 
+/* Write the values from the array to the registers of the remote device */
+void modbus_WSR( int address, const uint16_t src)
+{
+	int nb = 1; 
+	int rc;
+	int i;
+    	int req_length;
+    	int byte_count;
+
+    	uint8_t req[REQ_MAX_LEN];
+
+	req[0] = 0x36; 
+	req[1] = 0x6;
+	req[2] = address >> 8;
+	req[3] = address & 0x00ff;
+//	req[4] = nb >> 8;
+//	req[5] = nb & 0x00ff; 
+	req_length = 4; 
+	
+   	byte_count = nb * 2;
+    	req[req_length++] = byte_count;
+
+	req[req_length++] = src >> 8;
+       	req[req_length++] = src & 0x00ff;
+    	
+
+	uint16_t crc = crc16(req, req_length);
+
+	req[req_length++] = crc >> 8; 
+	req[req_length++] = crc & 0x00ff;
+
+	/* write request  to modbus line */
+	write_read_modbus( req, req, req_length, 5); 
+
+}
+
 
 /* Read the values from the array to the registers of the remote device */
 void modbus_RR( int address, int nb, uint16_t *src)
@@ -372,30 +408,23 @@ void modbus_RR( int address, int nb, uint16_t *src)
 ============    		TASKS SECTION			===================== 
 =====================================================================================
 ====================================================================================*/
-void setSpeed_task(void * pvParameters)
+void motorHeartBeat_task(void * pvParameters)
 {
 	/*! sets speed of motor */
 
 	
-	struct Spd_Settings * spd_set;
-
-	spd_set = (struct Spd_Settings *)pvParameters;
-
-	uint16_t spd[5];
-	spd[0]=1500;
-	spd[1]=0;
-	spd[2]=2250;//spd_settings->maxRPM; // 2250;
-	spd[3]=15;//spd_settings->upRamp; // 15;
-	spd[4]=15;//spd_settings->downRamp;
+	uint16_t tab_reg[10];
+	
+	vTaskSuspend(NULL); 
 	
 	while(1)
 	{
 
-		if (!xQueueReceive(QSpd_handle, &spd, 700));
+		
+		modbus_RR(0,10,tab_reg);
 
-		modbus_WR(0,5,spd);
+		vTaskDelay(1000/portTICK_RATE_MS);
 
-		vTaskSuspend( setSpeedHandle );
 	}
 
 
@@ -411,7 +440,7 @@ void motorControl_task(void * pvParameters)
 	uint16_t spd[5]; 
 	
 
-	stop[0] = 0; stop[1] = 0; stop[2] = 0; stop[3] = 0; 
+	stop[0] = 0; stop[1] = 1; stop[2] = 1; stop[3] = 1; 
 
 	src[0]=1; src[1]=1; src[2]=1; src[3]=1;
 	
@@ -420,7 +449,7 @@ void motorControl_task(void * pvParameters)
 	// create usart semaphore 
 	xSmphrUSART = xSemaphoreCreateBinary();	
 	
-	portTickType xDelay = 100 / portTICK_RATE_MS;	
+	portTickType xDelay = 500 / portTICK_RATE_MS;	
 	
 	
 	
@@ -434,60 +463,61 @@ void motorControl_task(void * pvParameters)
 	while (1)
 	{
 	
-		if (xQueueReceive(QSpd_handle, (void *)&telegramR, 500 ) == pdPASS)
+		if (xQueueReceive(QSpd_handle, (void *)&telegramR, xDelay ) == pdPASS)
 		{
 			switch ( telegramR.Qcmd )
 			{
 				case SETDATA:
 					
 					// write to modbus 
-//					modbus_WIB ( 0 , 3, src);
-//					modbus_WR(0, telegramR.size, telegramR.data);
+					modbus_WIB ( 0 , 3, src);
+					modbus_WR(0, 5, telegramR.data);
 					
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
-					xQueueSend(QSpd_handle, &telegramS, 500);
+					xQueueSend(QSpd_handle, &telegramS, xDelay);
 
 					break;
 				       	
 				
 				case GETDATA:
-//					modbus_RR(0, 10, telegramS.data);
+					modbus_RR(0, 10, telegramS.data);
 
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
-					xQueueSend(QSpd_handle, &telegramS, 500);
+					xQueueSend(QSpd_handle, &telegramS, xDelay);
 
 					break;
 
 				
 				case START: 
 					
-					// set motor speed to 10% 
-//					modbus_WIB( 0 , 3, src); 
-//					modbus_WR( 0, 5, spd);
-					
+							// set motor speed to 10% 
+					modbus_WIB( 0 , 3, src); 
+					modbus_WR( 0, 5, spd);
+					vTaskResume(motorHeartBeatHandle);
+
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
-					xQueueSend(QSpd_handle, &telegramS, 500);
+					xQueueSend(QSpd_handle, &telegramS, xDelay);
 
 					break;
 				
 				case STOP:
 					
 					// send stop bits to motor 
-//					modbus_WIB ( 0 , 3 , stop);
+					modbus_WIB ( 0 , 3 , stop);
 
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
-					xQueueSend(QSpd_handle, &telegramS, 500);
+					xQueueSend(QSpd_handle, &telegramS, xDelay);
 
 					break; 
 
 				default:
 
 					telegramS.Qcmd = ERROR_MODBUS;
-					xQueueSend(QSpd_handle, &telegramS, 500);
+					xQueueSend(QSpd_handle, &telegramS, xDelay);
 					break;
 
 					
@@ -497,7 +527,7 @@ void motorControl_task(void * pvParameters)
 			}
 		}
 
-	//	modbus_RR(0, 10, tab_reg);		
+		modbus_RR(0, 10, tab_reg);		
 	
 	}
 	

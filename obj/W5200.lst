@@ -22,7 +22,7 @@
   24              	xHigherPriorityTaskWoken:
   25 0000 00000000 		.space	4
   26              		.comm	xSmphrUSART,4,4
-  27              		.comm	setSpeedHandle,4,4
+  27              		.comm	motorHeartBeatHandle,4,4
   28              		.comm	motorHBHandle,4,4
   29              		.comm	QSpd_handle,4,4
   30              		.comm	QStatus_handle,4,4
@@ -2935,7 +2935,7 @@
  2292 000e FFF7FEFF 		bl	spi_dma_read
  687:App/STM32F4-Discovery/W5200.c **** 	memcpy(&code, bufferRX + 4, 1);
  2293              		.loc 1 687 0
- 2294 0012 154B     		ldr	r3, .L135
+ 2294 0012 2C4B     		ldr	r3, .L136
  2295 0014 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
  2296 0016 FB71     		strb	r3, [r7, #7]
  688:App/STM32F4-Discovery/W5200.c **** 	spi_dma_read(W5200_Sn_IR(code), 1);
@@ -2951,7 +2951,7 @@
  2306 002a FFF7FEFF 		bl	spi_dma_read
  689:App/STM32F4-Discovery/W5200.c **** 	memcpy(&code, bufferRX +4 , 1);
  2307              		.loc 1 689 0
- 2308 002e 0E4B     		ldr	r3, .L135
+ 2308 002e 254B     		ldr	r3, .L136
  2309 0030 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
  2310 0032 FB71     		strb	r3, [r7, #7]
  690:App/STM32F4-Discovery/W5200.c ****        
@@ -2964,253 +2964,291 @@
  693:App/STM32F4-Discovery/W5200.c **** 	switch (code )
  2315              		.loc 1 693 0
  2316 003e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 2317 0040 022B     		cmp	r3, #2
- 2318 0042 0AD0     		beq	.L133
- 2319 0044 042B     		cmp	r3, #4
- 2320 0046 02D0     		beq	.L130
- 2321 0048 012B     		cmp	r3, #1
- 2322 004a 08D0     		beq	.L134
+ 2317 0040 013B     		subs	r3, r3, #1
+ 2318 0042 0F2B     		cmp	r3, #15
+ 2319 0044 39D8     		bhi	.L135
+ 2320 0046 01A2     		adr	r2, .L130
+ 2321 0048 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 2322              		.p2align 2
+ 2323              	.L130:
+ 2324 004c 8D000000 		.word	.L129+1
+ 2325 0050 99000000 		.word	.L131+1
+ 2326 0054 BB000000 		.word	.L135+1
+ 2327 0058 A5000000 		.word	.L132+1
+ 2328 005c BB000000 		.word	.L135+1
+ 2329 0060 BB000000 		.word	.L135+1
+ 2330 0064 BB000000 		.word	.L135+1
+ 2331 0068 BB000000 		.word	.L135+1
+ 2332 006c BB000000 		.word	.L135+1
+ 2333 0070 BB000000 		.word	.L135+1
+ 2334 0074 BB000000 		.word	.L135+1
+ 2335 0078 BB000000 		.word	.L135+1
+ 2336 007c BB000000 		.word	.L135+1
+ 2337 0080 BB000000 		.word	.L135+1
+ 2338 0084 BB000000 		.word	.L135+1
+ 2339 0088 BB000000 		.word	.L135+1
+ 2340              		.p2align 1
+ 2341              	.L129:
  694:App/STM32F4-Discovery/W5200.c **** 	{
  695:App/STM32F4-Discovery/W5200.c **** 		case 0x1: 
- 696:App/STM32F4-Discovery/W5200.c **** 			// connection established 
- 697:App/STM32F4-Discovery/W5200.c **** 			// do nothing wait for input. 
- 698:App/STM32F4-Discovery/W5200.c **** 			break;
- 699:App/STM32F4-Discovery/W5200.c **** 		case 0x2:
- 700:App/STM32F4-Discovery/W5200.c **** 			break;
- 701:App/STM32F4-Discovery/W5200.c **** 		case 0x4:
- 702:App/STM32F4-Discovery/W5200.c **** 			vTaskResume(set_macTaskHandle); 
- 703:App/STM32F4-Discovery/W5200.c **** 			break;
- 704:App/STM32F4-Discovery/W5200.c **** 		default:
- 705:App/STM32F4-Discovery/W5200.c **** 			break;		
- 2323              		.loc 1 705 0
- 2324 004c 08E0     		b	.L127
- 2325              	.L130:
- 702:App/STM32F4-Discovery/W5200.c **** 			vTaskResume(set_macTaskHandle); 
- 2326              		.loc 1 702 0
- 2327 004e 074B     		ldr	r3, .L135+4
- 2328 0050 1B68     		ldr	r3, [r3]
- 2329 0052 1846     		mov	r0, r3
- 2330 0054 FFF7FEFF 		bl	vTaskResume
- 703:App/STM32F4-Discovery/W5200.c **** 			break;
- 2331              		.loc 1 703 0
- 2332 0058 02E0     		b	.L127
- 2333              	.L133:
- 700:App/STM32F4-Discovery/W5200.c **** 			break;
- 2334              		.loc 1 700 0
- 2335 005a 00BF     		nop
- 2336 005c 00E0     		b	.L127
- 2337              	.L134:
- 698:App/STM32F4-Discovery/W5200.c **** 			break;
- 2338              		.loc 1 698 0
- 2339 005e 00BF     		nop
- 2340              	.L127:
- 706:App/STM32F4-Discovery/W5200.c **** 	}
- 707:App/STM32F4-Discovery/W5200.c **** }
- 2341              		.loc 1 707 0
- 2342 0060 0837     		adds	r7, r7, #8
- 2343 0062 BD46     		mov	sp, r7
- 2344              		@ sp needed
- 2345 0064 80BD     		pop	{r7, pc}
- 2346              	.L136:
- 2347 0066 00BF     		.align	2
- 2348              	.L135:
- 2349 0068 04000000 		.word	bufferRX+4
- 2350 006c 00000000 		.word	set_macTaskHandle
- 2351              		.cfi_endproc
- 2352              	.LFE132:
- 2354              		.section	.text.EXTI4_IRQHandler,"ax",%progbits
- 2355              		.align	2
- 2356              		.global	EXTI4_IRQHandler
- 2357              		.thumb
- 2358              		.thumb_func
- 2360              	EXTI4_IRQHandler:
- 2361              	.LFB133:
- 708:App/STM32F4-Discovery/W5200.c **** 
- 709:App/STM32F4-Discovery/W5200.c **** //==================================================================================
- 710:App/STM32F4-Discovery/W5200.c **** //// EXTI4_IRQHandler
- 711:App/STM32F4-Discovery/W5200.c **** //==================================================================================
- 712:App/STM32F4-Discovery/W5200.c **** void EXTI4_IRQHandler(void) //EXTI0 ISR
- 713:App/STM32F4-Discovery/W5200.c **** {
- 2362              		.loc 1 713 0
- 2363              		.cfi_startproc
- 2364              		@ args = 0, pretend = 0, frame = 0
- 2365              		@ frame_needed = 1, uses_anonymous_args = 0
- 2366 0000 80B5     		push	{r7, lr}
- 2367              	.LCFI69:
- 2368              		.cfi_def_cfa_offset 8
- 2369              		.cfi_offset 7, -8
- 2370              		.cfi_offset 14, -4
- 2371 0002 00AF     		add	r7, sp, #0
- 2372              	.LCFI70:
- 2373              		.cfi_def_cfa_register 7
- 714:App/STM32F4-Discovery/W5200.c ****  	/*!***************************************************************** 
- 715:App/STM32F4-Discovery/W5200.c **** 	 * \fn void EXTI4_IRQHandler(void) 
- 716:App/STM32F4-Discovery/W5200.c **** 	 * Interuppt service routine for wiznet it locates interrupt and resets 
- 717:App/STM32F4-Discovery/W5200.c **** 	 * interrupt line. 
- 718:App/STM32F4-Discovery/W5200.c **** 	 * *******************************************************************/
- 719:App/STM32F4-Discovery/W5200.c **** 	
- 720:App/STM32F4-Discovery/W5200.c **** 	
- 721:App/STM32F4-Discovery/W5200.c **** 	if(EXTI_GetITStatus(WIZ_IT_EXTI_LINE) != RESET) //check if EXTI line is asserted
- 2374              		.loc 1 721 0
- 2375 0004 1020     		movs	r0, #16
- 2376 0006 FFF7FEFF 		bl	EXTI_GetITStatus
- 2377 000a 0346     		mov	r3, r0
- 2378 000c 002B     		cmp	r3, #0
- 2379 000e 04D0     		beq	.L137
- 722:App/STM32F4-Discovery/W5200.c **** 	{
- 723:App/STM32F4-Discovery/W5200.c **** 		locate_interrupt();	
- 2380              		.loc 1 723 0
- 2381 0010 FFF7FEFF 		bl	locate_interrupt
- 724:App/STM32F4-Discovery/W5200.c **** 		EXTI_ClearFlag(WIZ_IT_EXTI_LINE); //clear interrupt
- 2382              		.loc 1 724 0
- 2383 0014 1020     		movs	r0, #16
- 2384 0016 FFF7FEFF 		bl	EXTI_ClearFlag
- 2385              	.L137:
- 725:App/STM32F4-Discovery/W5200.c ****  	
- 726:App/STM32F4-Discovery/W5200.c **** 	}
- 727:App/STM32F4-Discovery/W5200.c **** }
- 2386              		.loc 1 727 0
- 2387 001a 80BD     		pop	{r7, pc}
- 2388              		.cfi_endproc
- 2389              	.LFE133:
- 2391              		.section	.text.set_macTask,"ax",%progbits
- 2392              		.align	2
- 2393              		.global	set_macTask
- 2394              		.thumb
- 2395              		.thumb_func
- 2397              	set_macTask:
- 2398              	.LFB134:
- 728:App/STM32F4-Discovery/W5200.c **** 
- 729:App/STM32F4-Discovery/W5200.c **** 
- 730:App/STM32F4-Discovery/W5200.c **** //============================================================================/
- 731:App/STM32F4-Discovery/W5200.c **** // func set_macTask 
- 732:App/STM32F4-Discovery/W5200.c **** //==================================================================================
- 733:App/STM32F4-Discovery/W5200.c **** 
- 734:App/STM32F4-Discovery/W5200.c **** void set_macTask(void *pvParameters)
- 735:App/STM32F4-Discovery/W5200.c **** {
- 2399              		.loc 1 735 0
- 2400              		.cfi_startproc
- 2401              		@ args = 0, pretend = 0, frame = 216
- 2402              		@ frame_needed = 1, uses_anonymous_args = 0
- 2403 0000 80B5     		push	{r7, lr}
- 2404              	.LCFI71:
- 2405              		.cfi_def_cfa_offset 8
- 2406              		.cfi_offset 7, -8
- 2407              		.cfi_offset 14, -4
- 2408 0002 B6B0     		sub	sp, sp, #216
- 2409              	.LCFI72:
- 2410              		.cfi_def_cfa_offset 224
- 2411 0004 00AF     		add	r7, sp, #0
- 2412              	.LCFI73:
- 2413              		.cfi_def_cfa_register 7
- 2414 0006 7860     		str	r0, [r7, #4]
+ 696:App/STM32F4-Discovery/W5200.c **** 			vTaskSuspend(motorHBHandle);
+ 2342              		.loc 1 696 0
+ 2343 008c 0E4B     		ldr	r3, .L136+4
+ 2344 008e 1B68     		ldr	r3, [r3]
+ 2345 0090 1846     		mov	r0, r3
+ 2346 0092 FFF7FEFF 		bl	vTaskSuspend
+ 697:App/STM32F4-Discovery/W5200.c **** 			// connection established 
+ 698:App/STM32F4-Discovery/W5200.c **** 			// do nothing wait for input. 
+ 699:App/STM32F4-Discovery/W5200.c **** 			break;
+ 2347              		.loc 1 699 0
+ 2348 0096 11E0     		b	.L127
+ 2349              	.L131:
+ 700:App/STM32F4-Discovery/W5200.c **** 		case 0x2:
+ 701:App/STM32F4-Discovery/W5200.c **** 
+ 702:App/STM32F4-Discovery/W5200.c **** 			
+ 703:App/STM32F4-Discovery/W5200.c **** 			vTaskSuspend(motorHBHandle);
+ 2350              		.loc 1 703 0
+ 2351 0098 0B4B     		ldr	r3, .L136+4
+ 2352 009a 1B68     		ldr	r3, [r3]
+ 2353 009c 1846     		mov	r0, r3
+ 2354 009e FFF7FEFF 		bl	vTaskSuspend
+ 704:App/STM32F4-Discovery/W5200.c **** 
+ 705:App/STM32F4-Discovery/W5200.c **** 			break;
+ 2355              		.loc 1 705 0
+ 2356 00a2 0BE0     		b	.L127
+ 2357              	.L132:
+ 706:App/STM32F4-Discovery/W5200.c **** 		case 0x4:
+ 707:App/STM32F4-Discovery/W5200.c **** 			vTaskResume(motorHBHandle);
+ 2358              		.loc 1 707 0
+ 2359 00a4 084B     		ldr	r3, .L136+4
+ 2360 00a6 1B68     		ldr	r3, [r3]
+ 2361 00a8 1846     		mov	r0, r3
+ 2362 00aa FFF7FEFF 		bl	vTaskResume
+ 708:App/STM32F4-Discovery/W5200.c **** 			vTaskResume(set_macTaskHandle); 
+ 2363              		.loc 1 708 0
+ 2364 00ae 074B     		ldr	r3, .L136+8
+ 2365 00b0 1B68     		ldr	r3, [r3]
+ 2366 00b2 1846     		mov	r0, r3
+ 2367 00b4 FFF7FEFF 		bl	vTaskResume
+ 709:App/STM32F4-Discovery/W5200.c **** 			break;
+ 2368              		.loc 1 709 0
+ 2369 00b8 00E0     		b	.L127
+ 2370              	.L135:
+ 710:App/STM32F4-Discovery/W5200.c **** 		case 0x10:
+ 711:App/STM32F4-Discovery/W5200.c **** 			break;
+ 712:App/STM32F4-Discovery/W5200.c **** 		default:
+ 713:App/STM32F4-Discovery/W5200.c **** 			break;		
+ 2371              		.loc 1 713 0
+ 2372 00ba 00BF     		nop
+ 2373              	.L127:
+ 714:App/STM32F4-Discovery/W5200.c **** 	}
+ 715:App/STM32F4-Discovery/W5200.c **** }
+ 2374              		.loc 1 715 0
+ 2375 00bc 0837     		adds	r7, r7, #8
+ 2376 00be BD46     		mov	sp, r7
+ 2377              		@ sp needed
+ 2378 00c0 80BD     		pop	{r7, pc}
+ 2379              	.L137:
+ 2380 00c2 00BF     		.align	2
+ 2381              	.L136:
+ 2382 00c4 04000000 		.word	bufferRX+4
+ 2383 00c8 00000000 		.word	motorHBHandle
+ 2384 00cc 00000000 		.word	set_macTaskHandle
+ 2385              		.cfi_endproc
+ 2386              	.LFE132:
+ 2388              		.section	.text.EXTI4_IRQHandler,"ax",%progbits
+ 2389              		.align	2
+ 2390              		.global	EXTI4_IRQHandler
+ 2391              		.thumb
+ 2392              		.thumb_func
+ 2394              	EXTI4_IRQHandler:
+ 2395              	.LFB133:
+ 716:App/STM32F4-Discovery/W5200.c **** 
+ 717:App/STM32F4-Discovery/W5200.c **** //==================================================================================
+ 718:App/STM32F4-Discovery/W5200.c **** //// EXTI4_IRQHandler
+ 719:App/STM32F4-Discovery/W5200.c **** //==================================================================================
+ 720:App/STM32F4-Discovery/W5200.c **** void EXTI4_IRQHandler(void) //EXTI0 ISR
+ 721:App/STM32F4-Discovery/W5200.c **** {
+ 2396              		.loc 1 721 0
+ 2397              		.cfi_startproc
+ 2398              		@ args = 0, pretend = 0, frame = 0
+ 2399              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2400 0000 80B5     		push	{r7, lr}
+ 2401              	.LCFI69:
+ 2402              		.cfi_def_cfa_offset 8
+ 2403              		.cfi_offset 7, -8
+ 2404              		.cfi_offset 14, -4
+ 2405 0002 00AF     		add	r7, sp, #0
+ 2406              	.LCFI70:
+ 2407              		.cfi_def_cfa_register 7
+ 722:App/STM32F4-Discovery/W5200.c ****  	/*!***************************************************************** 
+ 723:App/STM32F4-Discovery/W5200.c **** 	 * \fn void EXTI4_IRQHandler(void) 
+ 724:App/STM32F4-Discovery/W5200.c **** 	 * Interuppt service routine for wiznet it locates interrupt and resets 
+ 725:App/STM32F4-Discovery/W5200.c **** 	 * interrupt line. 
+ 726:App/STM32F4-Discovery/W5200.c **** 	 * *******************************************************************/
+ 727:App/STM32F4-Discovery/W5200.c **** 	
+ 728:App/STM32F4-Discovery/W5200.c **** 	
+ 729:App/STM32F4-Discovery/W5200.c **** 	if(EXTI_GetITStatus(WIZ_IT_EXTI_LINE) != RESET) //check if EXTI line is asserted
+ 2408              		.loc 1 729 0
+ 2409 0004 1020     		movs	r0, #16
+ 2410 0006 FFF7FEFF 		bl	EXTI_GetITStatus
+ 2411 000a 0346     		mov	r3, r0
+ 2412 000c 002B     		cmp	r3, #0
+ 2413 000e 04D0     		beq	.L138
+ 730:App/STM32F4-Discovery/W5200.c **** 	{
+ 731:App/STM32F4-Discovery/W5200.c **** 		locate_interrupt();	
+ 2414              		.loc 1 731 0
+ 2415 0010 FFF7FEFF 		bl	locate_interrupt
+ 732:App/STM32F4-Discovery/W5200.c **** 		EXTI_ClearFlag(WIZ_IT_EXTI_LINE); //clear interrupt
+ 2416              		.loc 1 732 0
+ 2417 0014 1020     		movs	r0, #16
+ 2418 0016 FFF7FEFF 		bl	EXTI_ClearFlag
+ 2419              	.L138:
+ 733:App/STM32F4-Discovery/W5200.c ****  	
+ 734:App/STM32F4-Discovery/W5200.c **** 	}
+ 735:App/STM32F4-Discovery/W5200.c **** }
+ 2420              		.loc 1 735 0
+ 2421 001a 80BD     		pop	{r7, pc}
+ 2422              		.cfi_endproc
+ 2423              	.LFE133:
+ 2425              		.section	.text.set_macTask,"ax",%progbits
+ 2426              		.align	2
+ 2427              		.global	set_macTask
+ 2428              		.thumb
+ 2429              		.thumb_func
+ 2431              	set_macTask:
+ 2432              	.LFB134:
  736:App/STM32F4-Discovery/W5200.c **** 
- 737:App/STM32F4-Discovery/W5200.c **** 	/*!**********************************************************************
- 738:App/STM32F4-Discovery/W5200.c **** 	 * 
- 739:App/STM32F4-Discovery/W5200.c **** 	 * Task opens socket on port 80,  starts listening on port and susped 
- 740:App/STM32F4-Discovery/W5200.c **** 	 * suspend itself. If interrupt occures it process CLI command 
- 741:App/STM32F4-Discovery/W5200.c **** 	 * **********************************************************************/
- 742:App/STM32F4-Discovery/W5200.c **** 
- 743:App/STM32F4-Discovery/W5200.c **** 
- 744:App/STM32F4-Discovery/W5200.c **** 	/* suspend task until init_W5200 is finished */
- 745:App/STM32F4-Discovery/W5200.c **** 	//vTaskSuspend(set_macTaskHandle);
- 746:App/STM32F4-Discovery/W5200.c **** 	vTaskSuspend(NULL);
- 2415              		.loc 1 746 0
- 2416 0008 0020     		movs	r0, #0
- 2417 000a FFF7FEFF 		bl	vTaskSuspend
- 747:App/STM32F4-Discovery/W5200.c **** 	uint8_t	buf[100], buf1[100]; 
- 748:App/STM32F4-Discovery/W5200.c **** 	int len; 
- 749:App/STM32F4-Discovery/W5200.c **** 		/*create socket and send byte */
- 750:App/STM32F4-Discovery/W5200.c **** 	socket_0 = socket(W5200_Sn_MR_TCP, 80, 0);
- 2418              		.loc 1 750 0
- 2419 000e 0120     		movs	r0, #1
- 2420 0010 5021     		movs	r1, #80
- 2421 0012 0022     		movs	r2, #0
- 2422 0014 FFF7FEFF 		bl	socket
- 2423 0018 0346     		mov	r3, r0
- 2424 001a 1A46     		mov	r2, r3
- 2425 001c 104B     		ldr	r3, .L141
- 2426 001e 1A60     		str	r2, [r3]
- 751:App/STM32F4-Discovery/W5200.c **** 	listen(socket_0);
- 2427              		.loc 1 751 0
- 2428 0020 0F4B     		ldr	r3, .L141
- 2429 0022 1B68     		ldr	r3, [r3]
- 2430 0024 1846     		mov	r0, r3
- 2431 0026 FFF7FEFF 		bl	listen
- 2432              	.L140:
- 2433              	.LBB2:
- 752:App/STM32F4-Discovery/W5200.c **** 
- 753:App/STM32F4-Discovery/W5200.c **** 
- 754:App/STM32F4-Discovery/W5200.c **** 	for( ;; )
- 755:App/STM32F4-Discovery/W5200.c ****         {
- 756:App/STM32F4-Discovery/W5200.c **** 
- 757:App/STM32F4-Discovery/W5200.c **** 	
- 758:App/STM32F4-Discovery/W5200.c **** 		/*we are now listening
- 759:App/STM32F4-Discovery/W5200.c **** 		suspend task set_macTask()*/
- 760:App/STM32F4-Discovery/W5200.c **** 		vTaskSuspend(NULL);
- 2434              		.loc 1 760 0 discriminator 1
- 2435 002a 0020     		movs	r0, #0
- 2436 002c FFF7FEFF 		bl	vTaskSuspend
- 761:App/STM32F4-Discovery/W5200.c **** 		
- 762:App/STM32F4-Discovery/W5200.c **** 		// interrupt on W5200 occured 
- 763:App/STM32F4-Discovery/W5200.c **** 		// receive data 
- 764:App/STM32F4-Discovery/W5200.c **** 		len = recv(socket_0, buf, 100, 0);
- 2437              		.loc 1 764 0 discriminator 1
- 2438 0030 0B4B     		ldr	r3, .L141
- 2439 0032 1B68     		ldr	r3, [r3]
- 2440 0034 DAB2     		uxtb	r2, r3
- 2441 0036 07F17003 		add	r3, r7, #112
- 2442 003a 1046     		mov	r0, r2
- 2443 003c 1946     		mov	r1, r3
- 2444 003e 6422     		movs	r2, #100
- 2445 0040 0023     		movs	r3, #0
- 2446 0042 FFF7FEFF 		bl	recv
- 2447 0046 C7F8D400 		str	r0, [r7, #212]
- 765:App/STM32F4-Discovery/W5200.c **** 		
- 766:App/STM32F4-Discovery/W5200.c **** 		// proces data with CLI 
- 767:App/STM32F4-Discovery/W5200.c **** 		
- 768:App/STM32F4-Discovery/W5200.c **** 		FreeRTOS_CLIProcessCommand ( buf, buf1, 100);
- 2448              		.loc 1 768 0 discriminator 1
- 2449 004a 07F17002 		add	r2, r7, #112
- 2450 004e 07F10C03 		add	r3, r7, #12
- 2451 0052 1046     		mov	r0, r2
- 2452 0054 1946     		mov	r1, r3
- 2453 0056 6422     		movs	r2, #100
- 2454 0058 FFF7FEFF 		bl	FreeRTOS_CLIProcessCommand
- 2455              	.LBE2:
- 769:App/STM32F4-Discovery/W5200.c **** 
- 770:App/STM32F4-Discovery/W5200.c **** 		
- 771:App/STM32F4-Discovery/W5200.c **** 
- 772:App/STM32F4-Discovery/W5200.c **** 		
- 773:App/STM32F4-Discovery/W5200.c **** 	}	
- 2456              		.loc 1 773 0 discriminator 1
- 2457 005c E5E7     		b	.L140
- 2458              	.L142:
- 2459 005e 00BF     		.align	2
- 2460              	.L141:
- 2461 0060 00000000 		.word	socket_0
- 2462              		.cfi_endproc
- 2463              	.LFE134:
- 2465              		.text
- 2466              	.Letext0:
- 2467              		.file 2 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
- 2468              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
- 2469              		.file 4 "App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h"
- 2470              		.file 5 "Source/portable/GCC/ARM_CM4F/portmacro.h"
- 2471              		.file 6 "Source/include/task.h"
- 2472              		.file 7 "Source/include/queue.h"
- 2473              		.file 8 "Source/include/semphr.h"
- 2474              		.file 9 "App/STM32F4-Discovery/main.h"
- 2475              		.file 10 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
- 2476              		.file 11 "App/STM32F4-Discovery/spi.h"
- 2477              		.file 12 "App/STM32F4-Discovery/W5200.h"
+ 737:App/STM32F4-Discovery/W5200.c **** 
+ 738:App/STM32F4-Discovery/W5200.c **** //============================================================================/
+ 739:App/STM32F4-Discovery/W5200.c **** // func set_macTask 
+ 740:App/STM32F4-Discovery/W5200.c **** //==================================================================================
+ 741:App/STM32F4-Discovery/W5200.c **** 
+ 742:App/STM32F4-Discovery/W5200.c **** void set_macTask(void *pvParameters)
+ 743:App/STM32F4-Discovery/W5200.c **** {
+ 2433              		.loc 1 743 0
+ 2434              		.cfi_startproc
+ 2435              		@ args = 0, pretend = 0, frame = 216
+ 2436              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2437 0000 80B5     		push	{r7, lr}
+ 2438              	.LCFI71:
+ 2439              		.cfi_def_cfa_offset 8
+ 2440              		.cfi_offset 7, -8
+ 2441              		.cfi_offset 14, -4
+ 2442 0002 B6B0     		sub	sp, sp, #216
+ 2443              	.LCFI72:
+ 2444              		.cfi_def_cfa_offset 224
+ 2445 0004 00AF     		add	r7, sp, #0
+ 2446              	.LCFI73:
+ 2447              		.cfi_def_cfa_register 7
+ 2448 0006 7860     		str	r0, [r7, #4]
+ 744:App/STM32F4-Discovery/W5200.c **** 
+ 745:App/STM32F4-Discovery/W5200.c **** 	/*!**********************************************************************
+ 746:App/STM32F4-Discovery/W5200.c **** 	 * 
+ 747:App/STM32F4-Discovery/W5200.c **** 	 * Task opens socket on port 80,  starts listening on port and susped 
+ 748:App/STM32F4-Discovery/W5200.c **** 	 * suspend itself. If interrupt occures it process CLI command 
+ 749:App/STM32F4-Discovery/W5200.c **** 	 * **********************************************************************/
+ 750:App/STM32F4-Discovery/W5200.c **** 
+ 751:App/STM32F4-Discovery/W5200.c **** 
+ 752:App/STM32F4-Discovery/W5200.c **** 	/* suspend task until init_W5200 is finished */
+ 753:App/STM32F4-Discovery/W5200.c **** 	//vTaskSuspend(set_macTaskHandle);
+ 754:App/STM32F4-Discovery/W5200.c **** 	vTaskSuspend(NULL);
+ 2449              		.loc 1 754 0
+ 2450 0008 0020     		movs	r0, #0
+ 2451 000a FFF7FEFF 		bl	vTaskSuspend
+ 755:App/STM32F4-Discovery/W5200.c **** 	uint8_t	buf[100], buf1[100]; 
+ 756:App/STM32F4-Discovery/W5200.c **** 	int len; 
+ 757:App/STM32F4-Discovery/W5200.c **** 		/*create socket and send byte */
+ 758:App/STM32F4-Discovery/W5200.c **** 	socket_0 = socket(W5200_Sn_MR_TCP, 80, 0);
+ 2452              		.loc 1 758 0
+ 2453 000e 0120     		movs	r0, #1
+ 2454 0010 5021     		movs	r1, #80
+ 2455 0012 0022     		movs	r2, #0
+ 2456 0014 FFF7FEFF 		bl	socket
+ 2457 0018 0346     		mov	r3, r0
+ 2458 001a 1A46     		mov	r2, r3
+ 2459 001c 104B     		ldr	r3, .L142
+ 2460 001e 1A60     		str	r2, [r3]
+ 759:App/STM32F4-Discovery/W5200.c **** 	listen(socket_0);
+ 2461              		.loc 1 759 0
+ 2462 0020 0F4B     		ldr	r3, .L142
+ 2463 0022 1B68     		ldr	r3, [r3]
+ 2464 0024 1846     		mov	r0, r3
+ 2465 0026 FFF7FEFF 		bl	listen
+ 2466              	.L141:
+ 2467              	.LBB2:
+ 760:App/STM32F4-Discovery/W5200.c **** 
+ 761:App/STM32F4-Discovery/W5200.c **** 
+ 762:App/STM32F4-Discovery/W5200.c **** 	for( ;; )
+ 763:App/STM32F4-Discovery/W5200.c ****         {
+ 764:App/STM32F4-Discovery/W5200.c **** 
+ 765:App/STM32F4-Discovery/W5200.c **** 	
+ 766:App/STM32F4-Discovery/W5200.c **** 		/*we are now listening
+ 767:App/STM32F4-Discovery/W5200.c **** 		suspend task set_macTask()*/
+ 768:App/STM32F4-Discovery/W5200.c **** 		vTaskSuspend(NULL);
+ 2468              		.loc 1 768 0 discriminator 1
+ 2469 002a 0020     		movs	r0, #0
+ 2470 002c FFF7FEFF 		bl	vTaskSuspend
+ 769:App/STM32F4-Discovery/W5200.c **** 		
+ 770:App/STM32F4-Discovery/W5200.c **** 		// interrupt on W5200 occured 
+ 771:App/STM32F4-Discovery/W5200.c **** 		// receive data 
+ 772:App/STM32F4-Discovery/W5200.c **** 		len = recv(socket_0, buf, 100, 0);
+ 2471              		.loc 1 772 0 discriminator 1
+ 2472 0030 0B4B     		ldr	r3, .L142
+ 2473 0032 1B68     		ldr	r3, [r3]
+ 2474 0034 DAB2     		uxtb	r2, r3
+ 2475 0036 07F17003 		add	r3, r7, #112
+ 2476 003a 1046     		mov	r0, r2
+ 2477 003c 1946     		mov	r1, r3
+ 2478 003e 6422     		movs	r2, #100
+ 2479 0040 0023     		movs	r3, #0
+ 2480 0042 FFF7FEFF 		bl	recv
+ 2481 0046 C7F8D400 		str	r0, [r7, #212]
+ 773:App/STM32F4-Discovery/W5200.c **** 		
+ 774:App/STM32F4-Discovery/W5200.c **** 		// proces data with CLI 
+ 775:App/STM32F4-Discovery/W5200.c **** 		
+ 776:App/STM32F4-Discovery/W5200.c **** 		FreeRTOS_CLIProcessCommand ( buf, buf1, 100);
+ 2482              		.loc 1 776 0 discriminator 1
+ 2483 004a 07F17002 		add	r2, r7, #112
+ 2484 004e 07F10C03 		add	r3, r7, #12
+ 2485 0052 1046     		mov	r0, r2
+ 2486 0054 1946     		mov	r1, r3
+ 2487 0056 6422     		movs	r2, #100
+ 2488 0058 FFF7FEFF 		bl	FreeRTOS_CLIProcessCommand
+ 2489              	.LBE2:
+ 777:App/STM32F4-Discovery/W5200.c **** 
+ 778:App/STM32F4-Discovery/W5200.c **** 		
+ 779:App/STM32F4-Discovery/W5200.c **** 
+ 780:App/STM32F4-Discovery/W5200.c **** 		
+ 781:App/STM32F4-Discovery/W5200.c **** 	}	
+ 2490              		.loc 1 781 0 discriminator 1
+ 2491 005c E5E7     		b	.L141
+ 2492              	.L143:
+ 2493 005e 00BF     		.align	2
+ 2494              	.L142:
+ 2495 0060 00000000 		.word	socket_0
+ 2496              		.cfi_endproc
+ 2497              	.LFE134:
+ 2499              		.text
+ 2500              	.Letext0:
+ 2501              		.file 2 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
+ 2502              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
+ 2503              		.file 4 "App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h"
+ 2504              		.file 5 "Source/portable/GCC/ARM_CM4F/portmacro.h"
+ 2505              		.file 6 "Source/include/task.h"
+ 2506              		.file 7 "Source/include/queue.h"
+ 2507              		.file 8 "Source/include/semphr.h"
+ 2508              		.file 9 "App/STM32F4-Discovery/main.h"
+ 2509              		.file 10 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
+ 2510              		.file 11 "App/STM32F4-Discovery/spi.h"
+ 2511              		.file 12 "App/STM32F4-Discovery/W5200.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 W5200.c
                             *COM*:0000000000000004 xSemaphoreDMASPI
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:21     .bss.xHigherPriorityTaskWoken:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:24     .bss.xHigherPriorityTaskWoken:0000000000000000 xHigherPriorityTaskWoken
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:21     .bss.xHigherPriorityTaskWoken:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:24     .bss.xHigherPriorityTaskWoken:0000000000000000 xHigherPriorityTaskWoken
                             *COM*:0000000000000004 xSmphrUSART
-                            *COM*:0000000000000004 setSpeedHandle
+                            *COM*:0000000000000004 motorHeartBeatHandle
                             *COM*:0000000000000004 motorHBHandle
                             *COM*:0000000000000004 QSpd_handle
                             *COM*:0000000000000004 QStatus_handle
@@ -3222,84 +3260,86 @@ DEFINED SYMBOLS
                             *COM*:0000000000000004 dat_lengthRX
                             *COM*:0000000000000004 dat_lengthTX
                             *COM*:0000000000000004 set_macTaskHandle
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:40     .rodata.RAMSIZE_TABLE:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:43     .rodata.RAMSIZE_TABLE:0000000000000000 RAMSIZE_TABLE
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:63     .bss.socket_table:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:66     .bss.socket_table:0000000000000000 socket_table
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:69     .bss.socket_flg:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:72     .bss.socket_flg:0000000000000000 socket_flg
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:75     .rodata.socket_open_status:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:78     .rodata.socket_open_status:0000000000000000 socket_open_status
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:86     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:113    .text.init_W5200:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:118    .text.init_W5200:0000000000000000 init_W5200
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:414    .text.W5200_configure_network:0000000000000000 W5200_configure_network
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:332    .text.W5200_set_hardware_address:0000000000000000 W5200_set_hardware_address
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:315    .text.init_W5200:0000000000000168 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:327    .text.W5200_set_hardware_address:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:364    .text.W5200_get_hardware_address:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:369    .text.W5200_get_hardware_address:0000000000000000 W5200_get_hardware_address
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:404    .text.W5200_get_hardware_address:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:409    .text.W5200_configure_network:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:458    .text.W5200_get_ipaddress:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:463    .text.W5200_get_ipaddress:0000000000000000 W5200_get_ipaddress
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:498    .text.W5200_get_ipaddress:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:503    .text.get_CRStatus:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:507    .text.get_CRStatus:0000000000000000 get_CRStatus
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:552    .text.get_CRStatus:0000000000000034 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:557    .text.get_SRStatus:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:561    .text.get_SRStatus:0000000000000000 get_SRStatus
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:606    .text.get_SRStatus:0000000000000034 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:611    .text.get_TXFSRStatus:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:615    .text.get_TXFSRStatus:0000000000000000 get_TXFSRStatus
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:667    .text.get_TXFSRStatus:0000000000000044 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:672    .text.get_TXWRStatus:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:676    .text.get_TXWRStatus:0000000000000000 get_TXWRStatus
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:728    .text.get_TXWRStatus:0000000000000044 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:733    .text.get_TXRD:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:737    .text.get_TXRD:0000000000000000 get_TXRD
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:789    .text.get_TXRD:0000000000000044 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:794    .text.set_TXWR:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:798    .text.set_TXWR:0000000000000000 set_TXWR
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:840    .text.get_RXRSR:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:844    .text.get_RXRSR:0000000000000000 get_RXRSR
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:896    .text.get_RXRSR:0000000000000044 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:901    .text.get_RXRD:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:905    .text.get_RXRD:0000000000000000 get_RXRD
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:957    .text.get_RXRD:0000000000000044 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:962    .text.set_RXRD:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:966    .text.set_RXRD:0000000000000000 set_RXRD
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1008   .text.write_memory:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1013   .text.write_memory:0000000000000000 write_memory
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1124   .text.read_memory:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1129   .text.read_memory:0000000000000000 read_memory
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1245   .text.read_memory:00000000000000bc $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1250   .text.socket:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1255   .text.socket:0000000000000000 socket
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1465   .text.socket:000000000000014c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1470   .text.closesocket:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1475   .text.closesocket:0000000000000000 closesocket
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1563   .text.closesocket:0000000000000078 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1568   .text.connect:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1573   .text.connect:0000000000000000 connect
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1738   .text.connect:0000000000000104 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1743   .text.send:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1748   .text.send:0000000000000000 send
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1979   .text.send:0000000000000180 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1985   .text.recv:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:1990   .text.recv:0000000000000000 recv
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2139   .text.recv:00000000000000e0 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2144   .text.listen:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2149   .text.listen:0000000000000000 listen
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2258   .text.listen:00000000000000a0 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2264   .text.locate_interrupt:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2269   .text.locate_interrupt:0000000000000000 locate_interrupt
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2349   .text.locate_interrupt:0000000000000068 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2355   .text.EXTI4_IRQHandler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2360   .text.EXTI4_IRQHandler:0000000000000000 EXTI4_IRQHandler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2392   .text.set_macTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2397   .text.set_macTask:0000000000000000 set_macTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccKWv7Kp.s:2461   .text.set_macTask:0000000000000060 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:40     .rodata.RAMSIZE_TABLE:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:43     .rodata.RAMSIZE_TABLE:0000000000000000 RAMSIZE_TABLE
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:63     .bss.socket_table:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:66     .bss.socket_table:0000000000000000 socket_table
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:69     .bss.socket_flg:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:72     .bss.socket_flg:0000000000000000 socket_flg
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:75     .rodata.socket_open_status:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:78     .rodata.socket_open_status:0000000000000000 socket_open_status
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:86     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:113    .text.init_W5200:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:118    .text.init_W5200:0000000000000000 init_W5200
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:414    .text.W5200_configure_network:0000000000000000 W5200_configure_network
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:332    .text.W5200_set_hardware_address:0000000000000000 W5200_set_hardware_address
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:315    .text.init_W5200:0000000000000168 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:327    .text.W5200_set_hardware_address:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:364    .text.W5200_get_hardware_address:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:369    .text.W5200_get_hardware_address:0000000000000000 W5200_get_hardware_address
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:404    .text.W5200_get_hardware_address:0000000000000020 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:409    .text.W5200_configure_network:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:458    .text.W5200_get_ipaddress:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:463    .text.W5200_get_ipaddress:0000000000000000 W5200_get_ipaddress
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:498    .text.W5200_get_ipaddress:0000000000000020 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:503    .text.get_CRStatus:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:507    .text.get_CRStatus:0000000000000000 get_CRStatus
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:552    .text.get_CRStatus:0000000000000034 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:557    .text.get_SRStatus:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:561    .text.get_SRStatus:0000000000000000 get_SRStatus
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:606    .text.get_SRStatus:0000000000000034 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:611    .text.get_TXFSRStatus:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:615    .text.get_TXFSRStatus:0000000000000000 get_TXFSRStatus
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:667    .text.get_TXFSRStatus:0000000000000044 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:672    .text.get_TXWRStatus:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:676    .text.get_TXWRStatus:0000000000000000 get_TXWRStatus
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:728    .text.get_TXWRStatus:0000000000000044 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:733    .text.get_TXRD:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:737    .text.get_TXRD:0000000000000000 get_TXRD
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:789    .text.get_TXRD:0000000000000044 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:794    .text.set_TXWR:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:798    .text.set_TXWR:0000000000000000 set_TXWR
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:840    .text.get_RXRSR:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:844    .text.get_RXRSR:0000000000000000 get_RXRSR
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:896    .text.get_RXRSR:0000000000000044 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:901    .text.get_RXRD:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:905    .text.get_RXRD:0000000000000000 get_RXRD
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:957    .text.get_RXRD:0000000000000044 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:962    .text.set_RXRD:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:966    .text.set_RXRD:0000000000000000 set_RXRD
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1008   .text.write_memory:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1013   .text.write_memory:0000000000000000 write_memory
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1124   .text.read_memory:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1129   .text.read_memory:0000000000000000 read_memory
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1245   .text.read_memory:00000000000000bc $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1250   .text.socket:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1255   .text.socket:0000000000000000 socket
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1465   .text.socket:000000000000014c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1470   .text.closesocket:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1475   .text.closesocket:0000000000000000 closesocket
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1563   .text.closesocket:0000000000000078 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1568   .text.connect:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1573   .text.connect:0000000000000000 connect
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1738   .text.connect:0000000000000104 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1743   .text.send:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1748   .text.send:0000000000000000 send
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1979   .text.send:0000000000000180 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1985   .text.recv:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:1990   .text.recv:0000000000000000 recv
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2139   .text.recv:00000000000000e0 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2144   .text.listen:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2149   .text.listen:0000000000000000 listen
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2258   .text.listen:00000000000000a0 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2264   .text.locate_interrupt:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2269   .text.locate_interrupt:0000000000000000 locate_interrupt
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2324   .text.locate_interrupt:000000000000004c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2340   .text.locate_interrupt:000000000000008c $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2382   .text.locate_interrupt:00000000000000c4 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2389   .text.EXTI4_IRQHandler:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2394   .text.EXTI4_IRQHandler:0000000000000000 EXTI4_IRQHandler
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2426   .text.set_macTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2431   .text.set_macTask:0000000000000000 set_macTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpaWmWa.s:2495   .text.set_macTask:0000000000000060 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
@@ -3314,7 +3354,7 @@ spi_dma_send
 spi_dma_read
 memcpy
 spi_dma_send2B
+vTaskSuspend
 EXTI_GetITStatus
 EXTI_ClearFlag
-vTaskSuspend
 FreeRTOS_CLIProcessCommand

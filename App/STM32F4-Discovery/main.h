@@ -48,7 +48,7 @@ xSemaphoreHandle xSmphrUSART;
 /*!	\var xTaskHandle setSpeedHandle
 * 	\brief Task handles for setspeed
 */
-xTaskHandle setSpeedHandle,
+xTaskHandle motorHeartBeatHandle,
 
 	    
 /*!	\var xTaskHandle motorHBHandle
@@ -77,5 +77,6 @@ xQueueHandle QSpd_handle,
  * 	\brief Socket 0 descriptor
  */	      
 int socket_0;
+
 
 #endif
