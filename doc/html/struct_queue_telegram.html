@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -93,23 +93,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a752eb6858a0e18355371dc6cdc559e64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="main_8h.html#a87d564e7bd6c8ad9e1088c17ba0f91f4">QueueCommand</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_queue_telegram.html#a752eb6858a0e18355371dc6cdc559e64">Qcmd</a></td></tr>
+<tr class="memitem:a752eb6858a0e18355371dc6cdc559e64"><td class="memItemLeft" align="right" valign="top">QueueCommand&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_queue_telegram.html#a752eb6858a0e18355371dc6cdc559e64">Qcmd</a></td></tr>
 <tr class="separator:a752eb6858a0e18355371dc6cdc559e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5adaf2ba7c2db4f8f198143783d09db3"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_queue_telegram.html#a5adaf2ba7c2db4f8f198143783d09db3">size</a></td></tr>
 <tr class="separator:a5adaf2ba7c2db4f8f198143783d09db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e29925d18b381b18d7987672ed5a3f9"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_queue_telegram.html#a7e29925d18b381b18d7987672ed5a3f9">data</a> [100]</td></tr>
-<tr class="separator:a7e29925d18b381b18d7987672ed5a3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43b68c4a7f4cee5a8ff61cfe38efc716"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_queue_telegram.html#a43b68c4a7f4cee5a8ff61cfe38efc716">data</a> [10]</td></tr>
+<tr class="separator:a43b68c4a7f4cee5a8ff61cfe38efc716"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Telegram communication betwen task. </p>
 <p>Telegram communication between tasks in specific format </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a class="anchor" id="a7e29925d18b381b18d7987672ed5a3f9"></a>
+<a class="anchor" id="a43b68c4a7f4cee5a8ff61cfe38efc716"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t QueueTelegram::data[100]</td>
+          <td class="memname">uint16_t QueueTelegram::data[10]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -122,7 +122,7 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="main_8h.html#a87d564e7bd6c8ad9e1088c17ba0f91f4">QueueCommand</a> QueueTelegram::Qcmd</td>
+          <td class="memname">QueueCommand QueueTelegram::Qcmd</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -144,12 +144,12 @@ Data Fields</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="main_8h_source.html">main.h</a></li>
+<li><a class="el" href="tcp_c_l_i_8h_source.html">tcpCLI.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 24 2014 10:09:57 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 28 2014 13:51:28 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

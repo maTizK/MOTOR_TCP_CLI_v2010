@@ -11,5 +11,7 @@ var searchData=
   ['modbus_5frr',['modbus_RR',['../modbus__mk_8c.html#a07af3d991f39418f412352c96b71a8a5',1,'modbus_RR(int address, int nb, uint16_t *src):&#160;modbus_mk.c'],['../modbus__mk_8h.html#a8119daf7cd745f14f01b5679deaa9ce4',1,'modbus_RR(int, int, uint16_t *):&#160;modbus_mk.c']]],
   ['modbus_5fwib',['modbus_WIB',['../modbus__mk_8c.html#a740ccaea46e256dfd32fb22c1c1a88de',1,'modbus_WIB(uint16_t address, int nb, uint8_t *src):&#160;modbus_mk.c'],['../modbus__mk_8h.html#ac983946b659deee4f3d35d8bdafd6804',1,'modbus_WIB(uint16_t, int, uint8_t *):&#160;modbus_mk.c']]],
   ['modbus_5fwr',['modbus_WR',['../modbus__mk_8c.html#ace18133f61c61ccb510c59251d8e0949',1,'modbus_WR(int address, int nb, const uint16_t *src):&#160;modbus_mk.c'],['../modbus__mk_8h.html#af5bed61cfadeb4659861e969e7d96ca9',1,'modbus_WR(int, int, const uint16_t *):&#160;modbus_mk.c']]],
-  ['motorhbhandle',['motorHBHandle',['../main_8h.html#aead1f9185b05dea9ad0905cc182d88f9',1,'main.h']]]
+  ['modbus_5fwsr',['modbus_WSR',['../modbus__mk_8c.html#a0d64d93dfe900e0af0598fa8f9657bc9',1,'modbus_WSR(int address, const uint16_t src):&#160;modbus_mk.c'],['../modbus__mk_8h.html#a5c467eca5cff0325f4ecb417c8592e9b',1,'modbus_WSR(int, const uint16_t):&#160;modbus_mk.c']]],
+  ['motorhbhandle',['motorHBHandle',['../main_8h.html#aead1f9185b05dea9ad0905cc182d88f9',1,'main.h']]],
+  ['motorheartbeat_5ftask',['motorHeartBeat_task',['../modbus__mk_8c.html#a53c1eb951aff5d669c77c6a68ef33724',1,'motorHeartBeat_task(void *pvParameters):&#160;modbus_mk.c'],['../modbus__mk_8h.html#ae97bc6035f16eba419c568ad2c50f129',1,'motorHeartBeat_task(void *):&#160;modbus_mk.c']]]
 ];

@@ -12,10 +12,8 @@ var indexSectionsWithContent =
   2: "msw",
   3: "abcdehilmnprsuw",
   4: "dmpqsux",
-  5: "q",
-  6: "di",
-  7: "m",
-  8: "t"
+  5: "m",
+  6: "t"
 };
 
 var indexSectionNames =
@@ -25,10 +23,8 @@ var indexSectionNames =
   2: "files",
   3: "functions",
   4: "variables",
-  5: "enums",
-  6: "enumvalues",
-  7: "defines",
-  8: "groups"
+  5: "defines",
+  6: "groups"
 };
 
 function convertToId(search)

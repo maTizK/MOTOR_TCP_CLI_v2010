@@ -21,19 +21,6 @@ A main header file.
 {\ttfamily \#include $<$stm32f4xx\+\_\+dma.\+h$>$}\\*
 {\ttfamily \#include $<$stm32f4xx\+\_\+rcc.\+h$>$}\\*
 {\ttfamily \#include $<$stm32f4xx\+\_\+gpio.\+h$>$}\\*
-\subsection*{Data Structures}
-\begin{DoxyCompactItemize}
-\item 
-struct \hyperlink{struct_queue_telegram}{Queue\+Telegram}
-\begin{DoxyCompactList}\small\item\em Telegram communication betwen task. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\subsection*{Enumerations}
-\begin{DoxyCompactItemize}
-\item 
-enum \hyperlink{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4}{Queue\+Command} \{ \hyperlink{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4a9d7d6f31868d66330397c967c4afd2d2}{D\+A\+T\+A}, 
-\hyperlink{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4afd6a0e4343048b10646dd2976cc5ad18}{I\+D\+L\+E}, 
-\hyperlink{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4a9d61e82a9a12752f10aece1b22183913}{D\+E\+L\+E\+T\+E}
- \}
-\begin{DoxyCompactList}\small\item\em Queue telegram command. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -43,9 +30,9 @@ enum \hyperlink{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4}{Queue\+Command} \{ \h
 \hypertarget{main_8h_adaefe37213ca9bf424e589f433a7cd50}{x\+Semaphore\+Handle \hyperlink{main_8h_adaefe37213ca9bf424e589f433a7cd50}{x\+Smphr\+U\+S\+A\+R\+T}}\label{main_8h_adaefe37213ca9bf424e589f433a7cd50}
 
 \begin{DoxyCompactList}\small\item\em Sempahore handle for U\+S\+A\+R\+T port. \end{DoxyCompactList}\item 
-\hypertarget{main_8h_ad24f5ee546cf5a2956dffb7a463a030e}{x\+Task\+Handle \hyperlink{main_8h_ad24f5ee546cf5a2956dffb7a463a030e}{set\+Speed\+Handle}}\label{main_8h_ad24f5ee546cf5a2956dffb7a463a030e}
+\hypertarget{main_8h_a9eb88548b8b43c1dea8088aa0095c42b}{x\+Task\+Handle {\bfseries motor\+Heart\+Beat\+Handle}}\label{main_8h_a9eb88548b8b43c1dea8088aa0095c42b}
 
-\begin{DoxyCompactList}\small\item\em Task handles for setspeed. \end{DoxyCompactList}\item 
+\item 
 \hypertarget{main_8h_aead1f9185b05dea9ad0905cc182d88f9}{\hyperlink{main_8h_aead1f9185b05dea9ad0905cc182d88f9}{motor\+H\+B\+Handle}}\label{main_8h_aead1f9185b05dea9ad0905cc182d88f9}
 
 \begin{DoxyCompactList}\small\item\em Task handles for motor heart bit tasks. \end{DoxyCompactList}\item 
@@ -63,24 +50,3 @@ enum \hyperlink{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4}{Queue\+Command} \{ \h
 \subsection{Detailed Description}
 A main header file. 
 
-
-
-\subsection{Enumeration Type Documentation}
-\hypertarget{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4}{\index{main.\+h@{main.\+h}!Queue\+Command@{Queue\+Command}}
-\index{Queue\+Command@{Queue\+Command}!main.\+h@{main.\+h}}
-\subsubsection[{Queue\+Command}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Queue\+Command}}}\label{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4}
-
-
-Queue telegram command. 
-
-Queue telegram command for tasks commmunication \begin{Desc}
-\item[Enumerator]\par
-\begin{description}
-\index{D\+A\+T\+A@{D\+A\+T\+A}!main.\+h@{main.\+h}}\index{main.\+h@{main.\+h}!D\+A\+T\+A@{D\+A\+T\+A}}\item[{\em 
-\hypertarget{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4a9d7d6f31868d66330397c967c4afd2d2}{D\+A\+T\+A}\label{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4a9d7d6f31868d66330397c967c4afd2d2}
-}]enum D\+A\+T\+A if sending data. \index{I\+D\+L\+E@{I\+D\+L\+E}!main.\+h@{main.\+h}}\index{main.\+h@{main.\+h}!I\+D\+L\+E@{I\+D\+L\+E}}\item[{\em 
-\hypertarget{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4afd6a0e4343048b10646dd2976cc5ad18}{I\+D\+L\+E}\label{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4afd6a0e4343048b10646dd2976cc5ad18}
-}]enum I\+D\+L\+E if task has to go to idle mode. \index{D\+E\+L\+E\+T\+E@{D\+E\+L\+E\+T\+E}!main.\+h@{main.\+h}}\index{main.\+h@{main.\+h}!D\+E\+L\+E\+T\+E@{D\+E\+L\+E\+T\+E}}\item[{\em 
-\hypertarget{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4a9d61e82a9a12752f10aece1b22183913}{D\+E\+L\+E\+T\+E}\label{main_8h_a87d564e7bd6c8ad9e1088c17ba0f91f4a9d61e82a9a12752f10aece1b22183913}
-}]enum D\+E\+L\+E\+T\+E if task has to delete itself. \end{description}
-\end{Desc}

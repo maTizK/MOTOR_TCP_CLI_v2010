@@ -7,6 +7,7 @@ modbus protocol functions and motor control header file
 
 
 {\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tcp\+C\+L\+I.\+h\char`\"{}}\\*
 \subsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
@@ -81,11 +82,13 @@ void \hyperlink{modbus__mk_8h_ac983946b659deee4f3d35d8bdafd6804}{modbus\+\_\+\+W
 \begin{DoxyCompactList}\small\item\em write bits to register \end{DoxyCompactList}\item 
 void \hyperlink{modbus__mk_8h_af5bed61cfadeb4659861e969e7d96ca9}{modbus\+\_\+\+W\+R} (int, int, const uint16\+\_\+t $\ast$)
 \begin{DoxyCompactList}\small\item\em write to register of motor \end{DoxyCompactList}\item 
+void \hyperlink{modbus__mk_8h_a5c467eca5cff0325f4ecb417c8592e9b}{modbus\+\_\+\+W\+S\+R} (int, const uint16\+\_\+t)
+\begin{DoxyCompactList}\small\item\em write to single register of motor \end{DoxyCompactList}\item 
 void \hyperlink{modbus__mk_8h_a8119daf7cd745f14f01b5679deaa9ce4}{modbus\+\_\+\+R\+R} (int, int, uint16\+\_\+t $\ast$)
 \begin{DoxyCompactList}\small\item\em read from motor register \end{DoxyCompactList}\item 
-void \hyperlink{modbus__mk_8h_a2ef1be468093a6847ec11876deefb414}{set\+Speed\+\_\+task} (void $\ast$)
+void \hyperlink{modbus__mk_8h_ae97bc6035f16eba419c568ad2c50f129}{motor\+Heart\+Beat\+\_\+task} (void $\ast$)
 \item 
-\hypertarget{modbus__mk_8h_af580672502521e8be29549ad39518265}{void {\bfseries motor\+Heart\+Bit\+\_\+task} (void $\ast$)}\label{modbus__mk_8h_af580672502521e8be29549ad39518265}
+\hypertarget{modbus__mk_8h_a4b840bf36cc079060fc221660e1a84c7}{void {\bfseries motor\+Control\+\_\+task} (void $\ast$)}\label{modbus__mk_8h_a4b840bf36cc079060fc221660e1a84c7}
 
 \end{DoxyCompactItemize}
 \subsection*{Variables}
@@ -218,13 +221,32 @@ write to register of motor
 {\em $\ast$src} & -\/ pointer to data to send \\
 \hline
 \end{DoxyParams}
-\hypertarget{modbus__mk_8h_a2ef1be468093a6847ec11876deefb414}{\index{modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}!set\+Speed\+\_\+task@{set\+Speed\+\_\+task}}
-\index{set\+Speed\+\_\+task@{set\+Speed\+\_\+task}!modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}}
-\subsubsection[{set\+Speed\+\_\+task}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Speed\+\_\+task (
+\hypertarget{modbus__mk_8h_a5c467eca5cff0325f4ecb417c8592e9b}{\index{modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}!modbus\+\_\+\+W\+S\+R@{modbus\+\_\+\+W\+S\+R}}
+\index{modbus\+\_\+\+W\+S\+R@{modbus\+\_\+\+W\+S\+R}!modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}}
+\subsubsection[{modbus\+\_\+\+W\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}void modbus\+\_\+\+W\+S\+R (
+\begin{DoxyParamCaption}
+\item[{int}]{address, }
+\item[{const uint16\+\_\+t}]{src}
+\end{DoxyParamCaption}
+)}}\label{modbus__mk_8h_a5c467eca5cff0325f4ecb417c8592e9b}
+
+
+write to single register of motor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em address} & -\/ register address \\
+\hline
+{\em src} & -\/ data to send \\
+\hline
+\end{DoxyParams}
+\hypertarget{modbus__mk_8h_ae97bc6035f16eba419c568ad2c50f129}{\index{modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}!motor\+Heart\+Beat\+\_\+task@{motor\+Heart\+Beat\+\_\+task}}
+\index{motor\+Heart\+Beat\+\_\+task@{motor\+Heart\+Beat\+\_\+task}!modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}}
+\subsubsection[{motor\+Heart\+Beat\+\_\+task}]{\setlength{\rightskip}{0pt plus 5cm}void motor\+Heart\+Beat\+\_\+task (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{}
 \end{DoxyParamCaption}
-)}}\label{modbus__mk_8h_a2ef1be468093a6847ec11876deefb414}
+)}}\label{modbus__mk_8h_ae97bc6035f16eba419c568ad2c50f129}
 sets speed of motor \hypertarget{modbus__mk_8h_a311958bfd049859f23038c3f565bcb47}{\index{modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}!U\+S\+A\+R\+T\+\_\+puts@{U\+S\+A\+R\+T\+\_\+puts}}
 \index{U\+S\+A\+R\+T\+\_\+puts@{U\+S\+A\+R\+T\+\_\+puts}!modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}}
 \subsubsection[{U\+S\+A\+R\+T\+\_\+puts}]{\setlength{\rightskip}{0pt plus 5cm}void U\+S\+A\+R\+T\+\_\+puts (

@@ -69,8 +69,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="globals.html"><span>All</span></a></li>
       <li class="current"><a href="globals_func.html"><span>Functions</span></a></li>
       <li><a href="globals_vars.html"><span>Variables</span></a></li>
-      <li><a href="globals_enum.html"><span>Enumerations</span></a></li>
-      <li><a href="globals_eval.html"><span>Enumerator</span></a></li>
       <li><a href="globals_defs.html"><span>Macros</span></a></li>
     </ul>
   </div>
@@ -93,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -172,6 +170,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="modbus__mk_8h.html#af5bed61cfadeb4659861e969e7d96ca9">modbus_mk.h</a>
 , <a class="el" href="modbus__mk_8c.html#ace18133f61c61ccb510c59251d8e0949">modbus_mk.c</a>
 </li>
+<li>modbus_WSR()
+: <a class="el" href="modbus__mk_8h.html#a5c467eca5cff0325f4ecb417c8592e9b">modbus_mk.h</a>
+, <a class="el" href="modbus__mk_8c.html#a0d64d93dfe900e0af0598fa8f9657bc9">modbus_mk.c</a>
+</li>
+<li>motorHeartBeat_task()
+: <a class="el" href="modbus__mk_8c.html#a53c1eb951aff5d669c77c6a68ef33724">modbus_mk.c</a>
+, <a class="el" href="modbus__mk_8h.html#ae97bc6035f16eba419c568ad2c50f129">modbus_mk.h</a>
+</li>
 </ul>
 
 
@@ -192,17 +198,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="_w5200_8h.html#a184964bffa01a3c8eba1231fd0bf876f">W5200.h</a>
 , <a class="el" href="_w5200_8c.html#a184964bffa01a3c8eba1231fd0bf876f">W5200.c</a>
 </li>
-<li>setSpeed_task()
-: <a class="el" href="modbus__mk_8c.html#a7c0cffce459c56625ecdbaeadf6e08cb">modbus_mk.c</a>
-, <a class="el" href="modbus__mk_8h.html#a2ef1be468093a6847ec11876deefb414">modbus_mk.h</a>
-</li>
 <li>socket()
-: <a class="el" href="_w5200_8h.html#a4c450c01f7c7ae1e2b3067bd9de7848f">W5200.h</a>
-, <a class="el" href="_w5200_8c.html#a4c450c01f7c7ae1e2b3067bd9de7848f">W5200.c</a>
+: <a class="el" href="_w5200_8c.html#a4c450c01f7c7ae1e2b3067bd9de7848f">W5200.c</a>
+, <a class="el" href="_w5200_8h.html#a4c450c01f7c7ae1e2b3067bd9de7848f">W5200.h</a>
 </li>
 <li>spi_dma_read()
-: <a class="el" href="spi_8c.html#a9549d183c4cc3ae5109b16c648fd41bc">spi.c</a>
-, <a class="el" href="spi_8h.html#a9549d183c4cc3ae5109b16c648fd41bc">spi.h</a>
+: <a class="el" href="spi_8h.html#a9549d183c4cc3ae5109b16c648fd41bc">spi.h</a>
+, <a class="el" href="spi_8c.html#a9549d183c4cc3ae5109b16c648fd41bc">spi.c</a>
 </li>
 <li>spi_dma_read2B()
 : <a class="el" href="spi_8c.html#ad8c491c38ec945ab510d8eef89564e7f">spi.c</a>
@@ -213,12 +215,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="spi_8h.html#a1a134ecb1e96d534aeab2ebea75b1d9d">spi.h</a>
 </li>
 <li>spi_dma_send2B()
-: <a class="el" href="spi_8h.html#a3c6116ca24459086780e70ecfa0b93c7">spi.h</a>
-, <a class="el" href="spi_8c.html#a3c6116ca24459086780e70ecfa0b93c7">spi.c</a>
+: <a class="el" href="spi_8c.html#a3c6116ca24459086780e70ecfa0b93c7">spi.c</a>
+, <a class="el" href="spi_8h.html#a3c6116ca24459086780e70ecfa0b93c7">spi.h</a>
 </li>
 <li>spi_dma_sendByte()
-: <a class="el" href="spi_8h.html#ad95e8d35a18bf4693f0cf50b68671abe">spi.h</a>
-, <a class="el" href="spi_8c.html#ad95e8d35a18bf4693f0cf50b68671abe">spi.c</a>
+: <a class="el" href="spi_8c.html#ad95e8d35a18bf4693f0cf50b68671abe">spi.c</a>
+, <a class="el" href="spi_8h.html#ad95e8d35a18bf4693f0cf50b68671abe">spi.h</a>
 </li>
 </ul>
 
@@ -256,7 +258,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 24 2014 10:09:57 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 28 2014 13:51:28 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

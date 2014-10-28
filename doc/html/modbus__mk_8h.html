@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -93,6 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>modbus protocol functions and motor control header file  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;tcpCLI.h&quot;</code><br />
 </div>
 <p><a href="modbus__mk_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -175,14 +176,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modb
 <tr class="memitem:af5bed61cfadeb4659861e969e7d96ca9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8h.html#af5bed61cfadeb4659861e969e7d96ca9">modbus_WR</a> (int, int, const uint16_t *)</td></tr>
 <tr class="memdesc:af5bed61cfadeb4659861e969e7d96ca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">write to register of motor  <a href="#af5bed61cfadeb4659861e969e7d96ca9">More...</a><br /></td></tr>
 <tr class="separator:af5bed61cfadeb4659861e969e7d96ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c467eca5cff0325f4ecb417c8592e9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8h.html#a5c467eca5cff0325f4ecb417c8592e9b">modbus_WSR</a> (int, const uint16_t)</td></tr>
+<tr class="memdesc:a5c467eca5cff0325f4ecb417c8592e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">write to single register of motor  <a href="#a5c467eca5cff0325f4ecb417c8592e9b">More...</a><br /></td></tr>
+<tr class="separator:a5c467eca5cff0325f4ecb417c8592e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8119daf7cd745f14f01b5679deaa9ce4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8h.html#a8119daf7cd745f14f01b5679deaa9ce4">modbus_RR</a> (int, int, uint16_t *)</td></tr>
 <tr class="memdesc:a8119daf7cd745f14f01b5679deaa9ce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">read from motor register  <a href="#a8119daf7cd745f14f01b5679deaa9ce4">More...</a><br /></td></tr>
 <tr class="separator:a8119daf7cd745f14f01b5679deaa9ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ef1be468093a6847ec11876deefb414"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8h.html#a2ef1be468093a6847ec11876deefb414">setSpeed_task</a> (void *)</td></tr>
-<tr class="separator:a2ef1be468093a6847ec11876deefb414"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af580672502521e8be29549ad39518265"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af580672502521e8be29549ad39518265"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorHeartBit_task</b> (void *)</td></tr>
-<tr class="separator:af580672502521e8be29549ad39518265"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae97bc6035f16eba419c568ad2c50f129"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8h.html#ae97bc6035f16eba419c568ad2c50f129">motorHeartBeat_task</a> (void *)</td></tr>
+<tr class="separator:ae97bc6035f16eba419c568ad2c50f129"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b840bf36cc079060fc221660e1a84c7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b840bf36cc079060fc221660e1a84c7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b> (void *)</td></tr>
+<tr class="separator:a4b840bf36cc079060fc221660e1a84c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -405,12 +409,47 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>input_Register</b
 
 </div>
 </div>
-<a class="anchor" id="a2ef1be468093a6847ec11876deefb414"></a>
+<a class="anchor" id="a5c467eca5cff0325f4ecb417c8592e9b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void setSpeed_task </td>
+          <td class="memname">void modbus_WSR </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>write to single register of motor </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>- register address </td></tr>
+    <tr><td class="paramname">src</td><td>- data to send </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae97bc6035f16eba419c568ad2c50f129"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void motorHeartBeat_task </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -511,7 +550,7 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>input_Register</b
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 24 2014 10:09:57 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 28 2014 13:51:28 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>
