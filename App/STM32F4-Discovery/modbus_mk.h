@@ -30,7 +30,7 @@
 #define DD()		USARTx_CS_GPIO_PORT->BSRRL |= GPIO_Pin_8; // chip select  
 
 
-#define MAX_STRLEN 128
+#define MAX_STRLEN 512
 #define REQ_MAX_LEN 512
 
 

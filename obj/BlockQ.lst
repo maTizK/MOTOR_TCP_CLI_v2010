@@ -256,7 +256,7 @@
  152:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters1->psCheckVariable = &( sBlockingConsumerCount[ 0 ] );
  102              		.loc 1 152 0
  103 0038 FB69     		ldr	r3, [r7, #28]
- 104 003a 534A     		ldr	r2, .L2
+ 104 003a 564A     		ldr	r2, .L2
  105 003c 9A60     		str	r2, [r3, #8]
  153:App/Common/Minimal/BlockQ.c **** 		
  154:App/Common/Minimal/BlockQ.c **** 	/* Create the structure used to pass parameters to the producer task. */
@@ -287,7 +287,7 @@
  166:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters2->psCheckVariable = &( sBlockingProducerCount[ 0 ] );
  119              		.loc 1 166 0
  120 0054 BB69     		ldr	r3, [r7, #24]
- 121 0056 4D4A     		ldr	r2, .L2+4
+ 121 0056 504A     		ldr	r2, .L2+4
  122 0058 9A60     		str	r2, [r3, #8]
  167:App/Common/Minimal/BlockQ.c **** 
  168:App/Common/Minimal/BlockQ.c **** 
@@ -303,26 +303,26 @@
  129 0064 0293     		str	r3, [sp, #8]
  130 0066 0023     		movs	r3, #0
  131 0068 0393     		str	r3, [sp, #12]
- 132 006a 4948     		ldr	r0, .L2+8
- 133 006c 4949     		ldr	r1, .L2+12
- 134 006e 8222     		movs	r2, #130
- 135 0070 FB69     		ldr	r3, [r7, #28]
- 136 0072 FFF7FEFF 		bl	xTaskGenericCreate
+ 132 006a 4C48     		ldr	r0, .L2+8
+ 133 006c 4C49     		ldr	r1, .L2+12
+ 134 006e 4FF48072 		mov	r2, #256
+ 135 0072 FB69     		ldr	r3, [r7, #28]
+ 136 0074 FFF7FEFF 		bl	xTaskGenericCreate
  172:App/Common/Minimal/BlockQ.c **** 	xTaskCreate( vBlockingQueueProducer, ( signed char * ) "QProdB2", blckqSTACK_SIZE, ( void * ) pxQu
  137              		.loc 1 172 0
- 138 0076 0023     		movs	r3, #0
- 139 0078 0093     		str	r3, [sp]
- 140 007a 0023     		movs	r3, #0
- 141 007c 0193     		str	r3, [sp, #4]
- 142 007e 0023     		movs	r3, #0
- 143 0080 0293     		str	r3, [sp, #8]
- 144 0082 0023     		movs	r3, #0
- 145 0084 0393     		str	r3, [sp, #12]
- 146 0086 4448     		ldr	r0, .L2+16
- 147 0088 4449     		ldr	r1, .L2+20
- 148 008a 8222     		movs	r2, #130
- 149 008c BB69     		ldr	r3, [r7, #24]
- 150 008e FFF7FEFF 		bl	xTaskGenericCreate
+ 138 0078 0023     		movs	r3, #0
+ 139 007a 0093     		str	r3, [sp]
+ 140 007c 0023     		movs	r3, #0
+ 141 007e 0193     		str	r3, [sp, #4]
+ 142 0080 0023     		movs	r3, #0
+ 143 0082 0293     		str	r3, [sp, #8]
+ 144 0084 0023     		movs	r3, #0
+ 145 0086 0393     		str	r3, [sp, #12]
+ 146 0088 4648     		ldr	r0, .L2+16
+ 147 008a 4749     		ldr	r1, .L2+20
+ 148 008c 4FF48072 		mov	r2, #256
+ 149 0090 BB69     		ldr	r3, [r7, #24]
+ 150 0092 FFF7FEFF 		bl	xTaskGenericCreate
  173:App/Common/Minimal/BlockQ.c **** 
  174:App/Common/Minimal/BlockQ.c **** 	
  175:App/Common/Minimal/BlockQ.c **** 
@@ -331,81 +331,81 @@
  178:App/Common/Minimal/BlockQ.c **** 
  179:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters3 = ( xBlockingQueueParameters * ) pvPortMalloc( sizeof( xBlockingQueueParameters
  151              		.loc 1 179 0
- 152 0092 0C20     		movs	r0, #12
- 153 0094 FFF7FEFF 		bl	pvPortMalloc
- 154 0098 7861     		str	r0, [r7, #20]
+ 152 0096 0C20     		movs	r0, #12
+ 153 0098 FFF7FEFF 		bl	pvPortMalloc
+ 154 009c 7861     		str	r0, [r7, #20]
  180:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters3->xQueue = xQueueCreate( uxQueueSize1, ( unsigned portBASE_TYPE ) sizeof( unsign
  155              		.loc 1 180 0
- 156 009a F86A     		ldr	r0, [r7, #44]
- 157 009c 0221     		movs	r1, #2
- 158 009e 0022     		movs	r2, #0
- 159 00a0 FFF7FEFF 		bl	xQueueGenericCreate
- 160 00a4 0246     		mov	r2, r0
- 161 00a6 7B69     		ldr	r3, [r7, #20]
- 162 00a8 1A60     		str	r2, [r3]
+ 156 009e F86A     		ldr	r0, [r7, #44]
+ 157 00a0 0221     		movs	r1, #2
+ 158 00a2 0022     		movs	r2, #0
+ 159 00a4 FFF7FEFF 		bl	xQueueGenericCreate
+ 160 00a8 0246     		mov	r2, r0
+ 161 00aa 7B69     		ldr	r3, [r7, #20]
+ 162 00ac 1A60     		str	r2, [r3]
  181:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters3->xBlockTime = xDontBlock;
  163              		.loc 1 181 0
- 164 00aa 7B69     		ldr	r3, [r7, #20]
- 165 00ac 3A6A     		ldr	r2, [r7, #32]
- 166 00ae 5A60     		str	r2, [r3, #4]
+ 164 00ae 7B69     		ldr	r3, [r7, #20]
+ 165 00b0 3A6A     		ldr	r2, [r7, #32]
+ 166 00b2 5A60     		str	r2, [r3, #4]
  182:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters3->psCheckVariable = &( sBlockingProducerCount[ 1 ] );
  167              		.loc 1 182 0
- 168 00b0 7B69     		ldr	r3, [r7, #20]
- 169 00b2 3B4A     		ldr	r2, .L2+24
- 170 00b4 9A60     		str	r2, [r3, #8]
+ 168 00b4 7B69     		ldr	r3, [r7, #20]
+ 169 00b6 3D4A     		ldr	r2, .L2+24
+ 170 00b8 9A60     		str	r2, [r3, #8]
  183:App/Common/Minimal/BlockQ.c **** 
  184:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters4 = ( xBlockingQueueParameters * ) pvPortMalloc( sizeof( xBlockingQueueParameters
  171              		.loc 1 184 0
- 172 00b6 0C20     		movs	r0, #12
- 173 00b8 FFF7FEFF 		bl	pvPortMalloc
- 174 00bc 3861     		str	r0, [r7, #16]
+ 172 00ba 0C20     		movs	r0, #12
+ 173 00bc FFF7FEFF 		bl	pvPortMalloc
+ 174 00c0 3861     		str	r0, [r7, #16]
  185:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters4->xQueue = pxQueueParameters3->xQueue;
  175              		.loc 1 185 0
- 176 00be 7B69     		ldr	r3, [r7, #20]
- 177 00c0 1A68     		ldr	r2, [r3]
- 178 00c2 3B69     		ldr	r3, [r7, #16]
- 179 00c4 1A60     		str	r2, [r3]
+ 176 00c2 7B69     		ldr	r3, [r7, #20]
+ 177 00c4 1A68     		ldr	r2, [r3]
+ 178 00c6 3B69     		ldr	r3, [r7, #16]
+ 179 00c8 1A60     		str	r2, [r3]
  186:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters4->xBlockTime = xBlockTime;
  180              		.loc 1 186 0
- 181 00c6 3B69     		ldr	r3, [r7, #16]
- 182 00c8 7A6A     		ldr	r2, [r7, #36]
- 183 00ca 5A60     		str	r2, [r3, #4]
+ 181 00ca 3B69     		ldr	r3, [r7, #16]
+ 182 00cc 7A6A     		ldr	r2, [r7, #36]
+ 183 00ce 5A60     		str	r2, [r3, #4]
  187:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters4->psCheckVariable = &( sBlockingConsumerCount[ 1 ] );
  184              		.loc 1 187 0
- 185 00cc 3B69     		ldr	r3, [r7, #16]
- 186 00ce 354A     		ldr	r2, .L2+28
- 187 00d0 9A60     		str	r2, [r3, #8]
+ 185 00d0 3B69     		ldr	r3, [r7, #16]
+ 186 00d2 374A     		ldr	r2, .L2+28
+ 187 00d4 9A60     		str	r2, [r3, #8]
  188:App/Common/Minimal/BlockQ.c **** 
  189:App/Common/Minimal/BlockQ.c **** 	xTaskCreate( vBlockingQueueConsumer, ( signed char * ) "QConsB3", blckqSTACK_SIZE, ( void * ) pxQu
  188              		.loc 1 189 0
- 189 00d2 0023     		movs	r3, #0
- 190 00d4 0093     		str	r3, [sp]
- 191 00d6 0023     		movs	r3, #0
- 192 00d8 0193     		str	r3, [sp, #4]
- 193 00da 0023     		movs	r3, #0
- 194 00dc 0293     		str	r3, [sp, #8]
- 195 00de 0023     		movs	r3, #0
- 196 00e0 0393     		str	r3, [sp, #12]
- 197 00e2 2B48     		ldr	r0, .L2+8
- 198 00e4 3049     		ldr	r1, .L2+32
- 199 00e6 8222     		movs	r2, #130
- 200 00e8 7B69     		ldr	r3, [r7, #20]
- 201 00ea FFF7FEFF 		bl	xTaskGenericCreate
+ 189 00d6 0023     		movs	r3, #0
+ 190 00d8 0093     		str	r3, [sp]
+ 191 00da 0023     		movs	r3, #0
+ 192 00dc 0193     		str	r3, [sp, #4]
+ 193 00de 0023     		movs	r3, #0
+ 194 00e0 0293     		str	r3, [sp, #8]
+ 195 00e2 0023     		movs	r3, #0
+ 196 00e4 0393     		str	r3, [sp, #12]
+ 197 00e6 2D48     		ldr	r0, .L2+8
+ 198 00e8 3249     		ldr	r1, .L2+32
+ 199 00ea 4FF48072 		mov	r2, #256
+ 200 00ee 7B69     		ldr	r3, [r7, #20]
+ 201 00f0 FFF7FEFF 		bl	xTaskGenericCreate
  190:App/Common/Minimal/BlockQ.c **** 	xTaskCreate( vBlockingQueueProducer, ( signed char * ) "QProdB4", blckqSTACK_SIZE, ( void * ) pxQu
  202              		.loc 1 190 0
- 203 00ee 7B68     		ldr	r3, [r7, #4]
- 204 00f0 0093     		str	r3, [sp]
- 205 00f2 0023     		movs	r3, #0
- 206 00f4 0193     		str	r3, [sp, #4]
- 207 00f6 0023     		movs	r3, #0
- 208 00f8 0293     		str	r3, [sp, #8]
- 209 00fa 0023     		movs	r3, #0
- 210 00fc 0393     		str	r3, [sp, #12]
- 211 00fe 2648     		ldr	r0, .L2+16
- 212 0100 2A49     		ldr	r1, .L2+36
- 213 0102 8222     		movs	r2, #130
- 214 0104 3B69     		ldr	r3, [r7, #16]
- 215 0106 FFF7FEFF 		bl	xTaskGenericCreate
+ 203 00f4 7B68     		ldr	r3, [r7, #4]
+ 204 00f6 0093     		str	r3, [sp]
+ 205 00f8 0023     		movs	r3, #0
+ 206 00fa 0193     		str	r3, [sp, #4]
+ 207 00fc 0023     		movs	r3, #0
+ 208 00fe 0293     		str	r3, [sp, #8]
+ 209 0100 0023     		movs	r3, #0
+ 210 0102 0393     		str	r3, [sp, #12]
+ 211 0104 2748     		ldr	r0, .L2+16
+ 212 0106 2C49     		ldr	r1, .L2+36
+ 213 0108 4FF48072 		mov	r2, #256
+ 214 010c 3B69     		ldr	r3, [r7, #16]
+ 215 010e FFF7FEFF 		bl	xTaskGenericCreate
  191:App/Common/Minimal/BlockQ.c **** 
  192:App/Common/Minimal/BlockQ.c **** 
  193:App/Common/Minimal/BlockQ.c **** 
@@ -413,104 +413,104 @@
  195:App/Common/Minimal/BlockQ.c **** 	the same.  This time both parameter structures are given a block time. */
  196:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters5 = ( xBlockingQueueParameters * ) pvPortMalloc( sizeof( xBlockingQueueParameters
  216              		.loc 1 196 0
- 217 010a 0C20     		movs	r0, #12
- 218 010c FFF7FEFF 		bl	pvPortMalloc
- 219 0110 F860     		str	r0, [r7, #12]
+ 217 0112 0C20     		movs	r0, #12
+ 218 0114 FFF7FEFF 		bl	pvPortMalloc
+ 219 0118 F860     		str	r0, [r7, #12]
  197:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters5->xQueue = xQueueCreate( uxQueueSize5, ( unsigned portBASE_TYPE ) sizeof( unsign
  220              		.loc 1 197 0
- 221 0112 B86A     		ldr	r0, [r7, #40]
- 222 0114 0221     		movs	r1, #2
- 223 0116 0022     		movs	r2, #0
- 224 0118 FFF7FEFF 		bl	xQueueGenericCreate
- 225 011c 0246     		mov	r2, r0
- 226 011e FB68     		ldr	r3, [r7, #12]
- 227 0120 1A60     		str	r2, [r3]
+ 221 011a B86A     		ldr	r0, [r7, #40]
+ 222 011c 0221     		movs	r1, #2
+ 223 011e 0022     		movs	r2, #0
+ 224 0120 FFF7FEFF 		bl	xQueueGenericCreate
+ 225 0124 0246     		mov	r2, r0
+ 226 0126 FB68     		ldr	r3, [r7, #12]
+ 227 0128 1A60     		str	r2, [r3]
  198:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters5->xBlockTime = xBlockTime;
  228              		.loc 1 198 0
- 229 0122 FB68     		ldr	r3, [r7, #12]
- 230 0124 7A6A     		ldr	r2, [r7, #36]
- 231 0126 5A60     		str	r2, [r3, #4]
+ 229 012a FB68     		ldr	r3, [r7, #12]
+ 230 012c 7A6A     		ldr	r2, [r7, #36]
+ 231 012e 5A60     		str	r2, [r3, #4]
  199:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters5->psCheckVariable = &( sBlockingProducerCount[ 2 ] );
  232              		.loc 1 199 0
- 233 0128 FB68     		ldr	r3, [r7, #12]
- 234 012a 214A     		ldr	r2, .L2+40
- 235 012c 9A60     		str	r2, [r3, #8]
+ 233 0130 FB68     		ldr	r3, [r7, #12]
+ 234 0132 224A     		ldr	r2, .L2+40
+ 235 0134 9A60     		str	r2, [r3, #8]
  200:App/Common/Minimal/BlockQ.c **** 
  201:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters6 = ( xBlockingQueueParameters * ) pvPortMalloc( sizeof( xBlockingQueueParameters
  236              		.loc 1 201 0
- 237 012e 0C20     		movs	r0, #12
- 238 0130 FFF7FEFF 		bl	pvPortMalloc
- 239 0134 B860     		str	r0, [r7, #8]
+ 237 0136 0C20     		movs	r0, #12
+ 238 0138 FFF7FEFF 		bl	pvPortMalloc
+ 239 013c B860     		str	r0, [r7, #8]
  202:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters6->xQueue = pxQueueParameters5->xQueue;
  240              		.loc 1 202 0
- 241 0136 FB68     		ldr	r3, [r7, #12]
- 242 0138 1A68     		ldr	r2, [r3]
- 243 013a BB68     		ldr	r3, [r7, #8]
- 244 013c 1A60     		str	r2, [r3]
+ 241 013e FB68     		ldr	r3, [r7, #12]
+ 242 0140 1A68     		ldr	r2, [r3]
+ 243 0142 BB68     		ldr	r3, [r7, #8]
+ 244 0144 1A60     		str	r2, [r3]
  203:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters6->xBlockTime = xBlockTime;
  245              		.loc 1 203 0
- 246 013e BB68     		ldr	r3, [r7, #8]
- 247 0140 7A6A     		ldr	r2, [r7, #36]
- 248 0142 5A60     		str	r2, [r3, #4]
+ 246 0146 BB68     		ldr	r3, [r7, #8]
+ 247 0148 7A6A     		ldr	r2, [r7, #36]
+ 248 014a 5A60     		str	r2, [r3, #4]
  204:App/Common/Minimal/BlockQ.c **** 	pxQueueParameters6->psCheckVariable = &( sBlockingConsumerCount[ 2 ] );	
  249              		.loc 1 204 0
- 250 0144 BB68     		ldr	r3, [r7, #8]
- 251 0146 1B4A     		ldr	r2, .L2+44
- 252 0148 9A60     		str	r2, [r3, #8]
+ 250 014c BB68     		ldr	r3, [r7, #8]
+ 251 014e 1C4A     		ldr	r2, .L2+44
+ 252 0150 9A60     		str	r2, [r3, #8]
  205:App/Common/Minimal/BlockQ.c **** 
  206:App/Common/Minimal/BlockQ.c **** 	xTaskCreate( vBlockingQueueProducer, ( signed char * ) "QProdB5", blckqSTACK_SIZE, ( void * ) pxQu
  253              		.loc 1 206 0
- 254 014a 0023     		movs	r3, #0
- 255 014c 0093     		str	r3, [sp]
- 256 014e 0023     		movs	r3, #0
- 257 0150 0193     		str	r3, [sp, #4]
- 258 0152 0023     		movs	r3, #0
- 259 0154 0293     		str	r3, [sp, #8]
- 260 0156 0023     		movs	r3, #0
- 261 0158 0393     		str	r3, [sp, #12]
- 262 015a 0F48     		ldr	r0, .L2+16
- 263 015c 1649     		ldr	r1, .L2+48
- 264 015e 8222     		movs	r2, #130
- 265 0160 FB68     		ldr	r3, [r7, #12]
- 266 0162 FFF7FEFF 		bl	xTaskGenericCreate
+ 254 0152 0023     		movs	r3, #0
+ 255 0154 0093     		str	r3, [sp]
+ 256 0156 0023     		movs	r3, #0
+ 257 0158 0193     		str	r3, [sp, #4]
+ 258 015a 0023     		movs	r3, #0
+ 259 015c 0293     		str	r3, [sp, #8]
+ 260 015e 0023     		movs	r3, #0
+ 261 0160 0393     		str	r3, [sp, #12]
+ 262 0162 1048     		ldr	r0, .L2+16
+ 263 0164 1749     		ldr	r1, .L2+48
+ 264 0166 4FF48072 		mov	r2, #256
+ 265 016a FB68     		ldr	r3, [r7, #12]
+ 266 016c FFF7FEFF 		bl	xTaskGenericCreate
  207:App/Common/Minimal/BlockQ.c **** 	xTaskCreate( vBlockingQueueConsumer, ( signed char * ) "QConsB6", blckqSTACK_SIZE, ( void * ) pxQu
  267              		.loc 1 207 0
- 268 0166 0023     		movs	r3, #0
- 269 0168 0093     		str	r3, [sp]
- 270 016a 0023     		movs	r3, #0
- 271 016c 0193     		str	r3, [sp, #4]
- 272 016e 0023     		movs	r3, #0
- 273 0170 0293     		str	r3, [sp, #8]
- 274 0172 0023     		movs	r3, #0
- 275 0174 0393     		str	r3, [sp, #12]
- 276 0176 0648     		ldr	r0, .L2+8
- 277 0178 1049     		ldr	r1, .L2+52
- 278 017a 8222     		movs	r2, #130
- 279 017c BB68     		ldr	r3, [r7, #8]
- 280 017e FFF7FEFF 		bl	xTaskGenericCreate
+ 268 0170 0023     		movs	r3, #0
+ 269 0172 0093     		str	r3, [sp]
+ 270 0174 0023     		movs	r3, #0
+ 271 0176 0193     		str	r3, [sp, #4]
+ 272 0178 0023     		movs	r3, #0
+ 273 017a 0293     		str	r3, [sp, #8]
+ 274 017c 0023     		movs	r3, #0
+ 275 017e 0393     		str	r3, [sp, #12]
+ 276 0180 0648     		ldr	r0, .L2+8
+ 277 0182 1149     		ldr	r1, .L2+52
+ 278 0184 4FF48072 		mov	r2, #256
+ 279 0188 BB68     		ldr	r3, [r7, #8]
+ 280 018a FFF7FEFF 		bl	xTaskGenericCreate
  208:App/Common/Minimal/BlockQ.c **** }
  281              		.loc 1 208 0
- 282 0182 3037     		adds	r7, r7, #48
- 283 0184 BD46     		mov	sp, r7
+ 282 018e 3037     		adds	r7, r7, #48
+ 283 0190 BD46     		mov	sp, r7
  284              		@ sp needed
- 285 0186 80BD     		pop	{r7, pc}
+ 285 0192 80BD     		pop	{r7, pc}
  286              	.L3:
  287              		.align	2
  288              	.L2:
- 289 0188 00000000 		.word	sBlockingConsumerCount
- 290 018c 00000000 		.word	sBlockingProducerCount
- 291 0190 00000000 		.word	vBlockingQueueConsumer
- 292 0194 00000000 		.word	.LC0
- 293 0198 00000000 		.word	vBlockingQueueProducer
- 294 019c 08000000 		.word	.LC1
- 295 01a0 02000000 		.word	sBlockingProducerCount+2
- 296 01a4 02000000 		.word	sBlockingConsumerCount+2
- 297 01a8 10000000 		.word	.LC2
- 298 01ac 18000000 		.word	.LC3
- 299 01b0 04000000 		.word	sBlockingProducerCount+4
- 300 01b4 04000000 		.word	sBlockingConsumerCount+4
- 301 01b8 20000000 		.word	.LC4
- 302 01bc 28000000 		.word	.LC5
+ 289 0194 00000000 		.word	sBlockingConsumerCount
+ 290 0198 00000000 		.word	sBlockingProducerCount
+ 291 019c 00000000 		.word	vBlockingQueueConsumer
+ 292 01a0 00000000 		.word	.LC0
+ 293 01a4 00000000 		.word	vBlockingQueueProducer
+ 294 01a8 08000000 		.word	.LC1
+ 295 01ac 02000000 		.word	sBlockingProducerCount+2
+ 296 01b0 02000000 		.word	sBlockingConsumerCount+2
+ 297 01b4 10000000 		.word	.LC2
+ 298 01b8 18000000 		.word	.LC3
+ 299 01bc 04000000 		.word	sBlockingProducerCount+4
+ 300 01c0 04000000 		.word	sBlockingConsumerCount+4
+ 301 01c4 20000000 		.word	.LC4
+ 302 01c8 28000000 		.word	.LC5
  303              		.cfi_endproc
  304              	.LFE110:
  306              		.section	.text.vBlockingQueueProducer,"ax",%progbits
@@ -902,25 +902,25 @@
  593              		.file 6 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 BlockQ.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:20     .bss.sBlockingConsumerCount:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:23     .bss.sBlockingConsumerCount:0000000000000000 sBlockingConsumerCount
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:26     .bss.sBlockingProducerCount:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:29     .bss.sBlockingProducerCount:0000000000000000 sBlockingProducerCount
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:32     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:51     .text.vStartBlockingQueueTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:56     .text.vStartBlockingQueueTasks:0000000000000000 vStartBlockingQueueTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:289    .text.vStartBlockingQueueTasks:0000000000000188 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:388    .text.vBlockingQueueConsumer:0000000000000000 vBlockingQueueConsumer
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:311    .text.vBlockingQueueProducer:0000000000000000 vBlockingQueueProducer
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:307    .text.vBlockingQueueProducer:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:384    .text.vBlockingQueueConsumer:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:469    .text.xAreBlockingQueuesStillRunning:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:474    .text.xAreBlockingQueuesStillRunning:0000000000000000 xAreBlockingQueuesStillRunning
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:568    .text.xAreBlockingQueuesStillRunning:000000000000008c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:579    .bss.sLastBlockingConsumerCount.8243:0000000000000000 sLastBlockingConsumerCount.8243
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:585    .bss.sLastBlockingProducerCount.8244:0000000000000000 sLastBlockingProducerCount.8244
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:576    .bss.sLastBlockingConsumerCount.8243:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccok0DaN.s:582    .bss.sLastBlockingProducerCount.8244:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:20     .bss.sBlockingConsumerCount:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:23     .bss.sBlockingConsumerCount:0000000000000000 sBlockingConsumerCount
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:26     .bss.sBlockingProducerCount:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:29     .bss.sBlockingProducerCount:0000000000000000 sBlockingProducerCount
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:32     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:51     .text.vStartBlockingQueueTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:56     .text.vStartBlockingQueueTasks:0000000000000000 vStartBlockingQueueTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:289    .text.vStartBlockingQueueTasks:0000000000000194 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:388    .text.vBlockingQueueConsumer:0000000000000000 vBlockingQueueConsumer
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:311    .text.vBlockingQueueProducer:0000000000000000 vBlockingQueueProducer
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:307    .text.vBlockingQueueProducer:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:384    .text.vBlockingQueueConsumer:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:469    .text.xAreBlockingQueuesStillRunning:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:474    .text.xAreBlockingQueuesStillRunning:0000000000000000 xAreBlockingQueuesStillRunning
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:568    .text.xAreBlockingQueuesStillRunning:000000000000008c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:579    .bss.sLastBlockingConsumerCount.8243:0000000000000000 sLastBlockingConsumerCount.8243
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:585    .bss.sLastBlockingProducerCount.8244:0000000000000000 sLastBlockingProducerCount.8244
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:576    .bss.sLastBlockingConsumerCount.8243:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuNkNh7.s:582    .bss.sLastBlockingProducerCount.8244:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

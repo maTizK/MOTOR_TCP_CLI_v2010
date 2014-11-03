@@ -9,6 +9,8 @@ static 	portTickType xDelay = 100 / portTICK_RATE_MS;
 
 
 int handleVariable_set (	QueueTelegram telegram,
+				int8_t *pcWriteBuffer, 
+				size_t xWriteBufferLen,
 				uint8_t * Param, 
 				int xParamLength,
 				xQueueHandle Qhandle,
@@ -34,12 +36,10 @@ int handleVariable_set (	QueueTelegram telegram,
 		if(s1 < 10 ||  s1 > 100 )
 		{
 			// send error via TCP
-			//
-			int len = strlen ( Value ) + 11 ; 
-			uint8_t buf [len]; //= "Error: speed is out of range!\n\n";
-			sprintf(buf, "Errror : %d\n\n", s1);
-			buf[11+ 3] = "\0"; 
-			send( socket_0, buf, 11+3, 0);
+			sprintf(pcWriteBuffer, "Error: speed is out of range [1,100]p : %d\n\n\0", s1);
+		//	pcWriteBuffer[11+ 3] = "\0"; 
+			
+			////send( socket_0, buf, 11+3, 0);
 
 	       		return pdFALSE; 	
 		}	
@@ -67,9 +67,9 @@ int handleVariable_set (	QueueTelegram telegram,
 			{
 				if ( telegram.Qcmd = SUCCSESS) 
 				{	
-					uint8_t * buf = "Speed succsesfully set.\n\n";
-					int len = 25; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "Speed succsesfully set.\n\n");
+					xWriteBufferLen = 25; 	
+				//	//send( socket, buf, len, 0);
 
 
 					return pdPASS;
@@ -77,9 +77,9 @@ int handleVariable_set (	QueueTelegram telegram,
 				}
 				else
 				{
-					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
-			       		int len = 19; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
+			       		xWriteBufferLen = 19; 	
+//					//send( socket, buf, len, 0);
 
 					return pdFALSE;
 
@@ -92,9 +92,9 @@ int handleVariable_set (	QueueTelegram telegram,
 					// send to Queue was unsuccsessful
 				// send error via TCP 
 		
-				uint8_t * buf = "Error recieving response!\n\n";
-	 			int len = 27; 	
-				send( socket_0, buf, len, 0);
+				sprintf(pcWriteBuffer, "Error recieving response!\n\n");
+	 			xWriteBufferLen = 27; 	
+				//send( socket_0, buf, len, 0);
 
 				return pdFALSE; 	
 			}
@@ -106,9 +106,9 @@ int handleVariable_set (	QueueTelegram telegram,
 			// send to Queue was unsuccsessful
 			// send error via TCP 
 		
-			uint8_t * buf = "Error sending Queue!\n\n";
-	 		int len = 22; 	
-			send( socket, buf, len, 0);
+			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
+	 		xWriteBufferLen = 22; 	
+			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
@@ -131,11 +131,10 @@ int handleVariable_set (	QueueTelegram telegram,
 		{
 			// send error via TCP
 			//
-			int len = strlen ( Value ) + 11 ; 
-			uint8_t buf [len]; //= "Error: speed is out of range!\n\n";
-			sprintf(buf, "Errror : %d\n\n", s1);
-			buf[11+ 3] = "\0"; 
-			send( socket_0, buf, len, 0);
+			xWriteBufferLen = 100; 
+		//	uint8_t buf [len]; //= "Error: speed is out of range!\n\n");
+			sprintf(pcWriteBuffer, "Error: speed is out of range [1,100]p : %d\n\n\0", s1);
+			//send( socket_0, buf, len, 0);
 
 	       		return pdFALSE; 	
 		}	
@@ -159,9 +158,9 @@ int handleVariable_set (	QueueTelegram telegram,
 			{
 				if ( telegram.Qcmd = SUCCSESS) 
 				{	
-					uint8_t * buf = "Speed succsesfully set.\n\n";
-					int len = 25; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "Speed succsesfully set.\n\n");
+					xWriteBufferLen = 25; 	
+					//send( socket, buf, len, 0);
 
 
 					return pdPASS;
@@ -169,9 +168,9 @@ int handleVariable_set (	QueueTelegram telegram,
 				}
 				else
 				{
-					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
-			       		int len = 19; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
+			       		xWriteBufferLen = 19; 	
+					//send( socket, buf, len, 0);
 
 					return pdFALSE;
 
@@ -186,9 +185,9 @@ int handleVariable_set (	QueueTelegram telegram,
 			// send to Queue was unsuccsessful
 			// send error via TCP 
 		
-			uint8_t * buf = "Error sending Queue!\n\n";
-	 		int len = 22; 	
-			send( socket, buf, len, 0);
+			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
+	 		xWriteBufferLen = 22; 	
+			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
@@ -211,11 +210,11 @@ int handleVariable_set (	QueueTelegram telegram,
 		{
 			// send error via TCP
 			//
-			int len = strlen ( Value ) + 11 ; 
-			uint8_t buf [len]; //= "Error: speed is out of range!\n\n";
-			sprintf(buf, "Errror : %d\n\n", s1);
-			buf[11+ 3] = "\0"; 
-			send( socket_0, buf, len, 0);
+			xWriteBufferLen = strlen ( Value ) + 11 ; 
+			//uint8_t buf [len]; //= "Error: speed is out of range!\n\n");
+			sprintf(pcWriteBuffer, "Errror : %d\n\n", s1);
+			pcWriteBuffer[11+ 3] = "\0"; 
+			//send( socket_0, buf, len, 0);
 
 	       		return pdFALSE; 	
 		}	
@@ -239,9 +238,9 @@ int handleVariable_set (	QueueTelegram telegram,
 			{
 				if ( telegram.Qcmd = SUCCSESS) 
 				{	
-					uint8_t * buf = "Speed succsesfully set.\n\n";
-					int len = 25; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "Speed succsesfully set.\n\n");
+					xWriteBufferLen = 25; 	
+					//send( socket, buf, len, 0);
 
 
 					return pdPASS;
@@ -249,9 +248,9 @@ int handleVariable_set (	QueueTelegram telegram,
 				}
 				else
 				{
-					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
-			       		int len = 19; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
+			       		xWriteBufferLen = 19; 	
+					//send( socket, buf, len, 0);
 
 					return pdFALSE;
 
@@ -266,14 +265,15 @@ int handleVariable_set (	QueueTelegram telegram,
 			// send to Queue was unsuccsessful
 			// send error via TCP 
 		
-			uint8_t * buf = "Error sending Queue!\n\n";
-	 		int len = 22; 	
-			send( socket, buf, len, 0);
+			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
+	 		xWriteBufferLen = 22; 	
+			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
 	}
 
+	strcpy(pcWriteBuffer, xMotorCommand.pcHelpString);
 
 			return 0; 
 
@@ -282,6 +282,8 @@ int handleVariable_set (	QueueTelegram telegram,
 
 
 int handleVariable_get (	QueueTelegram telegram,
+				int8_t *pcWriteBuffer, 
+				size_t xWriteBufferLen,
 				uint8_t * Param, 
 				int xParamLength,
 				xQueueHandle Qhandle,
@@ -307,12 +309,11 @@ int handleVariable_get (	QueueTelegram telegram,
 			{
 				if ( telegram.Qcmd = SUCCSESS) 
 				{	
-					uint8_t buf [50]; // = "speed succsesfully set.\n\n";
-					sprintf(buf, "Speed is  %2d.%2dp \n\n", 
-							telegram.data[3]/100,
-							telegram.data[3] % 100);
-					int len = 19; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "Speed is  %2d.%2dp \n\n\0", 
+					telegram.data[3]/100,
+					telegram.data[3] % 100);
+				
+					//send( socket, buf, len, 0);
 
 
 					return pdPASS;
@@ -320,9 +321,9 @@ int handleVariable_get (	QueueTelegram telegram,
 				}
 				else
 				{
-					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
-			       		int len = 19; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
+			       		xWriteBufferLen = 19; 	
+					//send( socket, buf, len, 0);
 
 					return pdFALSE;
 
@@ -335,9 +336,9 @@ int handleVariable_get (	QueueTelegram telegram,
 					// send to Queue was unsuccsessful
 				// send error via TCP 
 		
-				uint8_t * buf = "Error recieving response!\n\n";
-	 			int len = 27; 	
-				send( socket_0, buf, len, 0);
+				sprintf(pcWriteBuffer, "Error recieving response!\n\n");
+	 			xWriteBufferLen = 27; 	
+				//send( socket_0, buf, len, 0);
 
 				return pdFALSE; 	
 			}
@@ -349,9 +350,9 @@ int handleVariable_get (	QueueTelegram telegram,
 			// send to Queue was unsuccsessful
 			// send error via TCP 
 		
-			uint8_t * buf = "Error sending Queue!\n\n";
-	 		int len = 22; 	
-			send( socket, buf, len, 0);
+			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
+	 		xWriteBufferLen = 22; 	
+			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
@@ -376,9 +377,9 @@ int handleVariable_get (	QueueTelegram telegram,
 			{
 				if ( telegram.Qcmd = SUCCSESS) 
 				{	
-					uint8_t * buf = "Speed succsesfully set.\n\n";
-					int len = 25; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "Speed succsesfully set.\n\n");
+					xWriteBufferLen = 25; 	
+					//send( socket, buf, len, 0);
 
 
 					return pdPASS;
@@ -386,9 +387,9 @@ int handleVariable_get (	QueueTelegram telegram,
 				}
 				else
 				{
-					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
-			       		int len = 19; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
+			       		xWriteBufferLen = 19; 	
+					//send( socket, buf, len, 0);
 
 					return pdFALSE;
 
@@ -403,9 +404,9 @@ int handleVariable_get (	QueueTelegram telegram,
 			// send to Queue was unsuccsessful
 			// send error via TCP 
 		
-			uint8_t * buf = "Error sending Queue!\n\n";
-	 		int len = 22; 	
-			send( socket, buf, len, 0);
+			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
+	 		xWriteBufferLen = 22; 	
+			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
@@ -429,9 +430,9 @@ int handleVariable_get (	QueueTelegram telegram,
 			{
 				if ( telegram.Qcmd = SUCCSESS) 
 				{	
-					uint8_t * buf = "Speed succsesfully set.\n\n";
-					int len = 25; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "Speed succsesfully set.\n\n");
+					xWriteBufferLen = 25; 	
+					//send( socket, buf, len, 0);
 
 
 					return pdPASS;
@@ -439,9 +440,9 @@ int handleVariable_get (	QueueTelegram telegram,
 				}
 				else
 				{
-					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
-			       		int len = 19; 	
-					send( socket, buf, len, 0);
+					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
+			       		xWriteBufferLen = 19; 	
+					//send( socket, buf, len, 0);
 
 					return pdFALSE;
 
@@ -456,13 +457,16 @@ int handleVariable_get (	QueueTelegram telegram,
 			// send to Queue was unsuccsessful
 			// send error via TCP 
 		
-			uint8_t * buf = "Error sending Queue!\n\n";
-	 		int len = 22; 	
-			send( socket, buf, len, 0);
+			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
+	 		xWriteBufferLen = 22; 	
+			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
 	}
+
+
+	strcpy(pcWriteBuffer, xMotorCommand.pcHelpString);
 
 
 			return 0; 
@@ -505,6 +509,12 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 					  
 					 );
 
+	if ( Option == NULL)
+	{
+		sprintf(pcWriteBuffer, "To few arguments. \n\n\0");
+		return pdFALSE;
+	}
+
 
 	//================================================================================//
 	//		CASE COMMAND SET [parameter name] [value]
@@ -528,16 +538,26 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 		
 		// return pdFALSE if there is no 3rd parameter 
 
-		if (Value == NULL) return pdFALSE; 
+		if (Value == NULL)
+		{
+			strcpy(pcWriteBuffer, xMotorCommand.pcHelpString);
 
+			return pdFALSE; 
+
+		}
 		
 		if ( handleVariable_set ( telegram, 
-				           Param, 
+				           pcWriteBuffer, 
+					   xWriteBufferLen,
+					   Param, 
 					   xParamLength, 
 					   QSpd_handle, 
 					   Value,
 					   xValueLength,  
 					   socket_0)) return pdPASS;
+
+		
+			
 		return pdFALSE;
 
 	}
@@ -561,7 +581,10 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 		if (Param == NULL) return pdFALSE; 
 
 		
-		if ( handleVariable_get ( telegram, 
+		if ( handleVariable_get ( telegram,
+				        pcWriteBuffer, 
+					   xWriteBufferLen,
+	
 				           Param, 
 					   xParamLength, 
 					   QSpd_handle, 
@@ -587,9 +610,9 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 			{
 				if ( telegram.Qcmd = SUCCSESS) 
 				{	
-					uint8_t * buf = "Motor succsesfully stopped.\n\n";
-					int len = 29; 	
-					send( socket_0, buf, len, 0);
+					sprintf(pcWriteBuffer ,"Motor succsesfully stopped.\n\n");
+					xWriteBufferLen = 29; 	
+					//send( socket_0, buf, len, 0);
 
 					
 					return pdPASS;
@@ -597,9 +620,9 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 				}
 				else
 				{
-					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
-			       		int len = 19; 	
-					send( socket_0, buf, len, 0);
+					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
+			       		xWriteBufferLen = 19; 	
+					//send( socket_0, buf, len, 0);
 
 					return pdFALSE;
 
@@ -611,9 +634,9 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 					// send to Queue was unsuccsessful
 				// send error via TCP 
 		
-				uint8_t * buf = "Error recieving response!\n\n";
-	 			int len = 27; 	
-				send( socket_0, buf, len, 0);
+				sprintf(pcWriteBuffer, "Error recieving response!\n\n");
+	 			xWriteBufferLen = 27; 	
+				//send( socket_0, buf, len, 0);
 
 				return pdFALSE; 	
 			}
@@ -624,9 +647,9 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 			// send to Queue was unsuccsessful
 			// send error via TCP 
 		
-			uint8_t * buf = "Error sending Queue!\n\n";
-	 		int len = 22; 	
-			send( socket, buf, len, 0);
+			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
+	 		xWriteBufferLen = 22; 	
+			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
@@ -648,9 +671,9 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 			{
 				if ( telegram.Qcmd = SUCCSESS) 
 				{	
-					uint8_t * buf = "Motor succsesfully started.\n\n";
-					int len = 29; 	
-					send( socket_0, buf, len, 0);
+					sprintf(pcWriteBuffer , "Motor succsesfully started.\n\n");
+					xWriteBufferLen = 29; 	
+					//send( socket_0, buf, len, 0);
 
 					
 					return pdPASS;
@@ -658,9 +681,9 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 				}
 				else
 				{
-					uint8_t * buf = "MODBUS ERROR !!!.\n\n";
-			       		int len = 19; 	
-					send( socket_0, buf, len, 0);
+					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
+			       		xWriteBufferLen = 19; 	
+					//send( socket_0, buf, len, 0);
 
 					return pdFALSE;
 
@@ -672,9 +695,9 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 					// send to Queue was unsuccsessful
 				// send error via TCP 
 		
-				uint8_t * buf = "Error recieving response!\n\n";
-	 			int len = 27; 	
-				send( socket_0, buf, len, 0);
+				sprintf(pcWriteBuffer, "Error recieving response!\n\n");
+	 			xWriteBufferLen = 27; 	
+				//send( socket_0, buf, len, 0);
 
 				return pdFALSE; 	
 			}
@@ -685,9 +708,9 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 			// send to Queue was unsuccsessful
 			// send error via TCP 
 		
-			uint8_t * buf = "Error sending Queue!\n\n";
-	 		int len = 22; 	
-			send( socket_0, buf, len, 0);
+			sprintf(pcWriteBuffer,"Error sending Queue!\n\n");
+	 		xWriteBufferLen = 22; 	
+			//send( socket_0, buf, len, 0);
 
 			return pdFALSE; 	
 		}
@@ -696,7 +719,8 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 	}
 
 
-
+	strcpy(pcWriteBuffer, xMotorCommand.pcHelpString);
+		
 	return pdFALSE;
 
 

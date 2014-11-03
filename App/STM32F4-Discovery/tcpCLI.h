@@ -18,7 +18,7 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 static const CLI_Command_Definition_t xMotorCommand = 
 {
 	"motor",
-	"motor  [options] [parameters] : Controls motor speed, rpm, etc., .. \r\n",
+	"motor  [options] [parameters] : Controls motor speed, rpm, etc., .. \r\n\n\0",
 	prvMotorCommand,
 	-1
 };

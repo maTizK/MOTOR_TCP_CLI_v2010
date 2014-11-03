@@ -260,7 +260,7 @@
  159:App/Common/Minimal/GenQTest.c **** 	vQueueAddToRegistry( xQueue, ( signed portCHAR * ) "Gen_Queue_Test" );
  105              		.loc 1 159 0
  106 0014 F868     		ldr	r0, [r7, #12]
- 107 0016 2349     		ldr	r1, .L2
+ 107 0016 2549     		ldr	r1, .L2
  108 0018 FFF7FEFF 		bl	vQueueAddToRegistry
  160:App/Common/Minimal/GenQTest.c **** 
  161:App/Common/Minimal/GenQTest.c **** 	/* Create the demo task and pass it the queue just created.  We are
@@ -276,18 +276,18 @@
  115 0026 0293     		str	r3, [sp, #8]
  116 0028 0023     		movs	r3, #0
  117 002a 0393     		str	r3, [sp, #12]
- 118 002c 1E48     		ldr	r0, .L2+4
- 119 002e 1F49     		ldr	r1, .L2+8
- 120 0030 8222     		movs	r2, #130
- 121 0032 FB68     		ldr	r3, [r7, #12]
- 122 0034 FFF7FEFF 		bl	xTaskGenericCreate
+ 118 002c 2048     		ldr	r0, .L2+4
+ 119 002e 2149     		ldr	r1, .L2+8
+ 120 0030 4FF48072 		mov	r2, #256
+ 121 0034 FB68     		ldr	r3, [r7, #12]
+ 122 0036 FFF7FEFF 		bl	xTaskGenericCreate
  165:App/Common/Minimal/GenQTest.c **** 
  166:App/Common/Minimal/GenQTest.c **** 	/* Create the mutex used by the prvMutexTest task. */
  167:App/Common/Minimal/GenQTest.c **** 	xMutex = xSemaphoreCreateMutex();
  123              		.loc 1 167 0
- 124 0038 0120     		movs	r0, #1
- 125 003a FFF7FEFF 		bl	xQueueCreateMutex
- 126 003e B860     		str	r0, [r7, #8]
+ 124 003a 0120     		movs	r0, #1
+ 125 003c FFF7FEFF 		bl	xQueueCreateMutex
+ 126 0040 B860     		str	r0, [r7, #8]
  168:App/Common/Minimal/GenQTest.c **** 
  169:App/Common/Minimal/GenQTest.c **** 	/* vQueueAddToRegistry() adds the mutex to the registry, if one is
  170:App/Common/Minimal/GenQTest.c **** 	in use.  The registry is provided as a means for kernel aware 
@@ -297,79 +297,79 @@
  174:App/Common/Minimal/GenQTest.c **** 	defined to be less than 1. */
  175:App/Common/Minimal/GenQTest.c **** 	vQueueAddToRegistry( ( xQueueHandle ) xMutex, ( signed portCHAR * ) "Gen_Queue_Mutex" );
  127              		.loc 1 175 0
- 128 0040 B868     		ldr	r0, [r7, #8]
- 129 0042 1B49     		ldr	r1, .L2+12
- 130 0044 FFF7FEFF 		bl	vQueueAddToRegistry
+ 128 0042 B868     		ldr	r0, [r7, #8]
+ 129 0044 1C49     		ldr	r1, .L2+12
+ 130 0046 FFF7FEFF 		bl	vQueueAddToRegistry
  176:App/Common/Minimal/GenQTest.c **** 
  177:App/Common/Minimal/GenQTest.c **** 	/* Create the mutex demo tasks and pass it the mutex just created.  We are
  178:App/Common/Minimal/GenQTest.c **** 	passing the mutex handle by value so it does not matter that it is declared
  179:App/Common/Minimal/GenQTest.c **** 	on the stack here. */
  180:App/Common/Minimal/GenQTest.c **** 	xTaskCreate( prvLowPriorityMutexTask, ( signed portCHAR * )"MuLow", configMINIMAL_STACK_SIZE, ( vo
  131              		.loc 1 180 0
- 132 0048 0023     		movs	r3, #0
- 133 004a 0093     		str	r3, [sp]
- 134 004c 0023     		movs	r3, #0
- 135 004e 0193     		str	r3, [sp, #4]
- 136 0050 0023     		movs	r3, #0
- 137 0052 0293     		str	r3, [sp, #8]
- 138 0054 0023     		movs	r3, #0
- 139 0056 0393     		str	r3, [sp, #12]
- 140 0058 1648     		ldr	r0, .L2+16
- 141 005a 1749     		ldr	r1, .L2+20
- 142 005c 8222     		movs	r2, #130
- 143 005e BB68     		ldr	r3, [r7, #8]
- 144 0060 FFF7FEFF 		bl	xTaskGenericCreate
+ 132 004a 0023     		movs	r3, #0
+ 133 004c 0093     		str	r3, [sp]
+ 134 004e 0023     		movs	r3, #0
+ 135 0050 0193     		str	r3, [sp, #4]
+ 136 0052 0023     		movs	r3, #0
+ 137 0054 0293     		str	r3, [sp, #8]
+ 138 0056 0023     		movs	r3, #0
+ 139 0058 0393     		str	r3, [sp, #12]
+ 140 005a 1848     		ldr	r0, .L2+16
+ 141 005c 1849     		ldr	r1, .L2+20
+ 142 005e 4FF48072 		mov	r2, #256
+ 143 0062 BB68     		ldr	r3, [r7, #8]
+ 144 0064 FFF7FEFF 		bl	xTaskGenericCreate
  181:App/Common/Minimal/GenQTest.c **** 	xTaskCreate( prvMediumPriorityMutexTask, ( signed portCHAR * )"MuMed", configMINIMAL_STACK_SIZE, N
  145              		.loc 1 181 0
- 146 0064 0223     		movs	r3, #2
- 147 0066 0093     		str	r3, [sp]
- 148 0068 144B     		ldr	r3, .L2+24
- 149 006a 0193     		str	r3, [sp, #4]
- 150 006c 0023     		movs	r3, #0
- 151 006e 0293     		str	r3, [sp, #8]
- 152 0070 0023     		movs	r3, #0
- 153 0072 0393     		str	r3, [sp, #12]
- 154 0074 1248     		ldr	r0, .L2+28
- 155 0076 1349     		ldr	r1, .L2+32
- 156 0078 8222     		movs	r2, #130
- 157 007a 0023     		movs	r3, #0
- 158 007c FFF7FEFF 		bl	xTaskGenericCreate
+ 146 0068 0223     		movs	r3, #2
+ 147 006a 0093     		str	r3, [sp]
+ 148 006c 154B     		ldr	r3, .L2+24
+ 149 006e 0193     		str	r3, [sp, #4]
+ 150 0070 0023     		movs	r3, #0
+ 151 0072 0293     		str	r3, [sp, #8]
+ 152 0074 0023     		movs	r3, #0
+ 153 0076 0393     		str	r3, [sp, #12]
+ 154 0078 1348     		ldr	r0, .L2+28
+ 155 007a 1449     		ldr	r1, .L2+32
+ 156 007c 4FF48072 		mov	r2, #256
+ 157 0080 0023     		movs	r3, #0
+ 158 0082 FFF7FEFF 		bl	xTaskGenericCreate
  182:App/Common/Minimal/GenQTest.c **** 	xTaskCreate( prvHighPriorityMutexTask, ( signed portCHAR * )"MuHigh", configMINIMAL_STACK_SIZE, ( 
  159              		.loc 1 182 0
- 160 0080 0323     		movs	r3, #3
- 161 0082 0093     		str	r3, [sp]
- 162 0084 104B     		ldr	r3, .L2+36
- 163 0086 0193     		str	r3, [sp, #4]
- 164 0088 0023     		movs	r3, #0
- 165 008a 0293     		str	r3, [sp, #8]
- 166 008c 0023     		movs	r3, #0
- 167 008e 0393     		str	r3, [sp, #12]
- 168 0090 0E48     		ldr	r0, .L2+40
- 169 0092 0F49     		ldr	r1, .L2+44
- 170 0094 8222     		movs	r2, #130
- 171 0096 BB68     		ldr	r3, [r7, #8]
- 172 0098 FFF7FEFF 		bl	xTaskGenericCreate
+ 160 0086 0323     		movs	r3, #3
+ 161 0088 0093     		str	r3, [sp]
+ 162 008a 114B     		ldr	r3, .L2+36
+ 163 008c 0193     		str	r3, [sp, #4]
+ 164 008e 0023     		movs	r3, #0
+ 165 0090 0293     		str	r3, [sp, #8]
+ 166 0092 0023     		movs	r3, #0
+ 167 0094 0393     		str	r3, [sp, #12]
+ 168 0096 0F48     		ldr	r0, .L2+40
+ 169 0098 0F49     		ldr	r1, .L2+44
+ 170 009a 4FF48072 		mov	r2, #256
+ 171 009e BB68     		ldr	r3, [r7, #8]
+ 172 00a0 FFF7FEFF 		bl	xTaskGenericCreate
  183:App/Common/Minimal/GenQTest.c **** }
  173              		.loc 1 183 0
- 174 009c 1037     		adds	r7, r7, #16
- 175 009e BD46     		mov	sp, r7
+ 174 00a4 1037     		adds	r7, r7, #16
+ 175 00a6 BD46     		mov	sp, r7
  176              		@ sp needed
- 177 00a0 80BD     		pop	{r7, pc}
+ 177 00a8 80BD     		pop	{r7, pc}
  178              	.L3:
- 179 00a2 00BF     		.align	2
+ 179 00aa 00BF     		.align	2
  180              	.L2:
- 181 00a4 00000000 		.word	.LC0
- 182 00a8 00000000 		.word	prvSendFrontAndBackTest
- 183 00ac 10000000 		.word	.LC1
- 184 00b0 18000000 		.word	.LC2
- 185 00b4 00000000 		.word	prvLowPriorityMutexTask
- 186 00b8 28000000 		.word	.LC3
- 187 00bc 00000000 		.word	xMediumPriorityMutexTask
- 188 00c0 00000000 		.word	prvMediumPriorityMutexTask
- 189 00c4 30000000 		.word	.LC4
- 190 00c8 00000000 		.word	xHighPriorityMutexTask
- 191 00cc 00000000 		.word	prvHighPriorityMutexTask
- 192 00d0 38000000 		.word	.LC5
+ 181 00ac 00000000 		.word	.LC0
+ 182 00b0 00000000 		.word	prvSendFrontAndBackTest
+ 183 00b4 10000000 		.word	.LC1
+ 184 00b8 18000000 		.word	.LC2
+ 185 00bc 00000000 		.word	prvLowPriorityMutexTask
+ 186 00c0 28000000 		.word	.LC3
+ 187 00c4 00000000 		.word	xMediumPriorityMutexTask
+ 188 00c8 00000000 		.word	prvMediumPriorityMutexTask
+ 189 00cc 30000000 		.word	.LC4
+ 190 00d0 00000000 		.word	xHighPriorityMutexTask
+ 191 00d4 00000000 		.word	prvHighPriorityMutexTask
+ 192 00d8 38000000 		.word	.LC5
  193              		.cfi_endproc
  194              	.LFE110:
  196              		.section	.text.prvSendFrontAndBackTest,"ax",%progbits
@@ -1632,43 +1632,43 @@
  1060              		.file 8 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 GenQTest.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:20     .bss.xErrorDetected:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:23     .bss.xErrorDetected:0000000000000000 xErrorDetected
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:26     .bss.ulLoopCounter:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:29     .bss.ulLoopCounter:0000000000000000 ulLoopCounter
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:32     .bss.ulLoopCounter2:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:35     .bss.ulLoopCounter2:0000000000000000 ulLoopCounter2
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:38     .bss.ulGuardedVariable:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:41     .bss.ulGuardedVariable:0000000000000000 ulGuardedVariable
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:44     .bss.xHighPriorityMutexTask:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:47     .bss.xHighPriorityMutexTask:0000000000000000 xHighPriorityMutexTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:50     .bss.xMediumPriorityMutexTask:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:53     .bss.xMediumPriorityMutexTask:0000000000000000 xMediumPriorityMutexTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:56     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:75     .text.vStartGenericQueueTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:80     .text.vStartGenericQueueTasks:0000000000000000 vStartGenericQueueTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:181    .text.vStartGenericQueueTasks:00000000000000a4 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:201    .text.prvSendFrontAndBackTest:0000000000000000 prvSendFrontAndBackTest
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:696    .text.prvLowPriorityMutexTask:0000000000000000 prvLowPriorityMutexTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:856    .text.prvMediumPriorityMutexTask:0000000000000000 prvMediumPriorityMutexTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:898    .text.prvHighPriorityMutexTask:0000000000000000 prvHighPriorityMutexTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:197    .text.prvSendFrontAndBackTest:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:557    .text.prvSendFrontAndBackTest:0000000000000240 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:561    .text.prvSendFrontAndBackTest:0000000000000248 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:686    .text.prvSendFrontAndBackTest:0000000000000314 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:692    .text.prvLowPriorityMutexTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:843    .text.prvLowPriorityMutexTask:00000000000000d8 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:852    .text.prvMediumPriorityMutexTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:889    .text.prvMediumPriorityMutexTask:000000000000001c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:894    .text.prvHighPriorityMutexTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:957    .text.prvHighPriorityMutexTask:0000000000000048 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:962    .text.xAreGenericQueueTasksStillRunning:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:967    .text.xAreGenericQueueTasksStillRunning:0000000000000000 xAreGenericQueueTasksStillRunning
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:1032   .text.xAreGenericQueueTasksStillRunning:0000000000000050 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:1044   .bss.ulLastLoopCounter.8257:0000000000000000 ulLastLoopCounter.8257
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:1050   .bss.ulLastLoopCounter2.8258:0000000000000000 ulLastLoopCounter2.8258
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:1041   .bss.ulLastLoopCounter.8257:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccpmz9Eq.s:1047   .bss.ulLastLoopCounter2.8258:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:20     .bss.xErrorDetected:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:23     .bss.xErrorDetected:0000000000000000 xErrorDetected
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:26     .bss.ulLoopCounter:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:29     .bss.ulLoopCounter:0000000000000000 ulLoopCounter
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:32     .bss.ulLoopCounter2:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:35     .bss.ulLoopCounter2:0000000000000000 ulLoopCounter2
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:38     .bss.ulGuardedVariable:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:41     .bss.ulGuardedVariable:0000000000000000 ulGuardedVariable
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:44     .bss.xHighPriorityMutexTask:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:47     .bss.xHighPriorityMutexTask:0000000000000000 xHighPriorityMutexTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:50     .bss.xMediumPriorityMutexTask:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:53     .bss.xMediumPriorityMutexTask:0000000000000000 xMediumPriorityMutexTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:56     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:75     .text.vStartGenericQueueTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:80     .text.vStartGenericQueueTasks:0000000000000000 vStartGenericQueueTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:181    .text.vStartGenericQueueTasks:00000000000000ac $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:201    .text.prvSendFrontAndBackTest:0000000000000000 prvSendFrontAndBackTest
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:696    .text.prvLowPriorityMutexTask:0000000000000000 prvLowPriorityMutexTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:856    .text.prvMediumPriorityMutexTask:0000000000000000 prvMediumPriorityMutexTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:898    .text.prvHighPriorityMutexTask:0000000000000000 prvHighPriorityMutexTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:197    .text.prvSendFrontAndBackTest:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:557    .text.prvSendFrontAndBackTest:0000000000000240 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:561    .text.prvSendFrontAndBackTest:0000000000000248 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:686    .text.prvSendFrontAndBackTest:0000000000000314 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:692    .text.prvLowPriorityMutexTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:843    .text.prvLowPriorityMutexTask:00000000000000d8 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:852    .text.prvMediumPriorityMutexTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:889    .text.prvMediumPriorityMutexTask:000000000000001c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:894    .text.prvHighPriorityMutexTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:957    .text.prvHighPriorityMutexTask:0000000000000048 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:962    .text.xAreGenericQueueTasksStillRunning:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:967    .text.xAreGenericQueueTasksStillRunning:0000000000000000 xAreGenericQueueTasksStillRunning
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:1032   .text.xAreGenericQueueTasksStillRunning:0000000000000050 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:1044   .bss.ulLastLoopCounter.8257:0000000000000000 ulLastLoopCounter.8257
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:1050   .bss.ulLastLoopCounter2.8258:0000000000000000 ulLastLoopCounter2.8258
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:1041   .bss.ulLastLoopCounter.8257:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7gpUIX.s:1047   .bss.ulLastLoopCounter2.8258:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

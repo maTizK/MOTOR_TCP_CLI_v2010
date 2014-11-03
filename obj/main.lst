@@ -1208,7 +1208,7 @@
   93      6F707469 
   93      6F6E735D 
   93      C2A05B70 
-  94 002f 6F6C7320 		.ascii	"ols motor speed, rpm, etc., .. \015\012\000"
+  94 002f 6F6C7320 		.ascii	"ols motor speed, rpm, etc., .. \015\012\012\000\000"
   94      6D6F746F 
   94      72207370 
   94      6565642C 
@@ -1740,7 +1740,7 @@
  625 00fe 80       		.byte	-128
  626 00ff 40       		.byte	64
  627              		.comm	fd,4,4
- 628              		.comm	received_string,129,4
+ 628              		.comm	received_string,513,4
  629              		.comm	rx_length,4,4
  630              		.section	.bss.xHigherPriorityTaskWoken_usart,"aw",%nobits
  631              		.align	2
@@ -1771,33 +1771,28 @@
  666              		.align	2
  669              	xTestSemaphore:
  670 0000 00000000 		.space	4
- 671              		.global	ulButtonPressCounts
- 672              		.section	.bss.ulButtonPressCounts,"aw",%nobits
- 673              		.align	2
- 676              	ulButtonPressCounts:
- 677 0000 00000000 		.space	4
- 678              		.section	.rodata
- 679 0051 000000   		.align	2
- 680              	.LC2:
- 681 0054 5345544D 		.ascii	"SETMAC\000"
- 681      414300
- 682 005b 00       		.align	2
- 683              	.LC3:
- 684 005c 6D6F746F 		.ascii	"motorH\000"
- 684      724800
- 685 0063 00       		.align	2
- 686              	.LC4:
- 687 0064 6D486572 		.ascii	"mHeratBeat\000"
- 687      61744265 
- 687      617400
- 688              		.section	.text.main,"ax",%progbits
- 689              		.align	2
- 690              		.global	main
- 691              		.thumb
- 692              		.thumb_func
- 694              	main:
- 695              	.LFB110:
- 696              		.file 2 "App/STM32F4-Discovery/main.c"
+ 671              		.section	.rodata
+ 672 0053 00       		.align	2
+ 673              	.LC2:
+ 674 0054 5345544D 		.ascii	"SETMAC\000"
+ 674      414300
+ 675 005b 00       		.align	2
+ 676              	.LC3:
+ 677 005c 6D6F746F 		.ascii	"motorH\000"
+ 677      724800
+ 678 0063 00       		.align	2
+ 679              	.LC4:
+ 680 0064 6D486572 		.ascii	"mHeratBeat\000"
+ 680      61744265 
+ 680      617400
+ 681              		.section	.text.main,"ax",%progbits
+ 682              		.align	2
+ 683              		.global	main
+ 684              		.thumb
+ 685              		.thumb_func
+ 687              	main:
+ 688              	.LFB110:
+ 689              		.file 2 "App/STM32F4-Discovery/main.c"
    1:App/STM32F4-Discovery/main.c **** /*
    2:App/STM32F4-Discovery/main.c ****     FreeRTOS V7.5.3 - Copyright (C) 2013 Real Time Engineers Ltd.
    3:App/STM32F4-Discovery/main.c ****     All rights reserved
@@ -1906,742 +1901,740 @@
  106:App/STM32F4-Discovery/main.c **** interrupt. */
  107:App/STM32F4-Discovery/main.c **** static xSemaphoreHandle xTestSemaphore = NULL;
  108:App/STM32F4-Discovery/main.c **** 
- 109:App/STM32F4-Discovery/main.c **** /* The variable that is incremented by the task synchronised with the button
- 110:App/STM32F4-Discovery/main.c **** interrupt. */
- 111:App/STM32F4-Discovery/main.c **** volatile unsigned long ulButtonPressCounts = 0UL;
+ 109:App/STM32F4-Discovery/main.c **** 
+ 110:App/STM32F4-Discovery/main.c **** 
+ 111:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
  112:App/STM32F4-Discovery/main.c **** 
- 113:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 114:App/STM32F4-Discovery/main.c **** 
- 115:App/STM32F4-Discovery/main.c **** int main(void)
- 116:App/STM32F4-Discovery/main.c **** {
- 697              		.loc 2 116 0
- 698              		.cfi_startproc
- 699              		@ args = 0, pretend = 0, frame = 8
- 700              		@ frame_needed = 1, uses_anonymous_args = 0
- 701 0000 80B5     		push	{r7, lr}
- 702              	.LCFI3:
- 703              		.cfi_def_cfa_offset 8
- 704              		.cfi_offset 7, -8
- 705              		.cfi_offset 14, -4
- 706 0002 86B0     		sub	sp, sp, #24
- 707              	.LCFI4:
- 708              		.cfi_def_cfa_offset 32
- 709 0004 04AF     		add	r7, sp, #16
- 710              	.LCFI5:
- 711              		.cfi_def_cfa 7, 16
- 117:App/STM32F4-Discovery/main.c **** 	/*<! Configure the hardware ready to run the test. */
- 118:App/STM32F4-Discovery/main.c **** 	prvSetupHardware();;
- 712              		.loc 2 118 0
- 713 0006 FFF7FEFF 		bl	prvSetupHardware
+ 113:App/STM32F4-Discovery/main.c **** int main(void)
+ 114:App/STM32F4-Discovery/main.c **** {
+ 690              		.loc 2 114 0
+ 691              		.cfi_startproc
+ 692              		@ args = 0, pretend = 0, frame = 8
+ 693              		@ frame_needed = 1, uses_anonymous_args = 0
+ 694 0000 80B5     		push	{r7, lr}
+ 695              	.LCFI3:
+ 696              		.cfi_def_cfa_offset 8
+ 697              		.cfi_offset 7, -8
+ 698              		.cfi_offset 14, -4
+ 699 0002 86B0     		sub	sp, sp, #24
+ 700              	.LCFI4:
+ 701              		.cfi_def_cfa_offset 32
+ 702 0004 04AF     		add	r7, sp, #16
+ 703              	.LCFI5:
+ 704              		.cfi_def_cfa 7, 16
+ 115:App/STM32F4-Discovery/main.c **** 	/*<! Configure the hardware ready to run the test. */
+ 116:App/STM32F4-Discovery/main.c **** 	prvSetupHardware();;
+ 705              		.loc 2 116 0
+ 706 0006 FFF7FEFF 		bl	prvSetupHardware
+ 117:App/STM32F4-Discovery/main.c **** 	
+ 118:App/STM32F4-Discovery/main.c **** 	// ============now register CLI commands ===================
  119:App/STM32F4-Discovery/main.c **** 	
- 120:App/STM32F4-Discovery/main.c **** 	// ============now register CLI commands ===================
- 121:App/STM32F4-Discovery/main.c **** 	
- 122:App/STM32F4-Discovery/main.c **** 	FreeRTOS_CLIRegisterCommand( &xMotorCommand );
- 714              		.loc 2 122 0
- 715 000a 1F48     		ldr	r0, .L6
- 716 000c FFF7FEFF 		bl	FreeRTOS_CLIRegisterCommand
- 123:App/STM32F4-Discovery/main.c ****        		
- 124:App/STM32F4-Discovery/main.c **** 
- 125:App/STM32F4-Discovery/main.c **** 	// =============== register CLI commands ===================
- 126:App/STM32F4-Discovery/main.c **** 	int sr = sizeof(QueueTelegram);
- 717              		.loc 2 126 0
- 718 0010 1C23     		movs	r3, #28
- 719 0012 7B60     		str	r3, [r7, #4]
- 127:App/STM32F4-Discovery/main.c **** 	sr = sizeof (QueueTelegram *);
- 720              		.loc 2 127 0
- 721 0014 0423     		movs	r3, #4
- 722 0016 7B60     		str	r3, [r7, #4]
- 128:App/STM32F4-Discovery/main.c **** 	// create queues 
- 129:App/STM32F4-Discovery/main.c **** 	QSpd_handle = xQueueCreate(1, sizeof(QueueTelegram));
- 723              		.loc 2 129 0
- 724 0018 0120     		movs	r0, #1
- 725 001a 1C21     		movs	r1, #28
- 726 001c 0022     		movs	r2, #0
- 727 001e FFF7FEFF 		bl	xQueueGenericCreate
- 728 0022 0246     		mov	r2, r0
- 729 0024 194B     		ldr	r3, .L6+4
- 730 0026 1A60     		str	r2, [r3]
- 130:App/STM32F4-Discovery/main.c **** 
+ 120:App/STM32F4-Discovery/main.c **** 	FreeRTOS_CLIRegisterCommand( &xMotorCommand );
+ 707              		.loc 2 120 0
+ 708 000a 1F48     		ldr	r0, .L6
+ 709 000c FFF7FEFF 		bl	FreeRTOS_CLIRegisterCommand
+ 121:App/STM32F4-Discovery/main.c ****        		
+ 122:App/STM32F4-Discovery/main.c **** 
+ 123:App/STM32F4-Discovery/main.c **** 	// =============== register CLI commands ===================
+ 124:App/STM32F4-Discovery/main.c **** 	int sr = sizeof(QueueTelegram);
+ 710              		.loc 2 124 0
+ 711 0010 1C23     		movs	r3, #28
+ 712 0012 7B60     		str	r3, [r7, #4]
+ 125:App/STM32F4-Discovery/main.c **** 	sr = sizeof (QueueTelegram *);
+ 713              		.loc 2 125 0
+ 714 0014 0423     		movs	r3, #4
+ 715 0016 7B60     		str	r3, [r7, #4]
+ 126:App/STM32F4-Discovery/main.c **** 	// create queues 
+ 127:App/STM32F4-Discovery/main.c **** 	QSpd_handle = xQueueCreate(1, sizeof(QueueTelegram));
+ 716              		.loc 2 127 0
+ 717 0018 0120     		movs	r0, #1
+ 718 001a 1C21     		movs	r1, #28
+ 719 001c 0022     		movs	r2, #0
+ 720 001e FFF7FEFF 		bl	xQueueGenericCreate
+ 721 0022 0246     		mov	r2, r0
+ 722 0024 194B     		ldr	r3, .L6+4
+ 723 0026 1A60     		str	r2, [r3]
+ 128:App/STM32F4-Discovery/main.c **** 
+ 129:App/STM32F4-Discovery/main.c **** 
+ 130:App/STM32F4-Discovery/main.c **** /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
  131:App/STM32F4-Discovery/main.c **** 
- 132:App/STM32F4-Discovery/main.c **** /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
- 133:App/STM32F4-Discovery/main.c **** 
- 134:App/STM32F4-Discovery/main.c **** 	// echo server task 
- 135:App/STM32F4-Discovery/main.c **** 	xTaskCreate(set_macTask, "SETMAC", configMINIMAL_STACK_SIZE*5, 
- 731              		.loc 2 135 0
- 732 0028 0123     		movs	r3, #1
- 733 002a 0093     		str	r3, [sp]
- 734 002c 184B     		ldr	r3, .L6+8
- 735 002e 0193     		str	r3, [sp, #4]
- 736 0030 0023     		movs	r3, #0
- 737 0032 0293     		str	r3, [sp, #8]
- 738 0034 0023     		movs	r3, #0
- 739 0036 0393     		str	r3, [sp, #12]
- 740 0038 1648     		ldr	r0, .L6+12
- 741 003a 1749     		ldr	r1, .L6+16
- 742 003c 40F28A22 		movw	r2, #650
- 743 0040 0023     		movs	r3, #0
- 744 0042 FFF7FEFF 		bl	xTaskGenericCreate
- 136:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY, &set_macTaskHandle);
- 137:App/STM32F4-Discovery/main.c **** 	
- 138:App/STM32F4-Discovery/main.c **** 	// run motor task 
- 139:App/STM32F4-Discovery/main.c **** 	xTaskCreate(motorControl_task, "motorH", configMINIMAL_STACK_SIZE*20,
- 745              		.loc 2 139 0
- 746 0046 0123     		movs	r3, #1
- 747 0048 0093     		str	r3, [sp]
- 748 004a 144B     		ldr	r3, .L6+20
- 749 004c 0193     		str	r3, [sp, #4]
- 750 004e 0023     		movs	r3, #0
- 751 0050 0293     		str	r3, [sp, #8]
- 752 0052 0023     		movs	r3, #0
- 753 0054 0393     		str	r3, [sp, #12]
- 754 0056 1248     		ldr	r0, .L6+24
- 755 0058 1249     		ldr	r1, .L6+28
- 756 005a 40F62822 		movw	r2, #2600
- 757 005e 0023     		movs	r3, #0
- 758 0060 FFF7FEFF 		bl	xTaskGenericCreate
- 140:App/STM32F4-Discovery/main.c **** 		       	NULL, mainFLASH_TASK_PRIORITY, &motorHBHandle);
- 141:App/STM32F4-Discovery/main.c **** 
- 142:App/STM32F4-Discovery/main.c **** 	// set motor task 
- 143:App/STM32F4-Discovery/main.c **** 	xTaskCreate(motorHeartBeat_task, "mHeratBeat", configMINIMAL_STACK_SIZE,		       				
- 759              		.loc 2 143 0
- 760 0064 0123     		movs	r3, #1
- 761 0066 0093     		str	r3, [sp]
- 762 0068 0F4B     		ldr	r3, .L6+32
- 763 006a 0193     		str	r3, [sp, #4]
- 764 006c 0023     		movs	r3, #0
- 765 006e 0293     		str	r3, [sp, #8]
- 766 0070 0023     		movs	r3, #0
- 767 0072 0393     		str	r3, [sp, #12]
- 768 0074 0D48     		ldr	r0, .L6+36
- 769 0076 0E49     		ldr	r1, .L6+40
- 770 0078 8222     		movs	r2, #130
- 771 007a 0023     		movs	r3, #0
- 772 007c FFF7FEFF 		bl	xTaskGenericCreate
- 144:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY, &motorHeartBeatHandle);
- 145:App/STM32F4-Discovery/main.c **** 	
+ 132:App/STM32F4-Discovery/main.c **** 	// echo server task 
+ 133:App/STM32F4-Discovery/main.c **** 	xTaskCreate(set_macTask, "SETMAC", configMINIMAL_STACK_SIZE*10, 
+ 724              		.loc 2 133 0
+ 725 0028 0123     		movs	r3, #1
+ 726 002a 0093     		str	r3, [sp]
+ 727 002c 184B     		ldr	r3, .L6+8
+ 728 002e 0193     		str	r3, [sp, #4]
+ 729 0030 0023     		movs	r3, #0
+ 730 0032 0293     		str	r3, [sp, #8]
+ 731 0034 0023     		movs	r3, #0
+ 732 0036 0393     		str	r3, [sp, #12]
+ 733 0038 1648     		ldr	r0, .L6+12
+ 734 003a 1749     		ldr	r1, .L6+16
+ 735 003c 4FF42062 		mov	r2, #2560
+ 736 0040 0023     		movs	r3, #0
+ 737 0042 FFF7FEFF 		bl	xTaskGenericCreate
+ 134:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY, &set_macTaskHandle);
+ 135:App/STM32F4-Discovery/main.c **** 	
+ 136:App/STM32F4-Discovery/main.c **** 	// run motor task 
+ 137:App/STM32F4-Discovery/main.c **** 	xTaskCreate(motorControl_task, "motorH", configMINIMAL_STACK_SIZE*10,
+ 738              		.loc 2 137 0
+ 739 0046 0123     		movs	r3, #1
+ 740 0048 0093     		str	r3, [sp]
+ 741 004a 144B     		ldr	r3, .L6+20
+ 742 004c 0193     		str	r3, [sp, #4]
+ 743 004e 0023     		movs	r3, #0
+ 744 0050 0293     		str	r3, [sp, #8]
+ 745 0052 0023     		movs	r3, #0
+ 746 0054 0393     		str	r3, [sp, #12]
+ 747 0056 1248     		ldr	r0, .L6+24
+ 748 0058 1249     		ldr	r1, .L6+28
+ 749 005a 4FF42062 		mov	r2, #2560
+ 750 005e 0023     		movs	r3, #0
+ 751 0060 FFF7FEFF 		bl	xTaskGenericCreate
+ 138:App/STM32F4-Discovery/main.c **** 		       	NULL, mainFLASH_TASK_PRIORITY, &motorHBHandle);
+ 139:App/STM32F4-Discovery/main.c **** 
+ 140:App/STM32F4-Discovery/main.c **** 	// set motor task 
+ 141:App/STM32F4-Discovery/main.c **** 	xTaskCreate(motorHeartBeat_task, "mHeratBeat", configMINIMAL_STACK_SIZE*10,		       				
+ 752              		.loc 2 141 0
+ 753 0064 0123     		movs	r3, #1
+ 754 0066 0093     		str	r3, [sp]
+ 755 0068 0F4B     		ldr	r3, .L6+32
+ 756 006a 0193     		str	r3, [sp, #4]
+ 757 006c 0023     		movs	r3, #0
+ 758 006e 0293     		str	r3, [sp, #8]
+ 759 0070 0023     		movs	r3, #0
+ 760 0072 0393     		str	r3, [sp, #12]
+ 761 0074 0D48     		ldr	r0, .L6+36
+ 762 0076 0E49     		ldr	r1, .L6+40
+ 763 0078 4FF42062 		mov	r2, #2560
+ 764 007c 0023     		movs	r3, #0
+ 765 007e FFF7FEFF 		bl	xTaskGenericCreate
+ 142:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY, &motorHeartBeatHandle);
+ 143:App/STM32F4-Discovery/main.c **** 	
+ 144:App/STM32F4-Discovery/main.c **** 
+ 145:App/STM32F4-Discovery/main.c **** /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
  146:App/STM32F4-Discovery/main.c **** 
- 147:App/STM32F4-Discovery/main.c **** /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
- 148:App/STM32F4-Discovery/main.c **** 
- 149:App/STM32F4-Discovery/main.c **** 
- 150:App/STM32F4-Discovery/main.c **** 	/* The following function will only create more tasks and timers if
- 151:App/STM32F4-Discovery/main.c **** 	mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY is set to 0 (at the top of this
- 152:App/STM32F4-Discovery/main.c **** 	file).  See the comments at the top of this file for more information. */
- 153:App/STM32F4-Discovery/main.c **** 	//prvOptionallyCreateComprehensveTestApplication();
- 154:App/STM32F4-Discovery/main.c **** 
- 155:App/STM32F4-Discovery/main.c **** 	/* Start the scheduler. */
- 156:App/STM32F4-Discovery/main.c **** 	vTaskStartScheduler();
- 773              		.loc 2 156 0
- 774 0080 FFF7FEFF 		bl	vTaskStartScheduler
- 775              	.L5:
- 157:App/STM32F4-Discovery/main.c **** 
- 158:App/STM32F4-Discovery/main.c **** 	/* If all is well, the scheduler will now be running, and the following line
- 159:App/STM32F4-Discovery/main.c **** 	will never be reached.  If the following line does execute, then there was
- 160:App/STM32F4-Discovery/main.c **** 	insufficient FreeRTOS heap memory available for the idle and/or timer tasks
- 161:App/STM32F4-Discovery/main.c **** 	to be created.  See the memory management section on the FreeRTOS web site
- 162:App/STM32F4-Discovery/main.c **** 	for more details. */
- 163:App/STM32F4-Discovery/main.c **** 	for( ;; );
- 776              		.loc 2 163 0 discriminator 1
- 777 0084 FEE7     		b	.L5
- 778              	.L7:
- 779 0086 00BF     		.align	2
- 780              	.L6:
- 781 0088 00000000 		.word	xMotorCommand
- 782 008c 00000000 		.word	QSpd_handle
- 783 0090 00000000 		.word	set_macTaskHandle
- 784 0094 00000000 		.word	set_macTask
- 785 0098 54000000 		.word	.LC2
- 786 009c 00000000 		.word	motorHBHandle
- 787 00a0 00000000 		.word	motorControl_task
- 788 00a4 5C000000 		.word	.LC3
- 789 00a8 00000000 		.word	motorHeartBeatHandle
- 790 00ac 00000000 		.word	motorHeartBeat_task
- 791 00b0 64000000 		.word	.LC4
- 792              		.cfi_endproc
- 793              	.LFE110:
- 795              		.section	.rodata
- 796 006f 00       		.align	2
- 797              	.LC5:
- 798 0070 696E6974 		.ascii	"init_W5200\000"
- 798      5F573532 
- 798      303000
- 799 007b 00       		.section	.text.prvSetupHardware,"ax",%progbits
- 800              		.align	2
- 801              		.thumb
- 802              		.thumb_func
- 804              	prvSetupHardware:
- 805              	.LFB111:
- 164:App/STM32F4-Discovery/main.c **** }
- 165:App/STM32F4-Discovery/main.c **** 
- 166:App/STM32F4-Discovery/main.c **** 
- 167:App/STM32F4-Discovery/main.c **** /*! 	\fn static void prvSetupHardware(void) 
- 168:App/STM32F4-Discovery/main.c ****  *	\brief Sets up hardware
- 169:App/STM32F4-Discovery/main.c ****  * 	
- 170:App/STM32F4-Discovery/main.c ****  */
- 171:App/STM32F4-Discovery/main.c **** void prvSetupHardware( void )
- 172:App/STM32F4-Discovery/main.c **** {
- 806              		.loc 2 172 0
- 807              		.cfi_startproc
- 808              		@ args = 0, pretend = 0, frame = 0
- 809              		@ frame_needed = 1, uses_anonymous_args = 0
- 810 0000 80B5     		push	{r7, lr}
- 811              	.LCFI6:
- 812              		.cfi_def_cfa_offset 8
- 813              		.cfi_offset 7, -8
- 814              		.cfi_offset 14, -4
- 815 0002 84B0     		sub	sp, sp, #16
- 816              	.LCFI7:
- 817              		.cfi_def_cfa_offset 24
- 818 0004 04AF     		add	r7, sp, #16
- 819              	.LCFI8:
- 820              		.cfi_def_cfa 7, 8
- 173:App/STM32F4-Discovery/main.c **** 	/* Setup STM32 system (clock, PLL and Flash configuration) */
- 174:App/STM32F4-Discovery/main.c **** 	SystemInit();
- 821              		.loc 2 174 0
- 822 0006 FFF7FEFF 		bl	SystemInit
- 175:App/STM32F4-Discovery/main.c **** 
- 176:App/STM32F4-Discovery/main.c **** 	/* Ensure all priority bits are assigned as preemption priority bits. */
- 177:App/STM32F4-Discovery/main.c **** 	NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
- 823              		.loc 2 177 0
- 824 000a 4FF44070 		mov	r0, #768
- 825 000e FFF7FEFF 		bl	NVIC_PriorityGroupConfig
- 178:App/STM32F4-Discovery/main.c **** 	
- 179:App/STM32F4-Discovery/main.c **** 	//init_SPIx();
- 180:App/STM32F4-Discovery/main.c **** 	init_SPIx();	
- 826              		.loc 2 180 0
- 827 0012 FFF7FEFF 		bl	init_SPIx
- 181:App/STM32F4-Discovery/main.c **** 	
- 182:App/STM32F4-Discovery/main.c **** 	// init USARTx 
- 183:App/STM32F4-Discovery/main.c **** 	init_USARTx();
- 828              		.loc 2 183 0
- 829 0016 FFF7FEFF 		bl	init_USARTx
- 184:App/STM32F4-Discovery/main.c **** 
- 185:App/STM32F4-Discovery/main.c **** 	/*
- 186:App/STM32F4-Discovery/main.c **** 	 * Create task - initialize Wiznet
- 187:App/STM32F4-Discovery/main.c **** 	 * It creates task for Wiznet initialization and at end delete it. 
- 188:App/STM32F4-Discovery/main.c **** 	 * Function : 		init_W5200 from W5200.c file 
- 189:App/STM32F4-Discovery/main.c **** 	 * Stack size :		5 times minimial stack size 
- 190:App/STM32F4-Discovery/main.c **** 	 * Task priority :	main flash task priority + 1 
- 191:App/STM32F4-Discovery/main.c **** 	 * Parameters 	 :	no parameters (NULL)
- 192:App/STM32F4-Discovery/main.c **** 	 */  
- 193:App/STM32F4-Discovery/main.c **** 	xTaskCreate(init_W5200, "init_W5200", configMINIMAL_STACK_SIZE*5, 
- 830              		.loc 2 193 0
- 831 001a 0223     		movs	r3, #2
- 832 001c 0093     		str	r3, [sp]
- 833 001e 0023     		movs	r3, #0
- 834 0020 0193     		str	r3, [sp, #4]
- 835 0022 0023     		movs	r3, #0
- 836 0024 0293     		str	r3, [sp, #8]
- 837 0026 0023     		movs	r3, #0
- 838 0028 0393     		str	r3, [sp, #12]
- 839 002a 0448     		ldr	r0, .L9
- 840 002c 0449     		ldr	r1, .L9+4
- 841 002e 40F28A22 		movw	r2, #650
- 842 0032 0023     		movs	r3, #0
- 843 0034 FFF7FEFF 		bl	xTaskGenericCreate
- 194:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY + 1 , NULL);
- 195:App/STM32F4-Discovery/main.c **** 	
- 196:App/STM32F4-Discovery/main.c **** 	
- 197:App/STM32F4-Discovery/main.c **** }
- 844              		.loc 2 197 0
- 845 0038 BD46     		mov	sp, r7
- 846              		@ sp needed
- 847 003a 80BD     		pop	{r7, pc}
- 848              	.L10:
- 849              		.align	2
- 850              	.L9:
- 851 003c 00000000 		.word	init_W5200
- 852 0040 70000000 		.word	.LC5
- 853              		.cfi_endproc
- 854              	.LFE111:
- 856              		.section	.text.vApplicationTickHook,"ax",%progbits
- 857              		.align	2
- 858              		.global	vApplicationTickHook
- 859              		.thumb
- 860              		.thumb_func
- 862              	vApplicationTickHook:
- 863              	.LFB112:
- 198:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 199:App/STM32F4-Discovery/main.c **** 
- 200:App/STM32F4-Discovery/main.c **** void vApplicationTickHook( void )
- 201:App/STM32F4-Discovery/main.c **** {
- 864              		.loc 2 201 0
- 865              		.cfi_startproc
- 866              		@ args = 0, pretend = 0, frame = 0
- 867              		@ frame_needed = 1, uses_anonymous_args = 0
- 868 0000 80B5     		push	{r7, lr}
- 869              	.LCFI9:
- 870              		.cfi_def_cfa_offset 8
- 871              		.cfi_offset 7, -8
- 872              		.cfi_offset 14, -4
- 873 0002 00AF     		add	r7, sp, #0
- 874              	.LCFI10:
- 875              		.cfi_def_cfa_register 7
- 202:App/STM32F4-Discovery/main.c **** 	#if ( mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY == 0 )
- 203:App/STM32F4-Discovery/main.c **** 	{
- 204:App/STM32F4-Discovery/main.c **** 		/* Just to verify that the interrupt nesting behaves as expected,
- 205:App/STM32F4-Discovery/main.c **** 		increment ulFPUInterruptNesting on entry, and decrement it on exit. */
- 206:App/STM32F4-Discovery/main.c **** 		ulFPUInterruptNesting++;
- 876              		.loc 2 206 0
- 877 0004 064B     		ldr	r3, .L12
- 878 0006 1B68     		ldr	r3, [r3]
- 879 0008 5A1C     		adds	r2, r3, #1
- 880 000a 054B     		ldr	r3, .L12
- 881 000c 1A60     		str	r2, [r3]
- 207:App/STM32F4-Discovery/main.c **** 
- 208:App/STM32F4-Discovery/main.c **** 		/* Fill the FPU registers with 0. */
- 209:App/STM32F4-Discovery/main.c **** 		//vRegTestClearFlopRegistersToParameterValue( 0UL );
- 210:App/STM32F4-Discovery/main.c **** 
- 211:App/STM32F4-Discovery/main.c **** 		/* Trigger a timer 2 interrupt, which will fill the registers with a
- 212:App/STM32F4-Discovery/main.c **** 		different value and itself trigger a timer 3 interrupt.  Note that the
- 213:App/STM32F4-Discovery/main.c **** 		timers are not actually used.  The timer 2 and 3 interrupt vectors are
- 214:App/STM32F4-Discovery/main.c **** 		just used for convenience. */
- 215:App/STM32F4-Discovery/main.c **** 		NVIC_SetPendingIRQ( TIM2_IRQn );
- 882              		.loc 2 215 0
- 883 000e 1C20     		movs	r0, #28
- 884 0010 FFF7FEFF 		bl	NVIC_SetPendingIRQ
- 216:App/STM32F4-Discovery/main.c **** 
- 217:App/STM32F4-Discovery/main.c **** 		/* Ensure that, after returning from the nested interrupts, all the FPU
- 218:App/STM32F4-Discovery/main.c **** 		registers contain the value to which they were set by the tick hook
- 219:App/STM32F4-Discovery/main.c **** 		function. */
- 220:App/STM32F4-Discovery/main.c **** 		//configASSERT( ulRegTestCheckFlopRegistersContainParameterValue( 0UL ) );
- 221:App/STM32F4-Discovery/main.c **** 
- 222:App/STM32F4-Discovery/main.c **** 		ulFPUInterruptNesting--;
- 885              		.loc 2 222 0
- 886 0014 024B     		ldr	r3, .L12
- 887 0016 1B68     		ldr	r3, [r3]
- 888 0018 5A1E     		subs	r2, r3, #1
- 889 001a 014B     		ldr	r3, .L12
- 890 001c 1A60     		str	r2, [r3]
- 223:App/STM32F4-Discovery/main.c **** 	}
- 224:App/STM32F4-Discovery/main.c **** 	#endif
- 225:App/STM32F4-Discovery/main.c **** }
- 891              		.loc 2 225 0
- 892 001e 80BD     		pop	{r7, pc}
- 893              	.L13:
+ 147:App/STM32F4-Discovery/main.c **** 
+ 148:App/STM32F4-Discovery/main.c **** 	/* The following function will only create more tasks and timers if
+ 149:App/STM32F4-Discovery/main.c **** 	mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY is set to 0 (at the top of this
+ 150:App/STM32F4-Discovery/main.c **** 	file).  See the comments at the top of this file for more information. */
+ 151:App/STM32F4-Discovery/main.c **** 	//prvOptionallyCreateComprehensveTestApplication();
+ 152:App/STM32F4-Discovery/main.c **** 
+ 153:App/STM32F4-Discovery/main.c **** 	/* Start the scheduler. */
+ 154:App/STM32F4-Discovery/main.c **** 	vTaskStartScheduler();
+ 766              		.loc 2 154 0
+ 767 0082 FFF7FEFF 		bl	vTaskStartScheduler
+ 768              	.L5:
+ 155:App/STM32F4-Discovery/main.c **** 
+ 156:App/STM32F4-Discovery/main.c **** 	/* If all is well, the scheduler will now be running, and the following line
+ 157:App/STM32F4-Discovery/main.c **** 	will never be reached.  If the following line does execute, then there was
+ 158:App/STM32F4-Discovery/main.c **** 	insufficient FreeRTOS heap memory available for the idle and/or timer tasks
+ 159:App/STM32F4-Discovery/main.c **** 	to be created.  See the memory management section on the FreeRTOS web site
+ 160:App/STM32F4-Discovery/main.c **** 	for more details. */
+ 161:App/STM32F4-Discovery/main.c **** 	for( ;; );
+ 769              		.loc 2 161 0 discriminator 1
+ 770 0086 FEE7     		b	.L5
+ 771              	.L7:
+ 772              		.align	2
+ 773              	.L6:
+ 774 0088 00000000 		.word	xMotorCommand
+ 775 008c 00000000 		.word	QSpd_handle
+ 776 0090 00000000 		.word	set_macTaskHandle
+ 777 0094 00000000 		.word	set_macTask
+ 778 0098 54000000 		.word	.LC2
+ 779 009c 00000000 		.word	motorHBHandle
+ 780 00a0 00000000 		.word	motorControl_task
+ 781 00a4 5C000000 		.word	.LC3
+ 782 00a8 00000000 		.word	motorHeartBeatHandle
+ 783 00ac 00000000 		.word	motorHeartBeat_task
+ 784 00b0 64000000 		.word	.LC4
+ 785              		.cfi_endproc
+ 786              	.LFE110:
+ 788              		.section	.rodata
+ 789 006f 00       		.align	2
+ 790              	.LC5:
+ 791 0070 696E6974 		.ascii	"init_W5200\000"
+ 791      5F573532 
+ 791      303000
+ 792 007b 00       		.section	.text.prvSetupHardware,"ax",%progbits
+ 793              		.align	2
+ 794              		.thumb
+ 795              		.thumb_func
+ 797              	prvSetupHardware:
+ 798              	.LFB111:
+ 162:App/STM32F4-Discovery/main.c **** }
+ 163:App/STM32F4-Discovery/main.c **** 
+ 164:App/STM32F4-Discovery/main.c **** 
+ 165:App/STM32F4-Discovery/main.c **** /*! 	\fn static void prvSetupHardware(void) 
+ 166:App/STM32F4-Discovery/main.c ****  *	\brief Sets up hardware
+ 167:App/STM32F4-Discovery/main.c ****  * 	
+ 168:App/STM32F4-Discovery/main.c ****  */
+ 169:App/STM32F4-Discovery/main.c **** void prvSetupHardware( void )
+ 170:App/STM32F4-Discovery/main.c **** {
+ 799              		.loc 2 170 0
+ 800              		.cfi_startproc
+ 801              		@ args = 0, pretend = 0, frame = 0
+ 802              		@ frame_needed = 1, uses_anonymous_args = 0
+ 803 0000 80B5     		push	{r7, lr}
+ 804              	.LCFI6:
+ 805              		.cfi_def_cfa_offset 8
+ 806              		.cfi_offset 7, -8
+ 807              		.cfi_offset 14, -4
+ 808 0002 84B0     		sub	sp, sp, #16
+ 809              	.LCFI7:
+ 810              		.cfi_def_cfa_offset 24
+ 811 0004 04AF     		add	r7, sp, #16
+ 812              	.LCFI8:
+ 813              		.cfi_def_cfa 7, 8
+ 171:App/STM32F4-Discovery/main.c **** 	/* Setup STM32 system (clock, PLL and Flash configuration) */
+ 172:App/STM32F4-Discovery/main.c **** 	SystemInit();
+ 814              		.loc 2 172 0
+ 815 0006 FFF7FEFF 		bl	SystemInit
+ 173:App/STM32F4-Discovery/main.c **** 
+ 174:App/STM32F4-Discovery/main.c **** 	/* Ensure all priority bits are assigned as preemption priority bits. */
+ 175:App/STM32F4-Discovery/main.c **** 	NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
+ 816              		.loc 2 175 0
+ 817 000a 4FF44070 		mov	r0, #768
+ 818 000e FFF7FEFF 		bl	NVIC_PriorityGroupConfig
+ 176:App/STM32F4-Discovery/main.c **** 	
+ 177:App/STM32F4-Discovery/main.c **** 	//init_SPIx();
+ 178:App/STM32F4-Discovery/main.c **** 	init_SPIx();	
+ 819              		.loc 2 178 0
+ 820 0012 FFF7FEFF 		bl	init_SPIx
+ 179:App/STM32F4-Discovery/main.c **** 	
+ 180:App/STM32F4-Discovery/main.c **** 	// init USARTx 
+ 181:App/STM32F4-Discovery/main.c **** 	init_USARTx();
+ 821              		.loc 2 181 0
+ 822 0016 FFF7FEFF 		bl	init_USARTx
+ 182:App/STM32F4-Discovery/main.c **** 
+ 183:App/STM32F4-Discovery/main.c **** 	/*
+ 184:App/STM32F4-Discovery/main.c **** 	 * Create task - initialize Wiznet
+ 185:App/STM32F4-Discovery/main.c **** 	 * It creates task for Wiznet initialization and at end delete it. 
+ 186:App/STM32F4-Discovery/main.c **** 	 * Function : 		init_W5200 from W5200.c file 
+ 187:App/STM32F4-Discovery/main.c **** 	 * Stack size :		5 times minimial stack size 
+ 188:App/STM32F4-Discovery/main.c **** 	 * Task priority :	main flash task priority + 1 
+ 189:App/STM32F4-Discovery/main.c **** 	 * Parameters 	 :	no parameters (NULL)
+ 190:App/STM32F4-Discovery/main.c **** 	 */  
+ 191:App/STM32F4-Discovery/main.c **** 	xTaskCreate(init_W5200, "init_W5200", configMINIMAL_STACK_SIZE*5, 
+ 823              		.loc 2 191 0
+ 824 001a 0223     		movs	r3, #2
+ 825 001c 0093     		str	r3, [sp]
+ 826 001e 0023     		movs	r3, #0
+ 827 0020 0193     		str	r3, [sp, #4]
+ 828 0022 0023     		movs	r3, #0
+ 829 0024 0293     		str	r3, [sp, #8]
+ 830 0026 0023     		movs	r3, #0
+ 831 0028 0393     		str	r3, [sp, #12]
+ 832 002a 0448     		ldr	r0, .L9
+ 833 002c 0449     		ldr	r1, .L9+4
+ 834 002e 4FF4A062 		mov	r2, #1280
+ 835 0032 0023     		movs	r3, #0
+ 836 0034 FFF7FEFF 		bl	xTaskGenericCreate
+ 192:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY + 1 , NULL);
+ 193:App/STM32F4-Discovery/main.c **** 	
+ 194:App/STM32F4-Discovery/main.c **** 	
+ 195:App/STM32F4-Discovery/main.c **** }
+ 837              		.loc 2 195 0
+ 838 0038 BD46     		mov	sp, r7
+ 839              		@ sp needed
+ 840 003a 80BD     		pop	{r7, pc}
+ 841              	.L10:
+ 842              		.align	2
+ 843              	.L9:
+ 844 003c 00000000 		.word	init_W5200
+ 845 0040 70000000 		.word	.LC5
+ 846              		.cfi_endproc
+ 847              	.LFE111:
+ 849              		.section	.text.vApplicationTickHook,"ax",%progbits
+ 850              		.align	2
+ 851              		.global	vApplicationTickHook
+ 852              		.thumb
+ 853              		.thumb_func
+ 855              	vApplicationTickHook:
+ 856              	.LFB112:
+ 196:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
+ 197:App/STM32F4-Discovery/main.c **** 
+ 198:App/STM32F4-Discovery/main.c **** void vApplicationTickHook( void )
+ 199:App/STM32F4-Discovery/main.c **** {
+ 857              		.loc 2 199 0
+ 858              		.cfi_startproc
+ 859              		@ args = 0, pretend = 0, frame = 0
+ 860              		@ frame_needed = 1, uses_anonymous_args = 0
+ 861 0000 80B5     		push	{r7, lr}
+ 862              	.LCFI9:
+ 863              		.cfi_def_cfa_offset 8
+ 864              		.cfi_offset 7, -8
+ 865              		.cfi_offset 14, -4
+ 866 0002 00AF     		add	r7, sp, #0
+ 867              	.LCFI10:
+ 868              		.cfi_def_cfa_register 7
+ 200:App/STM32F4-Discovery/main.c **** 	#if ( mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY == 0 )
+ 201:App/STM32F4-Discovery/main.c **** 	{
+ 202:App/STM32F4-Discovery/main.c **** 		/* Just to verify that the interrupt nesting behaves as expected,
+ 203:App/STM32F4-Discovery/main.c **** 		increment ulFPUInterruptNesting on entry, and decrement it on exit. */
+ 204:App/STM32F4-Discovery/main.c **** 		ulFPUInterruptNesting++;
+ 869              		.loc 2 204 0
+ 870 0004 064B     		ldr	r3, .L12
+ 871 0006 1B68     		ldr	r3, [r3]
+ 872 0008 5A1C     		adds	r2, r3, #1
+ 873 000a 054B     		ldr	r3, .L12
+ 874 000c 1A60     		str	r2, [r3]
+ 205:App/STM32F4-Discovery/main.c **** 
+ 206:App/STM32F4-Discovery/main.c **** 		/* Fill the FPU registers with 0. */
+ 207:App/STM32F4-Discovery/main.c **** 		//vRegTestClearFlopRegistersToParameterValue( 0UL );
+ 208:App/STM32F4-Discovery/main.c **** 
+ 209:App/STM32F4-Discovery/main.c **** 		/* Trigger a timer 2 interrupt, which will fill the registers with a
+ 210:App/STM32F4-Discovery/main.c **** 		different value and itself trigger a timer 3 interrupt.  Note that the
+ 211:App/STM32F4-Discovery/main.c **** 		timers are not actually used.  The timer 2 and 3 interrupt vectors are
+ 212:App/STM32F4-Discovery/main.c **** 		just used for convenience. */
+ 213:App/STM32F4-Discovery/main.c **** 		NVIC_SetPendingIRQ( TIM2_IRQn );
+ 875              		.loc 2 213 0
+ 876 000e 1C20     		movs	r0, #28
+ 877 0010 FFF7FEFF 		bl	NVIC_SetPendingIRQ
+ 214:App/STM32F4-Discovery/main.c **** 
+ 215:App/STM32F4-Discovery/main.c **** 		/* Ensure that, after returning from the nested interrupts, all the FPU
+ 216:App/STM32F4-Discovery/main.c **** 		registers contain the value to which they were set by the tick hook
+ 217:App/STM32F4-Discovery/main.c **** 		function. */
+ 218:App/STM32F4-Discovery/main.c **** 		//configASSERT( ulRegTestCheckFlopRegistersContainParameterValue( 0UL ) );
+ 219:App/STM32F4-Discovery/main.c **** 
+ 220:App/STM32F4-Discovery/main.c **** 		ulFPUInterruptNesting--;
+ 878              		.loc 2 220 0
+ 879 0014 024B     		ldr	r3, .L12
+ 880 0016 1B68     		ldr	r3, [r3]
+ 881 0018 5A1E     		subs	r2, r3, #1
+ 882 001a 014B     		ldr	r3, .L12
+ 883 001c 1A60     		str	r2, [r3]
+ 221:App/STM32F4-Discovery/main.c **** 	}
+ 222:App/STM32F4-Discovery/main.c **** 	#endif
+ 223:App/STM32F4-Discovery/main.c **** }
+ 884              		.loc 2 223 0
+ 885 001e 80BD     		pop	{r7, pc}
+ 886              	.L13:
+ 887              		.align	2
+ 888              	.L12:
+ 889 0020 00000000 		.word	ulFPUInterruptNesting
+ 890              		.cfi_endproc
+ 891              	.LFE112:
+ 893              		.section	.text.prvSetupNestedFPUInterruptsTest,"ax",%progbits
  894              		.align	2
- 895              	.L12:
- 896 0020 00000000 		.word	ulFPUInterruptNesting
- 897              		.cfi_endproc
- 898              	.LFE112:
- 900              		.section	.text.prvSetupNestedFPUInterruptsTest,"ax",%progbits
- 901              		.align	2
- 902              		.thumb
- 903              		.thumb_func
- 905              	prvSetupNestedFPUInterruptsTest:
- 906              	.LFB113:
- 226:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 227:App/STM32F4-Discovery/main.c **** 
- 228:App/STM32F4-Discovery/main.c **** static void prvSetupNestedFPUInterruptsTest( void )
- 229:App/STM32F4-Discovery/main.c **** {
- 907              		.loc 2 229 0
- 908              		.cfi_startproc
- 909              		@ args = 0, pretend = 0, frame = 8
- 910              		@ frame_needed = 1, uses_anonymous_args = 0
- 911 0000 80B5     		push	{r7, lr}
- 912              	.LCFI11:
- 913              		.cfi_def_cfa_offset 8
- 914              		.cfi_offset 7, -8
- 915              		.cfi_offset 14, -4
- 916 0002 82B0     		sub	sp, sp, #8
- 917              	.LCFI12:
- 918              		.cfi_def_cfa_offset 16
- 919 0004 00AF     		add	r7, sp, #0
- 920              	.LCFI13:
- 921              		.cfi_def_cfa_register 7
- 230:App/STM32F4-Discovery/main.c **** NVIC_InitTypeDef NVIC_InitStructure;
- 231:App/STM32F4-Discovery/main.c **** 
- 232:App/STM32F4-Discovery/main.c **** 	/* Enable the TIM2 interrupt in the NVIC.  The timer itself is not used,
- 233:App/STM32F4-Discovery/main.c **** 	just its interrupt vector to force nesting from software.  TIM2 must have
- 234:App/STM32F4-Discovery/main.c **** 	a lower priority than TIM3, and both must have priorities above
- 235:App/STM32F4-Discovery/main.c **** 	configMAX_SYSCALL_INTERRUPT_PRIORITY. */
- 236:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
- 922              		.loc 2 236 0
- 923 0006 1C23     		movs	r3, #28
- 924 0008 3B71     		strb	r3, [r7, #4]
- 237:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORIT
- 925              		.loc 2 237 0
- 926 000a 0423     		movs	r3, #4
- 927 000c 7B71     		strb	r3, [r7, #5]
- 238:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
- 928              		.loc 2 238 0
- 929 000e 0023     		movs	r3, #0
- 930 0010 BB71     		strb	r3, [r7, #6]
- 239:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
- 931              		.loc 2 239 0
- 932 0012 0123     		movs	r3, #1
- 933 0014 FB71     		strb	r3, [r7, #7]
- 240:App/STM32F4-Discovery/main.c **** 	NVIC_Init( &NVIC_InitStructure );
- 934              		.loc 2 240 0
- 935 0016 3B1D     		adds	r3, r7, #4
- 936 0018 1846     		mov	r0, r3
- 937 001a FFF7FEFF 		bl	NVIC_Init
- 241:App/STM32F4-Discovery/main.c **** 
- 242:App/STM32F4-Discovery/main.c **** 	/* Enable the TIM3 interrupt in the NVIC.  The timer itself is not used,
- 243:App/STM32F4-Discovery/main.c **** 	just its interrupt vector to force nesting from software.  TIM2 must have
- 244:App/STM32F4-Discovery/main.c **** 	a lower priority than TIM3, and both must have priorities above
- 245:App/STM32F4-Discovery/main.c **** 	configMAX_SYSCALL_INTERRUPT_PRIORITY. */
- 246:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
- 938              		.loc 2 246 0
- 939 001e 1D23     		movs	r3, #29
- 940 0020 3B71     		strb	r3, [r7, #4]
- 247:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORIT
- 941              		.loc 2 247 0
- 942 0022 0323     		movs	r3, #3
- 943 0024 7B71     		strb	r3, [r7, #5]
- 248:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
- 944              		.loc 2 248 0
- 945 0026 0023     		movs	r3, #0
- 946 0028 BB71     		strb	r3, [r7, #6]
- 249:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+ 895              		.thumb
+ 896              		.thumb_func
+ 898              	prvSetupNestedFPUInterruptsTest:
+ 899              	.LFB113:
+ 224:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
+ 225:App/STM32F4-Discovery/main.c **** 
+ 226:App/STM32F4-Discovery/main.c **** static void prvSetupNestedFPUInterruptsTest( void )
+ 227:App/STM32F4-Discovery/main.c **** {
+ 900              		.loc 2 227 0
+ 901              		.cfi_startproc
+ 902              		@ args = 0, pretend = 0, frame = 8
+ 903              		@ frame_needed = 1, uses_anonymous_args = 0
+ 904 0000 80B5     		push	{r7, lr}
+ 905              	.LCFI11:
+ 906              		.cfi_def_cfa_offset 8
+ 907              		.cfi_offset 7, -8
+ 908              		.cfi_offset 14, -4
+ 909 0002 82B0     		sub	sp, sp, #8
+ 910              	.LCFI12:
+ 911              		.cfi_def_cfa_offset 16
+ 912 0004 00AF     		add	r7, sp, #0
+ 913              	.LCFI13:
+ 914              		.cfi_def_cfa_register 7
+ 228:App/STM32F4-Discovery/main.c **** NVIC_InitTypeDef NVIC_InitStructure;
+ 229:App/STM32F4-Discovery/main.c **** 
+ 230:App/STM32F4-Discovery/main.c **** 	/* Enable the TIM2 interrupt in the NVIC.  The timer itself is not used,
+ 231:App/STM32F4-Discovery/main.c **** 	just its interrupt vector to force nesting from software.  TIM2 must have
+ 232:App/STM32F4-Discovery/main.c **** 	a lower priority than TIM3, and both must have priorities above
+ 233:App/STM32F4-Discovery/main.c **** 	configMAX_SYSCALL_INTERRUPT_PRIORITY. */
+ 234:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+ 915              		.loc 2 234 0
+ 916 0006 1C23     		movs	r3, #28
+ 917 0008 3B71     		strb	r3, [r7, #4]
+ 235:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORIT
+ 918              		.loc 2 235 0
+ 919 000a 0423     		movs	r3, #4
+ 920 000c 7B71     		strb	r3, [r7, #5]
+ 236:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+ 921              		.loc 2 236 0
+ 922 000e 0023     		movs	r3, #0
+ 923 0010 BB71     		strb	r3, [r7, #6]
+ 237:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+ 924              		.loc 2 237 0
+ 925 0012 0123     		movs	r3, #1
+ 926 0014 FB71     		strb	r3, [r7, #7]
+ 238:App/STM32F4-Discovery/main.c **** 	NVIC_Init( &NVIC_InitStructure );
+ 927              		.loc 2 238 0
+ 928 0016 3B1D     		adds	r3, r7, #4
+ 929 0018 1846     		mov	r0, r3
+ 930 001a FFF7FEFF 		bl	NVIC_Init
+ 239:App/STM32F4-Discovery/main.c **** 
+ 240:App/STM32F4-Discovery/main.c **** 	/* Enable the TIM3 interrupt in the NVIC.  The timer itself is not used,
+ 241:App/STM32F4-Discovery/main.c **** 	just its interrupt vector to force nesting from software.  TIM2 must have
+ 242:App/STM32F4-Discovery/main.c **** 	a lower priority than TIM3, and both must have priorities above
+ 243:App/STM32F4-Discovery/main.c **** 	configMAX_SYSCALL_INTERRUPT_PRIORITY. */
+ 244:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
+ 931              		.loc 2 244 0
+ 932 001e 1D23     		movs	r3, #29
+ 933 0020 3B71     		strb	r3, [r7, #4]
+ 245:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORIT
+ 934              		.loc 2 245 0
+ 935 0022 0323     		movs	r3, #3
+ 936 0024 7B71     		strb	r3, [r7, #5]
+ 246:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+ 937              		.loc 2 246 0
+ 938 0026 0023     		movs	r3, #0
+ 939 0028 BB71     		strb	r3, [r7, #6]
+ 247:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+ 940              		.loc 2 247 0
+ 941 002a 0123     		movs	r3, #1
+ 942 002c FB71     		strb	r3, [r7, #7]
+ 248:App/STM32F4-Discovery/main.c **** 	NVIC_Init( &NVIC_InitStructure );
+ 943              		.loc 2 248 0
+ 944 002e 3B1D     		adds	r3, r7, #4
+ 945 0030 1846     		mov	r0, r3
+ 946 0032 FFF7FEFF 		bl	NVIC_Init
+ 249:App/STM32F4-Discovery/main.c **** }
  947              		.loc 2 249 0
- 948 002a 0123     		movs	r3, #1
- 949 002c FB71     		strb	r3, [r7, #7]
- 250:App/STM32F4-Discovery/main.c **** 	NVIC_Init( &NVIC_InitStructure );
- 950              		.loc 2 250 0
- 951 002e 3B1D     		adds	r3, r7, #4
- 952 0030 1846     		mov	r0, r3
- 953 0032 FFF7FEFF 		bl	NVIC_Init
- 251:App/STM32F4-Discovery/main.c **** }
- 954              		.loc 2 251 0
- 955 0036 0837     		adds	r7, r7, #8
- 956 0038 BD46     		mov	sp, r7
- 957              		@ sp needed
- 958 003a 80BD     		pop	{r7, pc}
- 959              		.cfi_endproc
- 960              	.LFE113:
- 962              		.section	.text.TIM3_IRQHandler,"ax",%progbits
- 963              		.align	2
- 964              		.global	TIM3_IRQHandler
- 965              		.thumb
- 966              		.thumb_func
- 968              	TIM3_IRQHandler:
- 969              	.LFB114:
- 252:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 253:App/STM32F4-Discovery/main.c **** 
- 254:App/STM32F4-Discovery/main.c **** void TIM3_IRQHandler( void )
- 255:App/STM32F4-Discovery/main.c **** {
- 970              		.loc 2 255 0
- 971              		.cfi_startproc
- 972              		@ args = 0, pretend = 0, frame = 0
- 973              		@ frame_needed = 1, uses_anonymous_args = 0
- 974              		@ link register save eliminated.
- 975 0000 80B4     		push	{r7}
- 976              	.LCFI14:
- 977              		.cfi_def_cfa_offset 4
- 978              		.cfi_offset 7, -4
- 979 0002 00AF     		add	r7, sp, #0
- 980              	.LCFI15:
- 981              		.cfi_def_cfa_register 7
- 256:App/STM32F4-Discovery/main.c **** 	/* Just to verify that the interrupt nesting behaves as expected, increment
- 257:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting on entry, and decrement it on exit. */
- 258:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting++;
- 982              		.loc 2 258 0
- 983 0004 0B4B     		ldr	r3, .L17
- 984 0006 1B68     		ldr	r3, [r3]
- 985 0008 5A1C     		adds	r2, r3, #1
- 986 000a 0A4B     		ldr	r3, .L17
- 987 000c 1A60     		str	r2, [r3]
- 259:App/STM32F4-Discovery/main.c **** 
- 260:App/STM32F4-Discovery/main.c **** 	/* This is the highest priority interrupt in the chain of forced nesting
- 261:App/STM32F4-Discovery/main.c **** 	interrupts, so latch the maximum value reached by ulFPUInterruptNesting.
- 262:App/STM32F4-Discovery/main.c **** 	This is done purely to allow verification that the nesting depth reaches
- 263:App/STM32F4-Discovery/main.c **** 	that intended. */
- 264:App/STM32F4-Discovery/main.c **** 	if( ulFPUInterruptNesting > ulMaxFPUInterruptNesting )
+ 948 0036 0837     		adds	r7, r7, #8
+ 949 0038 BD46     		mov	sp, r7
+ 950              		@ sp needed
+ 951 003a 80BD     		pop	{r7, pc}
+ 952              		.cfi_endproc
+ 953              	.LFE113:
+ 955              		.section	.text.TIM3_IRQHandler,"ax",%progbits
+ 956              		.align	2
+ 957              		.global	TIM3_IRQHandler
+ 958              		.thumb
+ 959              		.thumb_func
+ 961              	TIM3_IRQHandler:
+ 962              	.LFB114:
+ 250:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
+ 251:App/STM32F4-Discovery/main.c **** 
+ 252:App/STM32F4-Discovery/main.c **** void TIM3_IRQHandler( void )
+ 253:App/STM32F4-Discovery/main.c **** {
+ 963              		.loc 2 253 0
+ 964              		.cfi_startproc
+ 965              		@ args = 0, pretend = 0, frame = 0
+ 966              		@ frame_needed = 1, uses_anonymous_args = 0
+ 967              		@ link register save eliminated.
+ 968 0000 80B4     		push	{r7}
+ 969              	.LCFI14:
+ 970              		.cfi_def_cfa_offset 4
+ 971              		.cfi_offset 7, -4
+ 972 0002 00AF     		add	r7, sp, #0
+ 973              	.LCFI15:
+ 974              		.cfi_def_cfa_register 7
+ 254:App/STM32F4-Discovery/main.c **** 	/* Just to verify that the interrupt nesting behaves as expected, increment
+ 255:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting on entry, and decrement it on exit. */
+ 256:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting++;
+ 975              		.loc 2 256 0
+ 976 0004 0B4B     		ldr	r3, .L17
+ 977 0006 1B68     		ldr	r3, [r3]
+ 978 0008 5A1C     		adds	r2, r3, #1
+ 979 000a 0A4B     		ldr	r3, .L17
+ 980 000c 1A60     		str	r2, [r3]
+ 257:App/STM32F4-Discovery/main.c **** 
+ 258:App/STM32F4-Discovery/main.c **** 	/* This is the highest priority interrupt in the chain of forced nesting
+ 259:App/STM32F4-Discovery/main.c **** 	interrupts, so latch the maximum value reached by ulFPUInterruptNesting.
+ 260:App/STM32F4-Discovery/main.c **** 	This is done purely to allow verification that the nesting depth reaches
+ 261:App/STM32F4-Discovery/main.c **** 	that intended. */
+ 262:App/STM32F4-Discovery/main.c **** 	if( ulFPUInterruptNesting > ulMaxFPUInterruptNesting )
+ 981              		.loc 2 262 0
+ 982 000e 094B     		ldr	r3, .L17
+ 983 0010 1A68     		ldr	r2, [r3]
+ 984 0012 094B     		ldr	r3, .L17+4
+ 985 0014 1B68     		ldr	r3, [r3]
+ 986 0016 9A42     		cmp	r2, r3
+ 987 0018 03D9     		bls	.L16
+ 263:App/STM32F4-Discovery/main.c **** 	{
+ 264:App/STM32F4-Discovery/main.c **** 		ulMaxFPUInterruptNesting = ulFPUInterruptNesting;
  988              		.loc 2 264 0
- 989 000e 094B     		ldr	r3, .L17
- 990 0010 1A68     		ldr	r2, [r3]
- 991 0012 094B     		ldr	r3, .L17+4
- 992 0014 1B68     		ldr	r3, [r3]
- 993 0016 9A42     		cmp	r2, r3
- 994 0018 03D9     		bls	.L16
- 265:App/STM32F4-Discovery/main.c **** 	{
- 266:App/STM32F4-Discovery/main.c **** 		ulMaxFPUInterruptNesting = ulFPUInterruptNesting;
- 995              		.loc 2 266 0
- 996 001a 064B     		ldr	r3, .L17
- 997 001c 1A68     		ldr	r2, [r3]
- 998 001e 064B     		ldr	r3, .L17+4
- 999 0020 1A60     		str	r2, [r3]
- 1000              	.L16:
- 267:App/STM32F4-Discovery/main.c **** 	}
- 268:App/STM32F4-Discovery/main.c **** 
- 269:App/STM32F4-Discovery/main.c **** 	/* Fill the FPU registers with 99 to overwrite the values written by
- 270:App/STM32F4-Discovery/main.c **** 	TIM2_IRQHandler(). */
- 271:App/STM32F4-Discovery/main.c **** 	//vRegTestClearFlopRegistersToParameterValue( 99UL );
- 272:App/STM32F4-Discovery/main.c **** 
- 273:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting--;
- 1001              		.loc 2 273 0
- 1002 0022 044B     		ldr	r3, .L17
- 1003 0024 1B68     		ldr	r3, [r3]
- 1004 0026 5A1E     		subs	r2, r3, #1
- 1005 0028 024B     		ldr	r3, .L17
- 1006 002a 1A60     		str	r2, [r3]
- 274:App/STM32F4-Discovery/main.c **** }
- 1007              		.loc 2 274 0
- 1008 002c BD46     		mov	sp, r7
- 1009              		@ sp needed
- 1010 002e 5DF8047B 		ldr	r7, [sp], #4
- 1011 0032 7047     		bx	lr
- 1012              	.L18:
- 1013              		.align	2
- 1014              	.L17:
- 1015 0034 00000000 		.word	ulFPUInterruptNesting
- 1016 0038 00000000 		.word	ulMaxFPUInterruptNesting
- 1017              		.cfi_endproc
- 1018              	.LFE114:
- 1020              		.section	.text.TIM2_IRQHandler,"ax",%progbits
- 1021              		.align	2
- 1022              		.global	TIM2_IRQHandler
- 1023              		.thumb
- 1024              		.thumb_func
- 1026              	TIM2_IRQHandler:
- 1027              	.LFB115:
- 275:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 276:App/STM32F4-Discovery/main.c **** 
- 277:App/STM32F4-Discovery/main.c **** void TIM2_IRQHandler( void )
- 278:App/STM32F4-Discovery/main.c **** {
- 1028              		.loc 2 278 0
- 1029              		.cfi_startproc
- 1030              		@ args = 0, pretend = 0, frame = 0
- 1031              		@ frame_needed = 1, uses_anonymous_args = 0
- 1032 0000 80B5     		push	{r7, lr}
- 1033              	.LCFI16:
- 1034              		.cfi_def_cfa_offset 8
- 1035              		.cfi_offset 7, -8
- 1036              		.cfi_offset 14, -4
- 1037 0002 00AF     		add	r7, sp, #0
- 1038              	.LCFI17:
- 1039              		.cfi_def_cfa_register 7
- 279:App/STM32F4-Discovery/main.c **** 	/* Just to verify that the interrupt nesting behaves as expected, increment
- 280:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting on entry, and decrement it on exit. */
- 281:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting++;
- 1040              		.loc 2 281 0
- 1041 0004 064B     		ldr	r3, .L20
- 1042 0006 1B68     		ldr	r3, [r3]
- 1043 0008 5A1C     		adds	r2, r3, #1
- 1044 000a 054B     		ldr	r3, .L20
- 1045 000c 1A60     		str	r2, [r3]
- 282:App/STM32F4-Discovery/main.c **** 
- 283:App/STM32F4-Discovery/main.c **** 	/* Fill the FPU registers with 1. */
- 284:App/STM32F4-Discovery/main.c **** 	//vRegTestClearFlopRegistersToParameterValue( 1UL );
- 285:App/STM32F4-Discovery/main.c **** 
- 286:App/STM32F4-Discovery/main.c **** 	/* Trigger a timer 3 interrupt, which will fill the registers with a
- 287:App/STM32F4-Discovery/main.c **** 	different value. */
- 288:App/STM32F4-Discovery/main.c **** 	NVIC_SetPendingIRQ( TIM3_IRQn );
- 1046              		.loc 2 288 0
- 1047 000e 1D20     		movs	r0, #29
- 1048 0010 FFF7FEFF 		bl	NVIC_SetPendingIRQ
- 289:App/STM32F4-Discovery/main.c **** 
- 290:App/STM32F4-Discovery/main.c **** 	/* Ensure that, after returning from the nesting interrupt, all the FPU
- 291:App/STM32F4-Discovery/main.c **** 	registers contain the value to which they were set by this interrupt
- 292:App/STM32F4-Discovery/main.c **** 	function. */
- 293:App/STM32F4-Discovery/main.c **** 	//configASSERT( ulRegTestCheckFlopRegistersContainParameterValue( 1UL ) );
- 294:App/STM32F4-Discovery/main.c **** 
- 295:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting--;
- 1049              		.loc 2 295 0
- 1050 0014 024B     		ldr	r3, .L20
- 1051 0016 1B68     		ldr	r3, [r3]
- 1052 0018 5A1E     		subs	r2, r3, #1
- 1053 001a 014B     		ldr	r3, .L20
- 1054 001c 1A60     		str	r2, [r3]
- 296:App/STM32F4-Discovery/main.c **** }
- 1055              		.loc 2 296 0
- 1056 001e 80BD     		pop	{r7, pc}
- 1057              	.L21:
+ 989 001a 064B     		ldr	r3, .L17
+ 990 001c 1A68     		ldr	r2, [r3]
+ 991 001e 064B     		ldr	r3, .L17+4
+ 992 0020 1A60     		str	r2, [r3]
+ 993              	.L16:
+ 265:App/STM32F4-Discovery/main.c **** 	}
+ 266:App/STM32F4-Discovery/main.c **** 
+ 267:App/STM32F4-Discovery/main.c **** 	/* Fill the FPU registers with 99 to overwrite the values written by
+ 268:App/STM32F4-Discovery/main.c **** 	TIM2_IRQHandler(). */
+ 269:App/STM32F4-Discovery/main.c **** 	//vRegTestClearFlopRegistersToParameterValue( 99UL );
+ 270:App/STM32F4-Discovery/main.c **** 
+ 271:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting--;
+ 994              		.loc 2 271 0
+ 995 0022 044B     		ldr	r3, .L17
+ 996 0024 1B68     		ldr	r3, [r3]
+ 997 0026 5A1E     		subs	r2, r3, #1
+ 998 0028 024B     		ldr	r3, .L17
+ 999 002a 1A60     		str	r2, [r3]
+ 272:App/STM32F4-Discovery/main.c **** }
+ 1000              		.loc 2 272 0
+ 1001 002c BD46     		mov	sp, r7
+ 1002              		@ sp needed
+ 1003 002e 5DF8047B 		ldr	r7, [sp], #4
+ 1004 0032 7047     		bx	lr
+ 1005              	.L18:
+ 1006              		.align	2
+ 1007              	.L17:
+ 1008 0034 00000000 		.word	ulFPUInterruptNesting
+ 1009 0038 00000000 		.word	ulMaxFPUInterruptNesting
+ 1010              		.cfi_endproc
+ 1011              	.LFE114:
+ 1013              		.section	.text.TIM2_IRQHandler,"ax",%progbits
+ 1014              		.align	2
+ 1015              		.global	TIM2_IRQHandler
+ 1016              		.thumb
+ 1017              		.thumb_func
+ 1019              	TIM2_IRQHandler:
+ 1020              	.LFB115:
+ 273:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
+ 274:App/STM32F4-Discovery/main.c **** 
+ 275:App/STM32F4-Discovery/main.c **** void TIM2_IRQHandler( void )
+ 276:App/STM32F4-Discovery/main.c **** {
+ 1021              		.loc 2 276 0
+ 1022              		.cfi_startproc
+ 1023              		@ args = 0, pretend = 0, frame = 0
+ 1024              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1025 0000 80B5     		push	{r7, lr}
+ 1026              	.LCFI16:
+ 1027              		.cfi_def_cfa_offset 8
+ 1028              		.cfi_offset 7, -8
+ 1029              		.cfi_offset 14, -4
+ 1030 0002 00AF     		add	r7, sp, #0
+ 1031              	.LCFI17:
+ 1032              		.cfi_def_cfa_register 7
+ 277:App/STM32F4-Discovery/main.c **** 	/* Just to verify that the interrupt nesting behaves as expected, increment
+ 278:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting on entry, and decrement it on exit. */
+ 279:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting++;
+ 1033              		.loc 2 279 0
+ 1034 0004 064B     		ldr	r3, .L20
+ 1035 0006 1B68     		ldr	r3, [r3]
+ 1036 0008 5A1C     		adds	r2, r3, #1
+ 1037 000a 054B     		ldr	r3, .L20
+ 1038 000c 1A60     		str	r2, [r3]
+ 280:App/STM32F4-Discovery/main.c **** 
+ 281:App/STM32F4-Discovery/main.c **** 	/* Fill the FPU registers with 1. */
+ 282:App/STM32F4-Discovery/main.c **** 	//vRegTestClearFlopRegistersToParameterValue( 1UL );
+ 283:App/STM32F4-Discovery/main.c **** 
+ 284:App/STM32F4-Discovery/main.c **** 	/* Trigger a timer 3 interrupt, which will fill the registers with a
+ 285:App/STM32F4-Discovery/main.c **** 	different value. */
+ 286:App/STM32F4-Discovery/main.c **** 	NVIC_SetPendingIRQ( TIM3_IRQn );
+ 1039              		.loc 2 286 0
+ 1040 000e 1D20     		movs	r0, #29
+ 1041 0010 FFF7FEFF 		bl	NVIC_SetPendingIRQ
+ 287:App/STM32F4-Discovery/main.c **** 
+ 288:App/STM32F4-Discovery/main.c **** 	/* Ensure that, after returning from the nesting interrupt, all the FPU
+ 289:App/STM32F4-Discovery/main.c **** 	registers contain the value to which they were set by this interrupt
+ 290:App/STM32F4-Discovery/main.c **** 	function. */
+ 291:App/STM32F4-Discovery/main.c **** 	//configASSERT( ulRegTestCheckFlopRegistersContainParameterValue( 1UL ) );
+ 292:App/STM32F4-Discovery/main.c **** 
+ 293:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting--;
+ 1042              		.loc 2 293 0
+ 1043 0014 024B     		ldr	r3, .L20
+ 1044 0016 1B68     		ldr	r3, [r3]
+ 1045 0018 5A1E     		subs	r2, r3, #1
+ 1046 001a 014B     		ldr	r3, .L20
+ 1047 001c 1A60     		str	r2, [r3]
+ 294:App/STM32F4-Discovery/main.c **** }
+ 1048              		.loc 2 294 0
+ 1049 001e 80BD     		pop	{r7, pc}
+ 1050              	.L21:
+ 1051              		.align	2
+ 1052              	.L20:
+ 1053 0020 00000000 		.word	ulFPUInterruptNesting
+ 1054              		.cfi_endproc
+ 1055              	.LFE115:
+ 1057              		.section	.text.vApplicationMallocFailedHook,"ax",%progbits
  1058              		.align	2
- 1059              	.L20:
- 1060 0020 00000000 		.word	ulFPUInterruptNesting
- 1061              		.cfi_endproc
- 1062              	.LFE115:
- 1064              		.section	.text.vApplicationMallocFailedHook,"ax",%progbits
- 1065              		.align	2
- 1066              		.global	vApplicationMallocFailedHook
- 1067              		.thumb
- 1068              		.thumb_func
- 1070              	vApplicationMallocFailedHook:
- 1071              	.LFB116:
- 297:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 298:App/STM32F4-Discovery/main.c **** 
+ 1059              		.global	vApplicationMallocFailedHook
+ 1060              		.thumb
+ 1061              		.thumb_func
+ 1063              	vApplicationMallocFailedHook:
+ 1064              	.LFB116:
+ 295:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
+ 296:App/STM32F4-Discovery/main.c **** 
+ 297:App/STM32F4-Discovery/main.c **** 
+ 298:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
  299:App/STM32F4-Discovery/main.c **** 
- 300:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 301:App/STM32F4-Discovery/main.c **** 
- 302:App/STM32F4-Discovery/main.c **** void vApplicationMallocFailedHook( void )
- 303:App/STM32F4-Discovery/main.c **** {
- 1072              		.loc 2 303 0
- 1073              		.cfi_startproc
- 1074              		@ args = 0, pretend = 0, frame = 0
- 1075              		@ frame_needed = 1, uses_anonymous_args = 0
- 1076 0000 80B5     		push	{r7, lr}
- 1077              	.LCFI18:
- 1078              		.cfi_def_cfa_offset 8
- 1079              		.cfi_offset 7, -8
- 1080              		.cfi_offset 14, -4
- 1081 0002 00AF     		add	r7, sp, #0
- 1082              	.LCFI19:
- 1083              		.cfi_def_cfa_register 7
- 304:App/STM32F4-Discovery/main.c **** 	/* vApplicationMallocFailedHook() will only be called if
- 305:App/STM32F4-Discovery/main.c **** 	configUSE_MALLOC_FAILED_HOOK is set to 1 in FreeRTOSConfig.h.  It is a hook
- 306:App/STM32F4-Discovery/main.c **** 	function that will get called if a call to pvPortMalloc() fails.
- 307:App/STM32F4-Discovery/main.c **** 	pvPortMalloc() is called internally by the kernel whenever a task, queue,
- 308:App/STM32F4-Discovery/main.c **** 	timer or semaphore is created.  It is also called by various parts of the
- 309:App/STM32F4-Discovery/main.c **** 	demo application.  If heap_1.c or heap_2.c are used, then the size of the
- 310:App/STM32F4-Discovery/main.c **** 	heap available to pvPortMalloc() is defined by configTOTAL_HEAP_SIZE in
- 311:App/STM32F4-Discovery/main.c **** 	FreeRTOSConfig.h, and the xPortGetFreeHeapSize() API function can be used
- 312:App/STM32F4-Discovery/main.c **** 	to query the size of free heap space that remains (although it does not
- 313:App/STM32F4-Discovery/main.c **** 	provide information on how the remaining heap might be fragmented). */
- 314:App/STM32F4-Discovery/main.c **** 	taskDISABLE_INTERRUPTS();
- 1084              		.loc 2 314 0
- 1085 0004 FFF7FEFF 		bl	ulPortSetInterruptMask
- 1086              	.L23:
- 315:App/STM32F4-Discovery/main.c **** 	for( ;; );
- 1087              		.loc 2 315 0 discriminator 1
- 1088 0008 FEE7     		b	.L23
- 1089              		.cfi_endproc
- 1090              	.LFE116:
- 1092 000a 00BF     		.section	.text.vApplicationIdleHook,"ax",%progbits
- 1093              		.align	2
- 1094              		.global	vApplicationIdleHook
- 1095              		.thumb
- 1096              		.thumb_func
- 1098              	vApplicationIdleHook:
- 1099              	.LFB117:
- 316:App/STM32F4-Discovery/main.c **** }
- 317:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 318:App/STM32F4-Discovery/main.c **** 
- 319:App/STM32F4-Discovery/main.c **** void vApplicationIdleHook( void )
- 320:App/STM32F4-Discovery/main.c **** {
- 1100              		.loc 2 320 0
- 1101              		.cfi_startproc
- 1102              		@ args = 0, pretend = 0, frame = 0
- 1103              		@ frame_needed = 1, uses_anonymous_args = 0
- 1104              		@ link register save eliminated.
- 1105 0000 80B4     		push	{r7}
- 1106              	.LCFI20:
- 1107              		.cfi_def_cfa_offset 4
- 1108              		.cfi_offset 7, -4
- 1109 0002 00AF     		add	r7, sp, #0
- 1110              	.LCFI21:
- 1111              		.cfi_def_cfa_register 7
- 321:App/STM32F4-Discovery/main.c **** 	/* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
- 322:App/STM32F4-Discovery/main.c **** 	to 1 in FreeRTOSConfig.h.  It will be called on each iteration of the idle
- 323:App/STM32F4-Discovery/main.c **** 	task.  It is essential that code added to this hook function never attempts
- 324:App/STM32F4-Discovery/main.c **** 	to block in any way (for example, call xQueueReceive() with a block time
- 325:App/STM32F4-Discovery/main.c **** 	specified, or call vTaskDelay()).  If the application makes use of the
- 326:App/STM32F4-Discovery/main.c **** 	vTaskDelete() API function (as this demo application does) then it is also
- 327:App/STM32F4-Discovery/main.c **** 	important that vApplicationIdleHook() is permitted to return to its calling
- 328:App/STM32F4-Discovery/main.c **** 	unction, because it is the responsibility of the idle task to clean up
- 329:App/STM32F4-Discovery/main.c **** 	memory allocated by the kernel to any task that has since been deleted. */
- 330:App/STM32F4-Discovery/main.c **** }
- 1112              		.loc 2 330 0
- 1113 0004 BD46     		mov	sp, r7
- 1114              		@ sp needed
- 1115 0006 5DF8047B 		ldr	r7, [sp], #4
- 1116 000a 7047     		bx	lr
- 1117              		.cfi_endproc
- 1118              	.LFE117:
- 1120              		.section	.text.vApplicationStackOverflowHook,"ax",%progbits
- 1121              		.align	2
- 1122              		.global	vApplicationStackOverflowHook
- 1123              		.thumb
- 1124              		.thumb_func
- 1126              	vApplicationStackOverflowHook:
- 1127              	.LFB118:
- 331:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 332:App/STM32F4-Discovery/main.c **** 
- 333:App/STM32F4-Discovery/main.c **** void vApplicationStackOverflowHook( xTaskHandle pxTask, signed char *pcTaskName )
- 334:App/STM32F4-Discovery/main.c **** {
- 1128              		.loc 2 334 0
- 1129              		.cfi_startproc
- 1130              		@ args = 0, pretend = 0, frame = 8
- 1131              		@ frame_needed = 1, uses_anonymous_args = 0
- 1132 0000 80B5     		push	{r7, lr}
- 1133              	.LCFI22:
- 1134              		.cfi_def_cfa_offset 8
- 1135              		.cfi_offset 7, -8
- 1136              		.cfi_offset 14, -4
- 1137 0002 82B0     		sub	sp, sp, #8
- 1138              	.LCFI23:
- 1139              		.cfi_def_cfa_offset 16
- 1140 0004 00AF     		add	r7, sp, #0
- 1141              	.LCFI24:
- 1142              		.cfi_def_cfa_register 7
- 1143 0006 7860     		str	r0, [r7, #4]
- 1144 0008 3960     		str	r1, [r7]
- 335:App/STM32F4-Discovery/main.c **** 	( void ) pcTaskName;
- 336:App/STM32F4-Discovery/main.c **** 	( void ) pxTask;
- 337:App/STM32F4-Discovery/main.c **** 
- 338:App/STM32F4-Discovery/main.c **** 	/* Run time stack overflow checking is performed if
- 339:App/STM32F4-Discovery/main.c **** 	configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
- 340:App/STM32F4-Discovery/main.c **** 	function is called if a stack overflow is detected. */
- 341:App/STM32F4-Discovery/main.c **** 	taskDISABLE_INTERRUPTS();
- 1145              		.loc 2 341 0
- 1146 000a FFF7FEFF 		bl	ulPortSetInterruptMask
- 1147              	.L26:
- 342:App/STM32F4-Discovery/main.c **** 	for( ;; );
- 1148              		.loc 2 342 0 discriminator 1
- 1149 000e FEE7     		b	.L26
- 1150              		.cfi_endproc
- 1151              	.LFE118:
- 1153              		.section	.text.assert_failed,"ax",%progbits
- 1154              		.align	2
- 1155              		.global	assert_failed
- 1156              		.thumb
- 1157              		.thumb_func
- 1159              	assert_failed:
- 1160              	.LFB119:
- 343:App/STM32F4-Discovery/main.c **** }
- 344:App/STM32F4-Discovery/main.c **** ///*-----------------------------------------------------------*/
- 345:App/STM32F4-Discovery/main.c **** void assert_failed(uint8_t* file, uint32_t line){
- 1161              		.loc 2 345 0
- 1162              		.cfi_startproc
- 1163              		@ args = 0, pretend = 0, frame = 8
- 1164              		@ frame_needed = 1, uses_anonymous_args = 0
- 1165              		@ link register save eliminated.
- 1166 0000 80B4     		push	{r7}
- 1167              	.LCFI25:
- 1168              		.cfi_def_cfa_offset 4
- 1169              		.cfi_offset 7, -4
- 1170 0002 83B0     		sub	sp, sp, #12
- 1171              	.LCFI26:
- 1172              		.cfi_def_cfa_offset 16
- 1173 0004 00AF     		add	r7, sp, #0
- 1174              	.LCFI27:
- 1175              		.cfi_def_cfa_register 7
- 1176 0006 7860     		str	r0, [r7, #4]
- 1177 0008 3960     		str	r1, [r7]
- 346:App/STM32F4-Discovery/main.c **** 
- 347:App/STM32F4-Discovery/main.c **** }
- 1178              		.loc 2 347 0
- 1179 000a 0C37     		adds	r7, r7, #12
- 1180 000c BD46     		mov	sp, r7
- 1181              		@ sp needed
- 1182 000e 5DF8047B 		ldr	r7, [sp], #4
- 1183 0012 7047     		bx	lr
- 1184              		.cfi_endproc
- 1185              	.LFE119:
- 1187              		.text
- 1188              	.Letext0:
- 1189              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/lib/gcc/arm-none-eabi/4.8.4/include/std
- 1190              		.file 4 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
- 1191              		.file 5 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
- 1192              		.file 6 "App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h"
- 1193              		.file 7 "App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/misc.h"
- 1194              		.file 8 "Source/include/task.h"
- 1195              		.file 9 "Source/include/queue.h"
- 1196              		.file 10 "Source/include/semphr.h"
- 1197              		.file 11 "Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h"
- 1198              		.file 12 "App/STM32F4-Discovery/main.h"
- 1199              		.file 13 "App/STM32F4-Discovery/tcpCLI.h"
- 1200              		.file 14 "App/STM32F4-Discovery/modbus_mk.h"
- 1201              		.file 15 "App/STM32F4-Discovery/spi.h"
- 1202              		.file 16 "App/STM32F4-Discovery/W5200.h"
+ 300:App/STM32F4-Discovery/main.c **** void vApplicationMallocFailedHook( void )
+ 301:App/STM32F4-Discovery/main.c **** {
+ 1065              		.loc 2 301 0
+ 1066              		.cfi_startproc
+ 1067              		@ args = 0, pretend = 0, frame = 0
+ 1068              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1069 0000 80B5     		push	{r7, lr}
+ 1070              	.LCFI18:
+ 1071              		.cfi_def_cfa_offset 8
+ 1072              		.cfi_offset 7, -8
+ 1073              		.cfi_offset 14, -4
+ 1074 0002 00AF     		add	r7, sp, #0
+ 1075              	.LCFI19:
+ 1076              		.cfi_def_cfa_register 7
+ 302:App/STM32F4-Discovery/main.c **** 	/* vApplicationMallocFailedHook() will only be called if
+ 303:App/STM32F4-Discovery/main.c **** 	configUSE_MALLOC_FAILED_HOOK is set to 1 in FreeRTOSConfig.h.  It is a hook
+ 304:App/STM32F4-Discovery/main.c **** 	function that will get called if a call to pvPortMalloc() fails.
+ 305:App/STM32F4-Discovery/main.c **** 	pvPortMalloc() is called internally by the kernel whenever a task, queue,
+ 306:App/STM32F4-Discovery/main.c **** 	timer or semaphore is created.  It is also called by various parts of the
+ 307:App/STM32F4-Discovery/main.c **** 	demo application.  If heap_1.c or heap_2.c are used, then the size of the
+ 308:App/STM32F4-Discovery/main.c **** 	heap available to pvPortMalloc() is defined by configTOTAL_HEAP_SIZE in
+ 309:App/STM32F4-Discovery/main.c **** 	FreeRTOSConfig.h, and the xPortGetFreeHeapSize() API function can be used
+ 310:App/STM32F4-Discovery/main.c **** 	to query the size of free heap space that remains (although it does not
+ 311:App/STM32F4-Discovery/main.c **** 	provide information on how the remaining heap might be fragmented). */
+ 312:App/STM32F4-Discovery/main.c **** 	taskDISABLE_INTERRUPTS();
+ 1077              		.loc 2 312 0
+ 1078 0004 FFF7FEFF 		bl	ulPortSetInterruptMask
+ 1079              	.L23:
+ 313:App/STM32F4-Discovery/main.c **** 	for( ;; );
+ 1080              		.loc 2 313 0 discriminator 1
+ 1081 0008 FEE7     		b	.L23
+ 1082              		.cfi_endproc
+ 1083              	.LFE116:
+ 1085 000a 00BF     		.section	.text.vApplicationIdleHook,"ax",%progbits
+ 1086              		.align	2
+ 1087              		.global	vApplicationIdleHook
+ 1088              		.thumb
+ 1089              		.thumb_func
+ 1091              	vApplicationIdleHook:
+ 1092              	.LFB117:
+ 314:App/STM32F4-Discovery/main.c **** }
+ 315:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
+ 316:App/STM32F4-Discovery/main.c **** 
+ 317:App/STM32F4-Discovery/main.c **** void vApplicationIdleHook( void )
+ 318:App/STM32F4-Discovery/main.c **** {
+ 1093              		.loc 2 318 0
+ 1094              		.cfi_startproc
+ 1095              		@ args = 0, pretend = 0, frame = 0
+ 1096              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1097              		@ link register save eliminated.
+ 1098 0000 80B4     		push	{r7}
+ 1099              	.LCFI20:
+ 1100              		.cfi_def_cfa_offset 4
+ 1101              		.cfi_offset 7, -4
+ 1102 0002 00AF     		add	r7, sp, #0
+ 1103              	.LCFI21:
+ 1104              		.cfi_def_cfa_register 7
+ 319:App/STM32F4-Discovery/main.c **** 	/* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
+ 320:App/STM32F4-Discovery/main.c **** 	to 1 in FreeRTOSConfig.h.  It will be called on each iteration of the idle
+ 321:App/STM32F4-Discovery/main.c **** 	task.  It is essential that code added to this hook function never attempts
+ 322:App/STM32F4-Discovery/main.c **** 	to block in any way (for example, call xQueueReceive() with a block time
+ 323:App/STM32F4-Discovery/main.c **** 	specified, or call vTaskDelay()).  If the application makes use of the
+ 324:App/STM32F4-Discovery/main.c **** 	vTaskDelete() API function (as this demo application does) then it is also
+ 325:App/STM32F4-Discovery/main.c **** 	important that vApplicationIdleHook() is permitted to return to its calling
+ 326:App/STM32F4-Discovery/main.c **** 	unction, because it is the responsibility of the idle task to clean up
+ 327:App/STM32F4-Discovery/main.c **** 	memory allocated by the kernel to any task that has since been deleted. */
+ 328:App/STM32F4-Discovery/main.c **** }
+ 1105              		.loc 2 328 0
+ 1106 0004 BD46     		mov	sp, r7
+ 1107              		@ sp needed
+ 1108 0006 5DF8047B 		ldr	r7, [sp], #4
+ 1109 000a 7047     		bx	lr
+ 1110              		.cfi_endproc
+ 1111              	.LFE117:
+ 1113              		.section	.text.vApplicationStackOverflowHook,"ax",%progbits
+ 1114              		.align	2
+ 1115              		.global	vApplicationStackOverflowHook
+ 1116              		.thumb
+ 1117              		.thumb_func
+ 1119              	vApplicationStackOverflowHook:
+ 1120              	.LFB118:
+ 329:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
+ 330:App/STM32F4-Discovery/main.c **** 
+ 331:App/STM32F4-Discovery/main.c **** void vApplicationStackOverflowHook( xTaskHandle pxTask, signed char *pcTaskName )
+ 332:App/STM32F4-Discovery/main.c **** {
+ 1121              		.loc 2 332 0
+ 1122              		.cfi_startproc
+ 1123              		@ args = 0, pretend = 0, frame = 8
+ 1124              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1125 0000 80B5     		push	{r7, lr}
+ 1126              	.LCFI22:
+ 1127              		.cfi_def_cfa_offset 8
+ 1128              		.cfi_offset 7, -8
+ 1129              		.cfi_offset 14, -4
+ 1130 0002 82B0     		sub	sp, sp, #8
+ 1131              	.LCFI23:
+ 1132              		.cfi_def_cfa_offset 16
+ 1133 0004 00AF     		add	r7, sp, #0
+ 1134              	.LCFI24:
+ 1135              		.cfi_def_cfa_register 7
+ 1136 0006 7860     		str	r0, [r7, #4]
+ 1137 0008 3960     		str	r1, [r7]
+ 333:App/STM32F4-Discovery/main.c **** 	( void ) pcTaskName;
+ 334:App/STM32F4-Discovery/main.c **** 	( void ) pxTask;
+ 335:App/STM32F4-Discovery/main.c **** 
+ 336:App/STM32F4-Discovery/main.c **** 	/* Run time stack overflow checking is performed if
+ 337:App/STM32F4-Discovery/main.c **** 	configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
+ 338:App/STM32F4-Discovery/main.c **** 	function is called if a stack overflow is detected. */
+ 339:App/STM32F4-Discovery/main.c **** 	taskDISABLE_INTERRUPTS();
+ 1138              		.loc 2 339 0
+ 1139 000a FFF7FEFF 		bl	ulPortSetInterruptMask
+ 1140              	.L26:
+ 340:App/STM32F4-Discovery/main.c **** 	for( ;; );
+ 1141              		.loc 2 340 0 discriminator 1
+ 1142 000e FEE7     		b	.L26
+ 1143              		.cfi_endproc
+ 1144              	.LFE118:
+ 1146              		.section	.text.assert_failed,"ax",%progbits
+ 1147              		.align	2
+ 1148              		.global	assert_failed
+ 1149              		.thumb
+ 1150              		.thumb_func
+ 1152              	assert_failed:
+ 1153              	.LFB119:
+ 341:App/STM32F4-Discovery/main.c **** }
+ 342:App/STM32F4-Discovery/main.c **** ///*-----------------------------------------------------------*/
+ 343:App/STM32F4-Discovery/main.c **** void assert_failed(uint8_t* file, uint32_t line){
+ 1154              		.loc 2 343 0
+ 1155              		.cfi_startproc
+ 1156              		@ args = 0, pretend = 0, frame = 8
+ 1157              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1158              		@ link register save eliminated.
+ 1159 0000 80B4     		push	{r7}
+ 1160              	.LCFI25:
+ 1161              		.cfi_def_cfa_offset 4
+ 1162              		.cfi_offset 7, -4
+ 1163 0002 83B0     		sub	sp, sp, #12
+ 1164              	.LCFI26:
+ 1165              		.cfi_def_cfa_offset 16
+ 1166 0004 00AF     		add	r7, sp, #0
+ 1167              	.LCFI27:
+ 1168              		.cfi_def_cfa_register 7
+ 1169 0006 7860     		str	r0, [r7, #4]
+ 1170 0008 3960     		str	r1, [r7]
+ 344:App/STM32F4-Discovery/main.c **** 
+ 345:App/STM32F4-Discovery/main.c **** }
+ 1171              		.loc 2 345 0
+ 1172 000a 0C37     		adds	r7, r7, #12
+ 1173 000c BD46     		mov	sp, r7
+ 1174              		@ sp needed
+ 1175 000e 5DF8047B 		ldr	r7, [sp], #4
+ 1176 0012 7047     		bx	lr
+ 1177              		.cfi_endproc
+ 1178              	.LFE119:
+ 1180              		.text
+ 1181              	.Letext0:
+ 1182              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/lib/gcc/arm-none-eabi/4.8.4/include/std
+ 1183              		.file 4 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
+ 1184              		.file 5 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
+ 1185              		.file 6 "App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h"
+ 1186              		.file 7 "App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/misc.h"
+ 1187              		.file 8 "Source/include/task.h"
+ 1188              		.file 9 "Source/include/queue.h"
+ 1189              		.file 10 "Source/include/semphr.h"
+ 1190              		.file 11 "Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h"
+ 1191              		.file 12 "App/STM32F4-Discovery/main.h"
+ 1192              		.file 13 "App/STM32F4-Discovery/tcpCLI.h"
+ 1193              		.file 14 "App/STM32F4-Discovery/modbus_mk.h"
+ 1194              		.file 15 "App/STM32F4-Discovery/spi.h"
+ 1195              		.file 16 "App/STM32F4-Discovery/W5200.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:20     .text.NVIC_SetPendingIRQ:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:24     .text.NVIC_SetPendingIRQ:0000000000000000 NVIC_SetPendingIRQ
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:63     .text.NVIC_SetPendingIRQ:0000000000000030 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:20     .text.NVIC_SetPendingIRQ:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:24     .text.NVIC_SetPendingIRQ:0000000000000000 NVIC_SetPendingIRQ
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:63     .text.NVIC_SetPendingIRQ:0000000000000030 $d
                             *COM*:0000000000000004 xSemaphoreDMASPI
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:69     .bss.xHigherPriorityTaskWoken:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:72     .bss.xHigherPriorityTaskWoken:0000000000000000 xHigherPriorityTaskWoken
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:69     .bss.xHigherPriorityTaskWoken:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:72     .bss.xHigherPriorityTaskWoken:0000000000000000 xHigherPriorityTaskWoken
                             *COM*:0000000000000004 xSmphrUSART
                             *COM*:0000000000000004 motorHeartBeatHandle
                             *COM*:0000000000000004 motorHBHandle
@@ -2655,56 +2648,54 @@ DEFINED SYMBOLS
                             *COM*:0000000000000004 dat_lengthRX
                             *COM*:0000000000000004 dat_lengthTX
                             *COM*:0000000000000004 set_macTaskHandle
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:88     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:96     .rodata.xMotorCommand:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:99     .rodata.xMotorCommand:0000000000000000 xMotorCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:106    .rodata.table_crc_hi:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:109    .rodata.table_crc_hi:0000000000000000 table_crc_hi
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:367    .rodata.table_crc_lo:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:370    .rodata.table_crc_lo:0000000000000000 table_crc_lo
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:88     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:96     .rodata.xMotorCommand:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:99     .rodata.xMotorCommand:0000000000000000 xMotorCommand
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:106    .rodata.table_crc_hi:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:109    .rodata.table_crc_hi:0000000000000000 table_crc_hi
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:367    .rodata.table_crc_lo:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:370    .rodata.table_crc_lo:0000000000000000 table_crc_lo
                             *COM*:0000000000000004 fd
-                            *COM*:0000000000000081 received_string
+                            *COM*:0000000000000201 received_string
                             *COM*:0000000000000004 rx_length
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:631    .bss.xHigherPriorityTaskWoken_usart:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:634    .bss.xHigherPriorityTaskWoken_usart:0000000000000000 xHigherPriorityTaskWoken_usart
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:631    .bss.xHigherPriorityTaskWoken_usart:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:634    .bss.xHigherPriorityTaskWoken_usart:0000000000000000 xHigherPriorityTaskWoken_usart
                             *COM*:0000000000000014 input_Register
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:642    .bss.ulRegTest1LoopCounter:0000000000000000 ulRegTest1LoopCounter
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:639    .bss.ulRegTest1LoopCounter:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:649    .bss.ulRegTest2LoopCounter:0000000000000000 ulRegTest2LoopCounter
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:646    .bss.ulRegTest2LoopCounter:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:656    .bss.ulFPUInterruptNesting:0000000000000000 ulFPUInterruptNesting
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:653    .bss.ulFPUInterruptNesting:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:663    .bss.ulMaxFPUInterruptNesting:0000000000000000 ulMaxFPUInterruptNesting
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:660    .bss.ulMaxFPUInterruptNesting:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:666    .bss.xTestSemaphore:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:669    .bss.xTestSemaphore:0000000000000000 xTestSemaphore
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:676    .bss.ulButtonPressCounts:0000000000000000 ulButtonPressCounts
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:673    .bss.ulButtonPressCounts:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:689    .text.main:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:694    .text.main:0000000000000000 main
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:804    .text.prvSetupHardware:0000000000000000 prvSetupHardware
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:781    .text.main:0000000000000088 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:800    .text.prvSetupHardware:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:851    .text.prvSetupHardware:000000000000003c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:857    .text.vApplicationTickHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:862    .text.vApplicationTickHook:0000000000000000 vApplicationTickHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:896    .text.vApplicationTickHook:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:901    .text.prvSetupNestedFPUInterruptsTest:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:905    .text.prvSetupNestedFPUInterruptsTest:0000000000000000 prvSetupNestedFPUInterruptsTest
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:963    .text.TIM3_IRQHandler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:968    .text.TIM3_IRQHandler:0000000000000000 TIM3_IRQHandler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1015   .text.TIM3_IRQHandler:0000000000000034 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1021   .text.TIM2_IRQHandler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1026   .text.TIM2_IRQHandler:0000000000000000 TIM2_IRQHandler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1060   .text.TIM2_IRQHandler:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1065   .text.vApplicationMallocFailedHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1070   .text.vApplicationMallocFailedHook:0000000000000000 vApplicationMallocFailedHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1093   .text.vApplicationIdleHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1098   .text.vApplicationIdleHook:0000000000000000 vApplicationIdleHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1121   .text.vApplicationStackOverflowHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1126   .text.vApplicationStackOverflowHook:0000000000000000 vApplicationStackOverflowHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1154   .text.assert_failed:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccq09lrA.s:1159   .text.assert_failed:0000000000000000 assert_failed
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:642    .bss.ulRegTest1LoopCounter:0000000000000000 ulRegTest1LoopCounter
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:639    .bss.ulRegTest1LoopCounter:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:649    .bss.ulRegTest2LoopCounter:0000000000000000 ulRegTest2LoopCounter
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:646    .bss.ulRegTest2LoopCounter:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:656    .bss.ulFPUInterruptNesting:0000000000000000 ulFPUInterruptNesting
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:653    .bss.ulFPUInterruptNesting:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:663    .bss.ulMaxFPUInterruptNesting:0000000000000000 ulMaxFPUInterruptNesting
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:660    .bss.ulMaxFPUInterruptNesting:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:666    .bss.xTestSemaphore:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:669    .bss.xTestSemaphore:0000000000000000 xTestSemaphore
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:682    .text.main:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:687    .text.main:0000000000000000 main
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:797    .text.prvSetupHardware:0000000000000000 prvSetupHardware
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:774    .text.main:0000000000000088 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:793    .text.prvSetupHardware:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:844    .text.prvSetupHardware:000000000000003c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:850    .text.vApplicationTickHook:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:855    .text.vApplicationTickHook:0000000000000000 vApplicationTickHook
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:889    .text.vApplicationTickHook:0000000000000020 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:894    .text.prvSetupNestedFPUInterruptsTest:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:898    .text.prvSetupNestedFPUInterruptsTest:0000000000000000 prvSetupNestedFPUInterruptsTest
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:956    .text.TIM3_IRQHandler:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:961    .text.TIM3_IRQHandler:0000000000000000 TIM3_IRQHandler
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1008   .text.TIM3_IRQHandler:0000000000000034 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1014   .text.TIM2_IRQHandler:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1019   .text.TIM2_IRQHandler:0000000000000000 TIM2_IRQHandler
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1053   .text.TIM2_IRQHandler:0000000000000020 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1058   .text.vApplicationMallocFailedHook:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1063   .text.vApplicationMallocFailedHook:0000000000000000 vApplicationMallocFailedHook
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1086   .text.vApplicationIdleHook:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1091   .text.vApplicationIdleHook:0000000000000000 vApplicationIdleHook
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1114   .text.vApplicationStackOverflowHook:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1119   .text.vApplicationStackOverflowHook:0000000000000000 vApplicationStackOverflowHook
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1147   .text.assert_failed:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7wKJjK.s:1152   .text.assert_failed:0000000000000000 assert_failed
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

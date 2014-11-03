@@ -418,6 +418,8 @@ uint8_t	socket(uint8_t  mode, uint16_t  port, uint8_t ip_proto)
 	uint8_t	sck_fd;
 	uint8_t	stat;
 
+	
+
 	// check free socket exists? 
 	for(sck_fd = 0; sck_fd < W5200_MAX_SOCKETS; sck_fd++){
 		if(socket_flg[sck_fd] == 0){
@@ -540,7 +542,17 @@ int	send(uint8_t sck_fd, uint8_t *buf, uint16_t len, uint16_t flag)
 {
 	uint16_t	send_size;
 	uint16_t	write_ptr;
+	
+	/// get real len 
+	int i = 0; 
+
+	while ( buf[i] != '\0' && i < len) i++; 
+
+	len = i;
+	
 	uint16_t status = get_SRStatus(sck_fd);
+
+	
 	// check socket asign flag
 	if(sck_fd < 0 || sck_fd >= W5200_MAX_SOCKETS ||  socket_flg[sck_fd] != 1) return -1;
 
@@ -754,6 +766,7 @@ void set_macTask(void *pvParameters)
 	vTaskSuspend(NULL);
 	uint8_t	buf[100], buf1[100]; 
 	int len; 
+	int gl;
 		/*create socket and send byte */
 	socket_0 = socket(W5200_Sn_MR_TCP, 80, 0);
 	listen(socket_0);
@@ -773,7 +786,9 @@ void set_macTask(void *pvParameters)
 		
 		// proces data with CLI 
 		
-		FreeRTOS_CLIProcessCommand ( buf, buf1, 100);
+		FreeRTOS_CLIProcessCommand ( buf, buf1, gl);
+
+		send(socket_0, buf1, 100, gl);
 
 		
 

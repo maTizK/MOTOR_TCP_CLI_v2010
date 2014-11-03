@@ -163,7 +163,7 @@
   54              		.loc 1 111 0
   55 0008 0023     		movs	r3, #0
   56 000a FB81     		strh	r3, [r7, #14]	@ movhi
-  57 000c 14E0     		b	.L2
+  57 000c 15E0     		b	.L2
   58              	.L3:
  112:App/Common/Minimal/integer.c **** 	{
  113:App/Common/Minimal/integer.c **** 		xTaskCreate( vCompeteingIntMathTask, ( signed char * ) "IntMath", intgSTACK_SIZE, ( void * ) &( x
@@ -182,28 +182,28 @@
   71 0026 0392     		str	r2, [sp, #12]
   72 0028 0848     		ldr	r0, .L4+4
   73 002a 0949     		ldr	r1, .L4+8
-  74 002c 8222     		movs	r2, #130
-  75 002e FFF7FEFF 		bl	xTaskGenericCreate
+  74 002c 4FF48072 		mov	r2, #256
+  75 0030 FFF7FEFF 		bl	xTaskGenericCreate
  111:App/Common/Minimal/integer.c **** 	for( sTask = 0; sTask < intgNUMBER_OF_TASKS; sTask++ )
   76              		.loc 1 111 0 discriminator 2
-  77 0032 FB89     		ldrh	r3, [r7, #14]
-  78 0034 0133     		adds	r3, r3, #1
-  79 0036 FB81     		strh	r3, [r7, #14]	@ movhi
+  77 0034 FB89     		ldrh	r3, [r7, #14]
+  78 0036 0133     		adds	r3, r3, #1
+  79 0038 FB81     		strh	r3, [r7, #14]	@ movhi
   80              	.L2:
  111:App/Common/Minimal/integer.c **** 	for( sTask = 0; sTask < intgNUMBER_OF_TASKS; sTask++ )
   81              		.loc 1 111 0 is_stmt 0 discriminator 1
-  82 0038 B7F90E30 		ldrsh	r3, [r7, #14]
-  83 003c 002B     		cmp	r3, #0
-  84 003e E6DD     		ble	.L3
+  82 003a B7F90E30 		ldrsh	r3, [r7, #14]
+  83 003e 002B     		cmp	r3, #0
+  84 0040 E5DD     		ble	.L3
  114:App/Common/Minimal/integer.c **** 	}
  115:App/Common/Minimal/integer.c **** }
   85              		.loc 1 115 0 is_stmt 1
-  86 0040 1037     		adds	r7, r7, #16
-  87 0042 BD46     		mov	sp, r7
+  86 0042 1037     		adds	r7, r7, #16
+  87 0044 BD46     		mov	sp, r7
   88              		@ sp needed
-  89 0044 80BD     		pop	{r7, pc}
+  89 0046 80BD     		pop	{r7, pc}
   90              	.L5:
-  91 0046 00BF     		.align	2
+  91              		.align	2
   92              	.L4:
   93 0048 00000000 		.word	xTaskCheck
   94 004c 00000000 		.word	vCompeteingIntMathTask
@@ -458,18 +458,18 @@
  261              		.file 5 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 integer.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:20     .bss.xTaskCheck:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:23     .bss.xTaskCheck:0000000000000000 xTaskCheck
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:26     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:30     .text.vStartIntegerMathTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:35     .text.vStartIntegerMathTasks:0000000000000000 vStartIntegerMathTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:93     .text.vStartIntegerMathTasks:0000000000000048 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:104    .text.vCompeteingIntMathTask:0000000000000000 vCompeteingIntMathTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:100    .text.vCompeteingIntMathTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:180    .text.vCompeteingIntMathTask:0000000000000060 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:186    .text.xAreIntegerMathsTaskStillRunning:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:191    .text.xAreIntegerMathsTaskStillRunning:0000000000000000 xAreIntegerMathsTaskStillRunning
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHFFddz.s:252    .text.xAreIntegerMathsTaskStillRunning:000000000000004c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:20     .bss.xTaskCheck:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:23     .bss.xTaskCheck:0000000000000000 xTaskCheck
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:26     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:30     .text.vStartIntegerMathTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:35     .text.vStartIntegerMathTasks:0000000000000000 vStartIntegerMathTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:93     .text.vStartIntegerMathTasks:0000000000000048 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:104    .text.vCompeteingIntMathTask:0000000000000000 vCompeteingIntMathTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:100    .text.vCompeteingIntMathTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:180    .text.vCompeteingIntMathTask:0000000000000060 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:186    .text.xAreIntegerMathsTaskStillRunning:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:191    .text.xAreIntegerMathsTaskStillRunning:0000000000000000 xAreIntegerMathsTaskStillRunning
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc90t55j.s:252    .text.xAreIntegerMathsTaskStillRunning:000000000000004c $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

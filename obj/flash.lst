@@ -161,7 +161,7 @@
   54              		.loc 1 109 0
   55 0008 0023     		movs	r3, #0
   56 000a FB60     		str	r3, [r7, #12]
-  57 000c 10E0     		b	.L2
+  57 000c 11E0     		b	.L2
   58              	.L3:
  110:App/Common/Minimal/flash.c **** 	{
  111:App/Common/Minimal/flash.c **** 		/* Spawn the task. */
@@ -175,34 +175,34 @@
   65 0018 0293     		str	r3, [sp, #8]
   66 001a 0023     		movs	r3, #0
   67 001c 0393     		str	r3, [sp, #12]
-  68 001e 0748     		ldr	r0, .L4
-  69 0020 0749     		ldr	r1, .L4+4
-  70 0022 8222     		movs	r2, #130
-  71 0024 0023     		movs	r3, #0
-  72 0026 FFF7FEFF 		bl	xTaskGenericCreate
+  68 001e 0848     		ldr	r0, .L4
+  69 0020 0849     		ldr	r1, .L4+4
+  70 0022 4FF48072 		mov	r2, #256
+  71 0026 0023     		movs	r3, #0
+  72 0028 FFF7FEFF 		bl	xTaskGenericCreate
  109:App/Common/Minimal/flash.c **** 	for( xLEDTask = 0; xLEDTask < 3; ++xLEDTask )
   73              		.loc 1 109 0 discriminator 2
-  74 002a FB68     		ldr	r3, [r7, #12]
-  75 002c 0133     		adds	r3, r3, #1
-  76 002e FB60     		str	r3, [r7, #12]
+  74 002c FB68     		ldr	r3, [r7, #12]
+  75 002e 0133     		adds	r3, r3, #1
+  76 0030 FB60     		str	r3, [r7, #12]
   77              	.L2:
  109:App/Common/Minimal/flash.c **** 	for( xLEDTask = 0; xLEDTask < 3; ++xLEDTask )
   78              		.loc 1 109 0 is_stmt 0 discriminator 1
-  79 0030 FB68     		ldr	r3, [r7, #12]
-  80 0032 022B     		cmp	r3, #2
-  81 0034 EBDD     		ble	.L3
+  79 0032 FB68     		ldr	r3, [r7, #12]
+  80 0034 022B     		cmp	r3, #2
+  81 0036 EADD     		ble	.L3
  113:App/Common/Minimal/flash.c **** 	}
  114:App/Common/Minimal/flash.c **** }
   82              		.loc 1 114 0 is_stmt 1
-  83 0036 1037     		adds	r7, r7, #16
-  84 0038 BD46     		mov	sp, r7
+  83 0038 1037     		adds	r7, r7, #16
+  84 003a BD46     		mov	sp, r7
   85              		@ sp needed
-  86 003a 80BD     		pop	{r7, pc}
+  86 003c 80BD     		pop	{r7, pc}
   87              	.L5:
-  88              		.align	2
+  88 003e 00BF     		.align	2
   89              	.L4:
-  90 003c 00000000 		.word	vLEDFlashTask
-  91 0040 00000000 		.word	.LC0
+  90 0040 00000000 		.word	vLEDFlashTask
+  91 0044 00000000 		.word	.LC0
   92              		.cfi_endproc
   93              	.LFE110:
   95              		.section	.text.vLEDFlashTask,"ax",%progbits
@@ -331,15 +331,15 @@
  178              		.file 6 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 flash.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccG2WzDS.s:20     .bss.uxFlashTaskNumber:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccG2WzDS.s:23     .bss.uxFlashTaskNumber:0000000000000000 uxFlashTaskNumber
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccG2WzDS.s:26     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccG2WzDS.s:30     .text.vStartLEDFlashTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccG2WzDS.s:35     .text.vStartLEDFlashTasks:0000000000000000 vStartLEDFlashTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccG2WzDS.s:90     .text.vStartLEDFlashTasks:000000000000003c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccG2WzDS.s:100    .text.vLEDFlashTask:0000000000000000 vLEDFlashTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccG2WzDS.s:96     .text.vLEDFlashTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccG2WzDS.s:168    .text.vLEDFlashTask:0000000000000064 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccNNiCA3.s:20     .bss.uxFlashTaskNumber:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccNNiCA3.s:23     .bss.uxFlashTaskNumber:0000000000000000 uxFlashTaskNumber
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccNNiCA3.s:26     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccNNiCA3.s:30     .text.vStartLEDFlashTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccNNiCA3.s:35     .text.vStartLEDFlashTasks:0000000000000000 vStartLEDFlashTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccNNiCA3.s:90     .text.vStartLEDFlashTasks:0000000000000040 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccNNiCA3.s:100    .text.vLEDFlashTask:0000000000000000 vLEDFlashTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccNNiCA3.s:96     .text.vLEDFlashTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccNNiCA3.s:168    .text.vLEDFlashTask:0000000000000064 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

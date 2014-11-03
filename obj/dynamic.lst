@@ -288,7 +288,7 @@
  108 000a 0022     		movs	r2, #0
  109 000c FFF7FEFF 		bl	xQueueGenericCreate
  110 0010 0246     		mov	r2, r0
- 111 0012 284B     		ldr	r3, .L2
+ 111 0012 2A4B     		ldr	r3, .L2
  112 0014 1A60     		str	r2, [r3]
  187:App/Common/Minimal/dynamic.c **** 
  188:App/Common/Minimal/dynamic.c **** 	/* vQueueAddToRegistry() adds the queue to the queue registry, if one is
@@ -299,110 +299,110 @@
  193:App/Common/Minimal/dynamic.c **** 	defined to be less than 1. */
  194:App/Common/Minimal/dynamic.c **** 	vQueueAddToRegistry( xSuspendedTestQueue, ( signed char * ) "Suspended_Test_Queue" );
  113              		.loc 1 194 0
- 114 0016 274B     		ldr	r3, .L2
+ 114 0016 294B     		ldr	r3, .L2
  115 0018 1B68     		ldr	r3, [r3]
  116 001a 1846     		mov	r0, r3
- 117 001c 2649     		ldr	r1, .L2+4
+ 117 001c 2849     		ldr	r1, .L2+4
  118 001e FFF7FEFF 		bl	vQueueAddToRegistry
  195:App/Common/Minimal/dynamic.c **** 
  196:App/Common/Minimal/dynamic.c **** 	xTaskCreate( vContinuousIncrementTask, ( signed char * ) "CNT_INC", priSTACK_SIZE, ( void * ) &ulC
  119              		.loc 1 196 0
  120 0022 0023     		movs	r3, #0
  121 0024 0093     		str	r3, [sp]
- 122 0026 254B     		ldr	r3, .L2+8
+ 122 0026 274B     		ldr	r3, .L2+8
  123 0028 0193     		str	r3, [sp, #4]
  124 002a 0023     		movs	r3, #0
  125 002c 0293     		str	r3, [sp, #8]
  126 002e 0023     		movs	r3, #0
  127 0030 0393     		str	r3, [sp, #12]
- 128 0032 2348     		ldr	r0, .L2+12
- 129 0034 2349     		ldr	r1, .L2+16
- 130 0036 8222     		movs	r2, #130
- 131 0038 234B     		ldr	r3, .L2+20
- 132 003a FFF7FEFF 		bl	xTaskGenericCreate
+ 128 0032 2548     		ldr	r0, .L2+12
+ 129 0034 2549     		ldr	r1, .L2+16
+ 130 0036 4FF48072 		mov	r2, #256
+ 131 003a 254B     		ldr	r3, .L2+20
+ 132 003c FFF7FEFF 		bl	xTaskGenericCreate
  197:App/Common/Minimal/dynamic.c **** 	xTaskCreate( vLimitedIncrementTask, ( signed char * ) "LIM_INC", priSTACK_SIZE, ( void * ) &ulCoun
  133              		.loc 1 197 0
- 134 003e 0123     		movs	r3, #1
- 135 0040 0093     		str	r3, [sp]
- 136 0042 224B     		ldr	r3, .L2+24
- 137 0044 0193     		str	r3, [sp, #4]
- 138 0046 0023     		movs	r3, #0
- 139 0048 0293     		str	r3, [sp, #8]
- 140 004a 0023     		movs	r3, #0
- 141 004c 0393     		str	r3, [sp, #12]
- 142 004e 2048     		ldr	r0, .L2+28
- 143 0050 2049     		ldr	r1, .L2+32
- 144 0052 8222     		movs	r2, #130
- 145 0054 1C4B     		ldr	r3, .L2+20
- 146 0056 FFF7FEFF 		bl	xTaskGenericCreate
+ 134 0040 0123     		movs	r3, #1
+ 135 0042 0093     		str	r3, [sp]
+ 136 0044 234B     		ldr	r3, .L2+24
+ 137 0046 0193     		str	r3, [sp, #4]
+ 138 0048 0023     		movs	r3, #0
+ 139 004a 0293     		str	r3, [sp, #8]
+ 140 004c 0023     		movs	r3, #0
+ 141 004e 0393     		str	r3, [sp, #12]
+ 142 0050 2148     		ldr	r0, .L2+28
+ 143 0052 2249     		ldr	r1, .L2+32
+ 144 0054 4FF48072 		mov	r2, #256
+ 145 0058 1D4B     		ldr	r3, .L2+20
+ 146 005a FFF7FEFF 		bl	xTaskGenericCreate
  198:App/Common/Minimal/dynamic.c **** 	xTaskCreate( vCounterControlTask, ( signed char * ) "C_CTRL", priSTACK_SIZE, NULL, tskIDLE_PRIORIT
  147              		.loc 1 198 0
- 148 005a 0023     		movs	r3, #0
- 149 005c 0093     		str	r3, [sp]
- 150 005e 0023     		movs	r3, #0
- 151 0060 0193     		str	r3, [sp, #4]
- 152 0062 0023     		movs	r3, #0
- 153 0064 0293     		str	r3, [sp, #8]
- 154 0066 0023     		movs	r3, #0
- 155 0068 0393     		str	r3, [sp, #12]
- 156 006a 1B48     		ldr	r0, .L2+36
- 157 006c 1B49     		ldr	r1, .L2+40
- 158 006e 8222     		movs	r2, #130
- 159 0070 0023     		movs	r3, #0
- 160 0072 FFF7FEFF 		bl	xTaskGenericCreate
+ 148 005e 0023     		movs	r3, #0
+ 149 0060 0093     		str	r3, [sp]
+ 150 0062 0023     		movs	r3, #0
+ 151 0064 0193     		str	r3, [sp, #4]
+ 152 0066 0023     		movs	r3, #0
+ 153 0068 0293     		str	r3, [sp, #8]
+ 154 006a 0023     		movs	r3, #0
+ 155 006c 0393     		str	r3, [sp, #12]
+ 156 006e 1C48     		ldr	r0, .L2+36
+ 157 0070 1C49     		ldr	r1, .L2+40
+ 158 0072 4FF48072 		mov	r2, #256
+ 159 0076 0023     		movs	r3, #0
+ 160 0078 FFF7FEFF 		bl	xTaskGenericCreate
  199:App/Common/Minimal/dynamic.c **** 	xTaskCreate( vQueueSendWhenSuspendedTask, ( signed char * ) "SUSP_TX", priSTACK_SIZE, NULL, tskIDL
  161              		.loc 1 199 0
- 162 0076 0023     		movs	r3, #0
- 163 0078 0093     		str	r3, [sp]
- 164 007a 0023     		movs	r3, #0
- 165 007c 0193     		str	r3, [sp, #4]
- 166 007e 0023     		movs	r3, #0
- 167 0080 0293     		str	r3, [sp, #8]
- 168 0082 0023     		movs	r3, #0
- 169 0084 0393     		str	r3, [sp, #12]
- 170 0086 1648     		ldr	r0, .L2+44
- 171 0088 1649     		ldr	r1, .L2+48
- 172 008a 8222     		movs	r2, #130
- 173 008c 0023     		movs	r3, #0
- 174 008e FFF7FEFF 		bl	xTaskGenericCreate
+ 162 007c 0023     		movs	r3, #0
+ 163 007e 0093     		str	r3, [sp]
+ 164 0080 0023     		movs	r3, #0
+ 165 0082 0193     		str	r3, [sp, #4]
+ 166 0084 0023     		movs	r3, #0
+ 167 0086 0293     		str	r3, [sp, #8]
+ 168 0088 0023     		movs	r3, #0
+ 169 008a 0393     		str	r3, [sp, #12]
+ 170 008c 1648     		ldr	r0, .L2+44
+ 171 008e 1749     		ldr	r1, .L2+48
+ 172 0090 4FF48072 		mov	r2, #256
+ 173 0094 0023     		movs	r3, #0
+ 174 0096 FFF7FEFF 		bl	xTaskGenericCreate
  200:App/Common/Minimal/dynamic.c **** 	xTaskCreate( vQueueReceiveWhenSuspendedTask, ( signed char * ) "SUSP_RX", priSTACK_SIZE, NULL, tsk
  175              		.loc 1 200 0
- 176 0092 0023     		movs	r3, #0
- 177 0094 0093     		str	r3, [sp]
- 178 0096 0023     		movs	r3, #0
- 179 0098 0193     		str	r3, [sp, #4]
- 180 009a 0023     		movs	r3, #0
- 181 009c 0293     		str	r3, [sp, #8]
- 182 009e 0023     		movs	r3, #0
- 183 00a0 0393     		str	r3, [sp, #12]
- 184 00a2 1148     		ldr	r0, .L2+52
- 185 00a4 1149     		ldr	r1, .L2+56
- 186 00a6 8222     		movs	r2, #130
- 187 00a8 0023     		movs	r3, #0
- 188 00aa FFF7FEFF 		bl	xTaskGenericCreate
+ 176 009a 0023     		movs	r3, #0
+ 177 009c 0093     		str	r3, [sp]
+ 178 009e 0023     		movs	r3, #0
+ 179 00a0 0193     		str	r3, [sp, #4]
+ 180 00a2 0023     		movs	r3, #0
+ 181 00a4 0293     		str	r3, [sp, #8]
+ 182 00a6 0023     		movs	r3, #0
+ 183 00a8 0393     		str	r3, [sp, #12]
+ 184 00aa 1148     		ldr	r0, .L2+52
+ 185 00ac 1149     		ldr	r1, .L2+56
+ 186 00ae 4FF48072 		mov	r2, #256
+ 187 00b2 0023     		movs	r3, #0
+ 188 00b4 FFF7FEFF 		bl	xTaskGenericCreate
  201:App/Common/Minimal/dynamic.c **** }
  189              		.loc 1 201 0
- 190 00ae BD46     		mov	sp, r7
+ 190 00b8 BD46     		mov	sp, r7
  191              		@ sp needed
- 192 00b0 80BD     		pop	{r7, pc}
+ 192 00ba 80BD     		pop	{r7, pc}
  193              	.L3:
- 194 00b2 00BF     		.align	2
+ 194              		.align	2
  195              	.L2:
- 196 00b4 00000000 		.word	xSuspendedTestQueue
- 197 00b8 00000000 		.word	.LC0
- 198 00bc 00000000 		.word	xContinuousIncrementHandle
- 199 00c0 00000000 		.word	vContinuousIncrementTask
- 200 00c4 18000000 		.word	.LC1
- 201 00c8 00000000 		.word	ulCounter
- 202 00cc 00000000 		.word	xLimitedIncrementHandle
- 203 00d0 00000000 		.word	vLimitedIncrementTask
- 204 00d4 20000000 		.word	.LC2
- 205 00d8 00000000 		.word	vCounterControlTask
- 206 00dc 28000000 		.word	.LC3
- 207 00e0 00000000 		.word	vQueueSendWhenSuspendedTask
- 208 00e4 30000000 		.word	.LC4
- 209 00e8 00000000 		.word	vQueueReceiveWhenSuspendedTask
- 210 00ec 38000000 		.word	.LC5
+ 196 00bc 00000000 		.word	xSuspendedTestQueue
+ 197 00c0 00000000 		.word	.LC0
+ 198 00c4 00000000 		.word	xContinuousIncrementHandle
+ 199 00c8 00000000 		.word	vContinuousIncrementTask
+ 200 00cc 18000000 		.word	.LC1
+ 201 00d0 00000000 		.word	ulCounter
+ 202 00d4 00000000 		.word	xLimitedIncrementHandle
+ 203 00d8 00000000 		.word	vLimitedIncrementTask
+ 204 00dc 20000000 		.word	.LC2
+ 205 00e0 00000000 		.word	vCounterControlTask
+ 206 00e4 28000000 		.word	.LC3
+ 207 00e8 00000000 		.word	vQueueSendWhenSuspendedTask
+ 208 00ec 30000000 		.word	.LC4
+ 209 00f0 00000000 		.word	vQueueReceiveWhenSuspendedTask
+ 210 00f4 38000000 		.word	.LC5
  211              		.cfi_endproc
  212              	.LFE110:
  214              		.section	.text.vLimitedIncrementTask,"ax",%progbits
@@ -1223,47 +1223,47 @@
  752              		.file 7 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 dynamic.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:20     .bss.xContinuousIncrementHandle:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:23     .bss.xContinuousIncrementHandle:0000000000000000 xContinuousIncrementHandle
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:26     .bss.xLimitedIncrementHandle:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:29     .bss.xLimitedIncrementHandle:0000000000000000 xLimitedIncrementHandle
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:32     .bss.ulCounter:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:35     .bss.ulCounter:0000000000000000 ulCounter
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:38     .bss.usCheckVariable:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:41     .bss.usCheckVariable:0000000000000000 usCheckVariable
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:44     .bss.xSuspendedQueueSendError:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:47     .bss.xSuspendedQueueSendError:0000000000000000 xSuspendedQueueSendError
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:50     .bss.xSuspendedQueueReceiveError:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:53     .bss.xSuspendedQueueReceiveError:0000000000000000 xSuspendedQueueReceiveError
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:20     .bss.xContinuousIncrementHandle:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:23     .bss.xContinuousIncrementHandle:0000000000000000 xContinuousIncrementHandle
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:26     .bss.xLimitedIncrementHandle:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:29     .bss.xLimitedIncrementHandle:0000000000000000 xLimitedIncrementHandle
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:32     .bss.ulCounter:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:35     .bss.ulCounter:0000000000000000 ulCounter
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:38     .bss.usCheckVariable:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:41     .bss.usCheckVariable:0000000000000000 usCheckVariable
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:44     .bss.xSuspendedQueueSendError:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:47     .bss.xSuspendedQueueSendError:0000000000000000 xSuspendedQueueSendError
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:50     .bss.xSuspendedQueueReceiveError:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:53     .bss.xSuspendedQueueReceiveError:0000000000000000 xSuspendedQueueReceiveError
                             *COM*:0000000000000004 xSuspendedTestQueue
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:57     .bss.ulExpectedValue:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:60     .bss.ulExpectedValue:0000000000000000 ulExpectedValue
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:63     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:82     .text.vStartDynamicPriorityTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:87     .text.vStartDynamicPriorityTasks:0000000000000000 vStartDynamicPriorityTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:196    .text.vStartDynamicPriorityTasks:00000000000000b4 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:270    .text.vContinuousIncrementTask:0000000000000000 vContinuousIncrementTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:219    .text.vLimitedIncrementTask:0000000000000000 vLimitedIncrementTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:347    .text.vCounterControlTask:0000000000000000 vCounterControlTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:480    .text.vQueueSendWhenSuspendedTask:0000000000000000 vQueueSendWhenSuspendedTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:544    .text.vQueueReceiveWhenSuspendedTask:0000000000000000 vQueueReceiveWhenSuspendedTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:215    .text.vLimitedIncrementTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:266    .text.vContinuousIncrementTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:343    .text.vCounterControlTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:468    .text.vCounterControlTask:00000000000000ac $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:476    .text.vQueueSendWhenSuspendedTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:533    .text.vQueueSendWhenSuspendedTask:0000000000000040 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:731    .bss.ulValueToSend.8249:0000000000000000 ulValueToSend.8249
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:540    .text.vQueueReceiveWhenSuspendedTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:622    .text.vQueueReceiveWhenSuspendedTask:0000000000000068 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:629    .text.xAreDynamicPriorityTasksStillRunning:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:634    .text.xAreDynamicPriorityTasksStillRunning:0000000000000000 xAreDynamicPriorityTasksStillRunning
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:718    .text.xAreDynamicPriorityTasksStillRunning:0000000000000064 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:737    .bss.usLastTaskCheck.8262:0000000000000000 usLastTaskCheck.8262
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:743    .bss.ulLastExpectedValue.8263:0000000000000000 ulLastExpectedValue.8263
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:728    .bss.ulValueToSend.8249:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:734    .bss.usLastTaskCheck.8262:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccuGumqt.s:740    .bss.ulLastExpectedValue.8263:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:57     .bss.ulExpectedValue:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:60     .bss.ulExpectedValue:0000000000000000 ulExpectedValue
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:63     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:82     .text.vStartDynamicPriorityTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:87     .text.vStartDynamicPriorityTasks:0000000000000000 vStartDynamicPriorityTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:196    .text.vStartDynamicPriorityTasks:00000000000000bc $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:270    .text.vContinuousIncrementTask:0000000000000000 vContinuousIncrementTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:219    .text.vLimitedIncrementTask:0000000000000000 vLimitedIncrementTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:347    .text.vCounterControlTask:0000000000000000 vCounterControlTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:480    .text.vQueueSendWhenSuspendedTask:0000000000000000 vQueueSendWhenSuspendedTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:544    .text.vQueueReceiveWhenSuspendedTask:0000000000000000 vQueueReceiveWhenSuspendedTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:215    .text.vLimitedIncrementTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:266    .text.vContinuousIncrementTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:343    .text.vCounterControlTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:468    .text.vCounterControlTask:00000000000000ac $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:476    .text.vQueueSendWhenSuspendedTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:533    .text.vQueueSendWhenSuspendedTask:0000000000000040 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:731    .bss.ulValueToSend.8249:0000000000000000 ulValueToSend.8249
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:540    .text.vQueueReceiveWhenSuspendedTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:622    .text.vQueueReceiveWhenSuspendedTask:0000000000000068 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:629    .text.xAreDynamicPriorityTasksStillRunning:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:634    .text.xAreDynamicPriorityTasksStillRunning:0000000000000000 xAreDynamicPriorityTasksStillRunning
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:718    .text.xAreDynamicPriorityTasksStillRunning:0000000000000064 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:737    .bss.usLastTaskCheck.8262:0000000000000000 usLastTaskCheck.8262
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:743    .bss.ulLastExpectedValue.8263:0000000000000000 ulLastExpectedValue.8263
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:728    .bss.ulValueToSend.8249:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:734    .bss.usLastTaskCheck.8262:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccksQMCp.s:740    .bss.ulLastExpectedValue.8263:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

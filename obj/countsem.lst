@@ -227,16 +227,16 @@
   70 0008 C821     		movs	r1, #200
   71 000a FFF7FEFF 		bl	xQueueCreateCountingSemaphore
   72 000e 0246     		mov	r2, r0
-  73 0010 234B     		ldr	r3, .L4
+  73 0010 244B     		ldr	r3, .L4
   74 0012 1A60     		str	r2, [r3]
  151:App/Common/Minimal/countsem.c **** 	xParameters[ 0 ].uxExpectedStartCount = countSTART_AT_MAX_COUNT;
   75              		.loc 1 151 0
-  76 0014 224B     		ldr	r3, .L4
+  76 0014 234B     		ldr	r3, .L4
   77 0016 AA22     		movs	r2, #170
   78 0018 5A60     		str	r2, [r3, #4]
  152:App/Common/Minimal/countsem.c **** 	xParameters[ 0 ].uxLoopCounter = 0;
   79              		.loc 1 152 0
-  80 001a 214B     		ldr	r3, .L4
+  80 001a 224B     		ldr	r3, .L4
   81 001c 0022     		movs	r2, #0
   82 001e 9A60     		str	r2, [r3, #8]
  153:App/Common/Minimal/countsem.c **** 
@@ -246,16 +246,16 @@
   85 0022 0021     		movs	r1, #0
   86 0024 FFF7FEFF 		bl	xQueueCreateCountingSemaphore
   87 0028 0246     		mov	r2, r0
-  88 002a 1D4B     		ldr	r3, .L4
+  88 002a 1E4B     		ldr	r3, .L4
   89 002c DA60     		str	r2, [r3, #12]
  155:App/Common/Minimal/countsem.c **** 	xParameters[ 1 ].uxExpectedStartCount = 0;
   90              		.loc 1 155 0
-  91 002e 1C4B     		ldr	r3, .L4
+  91 002e 1D4B     		ldr	r3, .L4
   92 0030 0022     		movs	r2, #0
   93 0032 1A61     		str	r2, [r3, #16]
  156:App/Common/Minimal/countsem.c **** 	xParameters[ 1 ].uxLoopCounter = 0;
   94              		.loc 1 156 0
-  95 0034 1A4B     		ldr	r3, .L4
+  95 0034 1B4B     		ldr	r3, .L4
   96 0036 0022     		movs	r2, #0
   97 0038 5A61     		str	r2, [r3, #20]
  157:App/Common/Minimal/countsem.c **** 
@@ -267,32 +267,32 @@
  163:App/Common/Minimal/countsem.c **** 	defined to be less than 1. */
  164:App/Common/Minimal/countsem.c **** 	vQueueAddToRegistry( ( xQueueHandle ) xParameters[ 0 ].xSemaphore, ( signed portCHAR * ) "Counting
   98              		.loc 1 164 0
-  99 003a 194B     		ldr	r3, .L4
+  99 003a 1A4B     		ldr	r3, .L4
  100 003c 1B68     		ldr	r3, [r3]
  101 003e 1846     		mov	r0, r3
- 102 0040 1849     		ldr	r1, .L4+4
+ 102 0040 1949     		ldr	r1, .L4+4
  103 0042 FFF7FEFF 		bl	vQueueAddToRegistry
  165:App/Common/Minimal/countsem.c **** 	vQueueAddToRegistry( ( xQueueHandle ) xParameters[ 1 ].xSemaphore, ( signed portCHAR * ) "Counting
  104              		.loc 1 165 0
- 105 0046 164B     		ldr	r3, .L4
+ 105 0046 174B     		ldr	r3, .L4
  106 0048 DB68     		ldr	r3, [r3, #12]
  107 004a 1846     		mov	r0, r3
- 108 004c 1649     		ldr	r1, .L4+8
+ 108 004c 1749     		ldr	r1, .L4+8
  109 004e FFF7FEFF 		bl	vQueueAddToRegistry
  166:App/Common/Minimal/countsem.c **** 
  167:App/Common/Minimal/countsem.c **** 
  168:App/Common/Minimal/countsem.c **** 	/* Were the semaphores created? */
  169:App/Common/Minimal/countsem.c **** 	if( ( xParameters[ 0 ].xSemaphore != NULL ) || ( xParameters[ 1 ].xSemaphore != NULL ) )
  110              		.loc 1 169 0
- 111 0052 134B     		ldr	r3, .L4
+ 111 0052 144B     		ldr	r3, .L4
  112 0054 1B68     		ldr	r3, [r3]
  113 0056 002B     		cmp	r3, #0
  114 0058 03D1     		bne	.L2
  115              		.loc 1 169 0 is_stmt 0 discriminator 1
- 116 005a 114B     		ldr	r3, .L4
+ 116 005a 124B     		ldr	r3, .L4
  117 005c DB68     		ldr	r3, [r3, #12]
  118 005e 002B     		cmp	r3, #0
- 119 0060 1BD0     		beq	.L1
+ 119 0060 1DD0     		beq	.L1
  120              	.L2:
  170:App/Common/Minimal/countsem.c **** 	{
  171:App/Common/Minimal/countsem.c **** 		/* Create the demo tasks, passing in the semaphore to use as the parameter. */
@@ -306,43 +306,43 @@
  127 006c 0293     		str	r3, [sp, #8]
  128 006e 0023     		movs	r3, #0
  129 0070 0393     		str	r3, [sp, #12]
- 130 0072 0E48     		ldr	r0, .L4+12
- 131 0074 0E49     		ldr	r1, .L4+16
- 132 0076 8222     		movs	r2, #130
- 133 0078 094B     		ldr	r3, .L4
- 134 007a FFF7FEFF 		bl	xTaskGenericCreate
+ 130 0072 0F48     		ldr	r0, .L4+12
+ 131 0074 0F49     		ldr	r1, .L4+16
+ 132 0076 4FF48072 		mov	r2, #256
+ 133 007a 0A4B     		ldr	r3, .L4
+ 134 007c FFF7FEFF 		bl	xTaskGenericCreate
  173:App/Common/Minimal/countsem.c **** 		xTaskCreate( prvCountingSemaphoreTask, ( signed portCHAR * ) "CNT2", configMINIMAL_STACK_SIZE, ( 
  135              		.loc 1 173 0
- 136 007e 0023     		movs	r3, #0
- 137 0080 0093     		str	r3, [sp]
- 138 0082 0023     		movs	r3, #0
- 139 0084 0193     		str	r3, [sp, #4]
- 140 0086 0023     		movs	r3, #0
- 141 0088 0293     		str	r3, [sp, #8]
- 142 008a 0023     		movs	r3, #0
- 143 008c 0393     		str	r3, [sp, #12]
- 144 008e 0748     		ldr	r0, .L4+12
- 145 0090 0849     		ldr	r1, .L4+20
- 146 0092 8222     		movs	r2, #130
- 147 0094 084B     		ldr	r3, .L4+24
- 148 0096 FFF7FEFF 		bl	xTaskGenericCreate
+ 136 0080 0023     		movs	r3, #0
+ 137 0082 0093     		str	r3, [sp]
+ 138 0084 0023     		movs	r3, #0
+ 139 0086 0193     		str	r3, [sp, #4]
+ 140 0088 0023     		movs	r3, #0
+ 141 008a 0293     		str	r3, [sp, #8]
+ 142 008c 0023     		movs	r3, #0
+ 143 008e 0393     		str	r3, [sp, #12]
+ 144 0090 0748     		ldr	r0, .L4+12
+ 145 0092 0949     		ldr	r1, .L4+20
+ 146 0094 4FF48072 		mov	r2, #256
+ 147 0098 084B     		ldr	r3, .L4+24
+ 148 009a FFF7FEFF 		bl	xTaskGenericCreate
  149              	.L1:
  174:App/Common/Minimal/countsem.c **** 	}
  175:App/Common/Minimal/countsem.c **** }
  150              		.loc 1 175 0
- 151 009a BD46     		mov	sp, r7
+ 151 009e BD46     		mov	sp, r7
  152              		@ sp needed
- 153 009c 80BD     		pop	{r7, pc}
+ 153 00a0 80BD     		pop	{r7, pc}
  154              	.L5:
- 155 009e 00BF     		.align	2
+ 155 00a2 00BF     		.align	2
  156              	.L4:
- 157 00a0 00000000 		.word	xParameters
- 158 00a4 00000000 		.word	.LC0
- 159 00a8 10000000 		.word	.LC1
- 160 00ac 00000000 		.word	prvCountingSemaphoreTask
- 161 00b0 20000000 		.word	.LC2
- 162 00b4 28000000 		.word	.LC3
- 163 00b8 0C000000 		.word	xParameters+12
+ 157 00a4 00000000 		.word	xParameters
+ 158 00a8 00000000 		.word	.LC0
+ 159 00ac 10000000 		.word	.LC1
+ 160 00b0 00000000 		.word	prvCountingSemaphoreTask
+ 161 00b4 20000000 		.word	.LC2
+ 162 00b8 28000000 		.word	.LC3
+ 163 00bc 0C000000 		.word	xParameters+12
  164              		.cfi_endproc
  165              	.LFE110:
  167              		.section	.text.prvDecrementSemaphoreCount,"ax",%progbits
@@ -871,30 +871,30 @@
  553              		.file 7 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 countsem.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:20     .bss.xErrorDetected:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:23     .bss.xErrorDetected:0000000000000000 xErrorDetected
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:26     .bss.xParameters:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:29     .bss.xParameters:0000000000000000 xParameters
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:32     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:45     .text.vStartCountingSemaphoreTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:50     .text.vStartCountingSemaphoreTasks:0000000000000000 vStartCountingSemaphoreTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:157    .text.vStartCountingSemaphoreTasks:00000000000000a0 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:368    .text.prvCountingSemaphoreTask:0000000000000000 prvCountingSemaphoreTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:168    .text.prvDecrementSemaphoreCount:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:172    .text.prvDecrementSemaphoreCount:0000000000000000 prvDecrementSemaphoreCount
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:261    .text.prvDecrementSemaphoreCount:0000000000000074 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:266    .text.prvIncrementSemaphoreCount:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:270    .text.prvIncrementSemaphoreCount:0000000000000000 prvIncrementSemaphoreCount
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:359    .text.prvIncrementSemaphoreCount:0000000000000074 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:364    .text.prvCountingSemaphoreTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:440    .text.prvCountingSemaphoreTask:0000000000000064 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:445    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:450    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000000 xAreCountingSemaphoreTasksStillRunning
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:527    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000058 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:538    .bss.uxLastCount0.7686:0000000000000000 uxLastCount0.7686
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:544    .bss.uxLastCount1.7687:0000000000000000 uxLastCount1.7687
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:535    .bss.uxLastCount0.7686:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccHQEmga.s:541    .bss.uxLastCount1.7687:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:20     .bss.xErrorDetected:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:23     .bss.xErrorDetected:0000000000000000 xErrorDetected
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:26     .bss.xParameters:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:29     .bss.xParameters:0000000000000000 xParameters
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:32     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:45     .text.vStartCountingSemaphoreTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:50     .text.vStartCountingSemaphoreTasks:0000000000000000 vStartCountingSemaphoreTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:157    .text.vStartCountingSemaphoreTasks:00000000000000a4 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:368    .text.prvCountingSemaphoreTask:0000000000000000 prvCountingSemaphoreTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:168    .text.prvDecrementSemaphoreCount:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:172    .text.prvDecrementSemaphoreCount:0000000000000000 prvDecrementSemaphoreCount
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:261    .text.prvDecrementSemaphoreCount:0000000000000074 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:266    .text.prvIncrementSemaphoreCount:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:270    .text.prvIncrementSemaphoreCount:0000000000000000 prvIncrementSemaphoreCount
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:359    .text.prvIncrementSemaphoreCount:0000000000000074 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:364    .text.prvCountingSemaphoreTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:440    .text.prvCountingSemaphoreTask:0000000000000064 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:445    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:450    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000000 xAreCountingSemaphoreTasksStillRunning
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:527    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000058 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:538    .bss.uxLastCount0.7686:0000000000000000 uxLastCount0.7686
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:544    .bss.uxLastCount1.7687:0000000000000000 uxLastCount1.7687
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:535    .bss.uxLastCount0.7686:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:541    .bss.uxLastCount1.7687:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

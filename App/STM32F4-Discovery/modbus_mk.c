@@ -118,9 +118,9 @@ void USART_puts(uint8_t *s, int nb)
 	int i = 0;
 	while(i < nb && *s){
 		// wait until data register is empty
-		while( !(USART6->SR & 0x00000040) ); 
+		while( !(USARTx->SR & 0x00000040) ); 
 		//USART_SendData(USART6, s[i]);
-		USART6->DR = s[i];
+		USARTx->DR = s[i];
 		i++;
 	
 	}
@@ -423,7 +423,7 @@ void motorHeartBeat_task(void * pvParameters)
 		
 		modbus_RR(0,10,tab_reg);
 
-		vTaskDelay(1000/portTICK_RATE_MS);
+		vTaskDelay(2000/portTICK_RATE_MS);
 
 	}
 
@@ -435,12 +435,10 @@ void motorControl_task(void * pvParameters)
 	
 
 	uint8_t src[4];
-	uint8_t stop[4]; 
-	uint16_t tab_reg[10];
 	uint16_t spd[5]; 
 	
 
-	stop[0] = 0; stop[1] = 1; stop[2] = 1; stop[3] = 1; 
+	
 
 	src[0]=1; src[1]=1; src[2]=1; src[3]=1;
 	
@@ -463,12 +461,13 @@ void motorControl_task(void * pvParameters)
 	while (1)
 	{
 	
-		if (xQueueReceive(QSpd_handle, (void *)&telegramR, xDelay ) == pdPASS)
+		if (xQueueReceive(QSpd_handle, (void *)&telegramR, portMAX_DELAY ) == pdPASS)
 		{
 			switch ( telegramR.Qcmd )
 			{
 				case SETDATA:
 					
+					src[0] = 1;
 					// write to modbus 
 					modbus_WIB ( 0 , 3, src);
 					modbus_WR(0, 5, telegramR.data);
@@ -492,7 +491,7 @@ void motorControl_task(void * pvParameters)
 				
 				case START: 
 					
-							// set motor speed to 10% 
+					// set motor speed to 10% 
 					modbus_WIB( 0 , 3, src); 
 					modbus_WR( 0, 5, spd);
 					vTaskResume(motorHeartBeatHandle);
@@ -506,7 +505,9 @@ void motorControl_task(void * pvParameters)
 				case STOP:
 					
 					// send stop bits to motor 
-					modbus_WIB ( 0 , 3 , stop);
+					src[0]=0;
+					modbus_WIB( 0 , 3, src); 
+
 
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
@@ -527,7 +528,7 @@ void motorControl_task(void * pvParameters)
 			}
 		}
 
-		modbus_RR(0, 10, tab_reg);		
+		//modbus_RR(0, 10, tab_reg);		
 	
 	}
 	

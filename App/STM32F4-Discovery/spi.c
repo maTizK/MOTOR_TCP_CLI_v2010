@@ -168,7 +168,7 @@ void init_SPIx(void){
 	// enable the interrupt in the NVIC
  	NVIC_InitStruct.NVIC_IRQChannel = SPIx_RX_DMA_IRQn;
    	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 1;
- 	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0x2;
+ 	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0x1;
   	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
   	NVIC_Init (&NVIC_InitStruct);
   	// Enable dma tx and rx request

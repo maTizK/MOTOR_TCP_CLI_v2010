@@ -106,9 +106,7 @@ volatile unsigned long ulFPUInterruptNesting = 0UL, ulMaxFPUInterruptNesting = 0
 interrupt. */
 static xSemaphoreHandle xTestSemaphore = NULL;
 
-/* The variable that is incremented by the task synchronised with the button
-interrupt. */
-volatile unsigned long ulButtonPressCounts = 0UL;
+
 
 /*-----------------------------------------------------------*/
 
@@ -132,15 +130,15 @@ int main(void)
 /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
 
 	// echo server task 
-	xTaskCreate(set_macTask, "SETMAC", configMINIMAL_STACK_SIZE*5, 
+	xTaskCreate(set_macTask, "SETMAC", configMINIMAL_STACK_SIZE*10, 
 			NULL, mainFLASH_TASK_PRIORITY, &set_macTaskHandle);
 	
 	// run motor task 
-	xTaskCreate(motorControl_task, "motorH", configMINIMAL_STACK_SIZE*20,
+	xTaskCreate(motorControl_task, "motorH", configMINIMAL_STACK_SIZE*10,
 		       	NULL, mainFLASH_TASK_PRIORITY, &motorHBHandle);
 
 	// set motor task 
-	xTaskCreate(motorHeartBeat_task, "mHeratBeat", configMINIMAL_STACK_SIZE,		       				
+	xTaskCreate(motorHeartBeat_task, "mHeratBeat", configMINIMAL_STACK_SIZE*10,		       				
 			NULL, mainFLASH_TASK_PRIORITY, &motorHeartBeatHandle);
 	
 

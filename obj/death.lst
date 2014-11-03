@@ -223,18 +223,18 @@
   83 0024 0393     		str	r3, [sp, #12]
   84 0026 0C48     		ldr	r0, .L2
   85 0028 0C49     		ldr	r1, .L2+4
-  86 002a BE22     		movs	r2, #190
-  87 002c FB68     		ldr	r3, [r7, #12]
-  88 002e FFF7FEFF 		bl	xTaskGenericCreate
+  86 002a 4FF49E72 		mov	r2, #316
+  87 002e FB68     		ldr	r3, [r7, #12]
+  88 0030 FFF7FEFF 		bl	xTaskGenericCreate
  147:App/Common/Minimal/death.c **** 
  148:App/Common/Minimal/death.c **** 	/* Record the number of tasks that are running now so we know if any of the
  149:App/Common/Minimal/death.c **** 	suicidal tasks have failed to be killed. */
  150:App/Common/Minimal/death.c **** 	uxTasksRunningAtStart = ( unsigned portBASE_TYPE ) uxTaskGetNumberOfTasks();
   89              		.loc 1 150 0
-  90 0032 FFF7FEFF 		bl	uxTaskGetNumberOfTasks
-  91 0036 0246     		mov	r2, r0
-  92 0038 094B     		ldr	r3, .L2+8
-  93 003a 1A60     		str	r2, [r3]
+  90 0034 FFF7FEFF 		bl	uxTaskGetNumberOfTasks
+  91 0038 0246     		mov	r2, r0
+  92 003a 094B     		ldr	r3, .L2+8
+  93 003c 1A60     		str	r2, [r3]
  151:App/Common/Minimal/death.c **** 	
  152:App/Common/Minimal/death.c **** 	/* FreeRTOS.org versions before V3.0 started the idle-task as the very
  153:App/Common/Minimal/death.c **** 	first task. The idle task was then already included in uxTasksRunningAtStart.
@@ -243,11 +243,11 @@
  156:App/Common/Minimal/death.c **** 	this by increasing uxTasksRunningAtStart by 1. */
  157:App/Common/Minimal/death.c **** 	uxTasksRunningAtStart++;
   94              		.loc 1 157 0
-  95 003c 084B     		ldr	r3, .L2+8
-  96 003e 1B68     		ldr	r3, [r3]
-  97 0040 5A1C     		adds	r2, r3, #1
-  98 0042 074B     		ldr	r3, .L2+8
-  99 0044 1A60     		str	r2, [r3]
+  95 003e 084B     		ldr	r3, .L2+8
+  96 0040 1B68     		ldr	r3, [r3]
+  97 0042 5A1C     		adds	r2, r3, #1
+  98 0044 064B     		ldr	r3, .L2+8
+  99 0046 1A60     		str	r2, [r3]
  158:App/Common/Minimal/death.c **** 	
  159:App/Common/Minimal/death.c **** 	/* From FreeRTOS version 7.0.0 can optionally create a timer service task.  
  160:App/Common/Minimal/death.c **** 	If this is done, then uxTasksRunningAtStart needs incrementing again as that
@@ -255,20 +255,20 @@
  162:App/Common/Minimal/death.c **** 	#if configUSE_TIMERS == 1
  163:App/Common/Minimal/death.c **** 		uxTasksRunningAtStart++;
  100              		.loc 1 163 0
- 101 0046 064B     		ldr	r3, .L2+8
- 102 0048 1B68     		ldr	r3, [r3]
- 103 004a 5A1C     		adds	r2, r3, #1
- 104 004c 044B     		ldr	r3, .L2+8
- 105 004e 1A60     		str	r2, [r3]
+ 101 0048 054B     		ldr	r3, .L2+8
+ 102 004a 1B68     		ldr	r3, [r3]
+ 103 004c 5A1C     		adds	r2, r3, #1
+ 104 004e 044B     		ldr	r3, .L2+8
+ 105 0050 1A60     		str	r2, [r3]
  164:App/Common/Minimal/death.c **** 	#endif
  165:App/Common/Minimal/death.c **** }
  106              		.loc 1 165 0
- 107 0050 1037     		adds	r7, r7, #16
- 108 0052 BD46     		mov	sp, r7
+ 107 0052 1037     		adds	r7, r7, #16
+ 108 0054 BD46     		mov	sp, r7
  109              		@ sp needed
- 110 0054 80BD     		pop	{r7, pc}
+ 110 0056 80BD     		pop	{r7, pc}
  111              	.L3:
- 112 0056 00BF     		.align	2
+ 112              		.align	2
  113              	.L2:
  114 0058 00000000 		.word	vCreateTasks
  115 005c 00000000 		.word	.LC0
@@ -450,7 +450,7 @@
  221:App/Common/Minimal/death.c **** 
  222:App/Common/Minimal/death.c **** 		xCreatedTask = NULL;
  238              		.loc 1 222 0 discriminator 1
- 239 0020 134B     		ldr	r3, .L10
+ 239 0020 144B     		ldr	r3, .L10
  240 0022 0022     		movs	r2, #0
  241 0024 1A60     		str	r2, [r3]
  223:App/Common/Minimal/death.c **** 
@@ -458,53 +458,53 @@
  242              		.loc 1 224 0 discriminator 1
  243 0026 BB68     		ldr	r3, [r7, #8]
  244 0028 0093     		str	r3, [sp]
- 245 002a 114B     		ldr	r3, .L10
+ 245 002a 124B     		ldr	r3, .L10
  246 002c 0193     		str	r3, [sp, #4]
  247 002e 0023     		movs	r3, #0
  248 0030 0293     		str	r3, [sp, #8]
  249 0032 0023     		movs	r3, #0
  250 0034 0393     		str	r3, [sp, #12]
- 251 0036 0F48     		ldr	r0, .L10+4
- 252 0038 0F49     		ldr	r1, .L10+8
- 253 003a 8222     		movs	r2, #130
- 254 003c 0023     		movs	r3, #0
- 255 003e FFF7FEFF 		bl	xTaskGenericCreate
+ 251 0036 1048     		ldr	r0, .L10+4
+ 252 0038 1049     		ldr	r1, .L10+8
+ 253 003a 4FF48072 		mov	r2, #256
+ 254 003e 0023     		movs	r3, #0
+ 255 0040 FFF7FEFF 		bl	xTaskGenericCreate
  225:App/Common/Minimal/death.c **** 		xTaskCreate( vSuicidalTask, ( signed char * ) "SUICID2", configMINIMAL_STACK_SIZE, &xCreatedTask,
  256              		.loc 1 225 0 discriminator 1
- 257 0042 BB68     		ldr	r3, [r7, #8]
- 258 0044 0093     		str	r3, [sp]
- 259 0046 0023     		movs	r3, #0
- 260 0048 0193     		str	r3, [sp, #4]
- 261 004a 0023     		movs	r3, #0
- 262 004c 0293     		str	r3, [sp, #8]
- 263 004e 0023     		movs	r3, #0
- 264 0050 0393     		str	r3, [sp, #12]
- 265 0052 0848     		ldr	r0, .L10+4
- 266 0054 0949     		ldr	r1, .L10+12
- 267 0056 8222     		movs	r2, #130
- 268 0058 054B     		ldr	r3, .L10
- 269 005a FFF7FEFF 		bl	xTaskGenericCreate
+ 257 0044 BB68     		ldr	r3, [r7, #8]
+ 258 0046 0093     		str	r3, [sp]
+ 259 0048 0023     		movs	r3, #0
+ 260 004a 0193     		str	r3, [sp, #4]
+ 261 004c 0023     		movs	r3, #0
+ 262 004e 0293     		str	r3, [sp, #8]
+ 263 0050 0023     		movs	r3, #0
+ 264 0052 0393     		str	r3, [sp, #12]
+ 265 0054 0848     		ldr	r0, .L10+4
+ 266 0056 0A49     		ldr	r1, .L10+12
+ 267 0058 4FF48072 		mov	r2, #256
+ 268 005c 054B     		ldr	r3, .L10
+ 269 005e FFF7FEFF 		bl	xTaskGenericCreate
  226:App/Common/Minimal/death.c **** 
  227:App/Common/Minimal/death.c **** 		++usCreationCount;
  270              		.loc 1 227 0 discriminator 1
- 271 005e 084B     		ldr	r3, .L10+16
- 272 0060 1B88     		ldrh	r3, [r3]	@ movhi
- 273 0062 9BB2     		uxth	r3, r3
- 274 0064 0133     		adds	r3, r3, #1
- 275 0066 9AB2     		uxth	r2, r3
- 276 0068 054B     		ldr	r3, .L10+16
- 277 006a 1A80     		strh	r2, [r3]	@ movhi
+ 271 0062 084B     		ldr	r3, .L10+16
+ 272 0064 1B88     		ldrh	r3, [r3]	@ movhi
+ 273 0066 9BB2     		uxth	r3, r3
+ 274 0068 0133     		adds	r3, r3, #1
+ 275 006a 9AB2     		uxth	r2, r3
+ 276 006c 054B     		ldr	r3, .L10+16
+ 277 006e 1A80     		strh	r2, [r3]	@ movhi
  228:App/Common/Minimal/death.c **** 	}
  278              		.loc 1 228 0 discriminator 1
- 279 006c D5E7     		b	.L9
+ 279 0070 D3E7     		b	.L9
  280              	.L11:
- 281 006e 00BF     		.align	2
+ 281 0072 00BF     		.align	2
  282              	.L10:
- 283 0070 00000000 		.word	xCreatedTask
- 284 0074 00000000 		.word	vSuicidalTask
- 285 0078 08000000 		.word	.LC1
- 286 007c 10000000 		.word	.LC2
- 287 0080 00000000 		.word	usCreationCount
+ 283 0074 00000000 		.word	xCreatedTask
+ 284 0078 00000000 		.word	vSuicidalTask
+ 285 007c 08000000 		.word	.LC1
+ 286 0080 10000000 		.word	.LC2
+ 287 0084 00000000 		.word	usCreationCount
  288              		.cfi_endproc
  289              	.LFE112:
  291              		.section	.text.xIsCreateTaskStillRunning,"ax",%progbits
@@ -653,29 +653,29 @@
  403              		.file 6 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 death.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:20     .bss.usCreationCount:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:23     .bss.usCreationCount:0000000000000000 usCreationCount
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:26     .bss.uxTasksRunningAtStart:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:29     .bss.uxTasksRunningAtStart:0000000000000000 uxTasksRunningAtStart
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:32     .rodata.uxMaxNumberOfExtraTasksRunning:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:35     .rodata.uxMaxNumberOfExtraTasksRunning:0000000000000000 uxMaxNumberOfExtraTasksRunning
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:20     .bss.usCreationCount:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:23     .bss.usCreationCount:0000000000000000 usCreationCount
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:26     .bss.uxTasksRunningAtStart:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:29     .bss.uxTasksRunningAtStart:0000000000000000 uxTasksRunningAtStart
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:32     .rodata.uxMaxNumberOfExtraTasksRunning:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:35     .rodata.uxMaxNumberOfExtraTasksRunning:0000000000000000 uxMaxNumberOfExtraTasksRunning
                             *COM*:0000000000000004 xCreatedTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:39     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:43     .text.vCreateSuicidalTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:48     .text.vCreateSuicidalTasks:0000000000000000 vCreateSuicidalTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:114    .text.vCreateSuicidalTasks:0000000000000058 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:206    .text.vCreateTasks:0000000000000000 vCreateTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:121    .text.vSuicidalTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:125    .text.vSuicidalTask:0000000000000000 vSuicidalTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:202    .text.vCreateTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:283    .text.vCreateTasks:0000000000000070 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:292    .text.xIsCreateTaskStillRunning:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:297    .text.xIsCreateTaskStillRunning:0000000000000000 xIsCreateTaskStillRunning
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:378    .text.xIsCreateTaskStillRunning:0000000000000064 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:389    .data.usLastCreationCount.8120:0000000000000000 usLastCreationCount.8120
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:395    .bss.uxTasksRunningNow.8122:0000000000000000 uxTasksRunningNow.8122
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:386    .data.usLastCreationCount.8120:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccPOqp1g.s:392    .bss.uxTasksRunningNow.8122:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:39     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:43     .text.vCreateSuicidalTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:48     .text.vCreateSuicidalTasks:0000000000000000 vCreateSuicidalTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:114    .text.vCreateSuicidalTasks:0000000000000058 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:206    .text.vCreateTasks:0000000000000000 vCreateTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:121    .text.vSuicidalTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:125    .text.vSuicidalTask:0000000000000000 vSuicidalTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:202    .text.vCreateTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:283    .text.vCreateTasks:0000000000000074 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:292    .text.xIsCreateTaskStillRunning:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:297    .text.xIsCreateTaskStillRunning:0000000000000000 xIsCreateTaskStillRunning
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:378    .text.xIsCreateTaskStillRunning:0000000000000064 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:389    .data.usLastCreationCount.8120:0000000000000000 usLastCreationCount.8120
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:395    .bss.uxTasksRunningNow.8122:0000000000000000 uxTasksRunningNow.8122
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:386    .data.usLastCreationCount.8120:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwxX93A.s:392    .bss.uxTasksRunningNow.8122:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
