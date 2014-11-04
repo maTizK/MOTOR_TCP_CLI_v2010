@@ -1,7 +1,7 @@
 #include "tcpCLI.h"
 
 
-static 	portTickType xDelay = 100 / portTICK_RATE_MS;
+static 	portTickType xDelay = 3000 / portTICK_RATE_MS;
 
 
 
@@ -514,6 +514,9 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 		sprintf(pcWriteBuffer, "To few arguments. \n\n\0");
 		return pdFALSE;
 	}
+
+
+    	vTaskResume(motorHBHandle);
 
 
 	//================================================================================//

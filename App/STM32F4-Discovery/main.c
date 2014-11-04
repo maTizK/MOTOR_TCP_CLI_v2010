@@ -131,15 +131,15 @@ int main(void)
 
 	// echo server task 
 	xTaskCreate(set_macTask, "SETMAC", configMINIMAL_STACK_SIZE*10, 
-			NULL, mainFLASH_TASK_PRIORITY, &set_macTaskHandle);
+			NULL, mainFLASH_TASK_PRIORITY , &set_macTaskHandle);
 	
 	// run motor task 
-	xTaskCreate(motorControl_task, "motorH", configMINIMAL_STACK_SIZE*10,
+	xTaskCreate(motorControl_task, "motorH", configMINIMAL_STACK_SIZE*19,
 		       	NULL, mainFLASH_TASK_PRIORITY, &motorHBHandle);
 
 	// set motor task 
-	xTaskCreate(motorHeartBeat_task, "mHeratBeat", configMINIMAL_STACK_SIZE*10,		       				
-			NULL, mainFLASH_TASK_PRIORITY, &motorHeartBeatHandle);
+/*	xTaskCreate(motorHeartBeat_task, "mHeratBeat", configMINIMAL_STACK_SIZE*10,		       				
+			NULL, mainFLASH_TASK_PRIORITY +1  , &motorHeartBeatHandle);*/
 	
 
 /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/

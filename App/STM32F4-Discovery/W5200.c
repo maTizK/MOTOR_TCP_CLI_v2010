@@ -705,14 +705,14 @@ void locate_interrupt()
 	switch (code )
 	{
 		case 0x1: 
-			vTaskSuspend(motorHBHandle);
+			//vTaskSuspend(motorHBHandle);
 			// connection established 
 			// do nothing wait for input. 
 			break;
 		case 0x2:
 
 			
-			vTaskSuspend(motorHBHandle);
+			//vTaskSuspend(motorHBHandle);
 
 			break;
 		case 0x4:

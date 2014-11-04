@@ -447,31 +447,30 @@ void motorControl_task(void * pvParameters)
 	// create usart semaphore 
 	xSmphrUSART = xSemaphoreCreateBinary();	
 	
-	portTickType xDelay = 500 / portTICK_RATE_MS;	
+	portTickType xDelay = 3000 / portTICK_RATE_MS;	
 	
-	
-	
-	
-	
-	
-
 
 	QueueTelegram telegramR, telegramS; 
 	
 	while (1)
 	{
+
+		
 	
-		if (xQueueReceive(QSpd_handle, (void *)&telegramR, portMAX_DELAY ) == pdPASS)
+		if (xQueueReceive(QSpd_handle, (void *)&telegramR, xDelay  ) == pdPASS)
 		{
 			switch ( telegramR.Qcmd )
 			{
 				case SETDATA:
+
+					src[0]=1; src[1]=1; src[2]=1; src[3]=1;
+
+					modbus_WIB( 0 , 3, src); 
+					vTaskDelay ( 500 / portTICK_RATE_MS);
 					
-					src[0] = 1;
-					// write to modbus 
-					modbus_WIB ( 0 , 3, src);
 					modbus_WR(0, 5, telegramR.data);
-					
+					vTaskDelay ( 500 / portTICK_RATE_MS);
+
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
 					xQueueSend(QSpd_handle, &telegramS, xDelay);
@@ -481,6 +480,7 @@ void motorControl_task(void * pvParameters)
 				
 				case GETDATA:
 					modbus_RR(0, 10, telegramS.data);
+					vTaskDelay ( 500 / portTICK_RATE_MS);
 
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
@@ -492,9 +492,15 @@ void motorControl_task(void * pvParameters)
 				case START: 
 					
 					// set motor speed to 10% 
+				         src[0]=1; src[1]=1; src[2]=1; src[3]=1;
+
 					modbus_WIB( 0 , 3, src); 
+					vTaskDelay ( 500 / portTICK_RATE_MS);
+
 					modbus_WR( 0, 5, spd);
-					vTaskResume(motorHeartBeatHandle);
+					vTaskDelay ( 500 / portTICK_RATE_MS);
+
+				//	vTaskResume(motorHeartBeatHandle);
 
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
@@ -505,8 +511,10 @@ void motorControl_task(void * pvParameters)
 				case STOP:
 					
 					// send stop bits to motor 
-					src[0]=0;
+					src[0]=0; src[1]=0; src[2]=0; src[3]=0;
 					modbus_WIB( 0 , 3, src); 
+					vTaskDelay ( 500 / portTICK_RATE_MS);
+
 
 
 					// send response to CLI 
@@ -527,8 +535,15 @@ void motorControl_task(void * pvParameters)
 					
 			}
 		}
+		else{vTaskDelay( 500 / portTICK_RATE_MS
+				);
+		modbus_RR(0, 10, telegramS.data);
 
-		//modbus_RR(0, 10, tab_reg);		
+		}
+	
+		
+
+		
 	
 	}
 	
