@@ -119,7 +119,7 @@
   61:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c ****  * The callback function that is executed when "help" is entered.  This is the
   62:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c ****  * only default command that is always present.
   63:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c ****  */
-  64:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** static portBASE_TYPE prvHelpCommand( int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *p
+  64:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** //portBASE_TYPE prvHelpCommand( int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcComm
   65:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
   66:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** /*
   67:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c ****  * Return the number of parameters that follow the command name.
@@ -824,288 +824,289 @@
  529              	.LFE113:
  531 00b6 00BF     		.section	.text.prvHelpCommand,"ax",%progbits
  532              		.align	2
- 533              		.thumb
- 534              		.thumb_func
- 536              	prvHelpCommand:
- 537              	.LFB114:
+ 533              		.global	prvHelpCommand
+ 534              		.thumb
+ 535              		.thumb_func
+ 537              	prvHelpCommand:
+ 538              	.LFB114:
  277:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** /*-----------------------------------------------------------*/
  278:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
- 279:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** static portBASE_TYPE prvHelpCommand( int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *p
+ 279:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** portBASE_TYPE prvHelpCommand( int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcComman
  280:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** {
- 538              		.loc 1 280 0
- 539              		.cfi_startproc
- 540              		@ args = 0, pretend = 0, frame = 24
- 541              		@ frame_needed = 1, uses_anonymous_args = 0
- 542 0000 80B5     		push	{r7, lr}
- 543              	.LCFI11:
- 544              		.cfi_def_cfa_offset 8
- 545              		.cfi_offset 7, -8
- 546              		.cfi_offset 14, -4
- 547 0002 86B0     		sub	sp, sp, #24
- 548              	.LCFI12:
- 549              		.cfi_def_cfa_offset 32
- 550 0004 00AF     		add	r7, sp, #0
- 551              	.LCFI13:
- 552              		.cfi_def_cfa_register 7
- 553 0006 F860     		str	r0, [r7, #12]
- 554 0008 B960     		str	r1, [r7, #8]
- 555 000a 7A60     		str	r2, [r7, #4]
+ 539              		.loc 1 280 0
+ 540              		.cfi_startproc
+ 541              		@ args = 0, pretend = 0, frame = 24
+ 542              		@ frame_needed = 1, uses_anonymous_args = 0
+ 543 0000 80B5     		push	{r7, lr}
+ 544              	.LCFI11:
+ 545              		.cfi_def_cfa_offset 8
+ 546              		.cfi_offset 7, -8
+ 547              		.cfi_offset 14, -4
+ 548 0002 86B0     		sub	sp, sp, #24
+ 549              	.LCFI12:
+ 550              		.cfi_def_cfa_offset 32
+ 551 0004 00AF     		add	r7, sp, #0
+ 552              	.LCFI13:
+ 553              		.cfi_def_cfa_register 7
+ 554 0006 F860     		str	r0, [r7, #12]
+ 555 0008 B960     		str	r1, [r7, #8]
+ 556 000a 7A60     		str	r2, [r7, #4]
  281:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** static const CLI_Definition_List_Item_t * pxCommand = NULL;
  282:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** signed portBASE_TYPE xReturn;
  283:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
  284:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	( void ) pcCommandString;
  285:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
  286:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	if( pxCommand == NULL )
- 556              		.loc 1 286 0
- 557 000c 114B     		ldr	r3, .L49
- 558 000e 1B68     		ldr	r3, [r3]
- 559 0010 002B     		cmp	r3, #0
- 560 0012 02D1     		bne	.L45
+ 557              		.loc 1 286 0
+ 558 000c 114B     		ldr	r3, .L49
+ 559 000e 1B68     		ldr	r3, [r3]
+ 560 0010 002B     		cmp	r3, #0
+ 561 0012 02D1     		bne	.L45
  287:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	{
  288:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		/* Reset the pxCommand pointer back to the start of the list. */
  289:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		pxCommand = &xRegisteredCommands;
- 561              		.loc 1 289 0
- 562 0014 0F4B     		ldr	r3, .L49
- 563 0016 104A     		ldr	r2, .L49+4
- 564 0018 1A60     		str	r2, [r3]
- 565              	.L45:
+ 562              		.loc 1 289 0
+ 563 0014 0F4B     		ldr	r3, .L49
+ 564 0016 104A     		ldr	r2, .L49+4
+ 565 0018 1A60     		str	r2, [r3]
+ 566              	.L45:
  290:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	}
  291:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
  292:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	/* Return the next command help string, before moving the pointer on to
  293:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	the next command in the list. */
  294:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	strncpy( ( char * ) pcWriteBuffer, ( const char * ) pxCommand->pxCommandLineDefinition->pcHelpStri
- 566              		.loc 1 294 0
- 567 001a 0E4B     		ldr	r3, .L49
- 568 001c 1B68     		ldr	r3, [r3]
- 569 001e 1B68     		ldr	r3, [r3]
- 570 0020 5B68     		ldr	r3, [r3, #4]
- 571 0022 F868     		ldr	r0, [r7, #12]
- 572 0024 1946     		mov	r1, r3
- 573 0026 BA68     		ldr	r2, [r7, #8]
- 574 0028 FFF7FEFF 		bl	strncpy
+ 567              		.loc 1 294 0
+ 568 001a 0E4B     		ldr	r3, .L49
+ 569 001c 1B68     		ldr	r3, [r3]
+ 570 001e 1B68     		ldr	r3, [r3]
+ 571 0020 5B68     		ldr	r3, [r3, #4]
+ 572 0022 F868     		ldr	r0, [r7, #12]
+ 573 0024 1946     		mov	r1, r3
+ 574 0026 BA68     		ldr	r2, [r7, #8]
+ 575 0028 FFF7FEFF 		bl	strncpy
  295:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	pxCommand = pxCommand->pxNext;
- 575              		.loc 1 295 0
- 576 002c 094B     		ldr	r3, .L49
- 577 002e 1B68     		ldr	r3, [r3]
- 578 0030 5A68     		ldr	r2, [r3, #4]
- 579 0032 084B     		ldr	r3, .L49
- 580 0034 1A60     		str	r2, [r3]
+ 576              		.loc 1 295 0
+ 577 002c 094B     		ldr	r3, .L49
+ 578 002e 1B68     		ldr	r3, [r3]
+ 579 0030 5A68     		ldr	r2, [r3, #4]
+ 580 0032 084B     		ldr	r3, .L49
+ 581 0034 1A60     		str	r2, [r3]
  296:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
  297:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	if( pxCommand == NULL )
- 581              		.loc 1 297 0
- 582 0036 074B     		ldr	r3, .L49
- 583 0038 1B68     		ldr	r3, [r3]
- 584 003a 002B     		cmp	r3, #0
- 585 003c 02D1     		bne	.L46
+ 582              		.loc 1 297 0
+ 583 0036 074B     		ldr	r3, .L49
+ 584 0038 1B68     		ldr	r3, [r3]
+ 585 003a 002B     		cmp	r3, #0
+ 586 003c 02D1     		bne	.L46
  298:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	{
  299:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		/* There are no more commands in the list, so there will be no more
  300:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		strings to return after this one and pdFALSE should be returned. */
  301:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		xReturn = pdFALSE;
- 586              		.loc 1 301 0
- 587 003e 0023     		movs	r3, #0
- 588 0040 7B61     		str	r3, [r7, #20]
- 589 0042 01E0     		b	.L47
- 590              	.L46:
+ 587              		.loc 1 301 0
+ 588 003e 0023     		movs	r3, #0
+ 589 0040 7B61     		str	r3, [r7, #20]
+ 590 0042 01E0     		b	.L47
+ 591              	.L46:
  302:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	}
  303:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	else
  304:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	{
  305:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		xReturn = pdTRUE;
- 591              		.loc 1 305 0
- 592 0044 0123     		movs	r3, #1
- 593 0046 7B61     		str	r3, [r7, #20]
- 594              	.L47:
+ 592              		.loc 1 305 0
+ 593 0044 0123     		movs	r3, #1
+ 594 0046 7B61     		str	r3, [r7, #20]
+ 595              	.L47:
  306:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	}
  307:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
  308:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	return xReturn;
- 595              		.loc 1 308 0
- 596 0048 7B69     		ldr	r3, [r7, #20]
+ 596              		.loc 1 308 0
+ 597 0048 7B69     		ldr	r3, [r7, #20]
  309:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** }
- 597              		.loc 1 309 0
- 598 004a 1846     		mov	r0, r3
- 599 004c 1837     		adds	r7, r7, #24
- 600 004e BD46     		mov	sp, r7
- 601              		@ sp needed
- 602 0050 80BD     		pop	{r7, pc}
- 603              	.L50:
- 604 0052 00BF     		.align	2
- 605              	.L49:
- 606 0054 00000000 		.word	pxCommand.7943
- 607 0058 00000000 		.word	xRegisteredCommands
- 608              		.cfi_endproc
- 609              	.LFE114:
- 611              		.section	.text.prvGetNumberOfParameters,"ax",%progbits
- 612              		.align	2
- 613              		.thumb
- 614              		.thumb_func
- 616              	prvGetNumberOfParameters:
- 617              	.LFB115:
+ 598              		.loc 1 309 0
+ 599 004a 1846     		mov	r0, r3
+ 600 004c 1837     		adds	r7, r7, #24
+ 601 004e BD46     		mov	sp, r7
+ 602              		@ sp needed
+ 603 0050 80BD     		pop	{r7, pc}
+ 604              	.L50:
+ 605 0052 00BF     		.align	2
+ 606              	.L49:
+ 607 0054 00000000 		.word	pxCommand.7943
+ 608 0058 00000000 		.word	xRegisteredCommands
+ 609              		.cfi_endproc
+ 610              	.LFE114:
+ 612              		.section	.text.prvGetNumberOfParameters,"ax",%progbits
+ 613              		.align	2
+ 614              		.thumb
+ 615              		.thumb_func
+ 617              	prvGetNumberOfParameters:
+ 618              	.LFB115:
  310:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** /*-----------------------------------------------------------*/
  311:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
  312:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** static int8_t prvGetNumberOfParameters( const int8_t * pcCommandString )
  313:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** {
- 618              		.loc 1 313 0
- 619              		.cfi_startproc
- 620              		@ args = 0, pretend = 0, frame = 16
- 621              		@ frame_needed = 1, uses_anonymous_args = 0
- 622              		@ link register save eliminated.
- 623 0000 80B4     		push	{r7}
- 624              	.LCFI14:
- 625              		.cfi_def_cfa_offset 4
- 626              		.cfi_offset 7, -4
- 627 0002 85B0     		sub	sp, sp, #20
- 628              	.LCFI15:
- 629              		.cfi_def_cfa_offset 24
- 630 0004 00AF     		add	r7, sp, #0
- 631              	.LCFI16:
- 632              		.cfi_def_cfa_register 7
- 633 0006 7860     		str	r0, [r7, #4]
+ 619              		.loc 1 313 0
+ 620              		.cfi_startproc
+ 621              		@ args = 0, pretend = 0, frame = 16
+ 622              		@ frame_needed = 1, uses_anonymous_args = 0
+ 623              		@ link register save eliminated.
+ 624 0000 80B4     		push	{r7}
+ 625              	.LCFI14:
+ 626              		.cfi_def_cfa_offset 4
+ 627              		.cfi_offset 7, -4
+ 628 0002 85B0     		sub	sp, sp, #20
+ 629              	.LCFI15:
+ 630              		.cfi_def_cfa_offset 24
+ 631 0004 00AF     		add	r7, sp, #0
+ 632              	.LCFI16:
+ 633              		.cfi_def_cfa_register 7
+ 634 0006 7860     		str	r0, [r7, #4]
  314:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** int8_t cParameters = 0;
- 634              		.loc 1 314 0
- 635 0008 0023     		movs	r3, #0
- 636 000a FB73     		strb	r3, [r7, #15]
+ 635              		.loc 1 314 0
+ 636 0008 0023     		movs	r3, #0
+ 637 000a FB73     		strb	r3, [r7, #15]
  315:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** portBASE_TYPE xLastCharacterWasSpace = pdFALSE;
- 637              		.loc 1 315 0
- 638 000c 0023     		movs	r3, #0
- 639 000e BB60     		str	r3, [r7, #8]
+ 638              		.loc 1 315 0
+ 639 000c 0023     		movs	r3, #0
+ 640 000e BB60     		str	r3, [r7, #8]
  316:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
  317:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	/* Count the number of space delimited words in pcCommandString. */
  318:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	while( *pcCommandString != 0x00 )
- 640              		.loc 1 318 0
- 641 0010 12E0     		b	.L52
- 642              	.L56:
+ 641              		.loc 1 318 0
+ 642 0010 12E0     		b	.L52
+ 643              	.L56:
  319:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	{
  320:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		if( ( *pcCommandString ) == ' ' )
- 643              		.loc 1 320 0
- 644 0012 7B68     		ldr	r3, [r7, #4]
- 645 0014 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 646 0016 5BB2     		sxtb	r3, r3
- 647 0018 202B     		cmp	r3, #32
- 648 001a 08D1     		bne	.L53
+ 644              		.loc 1 320 0
+ 645 0012 7B68     		ldr	r3, [r7, #4]
+ 646 0014 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 647 0016 5BB2     		sxtb	r3, r3
+ 648 0018 202B     		cmp	r3, #32
+ 649 001a 08D1     		bne	.L53
  321:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		{
  322:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 			if( xLastCharacterWasSpace != pdTRUE )
- 649              		.loc 1 322 0
- 650 001c BB68     		ldr	r3, [r7, #8]
- 651 001e 012B     		cmp	r3, #1
- 652 0020 07D0     		beq	.L55
+ 650              		.loc 1 322 0
+ 651 001c BB68     		ldr	r3, [r7, #8]
+ 652 001e 012B     		cmp	r3, #1
+ 653 0020 07D0     		beq	.L55
  323:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 			{
  324:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 				cParameters++;
- 653              		.loc 1 324 0
- 654 0022 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
- 655 0024 0133     		adds	r3, r3, #1
- 656 0026 FB73     		strb	r3, [r7, #15]
+ 654              		.loc 1 324 0
+ 655 0022 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 656 0024 0133     		adds	r3, r3, #1
+ 657 0026 FB73     		strb	r3, [r7, #15]
  325:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 				xLastCharacterWasSpace = pdTRUE;
- 657              		.loc 1 325 0
- 658 0028 0123     		movs	r3, #1
- 659 002a BB60     		str	r3, [r7, #8]
- 660 002c 01E0     		b	.L55
- 661              	.L53:
+ 658              		.loc 1 325 0
+ 659 0028 0123     		movs	r3, #1
+ 660 002a BB60     		str	r3, [r7, #8]
+ 661 002c 01E0     		b	.L55
+ 662              	.L53:
  326:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 			}
  327:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		}
  328:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		else
  329:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		{
  330:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 			xLastCharacterWasSpace = pdFALSE;
- 662              		.loc 1 330 0
- 663 002e 0023     		movs	r3, #0
- 664 0030 BB60     		str	r3, [r7, #8]
- 665              	.L55:
+ 663              		.loc 1 330 0
+ 664 002e 0023     		movs	r3, #0
+ 665 0030 BB60     		str	r3, [r7, #8]
+ 666              	.L55:
  331:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		}
  332:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
  333:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		pcCommandString++;
- 666              		.loc 1 333 0
- 667 0032 7B68     		ldr	r3, [r7, #4]
- 668 0034 0133     		adds	r3, r3, #1
- 669 0036 7B60     		str	r3, [r7, #4]
- 670              	.L52:
+ 667              		.loc 1 333 0
+ 668 0032 7B68     		ldr	r3, [r7, #4]
+ 669 0034 0133     		adds	r3, r3, #1
+ 670 0036 7B60     		str	r3, [r7, #4]
+ 671              	.L52:
  318:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	while( *pcCommandString != 0x00 )
- 671              		.loc 1 318 0 discriminator 1
- 672 0038 7B68     		ldr	r3, [r7, #4]
- 673 003a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
- 674 003c 002B     		cmp	r3, #0
- 675 003e E8D1     		bne	.L56
+ 672              		.loc 1 318 0 discriminator 1
+ 673 0038 7B68     		ldr	r3, [r7, #4]
+ 674 003a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 675 003c 002B     		cmp	r3, #0
+ 676 003e E8D1     		bne	.L56
  334:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	}
  335:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
  336:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	/* If the command string ended with spaces, then there will have been too
  337:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	many parameters counted. */
  338:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	if( xLastCharacterWasSpace == pdTRUE )
- 676              		.loc 1 338 0
- 677 0040 BB68     		ldr	r3, [r7, #8]
- 678 0042 012B     		cmp	r3, #1
- 679 0044 02D1     		bne	.L57
+ 677              		.loc 1 338 0
+ 678 0040 BB68     		ldr	r3, [r7, #8]
+ 679 0042 012B     		cmp	r3, #1
+ 680 0044 02D1     		bne	.L57
  339:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	{
  340:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 		cParameters--;
- 680              		.loc 1 340 0
- 681 0046 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
- 682 0048 013B     		subs	r3, r3, #1
- 683 004a FB73     		strb	r3, [r7, #15]
- 684              	.L57:
+ 681              		.loc 1 340 0
+ 682 0046 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 683 0048 013B     		subs	r3, r3, #1
+ 684 004a FB73     		strb	r3, [r7, #15]
+ 685              	.L57:
  341:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	}
  342:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 
  343:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	/* The value returned is one less than the number of space delimited words,
  344:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	as the first word should be the command itself. */
  345:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** 	return cParameters;
- 685              		.loc 1 345 0
- 686 004c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
- 687 004e 5BB2     		sxtb	r3, r3
+ 686              		.loc 1 345 0
+ 687 004c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 688 004e 5BB2     		sxtb	r3, r3
  346:Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c **** }
- 688              		.loc 1 346 0
- 689 0050 1846     		mov	r0, r3
- 690 0052 1437     		adds	r7, r7, #20
- 691 0054 BD46     		mov	sp, r7
- 692              		@ sp needed
- 693 0056 5DF8047B 		ldr	r7, [sp], #4
- 694 005a 7047     		bx	lr
- 695              		.cfi_endproc
- 696              	.LFE115:
- 698              		.section	.data.pxLastCommandInList.7899,"aw",%progbits
- 699              		.align	2
- 702              	pxLastCommandInList.7899:
- 703 0000 00000000 		.word	xRegisteredCommands
- 704              		.section	.bss.pxCommand.7909,"aw",%nobits
- 705              		.align	2
- 708              	pxCommand.7909:
- 709 0000 00000000 		.space	4
- 710              		.section	.bss.pxCommand.7943,"aw",%nobits
- 711              		.align	2
- 714              	pxCommand.7943:
- 715 0000 00000000 		.space	4
- 716              		.text
- 717              	.Letext0:
- 718              		.file 2 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/lib/gcc/arm-none-eabi/4.8.4/include/std
- 719              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
- 720              		.file 4 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
- 721              		.file 5 "Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h"
- 722              		.file 6 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
+ 689              		.loc 1 346 0
+ 690 0050 1846     		mov	r0, r3
+ 691 0052 1437     		adds	r7, r7, #20
+ 692 0054 BD46     		mov	sp, r7
+ 693              		@ sp needed
+ 694 0056 5DF8047B 		ldr	r7, [sp], #4
+ 695 005a 7047     		bx	lr
+ 696              		.cfi_endproc
+ 697              	.LFE115:
+ 699              		.section	.data.pxLastCommandInList.7899,"aw",%progbits
+ 700              		.align	2
+ 703              	pxLastCommandInList.7899:
+ 704 0000 00000000 		.word	xRegisteredCommands
+ 705              		.section	.bss.pxCommand.7909,"aw",%nobits
+ 706              		.align	2
+ 709              	pxCommand.7909:
+ 710 0000 00000000 		.space	4
+ 711              		.section	.bss.pxCommand.7943,"aw",%nobits
+ 712              		.align	2
+ 715              	pxCommand.7943:
+ 716 0000 00000000 		.space	4
+ 717              		.text
+ 718              	.Letext0:
+ 719              		.file 2 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/lib/gcc/arm-none-eabi/4.8.4/include/std
+ 720              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
+ 721              		.file 4 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
+ 722              		.file 5 "Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h"
+ 723              		.file 6 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 FreeRTOS_CLI.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:20     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:28     .rodata.xHelpCommand:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:31     .rodata.xHelpCommand:0000000000000000 xHelpCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:536    .text.prvHelpCommand:0000000000000000 prvHelpCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:38     .data.xRegisteredCommands:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:41     .data.xRegisteredCommands:0000000000000000 xRegisteredCommands
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:45     .bss.cOutputBuffer:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:48     .bss.cOutputBuffer:0000000000000000 cOutputBuffer
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:51     .text.FreeRTOS_CLIRegisterCommand:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:56     .text.FreeRTOS_CLIRegisterCommand:0000000000000000 FreeRTOS_CLIRegisterCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:140    .text.FreeRTOS_CLIRegisterCommand:0000000000000064 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:702    .data.pxLastCommandInList.7899:0000000000000000 pxLastCommandInList.7899
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:154    .text.FreeRTOS_CLIProcessCommand:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:159    .text.FreeRTOS_CLIProcessCommand:0000000000000000 FreeRTOS_CLIProcessCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:616    .text.prvGetNumberOfParameters:0000000000000000 prvGetNumberOfParameters
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:333    .text.FreeRTOS_CLIProcessCommand:00000000000000fc $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:708    .bss.pxCommand.7909:0000000000000000 pxCommand.7909
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:341    .text.FreeRTOS_CLIGetOutputBuffer:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:346    .text.FreeRTOS_CLIGetOutputBuffer:0000000000000000 FreeRTOS_CLIGetOutputBuffer
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:371    .text.FreeRTOS_CLIGetOutputBuffer:0000000000000010 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:376    .text.FreeRTOS_CLIGetParameter:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:381    .text.FreeRTOS_CLIGetParameter:0000000000000000 FreeRTOS_CLIGetParameter
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:532    .text.prvHelpCommand:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:606    .text.prvHelpCommand:0000000000000054 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:714    .bss.pxCommand.7943:0000000000000000 pxCommand.7943
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:612    .text.prvGetNumberOfParameters:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:699    .data.pxLastCommandInList.7899:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:705    .bss.pxCommand.7909:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccoR0nFA.s:711    .bss.pxCommand.7943:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:20     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:28     .rodata.xHelpCommand:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:31     .rodata.xHelpCommand:0000000000000000 xHelpCommand
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:537    .text.prvHelpCommand:0000000000000000 prvHelpCommand
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:38     .data.xRegisteredCommands:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:41     .data.xRegisteredCommands:0000000000000000 xRegisteredCommands
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:45     .bss.cOutputBuffer:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:48     .bss.cOutputBuffer:0000000000000000 cOutputBuffer
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:51     .text.FreeRTOS_CLIRegisterCommand:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:56     .text.FreeRTOS_CLIRegisterCommand:0000000000000000 FreeRTOS_CLIRegisterCommand
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:140    .text.FreeRTOS_CLIRegisterCommand:0000000000000064 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:703    .data.pxLastCommandInList.7899:0000000000000000 pxLastCommandInList.7899
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:154    .text.FreeRTOS_CLIProcessCommand:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:159    .text.FreeRTOS_CLIProcessCommand:0000000000000000 FreeRTOS_CLIProcessCommand
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:617    .text.prvGetNumberOfParameters:0000000000000000 prvGetNumberOfParameters
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:333    .text.FreeRTOS_CLIProcessCommand:00000000000000fc $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:709    .bss.pxCommand.7909:0000000000000000 pxCommand.7909
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:341    .text.FreeRTOS_CLIGetOutputBuffer:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:346    .text.FreeRTOS_CLIGetOutputBuffer:0000000000000000 FreeRTOS_CLIGetOutputBuffer
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:371    .text.FreeRTOS_CLIGetOutputBuffer:0000000000000010 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:376    .text.FreeRTOS_CLIGetParameter:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:381    .text.FreeRTOS_CLIGetParameter:0000000000000000 FreeRTOS_CLIGetParameter
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:532    .text.prvHelpCommand:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:607    .text.prvHelpCommand:0000000000000054 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:715    .bss.pxCommand.7943:0000000000000000 pxCommand.7943
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:613    .text.prvGetNumberOfParameters:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:700    .data.pxLastCommandInList.7899:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:706    .bss.pxCommand.7909:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccXdAHGh.s:712    .bss.pxCommand.7943:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
