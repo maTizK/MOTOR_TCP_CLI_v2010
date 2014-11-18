@@ -104,6 +104,9 @@ int8_t *FreeRTOS_CLIGetOutputBuffer( void );
  */
 const int8_t *FreeRTOS_CLIGetParameter( const int8_t *pcCommandString, unsigned portBASE_TYPE uxWantedParameter, portBASE_TYPE *pxParameterStringLength );
 
+/*added by Matic Knap : Tue 11 Nov 2014 */
+portBASE_TYPE prvHelpCommand( int8_t *, size_t , const int8_t * );
+
 #endif /* COMMAND_INTERPRETER_H */
 
 

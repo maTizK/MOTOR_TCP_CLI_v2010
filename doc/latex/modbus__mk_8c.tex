@@ -29,17 +29,20 @@ void \hyperlink{modbus__mk_8c_a534849d0bcb0bdc5c131e0aa632b13de}{U\+S\+A\+R\+T\+
 \item 
 uint16\+\_\+t \hyperlink{modbus__mk_8c_a859b2f058944b311a3cee5aa0a746d8e}{crc16} (uint8\+\_\+t $\ast$buffer, uint16\+\_\+t buffer\+\_\+length)
 \begin{DoxyCompactList}\small\item\em calculation of checksum \end{DoxyCompactList}\item 
-void \hyperlink{modbus__mk_8c_a9fd99d3fa9c3bff4a1898e0f890766a1}{write\+\_\+read\+\_\+modbus} (uint8\+\_\+t $\ast$req, uint8\+\_\+t $\ast$rsp, int write\+\_\+len, int read\+\_\+len)
+\hypertarget{modbus__mk_8c_a92799528299152486068fad4b4e2de20}{int {\bfseries modbus\+\_\+confirmation} (uint8\+\_\+t $\ast$req, uint8\+\_\+t $\ast$rsp, uint16\+\_\+t write\+\_\+len, uint16\+\_\+t read\+\_\+len)}\label{modbus__mk_8c_a92799528299152486068fad4b4e2de20}
+
+\item 
+void \hyperlink{modbus__mk_8c_a54f3cfc3205819c15d1d6bd57aca2c37}{write\+\_\+read\+\_\+modbus} (uint8\+\_\+t $\ast$req, uint8\+\_\+t $\ast$rsp, int write\+\_\+len, int read\+\_\+len)
 \begin{DoxyCompactList}\small\item\em write and read data to modbus line \end{DoxyCompactList}\item 
-void \hyperlink{modbus__mk_8c_a7fb8c114e41f0cfb82b36095ff9d199d}{modbus\+\_\+\+R\+I\+B} (int16\+\_\+t address, int nb, uint8\+\_\+t $\ast$dst)
+uint8\+\_\+t \hyperlink{modbus__mk_8c_ab833341d95099b5b8661f36403216b19}{modbus\+\_\+\+R\+I\+B} (int16\+\_\+t address, int nb, uint8\+\_\+t $\ast$dst)
 \begin{DoxyCompactList}\small\item\em read input bits on motor side \end{DoxyCompactList}\item 
-void \hyperlink{modbus__mk_8c_a740ccaea46e256dfd32fb22c1c1a88de}{modbus\+\_\+\+W\+I\+B} (uint16\+\_\+t address, int nb, uint8\+\_\+t $\ast$src)
+uint8\+\_\+t \hyperlink{modbus__mk_8c_a6294e3bb440c2ea04f25f01120a08f64}{modbus\+\_\+\+W\+I\+B} (uint16\+\_\+t address, int nb, uint8\+\_\+t $\ast$src)
 \begin{DoxyCompactList}\small\item\em write bits to register \end{DoxyCompactList}\item 
-void \hyperlink{modbus__mk_8c_ace18133f61c61ccb510c59251d8e0949}{modbus\+\_\+\+W\+R} (int address, int nb, const uint16\+\_\+t $\ast$src)
+uint8\+\_\+t \hyperlink{modbus__mk_8c_ad556280c21dd1fb11215e792dcae95a1}{modbus\+\_\+\+W\+R} (int address, int nb, const uint16\+\_\+t $\ast$src)
 \begin{DoxyCompactList}\small\item\em write to register of motor \end{DoxyCompactList}\item 
-void \hyperlink{modbus__mk_8c_a0d64d93dfe900e0af0598fa8f9657bc9}{modbus\+\_\+\+W\+S\+R} (int address, const uint16\+\_\+t src)
+uint8\+\_\+t \hyperlink{modbus__mk_8c_a056b28d8cd3b5e2d8626073252b9d1fe}{modbus\+\_\+\+W\+S\+R} (int address, const uint16\+\_\+t src)
 \begin{DoxyCompactList}\small\item\em write to single register of motor \end{DoxyCompactList}\item 
-void \hyperlink{modbus__mk_8c_a07af3d991f39418f412352c96b71a8a5}{modbus\+\_\+\+R\+R} (int address, int nb, uint16\+\_\+t $\ast$src)
+uint8\+\_\+t \hyperlink{modbus__mk_8c_a8725df7914a575bb51cd9d628fc756a4}{modbus\+\_\+\+R\+R} (int address, int nb, uint16\+\_\+t $\ast$src)
 \begin{DoxyCompactList}\small\item\em read from motor register \end{DoxyCompactList}\item 
 void \hyperlink{modbus__mk_8c_a53c1eb951aff5d669c77c6a68ef33724}{motor\+Heart\+Beat\+\_\+task} (void $\ast$pv\+Parameters)
 \item 
@@ -73,15 +76,15 @@ calculation of checksum
 {\em buffer\+\_\+length} & -\/ buffer length \\
 \hline
 \end{DoxyParams}
-\hypertarget{modbus__mk_8c_a7fb8c114e41f0cfb82b36095ff9d199d}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!modbus\+\_\+\+R\+I\+B@{modbus\+\_\+\+R\+I\+B}}
+\hypertarget{modbus__mk_8c_ab833341d95099b5b8661f36403216b19}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!modbus\+\_\+\+R\+I\+B@{modbus\+\_\+\+R\+I\+B}}
 \index{modbus\+\_\+\+R\+I\+B@{modbus\+\_\+\+R\+I\+B}!modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}}
-\subsubsection[{modbus\+\_\+\+R\+I\+B}]{\setlength{\rightskip}{0pt plus 5cm}void modbus\+\_\+\+R\+I\+B (
+\subsubsection[{modbus\+\_\+\+R\+I\+B}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t modbus\+\_\+\+R\+I\+B (
 \begin{DoxyParamCaption}
 \item[{int16\+\_\+t}]{address, }
 \item[{int}]{nb, }
 \item[{uint8\+\_\+t $\ast$}]{dst}
 \end{DoxyParamCaption}
-)}}\label{modbus__mk_8c_a7fb8c114e41f0cfb82b36095ff9d199d}
+)}}\label{modbus__mk_8c_ab833341d95099b5b8661f36403216b19}
 
 
 read input bits on motor side 
@@ -95,15 +98,15 @@ read input bits on motor side
 {\em $\ast$dst} & -\/ destination buffer of read data \\
 \hline
 \end{DoxyParams}
-\hypertarget{modbus__mk_8c_a07af3d991f39418f412352c96b71a8a5}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!modbus\+\_\+\+R\+R@{modbus\+\_\+\+R\+R}}
+\hypertarget{modbus__mk_8c_a8725df7914a575bb51cd9d628fc756a4}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!modbus\+\_\+\+R\+R@{modbus\+\_\+\+R\+R}}
 \index{modbus\+\_\+\+R\+R@{modbus\+\_\+\+R\+R}!modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}}
-\subsubsection[{modbus\+\_\+\+R\+R}]{\setlength{\rightskip}{0pt plus 5cm}void modbus\+\_\+\+R\+R (
+\subsubsection[{modbus\+\_\+\+R\+R}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t modbus\+\_\+\+R\+R (
 \begin{DoxyParamCaption}
 \item[{int}]{address, }
 \item[{int}]{nb, }
 \item[{uint16\+\_\+t $\ast$}]{src}
 \end{DoxyParamCaption}
-)}}\label{modbus__mk_8c_a07af3d991f39418f412352c96b71a8a5}
+)}}\label{modbus__mk_8c_a8725df7914a575bb51cd9d628fc756a4}
 
 
 read from motor register 
@@ -117,15 +120,15 @@ read from motor register
 {\em $\ast$src} & -\/ receieved data \\
 \hline
 \end{DoxyParams}
-\hypertarget{modbus__mk_8c_a740ccaea46e256dfd32fb22c1c1a88de}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!modbus\+\_\+\+W\+I\+B@{modbus\+\_\+\+W\+I\+B}}
+\hypertarget{modbus__mk_8c_a6294e3bb440c2ea04f25f01120a08f64}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!modbus\+\_\+\+W\+I\+B@{modbus\+\_\+\+W\+I\+B}}
 \index{modbus\+\_\+\+W\+I\+B@{modbus\+\_\+\+W\+I\+B}!modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}}
-\subsubsection[{modbus\+\_\+\+W\+I\+B}]{\setlength{\rightskip}{0pt plus 5cm}void modbus\+\_\+\+W\+I\+B (
+\subsubsection[{modbus\+\_\+\+W\+I\+B}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t modbus\+\_\+\+W\+I\+B (
 \begin{DoxyParamCaption}
 \item[{uint16\+\_\+t}]{address, }
 \item[{int}]{nb, }
 \item[{uint8\+\_\+t $\ast$}]{src}
 \end{DoxyParamCaption}
-)}}\label{modbus__mk_8c_a740ccaea46e256dfd32fb22c1c1a88de}
+)}}\label{modbus__mk_8c_a6294e3bb440c2ea04f25f01120a08f64}
 
 
 write bits to register 
@@ -139,15 +142,15 @@ write bits to register
 {\em $\ast$src} & -\/ source buffer of bits to send \\
 \hline
 \end{DoxyParams}
-\hypertarget{modbus__mk_8c_ace18133f61c61ccb510c59251d8e0949}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!modbus\+\_\+\+W\+R@{modbus\+\_\+\+W\+R}}
+\hypertarget{modbus__mk_8c_ad556280c21dd1fb11215e792dcae95a1}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!modbus\+\_\+\+W\+R@{modbus\+\_\+\+W\+R}}
 \index{modbus\+\_\+\+W\+R@{modbus\+\_\+\+W\+R}!modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}}
-\subsubsection[{modbus\+\_\+\+W\+R}]{\setlength{\rightskip}{0pt plus 5cm}void modbus\+\_\+\+W\+R (
+\subsubsection[{modbus\+\_\+\+W\+R}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t modbus\+\_\+\+W\+R (
 \begin{DoxyParamCaption}
 \item[{int}]{address, }
 \item[{int}]{nb, }
 \item[{const uint16\+\_\+t $\ast$}]{src}
 \end{DoxyParamCaption}
-)}}\label{modbus__mk_8c_ace18133f61c61ccb510c59251d8e0949}
+)}}\label{modbus__mk_8c_ad556280c21dd1fb11215e792dcae95a1}
 
 
 write to register of motor 
@@ -161,14 +164,14 @@ write to register of motor
 {\em $\ast$src} & -\/ pointer to data to send \\
 \hline
 \end{DoxyParams}
-\hypertarget{modbus__mk_8c_a0d64d93dfe900e0af0598fa8f9657bc9}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!modbus\+\_\+\+W\+S\+R@{modbus\+\_\+\+W\+S\+R}}
+\hypertarget{modbus__mk_8c_a056b28d8cd3b5e2d8626073252b9d1fe}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!modbus\+\_\+\+W\+S\+R@{modbus\+\_\+\+W\+S\+R}}
 \index{modbus\+\_\+\+W\+S\+R@{modbus\+\_\+\+W\+S\+R}!modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}}
-\subsubsection[{modbus\+\_\+\+W\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}void modbus\+\_\+\+W\+S\+R (
+\subsubsection[{modbus\+\_\+\+W\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t modbus\+\_\+\+W\+S\+R (
 \begin{DoxyParamCaption}
 \item[{int}]{address, }
 \item[{const uint16\+\_\+t}]{src}
 \end{DoxyParamCaption}
-)}}\label{modbus__mk_8c_a0d64d93dfe900e0af0598fa8f9657bc9}
+)}}\label{modbus__mk_8c_a056b28d8cd3b5e2d8626073252b9d1fe}
 
 
 write to single register of motor 
@@ -208,16 +211,16 @@ It takes two arguments\+: U\+S\+A\+R\+Tx --$>$ can be any of the U\+S\+A\+R\+Ts 
 
 Note\+: The string has to be passed to the function as a pointer because the compiler doesn't know the 'string' data type. In standard C a string is just an array of characters
 
-Note 2\+: At the moment it takes a volatile char because the received\+\_\+string variable declared as volatile char --$>$ otherwise the compiler will spit out warnings\hypertarget{modbus__mk_8c_a9fd99d3fa9c3bff4a1898e0f890766a1}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!write\+\_\+read\+\_\+modbus@{write\+\_\+read\+\_\+modbus}}
+Note 2\+: At the moment it takes a volatile char because the received\+\_\+string variable declared as volatile char --$>$ otherwise the compiler will spit out warnings\hypertarget{modbus__mk_8c_a54f3cfc3205819c15d1d6bd57aca2c37}{\index{modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}!write\+\_\+read\+\_\+modbus@{write\+\_\+read\+\_\+modbus}}
 \index{write\+\_\+read\+\_\+modbus@{write\+\_\+read\+\_\+modbus}!modbus\+\_\+mk.\+c@{modbus\+\_\+mk.\+c}}
-\subsubsection[{write\+\_\+read\+\_\+modbus}]{\setlength{\rightskip}{0pt plus 5cm}void write\+\_\+read\+\_\+modbus (
+\subsubsection[{write\+\_\+read\+\_\+modbus}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t write\+\_\+read\+\_\+modbus (
 \begin{DoxyParamCaption}
 \item[{uint8\+\_\+t $\ast$}]{req, }
 \item[{uint8\+\_\+t $\ast$}]{rsp, }
 \item[{int}]{write\+\_\+len, }
 \item[{int}]{read\+\_\+len}
 \end{DoxyParamCaption}
-)}}\label{modbus__mk_8c_a9fd99d3fa9c3bff4a1898e0f890766a1}
+)}}\label{modbus__mk_8c_a54f3cfc3205819c15d1d6bd57aca2c37}
 
 
 write and read data to modbus line 

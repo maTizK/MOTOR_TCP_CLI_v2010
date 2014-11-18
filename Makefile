@@ -127,7 +127,7 @@ OBJECTS  = $(addprefix $(OBJDIR)/,$(addsuffix .o,$(basename $(SOURCES))))
 
 # Place -D, -U or -I options here for C and C++ sources
 CPPFLAGS += -ISource
-CPPFLAGS += -ISource/include
+CPPFLAGS += -ISource/include/
 CPPFLAGS += -ISource/FreeRTOS-Plus-CLI/
 CPPFLAGS += -IApp/STM32F4-Discovery/Libraries/CMSIS/Include
 CPPFLAGS += -IApp/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include

@@ -2598,7 +2598,7 @@
  1414              	.LC0:
  1415 0000 49444C45 		.ascii	"IDLE\000"
  1415      00
- 1416 0005 000000   		.section	.text.vTaskStartScheduler,"ax",%progbits
+ 1416              		.section	.text.vTaskStartScheduler,"ax",%progbits
  1417              		.align	2
  1418              		.global	vTaskStartScheduler
  1419              		.thumb
@@ -4309,7 +4309,7 @@
  2496 00dc 00000000 		.word	uxSchedulerSuspended
  2497 00e0 00000000 		.word	xYieldPending
  2498 00e4 00000000 		.word	pxCurrentTCB
- 2499 00e8 00000000 		.word	ucExpectedStackBytes.8478
+ 2499 00e8 00000000 		.word	ucExpectedStackBytes.9202
  2500 00ec 00000000 		.word	uxTopReadyPriority
  2501 00f0 00000000 		.word	pxReadyTasksLists
  2502              		.cfi_endproc
@@ -6858,200 +6858,502 @@
  4218 0078 00000000 		.word	pxReadyTasksLists
  4219              		.cfi_endproc
  4220              	.LFE150:
- 4222              		.section	.rodata.ucExpectedStackBytes.8478,"a",%progbits
- 4223              		.align	2
- 4226              	ucExpectedStackBytes.8478:
- 4227 0000 A5       		.byte	-91
- 4228 0001 A5       		.byte	-91
- 4229 0002 A5       		.byte	-91
- 4230 0003 A5       		.byte	-91
- 4231 0004 A5       		.byte	-91
- 4232 0005 A5       		.byte	-91
- 4233 0006 A5       		.byte	-91
- 4234 0007 A5       		.byte	-91
- 4235 0008 A5       		.byte	-91
- 4236 0009 A5       		.byte	-91
- 4237 000a A5       		.byte	-91
- 4238 000b A5       		.byte	-91
- 4239 000c A5       		.byte	-91
- 4240 000d A5       		.byte	-91
- 4241 000e A5       		.byte	-91
- 4242 000f A5       		.byte	-91
- 4243 0010 A5       		.byte	-91
- 4244 0011 A5       		.byte	-91
- 4245 0012 A5       		.byte	-91
- 4246 0013 A5       		.byte	-91
- 4247              		.text
- 4248              	.Letext0:
- 4249              		.file 2 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/lib/gcc/arm-none-eabi/4.8.4/include/std
- 4250              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
- 4251              		.file 4 "Source/include/projdefs.h"
- 4252              		.file 5 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
- 4253              		.file 6 "Source/portable/GCC/ARM_CM4F/portmacro.h"
- 4254              		.file 7 "Source/include/list.h"
- 4255              		.file 8 "Source/include/task.h"
- 4256              		.file 9 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
+ 4222              		.section	.rodata
+ 4223 0005 000000   		.align	2
+ 4224              	.LC1:
+ 4225 0008 25730909 		.ascii	"%s\011\011%c\011%u\011%u\011%u\015\012\000"
+ 4225      25630925 
+ 4225      75092575 
+ 4225      0925750D 
+ 4225      0A00
+ 4226 001a 0000     		.section	.text.vTaskList,"ax",%progbits
+ 4227              		.align	2
+ 4228              		.global	vTaskList
+ 4229              		.thumb
+ 4230              		.thumb_func
+ 4232              	vTaskList:
+ 4233              	.LFB151:
+2729:Source/tasks.c **** 
+2730:Source/tasks.c **** #endif /* configUSE_MUTEXES */
+2731:Source/tasks.c **** /*-----------------------------------------------------------*/
+2732:Source/tasks.c **** 
+2733:Source/tasks.c **** #if ( portCRITICAL_NESTING_IN_TCB == 1 )
+2734:Source/tasks.c **** 
+2735:Source/tasks.c **** 	void vTaskEnterCritical( void )
+2736:Source/tasks.c **** 	{
+2737:Source/tasks.c **** 		portDISABLE_INTERRUPTS();
+2738:Source/tasks.c **** 
+2739:Source/tasks.c **** 		if( xSchedulerRunning != pdFALSE )
+2740:Source/tasks.c **** 		{
+2741:Source/tasks.c **** 			( pxCurrentTCB->uxCriticalNesting )++;
+2742:Source/tasks.c **** 		}
+2743:Source/tasks.c **** 	}
+2744:Source/tasks.c **** 
+2745:Source/tasks.c **** #endif /* portCRITICAL_NESTING_IN_TCB */
+2746:Source/tasks.c **** /*-----------------------------------------------------------*/
+2747:Source/tasks.c **** 
+2748:Source/tasks.c **** #if ( portCRITICAL_NESTING_IN_TCB == 1 )
+2749:Source/tasks.c **** 
+2750:Source/tasks.c **** 	void vTaskExitCritical( void )
+2751:Source/tasks.c **** 	{
+2752:Source/tasks.c **** 		if( xSchedulerRunning != pdFALSE )
+2753:Source/tasks.c **** 		{
+2754:Source/tasks.c **** 			if( pxCurrentTCB->uxCriticalNesting > 0U )
+2755:Source/tasks.c **** 			{
+2756:Source/tasks.c **** 				( pxCurrentTCB->uxCriticalNesting )--;
+2757:Source/tasks.c **** 
+2758:Source/tasks.c **** 				if( pxCurrentTCB->uxCriticalNesting == 0U )
+2759:Source/tasks.c **** 				{
+2760:Source/tasks.c **** 					portENABLE_INTERRUPTS();
+2761:Source/tasks.c **** 				}
+2762:Source/tasks.c **** 			}
+2763:Source/tasks.c **** 		}
+2764:Source/tasks.c **** 	}
+2765:Source/tasks.c **** 
+2766:Source/tasks.c **** #endif /* portCRITICAL_NESTING_IN_TCB */
+2767:Source/tasks.c **** /*-----------------------------------------------------------*/
+2768:Source/tasks.c **** 
+2769:Source/tasks.c **** #if ( ( configUSE_TRACE_FACILITY == 1 ) && ( configUSE_STATS_FORMATTING_FUNCTIONS == 1 ) )
+2770:Source/tasks.c **** 
+2771:Source/tasks.c **** 	void vTaskList( signed char *pcWriteBuffer )
+2772:Source/tasks.c **** 	{
+ 4234              		.loc 1 2772 0
+ 4235              		.cfi_startproc
+ 4236              		@ args = 0, pretend = 0, frame = 24
+ 4237              		@ frame_needed = 1, uses_anonymous_args = 0
+ 4238 0000 B0B5     		push	{r4, r5, r7, lr}
+ 4239              	.LCFI119:
+ 4240              		.cfi_def_cfa_offset 16
+ 4241              		.cfi_offset 4, -16
+ 4242              		.cfi_offset 5, -12
+ 4243              		.cfi_offset 7, -8
+ 4244              		.cfi_offset 14, -4
+ 4245 0002 8AB0     		sub	sp, sp, #40
+ 4246              	.LCFI120:
+ 4247              		.cfi_def_cfa_offset 56
+ 4248 0004 04AF     		add	r7, sp, #16
+ 4249              	.LCFI121:
+ 4250              		.cfi_def_cfa 7, 40
+ 4251 0006 7860     		str	r0, [r7, #4]
+2773:Source/tasks.c **** 	xTaskStatusType *pxTaskStatusArray;
+2774:Source/tasks.c **** 	volatile unsigned portBASE_TYPE uxArraySize, x;
+2775:Source/tasks.c **** 	char cStatus;
+2776:Source/tasks.c **** 
+2777:Source/tasks.c **** 		/*
+2778:Source/tasks.c **** 		 * PLEASE NOTE:
+2779:Source/tasks.c **** 		 *
+2780:Source/tasks.c **** 		 * This function is provided for convenience only, and is used by many
+2781:Source/tasks.c **** 		 * of the demo applications.  Do not consider it to be part of the
+2782:Source/tasks.c **** 		 * scheduler.
+2783:Source/tasks.c **** 		 *
+2784:Source/tasks.c **** 		 * vTaskList() calls uxTaskGetSystemState(), then formats part of the
+2785:Source/tasks.c **** 		 * uxTaskGetSystemState() output into a human readable table that
+2786:Source/tasks.c **** 		 * displays task names, states and stack usage.
+2787:Source/tasks.c **** 		 *
+2788:Source/tasks.c **** 		 * vTaskList() has a dependency on the sprintf() C library function that
+2789:Source/tasks.c **** 		 * might bloat the code size, use a lot of stack, and provide different
+2790:Source/tasks.c **** 		 * results on different platforms.  An alternative, tiny, third party,
+2791:Source/tasks.c **** 		 * and limited functionality implementation of sprintf() is provided in
+2792:Source/tasks.c **** 		 * many of the FreeRTOS/Demo sub-directories in a file called
+2793:Source/tasks.c **** 		 * printf-stdarg.c (note printf-stdarg.c does not provide a full
+2794:Source/tasks.c **** 		 * snprintf() implementation!).
+2795:Source/tasks.c **** 		 *
+2796:Source/tasks.c **** 		 * It is recommended that production systems call uxTaskGetSystemState()
+2797:Source/tasks.c **** 		 * directly to get access to raw stats data, rather than indirectly
+2798:Source/tasks.c **** 		 * through a call to vTaskList().
+2799:Source/tasks.c **** 		 */
+2800:Source/tasks.c **** 
+2801:Source/tasks.c **** 
+2802:Source/tasks.c **** 		/* Make sure the write buffer does not contain a string. */
+2803:Source/tasks.c **** 		*pcWriteBuffer = 0x00;
+ 4252              		.loc 1 2803 0
+ 4253 0008 7B68     		ldr	r3, [r7, #4]
+ 4254 000a 0022     		movs	r2, #0
+ 4255 000c 1A70     		strb	r2, [r3]
+2804:Source/tasks.c **** 
+2805:Source/tasks.c **** 		/* Take a snapshot of the number of tasks in case it changes while this
+2806:Source/tasks.c **** 		function is executing. */
+2807:Source/tasks.c **** 		uxArraySize = uxCurrentNumberOfTasks;
+ 4256              		.loc 1 2807 0
+ 4257 000e 354B     		ldr	r3, .L313
+ 4258 0010 1B68     		ldr	r3, [r3]
+ 4259 0012 FB60     		str	r3, [r7, #12]
+2808:Source/tasks.c **** 
+2809:Source/tasks.c **** 		/* Allocate an array index for each task. */
+2810:Source/tasks.c **** 		pxTaskStatusArray = pvPortMalloc( uxCurrentNumberOfTasks * sizeof( xTaskStatusType ) );
+ 4260              		.loc 1 2810 0
+ 4261 0014 334B     		ldr	r3, .L313
+ 4262 0016 1B68     		ldr	r3, [r3]
+ 4263 0018 5B01     		lsls	r3, r3, #5
+ 4264 001a 1846     		mov	r0, r3
+ 4265 001c FFF7FEFF 		bl	pvPortMalloc
+ 4266 0020 3861     		str	r0, [r7, #16]
+2811:Source/tasks.c **** 
+2812:Source/tasks.c **** 		if( pxTaskStatusArray != NULL )
+ 4267              		.loc 1 2812 0
+ 4268 0022 3B69     		ldr	r3, [r7, #16]
+ 4269 0024 002B     		cmp	r3, #0
+ 4270 0026 5AD0     		beq	.L302
+2813:Source/tasks.c **** 		{
+2814:Source/tasks.c **** 			/* Generate the (binary) data. */
+2815:Source/tasks.c **** 			uxArraySize = uxTaskGetSystemState( pxTaskStatusArray, uxArraySize, NULL );
+ 4271              		.loc 1 2815 0
+ 4272 0028 FB68     		ldr	r3, [r7, #12]
+ 4273 002a 3869     		ldr	r0, [r7, #16]
+ 4274 002c 1946     		mov	r1, r3
+ 4275 002e 0022     		movs	r2, #0
+ 4276 0030 FFF7FEFF 		bl	uxTaskGetSystemState
+ 4277 0034 0346     		mov	r3, r0
+ 4278 0036 FB60     		str	r3, [r7, #12]
+2816:Source/tasks.c **** 
+2817:Source/tasks.c **** 			/* Create a human readable table from the binary data. */
+2818:Source/tasks.c **** 			for( x = 0; x < uxArraySize; x++ )
+ 4279              		.loc 1 2818 0
+ 4280 0038 0023     		movs	r3, #0
+ 4281 003a BB60     		str	r3, [r7, #8]
+ 4282 003c 48E0     		b	.L304
+ 4283              	.L312:
+2819:Source/tasks.c **** 			{
+2820:Source/tasks.c **** 				switch( pxTaskStatusArray[ x ].eCurrentState )
+ 4284              		.loc 1 2820 0
+ 4285 003e BB68     		ldr	r3, [r7, #8]
+ 4286 0040 5B01     		lsls	r3, r3, #5
+ 4287 0042 3A69     		ldr	r2, [r7, #16]
+ 4288 0044 1344     		add	r3, r3, r2
+ 4289 0046 1B7B     		ldrb	r3, [r3, #12]	@ zero_extendqisi2
+ 4290 0048 013B     		subs	r3, r3, #1
+ 4291 004a 032B     		cmp	r3, #3
+ 4292 004c 16D8     		bhi	.L305
+ 4293 004e 01A2     		adr	r2, .L307
+ 4294 0050 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 4295              		.p2align 2
+ 4296              	.L307:
+ 4297 0054 65000000 		.word	.L306+1
+ 4298 0058 6B000000 		.word	.L308+1
+ 4299 005c 71000000 		.word	.L309+1
+ 4300 0060 77000000 		.word	.L310+1
+ 4301              		.p2align 1
+ 4302              	.L306:
+2821:Source/tasks.c **** 				{
+2822:Source/tasks.c **** 				case eReady:		cStatus = tskREADY_CHAR;
+ 4303              		.loc 1 2822 0
+ 4304 0064 5223     		movs	r3, #82
+ 4305 0066 FB75     		strb	r3, [r7, #23]
+2823:Source/tasks.c **** 									break;
+ 4306              		.loc 1 2823 0
+ 4307 0068 0BE0     		b	.L311
+ 4308              	.L308:
+2824:Source/tasks.c **** 
+2825:Source/tasks.c **** 				case eBlocked:		cStatus = tskBLOCKED_CHAR;
+ 4309              		.loc 1 2825 0
+ 4310 006a 4223     		movs	r3, #66
+ 4311 006c FB75     		strb	r3, [r7, #23]
+2826:Source/tasks.c **** 									break;
+ 4312              		.loc 1 2826 0
+ 4313 006e 08E0     		b	.L311
+ 4314              	.L309:
+2827:Source/tasks.c **** 
+2828:Source/tasks.c **** 				case eSuspended:	cStatus = tskSUSPENDED_CHAR;
+ 4315              		.loc 1 2828 0
+ 4316 0070 5323     		movs	r3, #83
+ 4317 0072 FB75     		strb	r3, [r7, #23]
+2829:Source/tasks.c **** 									break;
+ 4318              		.loc 1 2829 0
+ 4319 0074 05E0     		b	.L311
+ 4320              	.L310:
+2830:Source/tasks.c **** 
+2831:Source/tasks.c **** 				case eDeleted:		cStatus = tskDELETED_CHAR;
+ 4321              		.loc 1 2831 0
+ 4322 0076 4423     		movs	r3, #68
+ 4323 0078 FB75     		strb	r3, [r7, #23]
+2832:Source/tasks.c **** 									break;
+ 4324              		.loc 1 2832 0
+ 4325 007a 02E0     		b	.L311
+ 4326              	.L305:
+2833:Source/tasks.c **** 
+2834:Source/tasks.c **** 				default:			/* Should not get here, but it is included
+2835:Source/tasks.c **** 									to prevent static checking errors. */
+2836:Source/tasks.c **** 									cStatus = 0x00;
+ 4327              		.loc 1 2836 0
+ 4328 007c 0023     		movs	r3, #0
+ 4329 007e FB75     		strb	r3, [r7, #23]
+2837:Source/tasks.c **** 									break;
+ 4330              		.loc 1 2837 0
+ 4331 0080 00BF     		nop
+ 4332              	.L311:
+2838:Source/tasks.c **** 				}
+2839:Source/tasks.c **** 
+2840:Source/tasks.c **** 				sprintf( ( char * ) pcWriteBuffer, ( char * ) "%s\t\t%c\t%u\t%u\t%u\r\n", pxTaskStatusArray[ x 
+ 4333              		.loc 1 2840 0
+ 4334 0082 BB68     		ldr	r3, [r7, #8]
+ 4335 0084 5B01     		lsls	r3, r3, #5
+ 4336 0086 3A69     		ldr	r2, [r7, #16]
+ 4337 0088 1344     		add	r3, r3, r2
+ 4338 008a 5A68     		ldr	r2, [r3, #4]
+ 4339 008c FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 4340 008e B968     		ldr	r1, [r7, #8]
+ 4341 0090 4901     		lsls	r1, r1, #5
+ 4342 0092 3869     		ldr	r0, [r7, #16]
+ 4343 0094 0144     		add	r1, r1, r0
+ 4344 0096 0C69     		ldr	r4, [r1, #16]
+ 4345 0098 B968     		ldr	r1, [r7, #8]
+ 4346 009a 4901     		lsls	r1, r1, #5
+ 4347 009c 3869     		ldr	r0, [r7, #16]
+ 4348 009e 0144     		add	r1, r1, r0
+ 4349 00a0 898B     		ldrh	r1, [r1, #28]
+ 4350 00a2 0846     		mov	r0, r1
+ 4351 00a4 B968     		ldr	r1, [r7, #8]
+ 4352 00a6 4901     		lsls	r1, r1, #5
+ 4353 00a8 3D69     		ldr	r5, [r7, #16]
+ 4354 00aa 2944     		add	r1, r1, r5
+ 4355 00ac 8968     		ldr	r1, [r1, #8]
+ 4356 00ae 0094     		str	r4, [sp]
+ 4357 00b0 0190     		str	r0, [sp, #4]
+ 4358 00b2 0291     		str	r1, [sp, #8]
+ 4359 00b4 7868     		ldr	r0, [r7, #4]
+ 4360 00b6 0C49     		ldr	r1, .L313+4
+ 4361 00b8 FFF7FEFF 		bl	sprintf
+2841:Source/tasks.c **** 				pcWriteBuffer += strlen( ( char * ) pcWriteBuffer );
+ 4362              		.loc 1 2841 0
+ 4363 00bc 7868     		ldr	r0, [r7, #4]
+ 4364 00be FFF7FEFF 		bl	strlen
+ 4365 00c2 0346     		mov	r3, r0
+ 4366 00c4 7A68     		ldr	r2, [r7, #4]
+ 4367 00c6 1344     		add	r3, r3, r2
+ 4368 00c8 7B60     		str	r3, [r7, #4]
+2818:Source/tasks.c **** 			for( x = 0; x < uxArraySize; x++ )
+ 4369              		.loc 1 2818 0
+ 4370 00ca BB68     		ldr	r3, [r7, #8]
+ 4371 00cc 0133     		adds	r3, r3, #1
+ 4372 00ce BB60     		str	r3, [r7, #8]
+ 4373              	.L304:
+2818:Source/tasks.c **** 			for( x = 0; x < uxArraySize; x++ )
+ 4374              		.loc 1 2818 0 is_stmt 0 discriminator 1
+ 4375 00d0 BA68     		ldr	r2, [r7, #8]
+ 4376 00d2 FB68     		ldr	r3, [r7, #12]
+ 4377 00d4 9A42     		cmp	r2, r3
+ 4378 00d6 B2D3     		bcc	.L312
+2842:Source/tasks.c **** 			}
+2843:Source/tasks.c **** 
+2844:Source/tasks.c **** 			/* Free the array again. */
+2845:Source/tasks.c **** 			vPortFree( pxTaskStatusArray );
+ 4379              		.loc 1 2845 0 is_stmt 1
+ 4380 00d8 3869     		ldr	r0, [r7, #16]
+ 4381 00da FFF7FEFF 		bl	vPortFree
+ 4382              	.L302:
+2846:Source/tasks.c **** 		}
+2847:Source/tasks.c **** 	}
+ 4383              		.loc 1 2847 0
+ 4384 00de 1837     		adds	r7, r7, #24
+ 4385 00e0 BD46     		mov	sp, r7
+ 4386              		@ sp needed
+ 4387 00e2 B0BD     		pop	{r4, r5, r7, pc}
+ 4388              	.L314:
+ 4389              		.align	2
+ 4390              	.L313:
+ 4391 00e4 00000000 		.word	uxCurrentNumberOfTasks
+ 4392 00e8 08000000 		.word	.LC1
+ 4393              		.cfi_endproc
+ 4394              	.LFE151:
+ 4396              		.section	.rodata.ucExpectedStackBytes.9202,"a",%progbits
+ 4397              		.align	2
+ 4400              	ucExpectedStackBytes.9202:
+ 4401 0000 A5       		.byte	-91
+ 4402 0001 A5       		.byte	-91
+ 4403 0002 A5       		.byte	-91
+ 4404 0003 A5       		.byte	-91
+ 4405 0004 A5       		.byte	-91
+ 4406 0005 A5       		.byte	-91
+ 4407 0006 A5       		.byte	-91
+ 4408 0007 A5       		.byte	-91
+ 4409 0008 A5       		.byte	-91
+ 4410 0009 A5       		.byte	-91
+ 4411 000a A5       		.byte	-91
+ 4412 000b A5       		.byte	-91
+ 4413 000c A5       		.byte	-91
+ 4414 000d A5       		.byte	-91
+ 4415 000e A5       		.byte	-91
+ 4416 000f A5       		.byte	-91
+ 4417 0010 A5       		.byte	-91
+ 4418 0011 A5       		.byte	-91
+ 4419 0012 A5       		.byte	-91
+ 4420 0013 A5       		.byte	-91
+ 4421              		.text
+ 4422              	.Letext0:
+ 4423              		.file 2 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/lib/gcc/arm-none-eabi/4.8.4/include/std
+ 4424              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
+ 4425              		.file 4 "Source/include/projdefs.h"
+ 4426              		.file 5 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
+ 4427              		.file 6 "Source/portable/GCC/ARM_CM4F/portmacro.h"
+ 4428              		.file 7 "Source/include/list.h"
+ 4429              		.file 8 "Source/include/task.h"
+ 4430              		.file 9 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 tasks.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:24     .bss.pxCurrentTCB:0000000000000000 pxCurrentTCB
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:21     .bss.pxCurrentTCB:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:27     .bss.pxReadyTasksLists:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:30     .bss.pxReadyTasksLists:0000000000000000 pxReadyTasksLists
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:33     .bss.xDelayedTaskList1:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:36     .bss.xDelayedTaskList1:0000000000000000 xDelayedTaskList1
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:39     .bss.xDelayedTaskList2:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:42     .bss.xDelayedTaskList2:0000000000000000 xDelayedTaskList2
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:45     .bss.pxDelayedTaskList:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:48     .bss.pxDelayedTaskList:0000000000000000 pxDelayedTaskList
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:51     .bss.pxOverflowDelayedTaskList:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:54     .bss.pxOverflowDelayedTaskList:0000000000000000 pxOverflowDelayedTaskList
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:57     .bss.xPendingReadyList:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:60     .bss.xPendingReadyList:0000000000000000 xPendingReadyList
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:63     .bss.xTasksWaitingTermination:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:66     .bss.xTasksWaitingTermination:0000000000000000 xTasksWaitingTermination
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:69     .bss.uxTasksDeleted:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:72     .bss.uxTasksDeleted:0000000000000000 uxTasksDeleted
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:75     .bss.xSuspendedTaskList:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:78     .bss.xSuspendedTaskList:0000000000000000 xSuspendedTaskList
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:81     .bss.uxCurrentNumberOfTasks:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:84     .bss.uxCurrentNumberOfTasks:0000000000000000 uxCurrentNumberOfTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:87     .bss.xTickCount:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:90     .bss.xTickCount:0000000000000000 xTickCount
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:93     .bss.uxTopReadyPriority:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:96     .bss.uxTopReadyPriority:0000000000000000 uxTopReadyPriority
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:99     .bss.xSchedulerRunning:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:102    .bss.xSchedulerRunning:0000000000000000 xSchedulerRunning
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:105    .bss.uxSchedulerSuspended:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:108    .bss.uxSchedulerSuspended:0000000000000000 uxSchedulerSuspended
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:111    .bss.uxPendedTicks:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:114    .bss.uxPendedTicks:0000000000000000 uxPendedTicks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:117    .bss.xYieldPending:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:120    .bss.xYieldPending:0000000000000000 xYieldPending
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:123    .bss.xNumOfOverflows:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:126    .bss.xNumOfOverflows:0000000000000000 xNumOfOverflows
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:129    .bss.uxTaskNumber:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:132    .bss.uxTaskNumber:0000000000000000 uxTaskNumber
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:135    .data.xNextTaskUnblockTime:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:138    .data.xNextTaskUnblockTime:0000000000000000 xNextTaskUnblockTime
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:141    .text.xTaskGenericCreate:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:146    .text.xTaskGenericCreate:0000000000000000 xTaskGenericCreate
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3535   .text.prvAllocateTCBAndStack:0000000000000000 prvAllocateTCBAndStack
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3159   .text.prvInitialiseTCBVariables:0000000000000000 prvInitialiseTCBVariables
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3271   .text.prvInitialiseTaskLists:0000000000000000 prvInitialiseTaskLists
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:369    .text.xTaskGenericCreate:0000000000000150 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:379    .text.vTaskDelete:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:384    .text.vTaskDelete:0000000000000000 vTaskDelete
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:476    .text.vTaskDelete:0000000000000078 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:485    .text.vTaskDelayUntil:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:490    .text.vTaskDelayUntil:0000000000000000 vTaskDelayUntil
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1547   .text.vTaskSuspendAll:0000000000000000 vTaskSuspendAll
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3454   .text.prvAddCurrentTaskToDelayedList:0000000000000000 prvAddCurrentTaskToDelayedList
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1585   .text.xTaskResumeAll:0000000000000000 xTaskResumeAll
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:618    .text.vTaskDelayUntil:00000000000000a8 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:624    .text.vTaskDelay:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:629    .text.vTaskDelay:0000000000000000 vTaskDelay
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:690    .text.vTaskDelay:0000000000000048 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:696    .text.uxTaskPriorityGet:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:701    .text.uxTaskPriorityGet:0000000000000000 uxTaskPriorityGet
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:752    .text.uxTaskPriorityGet:0000000000000030 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:757    .text.vTaskPrioritySet:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:762    .text.vTaskPrioritySet:0000000000000000 vTaskPrioritySet
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:956    .text.vTaskPrioritySet:0000000000000110 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:963    .text.vTaskSuspend:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:968    .text.vTaskSuspend:0000000000000000 vTaskSuspend
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2343   .text.vTaskSwitchContext:0000000000000000 vTaskSwitchContext
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1065   .text.vTaskSuspend:0000000000000080 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1073   .text.xTaskIsTaskSuspended:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1078   .text.xTaskIsTaskSuspended:0000000000000000 xTaskIsTaskSuspended
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1163   .text.xTaskIsTaskSuspended:000000000000005c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1169   .text.vTaskResume:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1174   .text.vTaskResume:0000000000000000 vTaskResume
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1276   .text.vTaskResume:0000000000000090 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1283   .text.xTaskResumeFromISR:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1288   .text.xTaskResumeFromISR:0000000000000000 xTaskResumeFromISR
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1404   .text.xTaskResumeFromISR:00000000000000a4 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1413   .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1417   .text.vTaskStartScheduler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1422   .text.vTaskStartScheduler:0000000000000000 vTaskStartScheduler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1497   .text.vTaskStartScheduler:0000000000000060 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3112   .text.prvIdleTask:0000000000000000 prvIdleTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1505   .text.vTaskEndScheduler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1510   .text.vTaskEndScheduler:0000000000000000 vTaskEndScheduler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1537   .text.vTaskEndScheduler:0000000000000014 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1542   .text.vTaskSuspendAll:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1575   .text.vTaskSuspendAll:0000000000000018 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1580   .text.xTaskResumeAll:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2055   .text.xTaskIncrementTick:0000000000000000 xTaskIncrementTick
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1751   .text.xTaskResumeAll:00000000000000ec $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1763   .text.xTaskGetTickCount:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1768   .text.xTaskGetTickCount:0000000000000000 xTaskGetTickCount
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1804   .text.xTaskGetTickCount:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1809   .text.xTaskGetTickCountFromISR:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1814   .text.xTaskGetTickCountFromISR:0000000000000000 xTaskGetTickCountFromISR
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1854   .text.xTaskGetTickCountFromISR:0000000000000028 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1859   .text.uxTaskGetNumberOfTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1864   .text.uxTaskGetNumberOfTasks:0000000000000000 uxTaskGetNumberOfTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1890   .text.uxTaskGetNumberOfTasks:0000000000000014 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1895   .text.uxTaskGetSystemState:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:1900   .text.uxTaskGetSystemState:0000000000000000 uxTaskGetSystemState
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3620   .text.prvListTaskWithinSingleList:0000000000000000 prvListTaskWithinSingleList
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2040   .text.uxTaskGetSystemState:00000000000000e0 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2050   .text.xTaskIncrementTick:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2323   .text.xTaskIncrementTick:0000000000000180 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2338   .text.vTaskSwitchContext:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2496   .text.vTaskSwitchContext:00000000000000dc $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:4226   .rodata.ucExpectedStackBytes.8478:0000000000000000 ucExpectedStackBytes.8478
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2506   .text.vTaskPlaceOnEventList:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2511   .text.vTaskPlaceOnEventList:0000000000000000 vTaskPlaceOnEventList
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2583   .text.vTaskPlaceOnEventList:0000000000000060 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2590   .text.vTaskPlaceOnEventListRestricted:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2595   .text.vTaskPlaceOnEventListRestricted:0000000000000000 vTaskPlaceOnEventListRestricted
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2653   .text.vTaskPlaceOnEventListRestricted:0000000000000048 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2659   .text.xTaskRemoveFromEventList:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2664   .text.xTaskRemoveFromEventList:0000000000000000 xTaskRemoveFromEventList
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2779   .text.xTaskRemoveFromEventList:00000000000000a0 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2789   .text.vTaskSetTimeOutState:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2794   .text.vTaskSetTimeOutState:0000000000000000 vTaskSetTimeOutState
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2839   .text.vTaskSetTimeOutState:000000000000002c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2845   .text.xTaskCheckForTimeOut:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2850   .text.xTaskCheckForTimeOut:0000000000000000 xTaskCheckForTimeOut
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2967   .text.xTaskCheckForTimeOut:0000000000000098 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2973   .text.vTaskMissedYield:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:2978   .text.vTaskMissedYield:0000000000000000 vTaskMissedYield
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3004   .text.vTaskMissedYield:0000000000000014 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3009   .text.uxTaskGetTaskNumber:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3014   .text.uxTaskGetTaskNumber:0000000000000000 uxTaskGetTaskNumber
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3062   .text.vTaskSetTaskNumber:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3067   .text.vTaskSetTaskNumber:0000000000000000 vTaskSetTaskNumber
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3108   .text.prvIdleTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3359   .text.prvCheckTasksWaitingTermination:0000000000000000 prvCheckTasksWaitingTermination
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3150   .text.prvIdleTask:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3155   .text.prvInitialiseTCBVariables:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3267   .text.prvInitialiseTaskLists:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3343   .text.prvInitialiseTaskLists:000000000000005c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3355   .text.prvCheckTasksWaitingTermination:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3856   .text.prvDeleteTCB:0000000000000000 prvDeleteTCB
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3443   .text.prvCheckTasksWaitingTermination:0000000000000068 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3450   .text.prvAddCurrentTaskToDelayedList:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3522   .text.prvAddCurrentTaskToDelayedList:0000000000000058 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3531   .text.prvAllocateTCBAndStack:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3616   .text.prvListTaskWithinSingleList:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3797   .text.prvTaskCheckFreeStackSpace:0000000000000000 prvTaskCheckFreeStackSpace
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3793   .text.prvTaskCheckFreeStackSpace:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3852   .text.prvDeleteTCB:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3891   .text.xTaskGetCurrentTaskHandle:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3896   .text.xTaskGetCurrentTaskHandle:0000000000000000 xTaskGetCurrentTaskHandle
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3929   .text.xTaskGetCurrentTaskHandle:000000000000001c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3934   .text.xTaskGetSchedulerState:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3939   .text.xTaskGetSchedulerState:0000000000000000 xTaskGetSchedulerState
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3992   .text.xTaskGetSchedulerState:0000000000000034 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:3998   .text.vTaskPriorityInherit:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:4003   .text.vTaskPriorityInherit:0000000000000000 vTaskPriorityInherit
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:4121   .text.vTaskPriorityInherit:00000000000000a8 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:4128   .text.vTaskPriorityDisinherit:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:4133   .text.vTaskPriorityDisinherit:0000000000000000 vTaskPriorityDisinherit
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:4217   .text.vTaskPriorityDisinherit:0000000000000074 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccJyX2j7.s:4223   .rodata.ucExpectedStackBytes.8478:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:24     .bss.pxCurrentTCB:0000000000000000 pxCurrentTCB
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:21     .bss.pxCurrentTCB:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:27     .bss.pxReadyTasksLists:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:30     .bss.pxReadyTasksLists:0000000000000000 pxReadyTasksLists
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:33     .bss.xDelayedTaskList1:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:36     .bss.xDelayedTaskList1:0000000000000000 xDelayedTaskList1
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:39     .bss.xDelayedTaskList2:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:42     .bss.xDelayedTaskList2:0000000000000000 xDelayedTaskList2
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:45     .bss.pxDelayedTaskList:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:48     .bss.pxDelayedTaskList:0000000000000000 pxDelayedTaskList
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:51     .bss.pxOverflowDelayedTaskList:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:54     .bss.pxOverflowDelayedTaskList:0000000000000000 pxOverflowDelayedTaskList
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:57     .bss.xPendingReadyList:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:60     .bss.xPendingReadyList:0000000000000000 xPendingReadyList
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:63     .bss.xTasksWaitingTermination:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:66     .bss.xTasksWaitingTermination:0000000000000000 xTasksWaitingTermination
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:69     .bss.uxTasksDeleted:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:72     .bss.uxTasksDeleted:0000000000000000 uxTasksDeleted
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:75     .bss.xSuspendedTaskList:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:78     .bss.xSuspendedTaskList:0000000000000000 xSuspendedTaskList
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:81     .bss.uxCurrentNumberOfTasks:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:84     .bss.uxCurrentNumberOfTasks:0000000000000000 uxCurrentNumberOfTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:87     .bss.xTickCount:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:90     .bss.xTickCount:0000000000000000 xTickCount
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:93     .bss.uxTopReadyPriority:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:96     .bss.uxTopReadyPriority:0000000000000000 uxTopReadyPriority
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:99     .bss.xSchedulerRunning:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:102    .bss.xSchedulerRunning:0000000000000000 xSchedulerRunning
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:105    .bss.uxSchedulerSuspended:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:108    .bss.uxSchedulerSuspended:0000000000000000 uxSchedulerSuspended
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:111    .bss.uxPendedTicks:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:114    .bss.uxPendedTicks:0000000000000000 uxPendedTicks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:117    .bss.xYieldPending:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:120    .bss.xYieldPending:0000000000000000 xYieldPending
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:123    .bss.xNumOfOverflows:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:126    .bss.xNumOfOverflows:0000000000000000 xNumOfOverflows
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:129    .bss.uxTaskNumber:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:132    .bss.uxTaskNumber:0000000000000000 uxTaskNumber
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:135    .data.xNextTaskUnblockTime:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:138    .data.xNextTaskUnblockTime:0000000000000000 xNextTaskUnblockTime
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:141    .text.xTaskGenericCreate:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:146    .text.xTaskGenericCreate:0000000000000000 xTaskGenericCreate
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3535   .text.prvAllocateTCBAndStack:0000000000000000 prvAllocateTCBAndStack
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3159   .text.prvInitialiseTCBVariables:0000000000000000 prvInitialiseTCBVariables
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3271   .text.prvInitialiseTaskLists:0000000000000000 prvInitialiseTaskLists
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:369    .text.xTaskGenericCreate:0000000000000150 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:379    .text.vTaskDelete:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:384    .text.vTaskDelete:0000000000000000 vTaskDelete
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:476    .text.vTaskDelete:0000000000000078 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:485    .text.vTaskDelayUntil:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:490    .text.vTaskDelayUntil:0000000000000000 vTaskDelayUntil
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1547   .text.vTaskSuspendAll:0000000000000000 vTaskSuspendAll
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3454   .text.prvAddCurrentTaskToDelayedList:0000000000000000 prvAddCurrentTaskToDelayedList
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1585   .text.xTaskResumeAll:0000000000000000 xTaskResumeAll
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:618    .text.vTaskDelayUntil:00000000000000a8 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:624    .text.vTaskDelay:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:629    .text.vTaskDelay:0000000000000000 vTaskDelay
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:690    .text.vTaskDelay:0000000000000048 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:696    .text.uxTaskPriorityGet:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:701    .text.uxTaskPriorityGet:0000000000000000 uxTaskPriorityGet
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:752    .text.uxTaskPriorityGet:0000000000000030 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:757    .text.vTaskPrioritySet:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:762    .text.vTaskPrioritySet:0000000000000000 vTaskPrioritySet
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:956    .text.vTaskPrioritySet:0000000000000110 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:963    .text.vTaskSuspend:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:968    .text.vTaskSuspend:0000000000000000 vTaskSuspend
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2343   .text.vTaskSwitchContext:0000000000000000 vTaskSwitchContext
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1065   .text.vTaskSuspend:0000000000000080 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1073   .text.xTaskIsTaskSuspended:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1078   .text.xTaskIsTaskSuspended:0000000000000000 xTaskIsTaskSuspended
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1163   .text.xTaskIsTaskSuspended:000000000000005c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1169   .text.vTaskResume:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1174   .text.vTaskResume:0000000000000000 vTaskResume
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1276   .text.vTaskResume:0000000000000090 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1283   .text.xTaskResumeFromISR:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1288   .text.xTaskResumeFromISR:0000000000000000 xTaskResumeFromISR
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1404   .text.xTaskResumeFromISR:00000000000000a4 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1413   .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1417   .text.vTaskStartScheduler:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1422   .text.vTaskStartScheduler:0000000000000000 vTaskStartScheduler
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1497   .text.vTaskStartScheduler:0000000000000060 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3112   .text.prvIdleTask:0000000000000000 prvIdleTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1505   .text.vTaskEndScheduler:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1510   .text.vTaskEndScheduler:0000000000000000 vTaskEndScheduler
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1537   .text.vTaskEndScheduler:0000000000000014 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1542   .text.vTaskSuspendAll:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1575   .text.vTaskSuspendAll:0000000000000018 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1580   .text.xTaskResumeAll:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2055   .text.xTaskIncrementTick:0000000000000000 xTaskIncrementTick
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1751   .text.xTaskResumeAll:00000000000000ec $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1763   .text.xTaskGetTickCount:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1768   .text.xTaskGetTickCount:0000000000000000 xTaskGetTickCount
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1804   .text.xTaskGetTickCount:0000000000000020 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1809   .text.xTaskGetTickCountFromISR:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1814   .text.xTaskGetTickCountFromISR:0000000000000000 xTaskGetTickCountFromISR
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1854   .text.xTaskGetTickCountFromISR:0000000000000028 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1859   .text.uxTaskGetNumberOfTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1864   .text.uxTaskGetNumberOfTasks:0000000000000000 uxTaskGetNumberOfTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1890   .text.uxTaskGetNumberOfTasks:0000000000000014 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1895   .text.uxTaskGetSystemState:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:1900   .text.uxTaskGetSystemState:0000000000000000 uxTaskGetSystemState
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3620   .text.prvListTaskWithinSingleList:0000000000000000 prvListTaskWithinSingleList
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2040   .text.uxTaskGetSystemState:00000000000000e0 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2050   .text.xTaskIncrementTick:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2323   .text.xTaskIncrementTick:0000000000000180 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2338   .text.vTaskSwitchContext:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2496   .text.vTaskSwitchContext:00000000000000dc $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4400   .rodata.ucExpectedStackBytes.9202:0000000000000000 ucExpectedStackBytes.9202
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2506   .text.vTaskPlaceOnEventList:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2511   .text.vTaskPlaceOnEventList:0000000000000000 vTaskPlaceOnEventList
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2583   .text.vTaskPlaceOnEventList:0000000000000060 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2590   .text.vTaskPlaceOnEventListRestricted:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2595   .text.vTaskPlaceOnEventListRestricted:0000000000000000 vTaskPlaceOnEventListRestricted
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2653   .text.vTaskPlaceOnEventListRestricted:0000000000000048 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2659   .text.xTaskRemoveFromEventList:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2664   .text.xTaskRemoveFromEventList:0000000000000000 xTaskRemoveFromEventList
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2779   .text.xTaskRemoveFromEventList:00000000000000a0 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2789   .text.vTaskSetTimeOutState:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2794   .text.vTaskSetTimeOutState:0000000000000000 vTaskSetTimeOutState
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2839   .text.vTaskSetTimeOutState:000000000000002c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2845   .text.xTaskCheckForTimeOut:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2850   .text.xTaskCheckForTimeOut:0000000000000000 xTaskCheckForTimeOut
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2967   .text.xTaskCheckForTimeOut:0000000000000098 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2973   .text.vTaskMissedYield:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:2978   .text.vTaskMissedYield:0000000000000000 vTaskMissedYield
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3004   .text.vTaskMissedYield:0000000000000014 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3009   .text.uxTaskGetTaskNumber:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3014   .text.uxTaskGetTaskNumber:0000000000000000 uxTaskGetTaskNumber
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3062   .text.vTaskSetTaskNumber:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3067   .text.vTaskSetTaskNumber:0000000000000000 vTaskSetTaskNumber
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3108   .text.prvIdleTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3359   .text.prvCheckTasksWaitingTermination:0000000000000000 prvCheckTasksWaitingTermination
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3150   .text.prvIdleTask:0000000000000020 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3155   .text.prvInitialiseTCBVariables:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3267   .text.prvInitialiseTaskLists:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3343   .text.prvInitialiseTaskLists:000000000000005c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3355   .text.prvCheckTasksWaitingTermination:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3856   .text.prvDeleteTCB:0000000000000000 prvDeleteTCB
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3443   .text.prvCheckTasksWaitingTermination:0000000000000068 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3450   .text.prvAddCurrentTaskToDelayedList:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3522   .text.prvAddCurrentTaskToDelayedList:0000000000000058 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3531   .text.prvAllocateTCBAndStack:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3616   .text.prvListTaskWithinSingleList:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3797   .text.prvTaskCheckFreeStackSpace:0000000000000000 prvTaskCheckFreeStackSpace
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3793   .text.prvTaskCheckFreeStackSpace:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3852   .text.prvDeleteTCB:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3891   .text.xTaskGetCurrentTaskHandle:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3896   .text.xTaskGetCurrentTaskHandle:0000000000000000 xTaskGetCurrentTaskHandle
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3929   .text.xTaskGetCurrentTaskHandle:000000000000001c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3934   .text.xTaskGetSchedulerState:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3939   .text.xTaskGetSchedulerState:0000000000000000 xTaskGetSchedulerState
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3992   .text.xTaskGetSchedulerState:0000000000000034 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:3998   .text.vTaskPriorityInherit:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4003   .text.vTaskPriorityInherit:0000000000000000 vTaskPriorityInherit
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4121   .text.vTaskPriorityInherit:00000000000000a8 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4128   .text.vTaskPriorityDisinherit:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4133   .text.vTaskPriorityDisinherit:0000000000000000 vTaskPriorityDisinherit
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4217   .text.vTaskPriorityDisinherit:0000000000000074 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4227   .text.vTaskList:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4232   .text.vTaskList:0000000000000000 vTaskList
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4297   .text.vTaskList:0000000000000054 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4301   .text.vTaskList:0000000000000064 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4391   .text.vTaskList:00000000000000e4 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccftV2We.s:4397   .rodata.ucExpectedStackBytes.9202:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
@@ -7077,3 +7379,5 @@ vListInitialise
 pvPortMalloc
 vPortFree
 memset
+sprintf
+strlen

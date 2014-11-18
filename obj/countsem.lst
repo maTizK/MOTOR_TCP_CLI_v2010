@@ -871,30 +871,30 @@
  553              		.file 7 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 countsem.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:20     .bss.xErrorDetected:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:23     .bss.xErrorDetected:0000000000000000 xErrorDetected
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:26     .bss.xParameters:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:29     .bss.xParameters:0000000000000000 xParameters
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:32     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:45     .text.vStartCountingSemaphoreTasks:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:50     .text.vStartCountingSemaphoreTasks:0000000000000000 vStartCountingSemaphoreTasks
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:157    .text.vStartCountingSemaphoreTasks:00000000000000a4 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:368    .text.prvCountingSemaphoreTask:0000000000000000 prvCountingSemaphoreTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:168    .text.prvDecrementSemaphoreCount:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:172    .text.prvDecrementSemaphoreCount:0000000000000000 prvDecrementSemaphoreCount
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:261    .text.prvDecrementSemaphoreCount:0000000000000074 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:266    .text.prvIncrementSemaphoreCount:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:270    .text.prvIncrementSemaphoreCount:0000000000000000 prvIncrementSemaphoreCount
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:359    .text.prvIncrementSemaphoreCount:0000000000000074 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:364    .text.prvCountingSemaphoreTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:440    .text.prvCountingSemaphoreTask:0000000000000064 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:445    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:450    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000000 xAreCountingSemaphoreTasksStillRunning
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:527    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000058 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:538    .bss.uxLastCount0.7686:0000000000000000 uxLastCount0.7686
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:544    .bss.uxLastCount1.7687:0000000000000000 uxLastCount1.7687
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:535    .bss.uxLastCount0.7686:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccZO6t2S.s:541    .bss.uxLastCount1.7687:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:20     .bss.xErrorDetected:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:23     .bss.xErrorDetected:0000000000000000 xErrorDetected
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:26     .bss.xParameters:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:29     .bss.xParameters:0000000000000000 xParameters
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:32     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:45     .text.vStartCountingSemaphoreTasks:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:50     .text.vStartCountingSemaphoreTasks:0000000000000000 vStartCountingSemaphoreTasks
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:157    .text.vStartCountingSemaphoreTasks:00000000000000a4 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:368    .text.prvCountingSemaphoreTask:0000000000000000 prvCountingSemaphoreTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:168    .text.prvDecrementSemaphoreCount:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:172    .text.prvDecrementSemaphoreCount:0000000000000000 prvDecrementSemaphoreCount
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:261    .text.prvDecrementSemaphoreCount:0000000000000074 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:266    .text.prvIncrementSemaphoreCount:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:270    .text.prvIncrementSemaphoreCount:0000000000000000 prvIncrementSemaphoreCount
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:359    .text.prvIncrementSemaphoreCount:0000000000000074 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:364    .text.prvCountingSemaphoreTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:440    .text.prvCountingSemaphoreTask:0000000000000064 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:445    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:450    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000000 xAreCountingSemaphoreTasksStillRunning
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:527    .text.xAreCountingSemaphoreTasksStillRunning:0000000000000058 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:538    .bss.uxLastCount0.7686:0000000000000000 uxLastCount0.7686
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:544    .bss.uxLastCount1.7687:0000000000000000 uxLastCount1.7687
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:535    .bss.uxLastCount0.7686:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cctdhgeO.s:541    .bss.uxLastCount1.7687:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

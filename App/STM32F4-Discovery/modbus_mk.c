@@ -138,7 +138,7 @@ void USART6_IRQHandler(void){
 		
 		
 		static uint8_t cnt = 0; // this counter is used to determine the string length
-		char t = USARTx->DR; // the character from the USART1 data register is saved in t
+		volatile char t = USARTx->DR; // the character from the USART1 data register is saved in t
 		
 		/* check if the received character is not the LF character (used to determine end of string) 
 		 * or the if the maximum string length has been been reached 
@@ -162,7 +162,6 @@ void USART6_IRQHandler(void){
 
 
 	}
- portYIELD_FROM_ISR( xHigherPriorityTaskWoken_usart );
 	
 }
 
@@ -185,6 +184,17 @@ uint16_t crc16(uint8_t *buffer, uint16_t buffer_length)
      return (crc_hi << 8 | crc_lo);
 }
 
+/* modbus_confirmation */ 
+
+int modbus_confirmation ( uint8_t * req, uint8_t * rsp, uint16_t write_len, uint16_t read_len)
+{
+	uint16_t crc = crc16(rsp, read_len - 2 );
+
+	if (	rsp[read_len -1 ] == ( crc & 0x00ff ) && 
+		rsp[read_len - 2 ] == ( crc >> 8 ) ) return 1; 
+	return 0; 
+	
+}
 
 /* write to modbus */
 void write_read_modbus( uint8_t * req, uint8_t * rsp, int write_len, int read_len )
@@ -198,7 +208,7 @@ void write_read_modbus( uint8_t * req, uint8_t * rsp, int write_len, int read_le
 	DD();
 	for (i=0; i < 4000; i++) ;
 	USART_puts(req,write_len);
-	for (i = 0; i < 4000; i++);
+	for (i = 0; i < 4100; i++);
 	// driver enable 
 	DE();
 
@@ -211,7 +221,7 @@ void write_read_modbus( uint8_t * req, uint8_t * rsp, int write_len, int read_le
 
 
 /* modbus read input bits */
-void modbus_RIB( int16_t address, int nb, uint8_t *dst )
+uint8_t modbus_RIB( int16_t address, int nb, uint8_t *dst )
 {
 	/* first send request */
 
@@ -231,16 +241,18 @@ void modbus_RIB( int16_t address, int nb, uint8_t *dst )
 	req[req_length++] = crc & 0x00ff; 
 	
 	write_read_modbus( req, dst, req_length, 6);
+	return modbus_confirmation (req, dst, req_length, 6);
 
 }
 
 
 /* modbus write input bits */
-void modbus_WIB( uint16_t address, int nb, uint8_t *src )
+uint8_t modbus_WIB( uint16_t address, int nb, uint8_t *src )
 {
 	/* first send request */
 
 	uint8_t req[REQ_MAX_LEN];
+	uint8_t rsp[REQ_MAX_LEN];
 	int byte_count; 
 	int req_length; 
 	int bit_check = 0; 
@@ -282,12 +294,14 @@ void modbus_WIB( uint16_t address, int nb, uint8_t *src )
 	req[req_length++] = crc & 0x00ff; 
 	
 	/* write request  to modbus line */
-	write_read_modbus( req,req, req_length ,8); 
+	write_read_modbus( req,rsp, req_length ,8); 
+	return modbus_confirmation (req, rsp,req_length, 8); 
+
 	
 }
 
 /* Write the values from the array to the registers of the remote device */
-void modbus_WR( int address, int nb, const uint16_t *src)
+uint8_t modbus_WR( int address, int nb, const uint16_t *src)
 {
 	int rc;
 	int i;
@@ -295,6 +309,7 @@ void modbus_WR( int address, int nb, const uint16_t *src)
     	int byte_count;
 
     	uint8_t req[REQ_MAX_LEN];
+	uint8_t rsp[REQ_MAX_LEN];
 
 	req[0] = 0x36; 
 	req[1] = 0x10;
@@ -318,12 +333,15 @@ void modbus_WR( int address, int nb, const uint16_t *src)
 	req[req_length++] = crc & 0x00ff;
 
 	/* write request  to modbus line */
-	write_read_modbus( req, req, req_length, 8); 
+	write_read_modbus( req, rsp, req_length, 8); 
+	return modbus_confirmation (req, rsp,req_length, 8); 
+
+
 
 }
 
 /* Write the values from the array to the registers of the remote device */
-void modbus_WSR( int address, const uint16_t src)
+uint8_t modbus_WSR( int address, const uint16_t src)
 {
 	int nb = 1; 
 	int rc;
@@ -332,6 +350,7 @@ void modbus_WSR( int address, const uint16_t src)
     	int byte_count;
 
     	uint8_t req[REQ_MAX_LEN];
+	uint8_t rsp[REQ_MAX_LEN];
 
 	req[0] = 0x36; 
 	req[1] = 0x6;
@@ -354,13 +373,16 @@ void modbus_WSR( int address, const uint16_t src)
 	req[req_length++] = crc & 0x00ff;
 
 	/* write request  to modbus line */
-	write_read_modbus( req, req, req_length, 5); 
+	write_read_modbus( req, rsp, req_length, 5); 
+	return modbus_confirmation (req, rsp,req_length, 5); 
+
+
 
 }
 
 
 /* Read the values from the array to the registers of the remote device */
-void modbus_RR( int address, int nb, uint16_t *src)
+uint8_t modbus_RR( int address, int nb, uint16_t *src)
 {
     	int rc;
     	int i;
@@ -398,7 +420,9 @@ void modbus_RR( int address, int nb, uint16_t *src)
 		
         }
 
-	return 0;
+	return modbus_confirmation (req, rsp,req_length, nb*2 + 5); 
+
+
 }
 
 
@@ -423,9 +447,19 @@ void motorHeartBeat_task(void * pvParameters)
 		
 		modbus_RR(0,10,tab_reg);
 
-		vTaskDelay(2000/portTICK_RATE_MS);
+		vTaskDelay(1000/portTICK_RATE_MS);
 
 	}
+	/* Tasks must not attempt to return from their implementing
+        function or otherwise exit.  In newer FreeRTOS port
+        attempting to do so will result in an configASSERT() being
+        called if it is defined.  If it is necessary for a task to
+        exit then have the task call vTaskDelete( NULL ) to ensure
+        its exit is clean. */
+	closesocket(socket_0);		
+        vTaskDelete( NULL );
+
+
 
 
 }
@@ -442,15 +476,17 @@ void motorControl_task(void * pvParameters)
 
 	src[0]=1; src[1]=1; src[2]=1; src[3]=1;
 	
-	spd[0]=1500;spd[1]=0;spd[2]=2250;spd[3]=10;spd[4]=10;
+//	spd[0]=1500;spd[1]=0;spd[2]=2250;spd[3]=10;spd[4]=10;
 	
 	// create usart semaphore 
 	xSmphrUSART = xSemaphoreCreateBinary();	
 	
-	portTickType xDelay = 3000 / portTICK_RATE_MS;	
+	portTickType xDelay = portMAX_DELAY;//3000 / portTICK_RATE_MS;	
 	
 
 	QueueTelegram telegramR, telegramS; 
+
+	int HB_flag = 0;
 	
 	while (1)
 	{
@@ -465,11 +501,24 @@ void motorControl_task(void * pvParameters)
 
 					src[0]=1; src[1]=1; src[2]=1; src[3]=1;
 
-					modbus_WIB( 0 , 3, src); 
-					vTaskDelay ( 500 / portTICK_RATE_MS);
+					if ( !modbus_WIB( 0 , 3, src))
+					{
+							// send response to CLI 
+						telegramS.Qcmd = ERROR_MODBUS;
+					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
+					//	break;
+					}
+					vTaskDelay ( 1000 / portTICK_RATE_MS);
 					
-					modbus_WR(0, 5, telegramR.data);
-					vTaskDelay ( 500 / portTICK_RATE_MS);
+					if (!modbus_WR(0, 5, telegramR.data))
+					{
+							// send response to CLI 
+						telegramS.Qcmd = ERROR_MODBUS;
+					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
+					//	break;
+					}
+
+					vTaskDelay ( 1000 / portTICK_RATE_MS);
 
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
@@ -479,8 +528,16 @@ void motorControl_task(void * pvParameters)
 				       	
 				
 				case GETDATA:
-					modbus_RR(0, 10, telegramS.data);
-					vTaskDelay ( 500 / portTICK_RATE_MS);
+				
+					if ( !modbus_RR(0, 10, telegramS.data))
+					{
+							// send response to CLI 
+						telegramS.Qcmd = ERROR_MODBUS;
+					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
+					//	break;
+					}
+
+					vTaskDelay ( 1000 / portTICK_RATE_MS);
 
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
@@ -490,17 +547,31 @@ void motorControl_task(void * pvParameters)
 
 				
 				case START: 
-					
+					HB_flag = 1; 
 					// set motor speed to 10% 
 				         src[0]=1; src[1]=1; src[2]=1; src[3]=1;
 
-					modbus_WIB( 0 , 3, src); 
-					vTaskDelay ( 500 / portTICK_RATE_MS);
+					if( !modbus_WIB( 0 , 3, src) )
+					{
+							// send response to CLI 
+						telegramS.Qcmd = ERROR_MODBUS;
+					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
+					//	break;
+					}
 
-					modbus_WR( 0, 5, spd);
-					vTaskDelay ( 500 / portTICK_RATE_MS);
+					vTaskDelay ( 1000 / portTICK_RATE_MS);
 
-				//	vTaskResume(motorHeartBeatHandle);
+					if (!modbus_WR( 0, 5, telegramR.data))
+					{
+							// send response to CLI 
+						telegramS.Qcmd = ERROR_MODBUS;
+					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
+					//	break;
+					}
+
+					vTaskDelay ( 1000 / portTICK_RATE_MS);
+
+					vTaskResume(motorHeartBeatHandle);
 
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
@@ -512,12 +583,19 @@ void motorControl_task(void * pvParameters)
 					
 					// send stop bits to motor 
 					src[0]=0; src[1]=0; src[2]=0; src[3]=0;
-					modbus_WIB( 0 , 3, src); 
-					vTaskDelay ( 500 / portTICK_RATE_MS);
+
+					if (!modbus_WIB( 0 , 3, src)) 
+					{
+							// send response to CLI 
+						telegramS.Qcmd = ERROR_MODBUS;
+				//		xQueueSend(QSpd_handle, &telegramS, xDelay);
+					//	break;
+					}
+
+					vTaskDelay ( 1000 / portTICK_RATE_MS);
 
 
-
-					// send response to CLI 
+//					vTaskSuspend (motorHeartBeatHandle);					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
 					xQueueSend(QSpd_handle, &telegramS, xDelay);
 
@@ -535,16 +613,20 @@ void motorControl_task(void * pvParameters)
 					
 			}
 		}
-		else{vTaskDelay( 500 / portTICK_RATE_MS
-				);
-		modbus_RR(0, 10, telegramS.data);
-
-		}
 	
-		
-
 		
 	
 	}
+
+	/* Tasks must not attempt to return from their implementing
+        function or otherwise exit.  In newer FreeRTOS port
+        attempting to do so will result in an configASSERT() being
+        called if it is defined.  If it is necessary for a task to
+        exit then have the task call vTaskDelete( NULL ) to ensure
+        its exit is clean. */
+		
+        vTaskDelete( NULL );
+
+
 	
 }

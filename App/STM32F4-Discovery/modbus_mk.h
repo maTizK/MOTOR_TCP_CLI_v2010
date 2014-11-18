@@ -136,7 +136,7 @@ void USART_puts(  uint8_t *, int);
  */ 
 uint16_t crc16(uint8_t *, uint16_t );
 
-/*! \fn void write_read_modbus( uint8_t * , uint8_t * , int, int )
+/*! \fn uint8_t write_read_modbus( uint8_t * , uint8_t * , int, int )
  *  \brief write and read data to modbus line 
  *  \param *req - data to send 
  *  \param *rsp - received data 
@@ -146,46 +146,46 @@ uint16_t crc16(uint8_t *, uint16_t );
 void write_read_modbus( uint8_t * , uint8_t * , int, int );
 
 
-/*! \fn void modbus_RIB( int16_t , int, uint8_t * )
+/*! \fn uint8_t modbus_RIB( int16_t , int, uint8_t * )
  *  \brief read input bits on motor side
  *  \param address - motor register address 
  *  \param nb - number of bits to read
  *  \param *dst - destination buffer of read data
  */
-void modbus_RIB( int16_t , int, uint8_t * );
+uint8_t modbus_RIB( int16_t , int, uint8_t * );
 
 
-/*! \fn void modbus_WIB( uint16_t , int , uint8_t * )
+/*! \fn uint8_t modbus_WIB( uint16_t , int , uint8_t * )
  *  \brief write bits to register
  *  \param address - register address 
  *  \param nb - number of bits to send 
  *  \param *src - source buffer of bits to send 
  */
-void modbus_WIB( uint16_t , int , uint8_t * );
+uint8_t modbus_WIB( uint16_t , int , uint8_t * );
 
 
-/*! \fn void modbus_WR( int , int , const uint16_t *)
+/*! \fn uint8_t modbus_WR( int , int , const uint16_t *)
  *  \brief write to register of motor 
  *  \param address - register address 
  *  \param nb  - size of data to send 
  *  \param *src - pointer to data to send 
  */
-void modbus_WR( int , int , const uint16_t *);
+uint8_t modbus_WR( int , int , const uint16_t *);
 
-/*! \fn void modbus_WSR( int , const uint16_t)
+/*! \fn uint8_t modbus_WSR( int , const uint16_t)
  *  \brief write to single register of motor 
  *  \param address - register address 
  *  \param src -  data to send 
  */
-void modbus_WSR( int , const uint16_t );
+uint8_t modbus_WSR( int , const uint16_t );
 
-/*! \fn void modbus_RR( int , int , uint16_t *)
+/*! \fn uint8_t modbus_RR( int , int , uint16_t *)
  *  \brief read from motor register 
  *  \param address - register address 
  *  \param nb - size of data to receieve 
  *  \param *src - receieved data 
  */
-void modbus_RR( int , int , uint16_t *);
+uint8_t modbus_RR( int , int , uint16_t *);
 
 
 void motorHeartBeat_task(void *);

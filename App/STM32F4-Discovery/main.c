@@ -17,6 +17,7 @@
 #include "tcpCLI.h"
 
 
+
 ///* Priorities for the demo application tasks. */
 #define mainFLASH_TASK_PRIORITY				( tskIDLE_PRIORITY + 1UL )
 #define mainQUEUE_POLL_PRIORITY				( tskIDLE_PRIORITY + 2UL )
@@ -101,7 +102,6 @@ that uses the FPU, and decremented on exit of the same interrupt.
 ulMaxFPUInterruptNesting latches the highest value reached by
 ulFPUInterruptNesting.  These variables have no other purpose. */
 volatile unsigned long ulFPUInterruptNesting = 0UL, ulMaxFPUInterruptNesting = 0UL;
-
 /* The semaphore used to demonstrate a task being synchronised with an
 interrupt. */
 static xSemaphoreHandle xTestSemaphore = NULL;
@@ -118,28 +118,28 @@ int main(void)
 	// ============now register CLI commands ===================
 	
 	FreeRTOS_CLIRegisterCommand( &xMotorCommand );
-       		
+       	FreeRTOS_CLIRegisterCommand( &xTaskStatsCommand);		
 
 	// =============== register CLI commands ===================
 	int sr = sizeof(QueueTelegram);
 	sr = sizeof (QueueTelegram *);
 	// create queues 
-	QSpd_handle = xQueueCreate(1, sizeof(QueueTelegram));
+	QSpd_handle = xQueueCreate(2, sizeof(QueueTelegram));
 
 
 /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
 
 	// echo server task 
-	xTaskCreate(set_macTask, "SETMAC", configMINIMAL_STACK_SIZE*10, 
+	xTaskCreate(set_macTask, "TCPsrv", configMINIMAL_STACK_SIZE*14, 
 			NULL, mainFLASH_TASK_PRIORITY , &set_macTaskHandle);
 	
 	// run motor task 
-	xTaskCreate(motorControl_task, "motorH", configMINIMAL_STACK_SIZE*19,
+	xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE*19,
 		       	NULL, mainFLASH_TASK_PRIORITY, &motorHBHandle);
 
 	// set motor task 
-/*	xTaskCreate(motorHeartBeat_task, "mHeratBeat", configMINIMAL_STACK_SIZE*10,		       				
-			NULL, mainFLASH_TASK_PRIORITY +1  , &motorHeartBeatHandle);*/
+	xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE*5,		       				
+			NULL, mainFLASH_TASK_PRIORITY , &motorHeartBeatHandle);
 	
 
 /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/

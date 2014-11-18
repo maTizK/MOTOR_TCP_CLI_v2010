@@ -86,7 +86,8 @@
 	#include <stdint.h>
 	extern uint32_t SystemCoreClock;
 #endif*/
-
+#define configUSE_TRACE_FACILITY	1
+#define configUSE_STATS_FORMATTING_FUNCTIONS	1
 #define configUSE_PREEMPTION			1
 #define configUSE_IDLE_HOOK				1
 #define configUSE_TICK_HOOK				1

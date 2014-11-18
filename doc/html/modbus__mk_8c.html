@@ -115,24 +115,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>USART6_IRQHandler</b>
 <tr class="memitem:a859b2f058944b311a3cee5aa0a746d8e"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a859b2f058944b311a3cee5aa0a746d8e">crc16</a> (uint8_t *buffer, uint16_t buffer_length)</td></tr>
 <tr class="memdesc:a859b2f058944b311a3cee5aa0a746d8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculation of checksum  <a href="#a859b2f058944b311a3cee5aa0a746d8e">More...</a><br /></td></tr>
 <tr class="separator:a859b2f058944b311a3cee5aa0a746d8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fd99d3fa9c3bff4a1898e0f890766a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a9fd99d3fa9c3bff4a1898e0f890766a1">write_read_modbus</a> (uint8_t *req, uint8_t *rsp, int write_len, int read_len)</td></tr>
-<tr class="memdesc:a9fd99d3fa9c3bff4a1898e0f890766a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">write and read data to modbus line  <a href="#a9fd99d3fa9c3bff4a1898e0f890766a1">More...</a><br /></td></tr>
-<tr class="separator:a9fd99d3fa9c3bff4a1898e0f890766a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fb8c114e41f0cfb82b36095ff9d199d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a7fb8c114e41f0cfb82b36095ff9d199d">modbus_RIB</a> (int16_t address, int nb, uint8_t *dst)</td></tr>
-<tr class="memdesc:a7fb8c114e41f0cfb82b36095ff9d199d"><td class="mdescLeft">&#160;</td><td class="mdescRight">read input bits on motor side  <a href="#a7fb8c114e41f0cfb82b36095ff9d199d">More...</a><br /></td></tr>
-<tr class="separator:a7fb8c114e41f0cfb82b36095ff9d199d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a740ccaea46e256dfd32fb22c1c1a88de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a740ccaea46e256dfd32fb22c1c1a88de">modbus_WIB</a> (uint16_t address, int nb, uint8_t *src)</td></tr>
-<tr class="memdesc:a740ccaea46e256dfd32fb22c1c1a88de"><td class="mdescLeft">&#160;</td><td class="mdescRight">write bits to register  <a href="#a740ccaea46e256dfd32fb22c1c1a88de">More...</a><br /></td></tr>
-<tr class="separator:a740ccaea46e256dfd32fb22c1c1a88de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace18133f61c61ccb510c59251d8e0949"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#ace18133f61c61ccb510c59251d8e0949">modbus_WR</a> (int address, int nb, const uint16_t *src)</td></tr>
-<tr class="memdesc:ace18133f61c61ccb510c59251d8e0949"><td class="mdescLeft">&#160;</td><td class="mdescRight">write to register of motor  <a href="#ace18133f61c61ccb510c59251d8e0949">More...</a><br /></td></tr>
-<tr class="separator:ace18133f61c61ccb510c59251d8e0949"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d64d93dfe900e0af0598fa8f9657bc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a0d64d93dfe900e0af0598fa8f9657bc9">modbus_WSR</a> (int address, const uint16_t src)</td></tr>
-<tr class="memdesc:a0d64d93dfe900e0af0598fa8f9657bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">write to single register of motor  <a href="#a0d64d93dfe900e0af0598fa8f9657bc9">More...</a><br /></td></tr>
-<tr class="separator:a0d64d93dfe900e0af0598fa8f9657bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07af3d991f39418f412352c96b71a8a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a07af3d991f39418f412352c96b71a8a5">modbus_RR</a> (int address, int nb, uint16_t *src)</td></tr>
-<tr class="memdesc:a07af3d991f39418f412352c96b71a8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">read from motor register  <a href="#a07af3d991f39418f412352c96b71a8a5">More...</a><br /></td></tr>
-<tr class="separator:a07af3d991f39418f412352c96b71a8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92799528299152486068fad4b4e2de20"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a92799528299152486068fad4b4e2de20"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>modbus_confirmation</b> (uint8_t *req, uint8_t *rsp, uint16_t write_len, uint16_t read_len)</td></tr>
+<tr class="separator:a92799528299152486068fad4b4e2de20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54f3cfc3205819c15d1d6bd57aca2c37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a54f3cfc3205819c15d1d6bd57aca2c37">write_read_modbus</a> (uint8_t *req, uint8_t *rsp, int write_len, int read_len)</td></tr>
+<tr class="memdesc:a54f3cfc3205819c15d1d6bd57aca2c37"><td class="mdescLeft">&#160;</td><td class="mdescRight">write and read data to modbus line  <a href="#a54f3cfc3205819c15d1d6bd57aca2c37">More...</a><br /></td></tr>
+<tr class="separator:a54f3cfc3205819c15d1d6bd57aca2c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab833341d95099b5b8661f36403216b19"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#ab833341d95099b5b8661f36403216b19">modbus_RIB</a> (int16_t address, int nb, uint8_t *dst)</td></tr>
+<tr class="memdesc:ab833341d95099b5b8661f36403216b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">read input bits on motor side  <a href="#ab833341d95099b5b8661f36403216b19">More...</a><br /></td></tr>
+<tr class="separator:ab833341d95099b5b8661f36403216b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6294e3bb440c2ea04f25f01120a08f64"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a6294e3bb440c2ea04f25f01120a08f64">modbus_WIB</a> (uint16_t address, int nb, uint8_t *src)</td></tr>
+<tr class="memdesc:a6294e3bb440c2ea04f25f01120a08f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">write bits to register  <a href="#a6294e3bb440c2ea04f25f01120a08f64">More...</a><br /></td></tr>
+<tr class="separator:a6294e3bb440c2ea04f25f01120a08f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad556280c21dd1fb11215e792dcae95a1"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#ad556280c21dd1fb11215e792dcae95a1">modbus_WR</a> (int address, int nb, const uint16_t *src)</td></tr>
+<tr class="memdesc:ad556280c21dd1fb11215e792dcae95a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">write to register of motor  <a href="#ad556280c21dd1fb11215e792dcae95a1">More...</a><br /></td></tr>
+<tr class="separator:ad556280c21dd1fb11215e792dcae95a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a056b28d8cd3b5e2d8626073252b9d1fe"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a056b28d8cd3b5e2d8626073252b9d1fe">modbus_WSR</a> (int address, const uint16_t src)</td></tr>
+<tr class="memdesc:a056b28d8cd3b5e2d8626073252b9d1fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">write to single register of motor  <a href="#a056b28d8cd3b5e2d8626073252b9d1fe">More...</a><br /></td></tr>
+<tr class="separator:a056b28d8cd3b5e2d8626073252b9d1fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8725df7914a575bb51cd9d628fc756a4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a8725df7914a575bb51cd9d628fc756a4">modbus_RR</a> (int address, int nb, uint16_t *src)</td></tr>
+<tr class="memdesc:a8725df7914a575bb51cd9d628fc756a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">read from motor register  <a href="#a8725df7914a575bb51cd9d628fc756a4">More...</a><br /></td></tr>
+<tr class="separator:a8725df7914a575bb51cd9d628fc756a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53c1eb951aff5d669c77c6a68ef33724"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a53c1eb951aff5d669c77c6a68ef33724">motorHeartBeat_task</a> (void *pvParameters)</td></tr>
 <tr class="separator:a53c1eb951aff5d669c77c6a68ef33724"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56479a46fecb43bf2784060524ca2d69"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a56479a46fecb43bf2784060524ca2d69"></a>
@@ -177,12 +180,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b>
 
 </div>
 </div>
-<a class="anchor" id="a7fb8c114e41f0cfb82b36095ff9d199d"></a>
+<a class="anchor" id="ab833341d95099b5b8661f36403216b19"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void modbus_RIB </td>
+          <td class="memname">uint8_t modbus_RIB </td>
           <td>(</td>
           <td class="paramtype">int16_t&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -219,12 +222,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b>
 
 </div>
 </div>
-<a class="anchor" id="a07af3d991f39418f412352c96b71a8a5"></a>
+<a class="anchor" id="a8725df7914a575bb51cd9d628fc756a4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void modbus_RR </td>
+          <td class="memname">uint8_t modbus_RR </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -261,12 +264,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b>
 
 </div>
 </div>
-<a class="anchor" id="a740ccaea46e256dfd32fb22c1c1a88de"></a>
+<a class="anchor" id="a6294e3bb440c2ea04f25f01120a08f64"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void modbus_WIB </td>
+          <td class="memname">uint8_t modbus_WIB </td>
           <td>(</td>
           <td class="paramtype">uint16_t&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -303,12 +306,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b>
 
 </div>
 </div>
-<a class="anchor" id="ace18133f61c61ccb510c59251d8e0949"></a>
+<a class="anchor" id="ad556280c21dd1fb11215e792dcae95a1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void modbus_WR </td>
+          <td class="memname">uint8_t modbus_WR </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -345,12 +348,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b>
 
 </div>
 </div>
-<a class="anchor" id="a0d64d93dfe900e0af0598fa8f9657bc9"></a>
+<a class="anchor" id="a056b28d8cd3b5e2d8626073252b9d1fe"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void modbus_WSR </td>
+          <td class="memname">uint8_t modbus_WSR </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -434,12 +437,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b>
 
 </div>
 </div>
-<a class="anchor" id="a9fd99d3fa9c3bff4a1898e0f890766a1"></a>
+<a class="anchor" id="a54f3cfc3205819c15d1d6bd57aca2c37"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void write_read_modbus </td>
+          <td class="memname">uint8_t write_read_modbus </td>
           <td>(</td>
           <td class="paramtype">uint8_t *&#160;</td>
           <td class="paramname"><em>req</em>, </td>
@@ -486,7 +489,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 28 2014 13:51:28 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 18 2014 16:13:47 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

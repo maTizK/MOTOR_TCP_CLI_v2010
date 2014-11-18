@@ -607,7 +607,7 @@ int	send(uint8_t sck_fd, uint8_t *buf, uint16_t len, uint16_t flag)
 	recv()	receiving data from remote terminal (TCP)
 	flag is NONE_BLOCK / BLOCK
 	return code is received data size.
-	if received disconnectÂ@from peer, size was set to Zero, 
+	if received disconnect from peer, size was set to Zero, 
 ===========================================================================*/
 
 int	recv(uint8_t sck_fd, uint8_t *buf, uint16_t len, uint16_t flag)
@@ -694,14 +694,17 @@ void locate_interrupt()
 	* interupt plus on which socket interrupt occured. \n
 	* It depends on interrupt what follows
 	* ****************************************************** */
-	uint8_t code = 0x4; 
+	uint8_t sckt,		code; 
+	// read on which socket interrupt occured 
 	spi_dma_read(W5200_IMR2, 1);
-	memcpy(&code, bufferRX + 4, 1);
-	spi_dma_read(W5200_Sn_IR(code), 1);
+	memcpy(&sckt, bufferRX + 4, 1);
+
+	// read interrupt code 
+	spi_dma_read(W5200_Sn_IR(sckt), 1);
 	memcpy(&code, bufferRX +4 , 1);
        
-	
-	spi_dma_sendByte(W5200_Sn_IR(0x0), 0xff);
+	// clear interrupt on W5200
+	spi_dma_sendByte(W5200_Sn_IR(sckt), 0xff);
 	switch (code )
 	{
 		case 0x1: 
@@ -764,7 +767,7 @@ void set_macTask(void *pvParameters)
 	/* suspend task until init_W5200 is finished */
 	//vTaskSuspend(set_macTaskHandle);
 	vTaskSuspend(NULL);
-	uint8_t	buf[100], buf1[100]; 
+	uint8_t	buf[50], buf1[256], oldbuf[50]; 
 	int len; 
 	int gl;
 		/*create socket and send byte */
@@ -783,13 +786,35 @@ void set_macTask(void *pvParameters)
 		// interrupt on W5200 occured 
 		// receive data 
 		len = recv(socket_0, buf, 100, 0);
-		
-		// proces data with CLI 
-		
-		FreeRTOS_CLIProcessCommand ( buf, buf1, gl);
 
-		send(socket_0, buf1, 100, gl);
+		if ( len < 3 )
+		{
+				
+			FreeRTOS_CLIProcessCommand ( oldbuf, buf1, 256);
+			
+			int slen = strlen(buf1);
+			
+			send(socket_0, buf1,  slen, gl);
 
+		
+
+		}	
+	
+		else 
+		{		
+			buf[len-2]='\0';
+			// proces data with CLI 
+		
+			FreeRTOS_CLIProcessCommand ( buf, buf1, 256);
+			
+			int slen = strlen(buf1);
+			
+			send(socket_0, buf1,  slen, gl);
+
+			strcpy(oldbuf, buf);
+		}
+		
+	
 		
 
 		

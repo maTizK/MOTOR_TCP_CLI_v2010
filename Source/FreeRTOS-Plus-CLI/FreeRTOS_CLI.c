@@ -61,7 +61,7 @@ typedef struct xCOMMAND_INPUT_LIST
  * The callback function that is executed when "help" is entered.  This is the
  * only default command that is always present.
  */
-static portBASE_TYPE prvHelpCommand( int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString );
+//portBASE_TYPE prvHelpCommand( int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString );
 
 /*
  * Return the number of parameters that follow the command name.
@@ -276,7 +276,7 @@ const int8_t *pcReturn = NULL;
 }
 /*-----------------------------------------------------------*/
 
-static portBASE_TYPE prvHelpCommand( int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString )
+portBASE_TYPE prvHelpCommand( int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString )
 {
 static const CLI_Definition_List_Item_t * pxCommand = NULL;
 signed portBASE_TYPE xReturn;
@@ -298,6 +298,7 @@ signed portBASE_TYPE xReturn;
 	{
 		/* There are no more commands in the list, so there will be no more
 		strings to return after this one and pdFALSE should be returned. */
+	//	strcat ( (char * ) pcWriteBuffer, "\nend help\n\n\0");
 		xReturn = pdFALSE;
 	}
 	else
