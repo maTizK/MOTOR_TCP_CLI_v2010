@@ -76,6 +76,7 @@ extern unsigned long ulRegTestCheckFlopRegistersContainParameterValue( unsigned 
  * synchronise a task with an interrupt.
  */
 static void prvButtonTestTask( void *pvParameters );
+static void main_task(void *pvParameters);
 
 /*
  * This file can be used to create either a simple LED flasher example, or a
@@ -120,25 +121,24 @@ int main(void)
 	FreeRTOS_CLIRegisterCommand( &xMotorCommand );
        	FreeRTOS_CLIRegisterCommand( &xTaskStatsCommand);		
 
-	// =============== register CLI commands ===================
-	int sr = sizeof(QueueTelegram);
-	sr = sizeof (QueueTelegram *);
 	// create queues 
 	QSpd_handle = xQueueCreate(2, sizeof(QueueTelegram));
 
 
 /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
 
+
+
 	// echo server task 
-	xTaskCreate(set_macTask, "TCPsrv", configMINIMAL_STACK_SIZE*14, 
+	xTaskCreate(set_macTask, "TCPsrv", configMINIMAL_STACK_SIZE * 8 , 
 			NULL, mainFLASH_TASK_PRIORITY , &set_macTaskHandle);
 	
 	// run motor task 
-	xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE*19,
+	xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE * 8 ,
 		       	NULL, mainFLASH_TASK_PRIORITY, &motorHBHandle);
 
 	// set motor task 
-	xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE*5,		       				
+	xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 8,		       				
 			NULL, mainFLASH_TASK_PRIORITY , &motorHeartBeatHandle);
 	
 
@@ -160,6 +160,7 @@ int main(void)
 	for more details. */
 	for( ;; );
 }
+
 
 
 /*! 	\fn static void prvSetupHardware(void) 
@@ -188,7 +189,7 @@ void prvSetupHardware( void )
 	 * Task priority :	main flash task priority + 1 
 	 * Parameters 	 :	no parameters (NULL)
 	 */  
-	xTaskCreate(init_W5200, "init_W5200", configMINIMAL_STACK_SIZE*5, 
+	xTaskCreate(init_W5200, "init_W5200", configMINIMAL_STACK_SIZE*4, 
 			NULL, mainFLASH_TASK_PRIORITY + 1 , NULL);
 	
 	

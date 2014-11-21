@@ -88,7 +88,7 @@ void init_USARTx(void)
 	USART_ITConfig(USART6, USART_IT_RXNE, ENABLE); // enable the USART1 receive interrupt 
 	
 	NVIC_InitStructure.NVIC_IRQChannel = USART6_IRQn;		 // we want to configure the USART interrupts
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 4;;// this sets the priority group of the USART1 interrupts
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 2;;// this sets the priority group of the USART1 interrupts
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x6;		 // this sets the subpriority inside the group
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			 // the USART1 interrupts are globally enabled
 	NVIC_Init(&NVIC_InitStructure);	 // the properties are passed to the NVIC_Init function which takes care of the low level stuff	
@@ -162,7 +162,7 @@ void USART6_IRQHandler(void){
 
 
 	}
-	
+ portEND_SWITCHING_ISR( xHigherPriorityTaskWoken_usart );	
 }
 
 
@@ -402,7 +402,6 @@ uint8_t modbus_RR( int address, int nb, uint16_t *src)
 	byte_count = nb * 2;
     	req[req_length++] = byte_count;
 	
-	
 	uint16_t crc = crc16(req, req_length);
 
 	req[req_length++] = crc >> 8; 
@@ -438,8 +437,8 @@ void motorHeartBeat_task(void * pvParameters)
 
 	
 	uint16_t tab_reg[10];
-	
-	vTaskSuspend(NULL); 
+	//vTaskDelay(portMAX_DELAY);	
+	//vTaskSuspend(NULL); 
 	
 	while(1)
 	{
@@ -485,6 +484,16 @@ void motorControl_task(void * pvParameters)
 	
 
 	QueueTelegram telegramR, telegramS; 
+
+	telegramR.data[0] = 1000;
+	telegramR.data[1] = 0;	
+	telegramR.data[2] = 2250;
+	telegramR.data[3] = 10;	
+	telegramR.data[4] = 10;	
+	telegramR.size = 5;
+	telegramR.Qcmd = SETDATA;	
+
+	
 
 	int HB_flag = 0;
 	
@@ -559,19 +568,18 @@ void motorControl_task(void * pvParameters)
 					//	break;
 					}
 
-					vTaskDelay ( 1000 / portTICK_RATE_MS);
-
+				/*	vTaskDelay ( 1000 / portTICK_RATE_MS);
 					if (!modbus_WR( 0, 5, telegramR.data))
 					{
 							// send response to CLI 
 						telegramS.Qcmd = ERROR_MODBUS;
 					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
 					//	break;
-					}
+					}*/
 
 					vTaskDelay ( 1000 / portTICK_RATE_MS);
 
-					vTaskResume(motorHeartBeatHandle);
+				//	vTaskResume(motorHeartBeatHandle);
 
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;

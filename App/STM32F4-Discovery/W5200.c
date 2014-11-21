@@ -171,7 +171,11 @@ void init_W5200(void)
 
 	// unblock set_macTask
 	
-	vTaskResume( set_macTaskHandle); 
+	socket_0 = socket(W5200_Sn_MR_TCP, 80, 0);
+	listen(socket_0);
+
+
+//	vTaskResume( set_macTaskHandle); 
 
 	vTaskDelete ( NULL );
 	
@@ -705,22 +709,24 @@ void locate_interrupt()
        
 	// clear interrupt on W5200
 	spi_dma_sendByte(W5200_Sn_IR(sckt), 0xff);
+
+
+
 	switch (code )
 	{
-		case 0x1: 
-			//vTaskSuspend(motorHBHandle);
-			// connection established 
+		case 0x1:// Connect interrupts when a connection is established with a peer  
+		
 			// do nothing wait for input. 
 			break;
-		case 0x2:
+		case 0x2:// disconnect interrupt 
 
-			
-			//vTaskSuspend(motorHBHandle);
 
+			// do nothing 
 			break;
-		case 0x4:
-			vTaskResume(motorHBHandle);
+		case 0x4:// Receive interuppts whenever data packet is received from a peer 
+			//vTaskResume(motorHBHandle);
 			vTaskResume(set_macTaskHandle); 
+			//vTaskResume(motorHeartBeatHandle);
 			break;
 		case 0x10:
 			break;
@@ -743,8 +749,13 @@ void EXTI4_IRQHandler(void) //EXTI0 ISR
 	
 	if(EXTI_GetITStatus(WIZ_IT_EXTI_LINE) != RESET) //check if EXTI line is asserted
 	{
+		
+	//	taskENTER_CRITICAL();
 		locate_interrupt();	
+		
 		EXTI_ClearFlag(WIZ_IT_EXTI_LINE); //clear interrupt
+
+	//	taskEXIT_CRITICAL();
  	
 	}
 }
@@ -766,14 +777,12 @@ void set_macTask(void *pvParameters)
 
 	/* suspend task until init_W5200 is finished */
 	//vTaskSuspend(set_macTaskHandle);
-	vTaskSuspend(NULL);
+//	vTaskSuspend(NULL);
 	uint8_t	buf[50], buf1[256], oldbuf[50]; 
 	int len; 
 	int gl;
 		/*create socket and send byte */
-	socket_0 = socket(W5200_Sn_MR_TCP, 80, 0);
-	listen(socket_0);
-
+	
 
 	for( ;; )
         {

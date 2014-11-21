@@ -235,7 +235,7 @@ void DMA2_Stream2_IRQHandler()
 	xSemaphoreGiveFromISR( xSemaphoreDMASPI, &xHigherPriorityTaskWoken );
 	taskEXIT_CRITICAL(); //
   }	
-
+ portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
 }
 void DMA2_Stream3_IRQHandler()
 {
@@ -262,6 +262,7 @@ void DMA2_Stream3_IRQHandler()
 	xSemaphoreGiveFromISR( xSemaphoreDMASPI, &xHigherPriorityTaskWoken );
  	taskEXIT_CRITICAL();  
  }
+   portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
 }
 
 

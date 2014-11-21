@@ -3,7 +3,7 @@
 
 static 	portTickType xDelay = portMAX_DELAY;//3000 / portTICK_RATE_MS;
 
-QueueTelegram telegram; 
+QueueTelegram telegramS, telegramR; 
 
 /* default telegram */
 /*
@@ -58,26 +58,26 @@ int handleVariable_set (
 		s1 *= 100; 
 		
 		// test i
-		telegram.data[1] = 0;	
-		telegram.data[2] = 2250;
-		telegram.data[3] = 10;	
-		telegram.data[4] = 10;	
-		telegram.size = 5;
-		telegram.Qcmd = SETDATA;	
+		telegramS.data[1] = 0;	
+		telegramS.data[2] = 2250;
+		telegramS.data[3] = 10;	
+		telegramS.data[4] = 10;	
+		telegramS.size = 5;
+		telegramS.Qcmd = SETDATA;	
 		// test /
 		// setup telegram 
-		telegram.Qcmd = SETDATA;
-		telegram.size = 5;
-		telegram.data[0] = s1;
+		telegramS.Qcmd = SETDATA;
+		telegramS.size = 5;
+		telegramS.data[0] = s1;
 		
 	
 		// send value to setSpeed_task via Queue 
-		if ( xQueueSend ( QSpd_handle, (void *)&telegram, xDelay ) == pdPASS )
+		if ( xQueueSend ( QSpd_handle, (void *)&telegramS, xDelay ) == pdPASS )
 		{	
 					
-			if (  xQueueReceive ( QSpd_handle, &telegram, xDelay)== pdPASS)
+			if (  xQueueReceive ( QSpd_handle, &telegramR, xDelay)== pdPASS)
 			{
-				if ( telegram.Qcmd == SUCCSESS) 
+				if ( telegramR.Qcmd == SUCCSESS) 
 				{	
 					sprintf(pcWriteBuffer, "Speed succsesfully set.\n\n");
 					xWriteBufferLen = 25; 	
@@ -151,18 +151,18 @@ int handleVariable_set (
 	       		return pdFALSE; 	
 		}	
 	
-		telegram.data[3] = s1; 
-		telegram.size = 5; 
-		telegram.Qcmd = SETDATA;
+		telegramS.data[3] = s1; 
+		telegramS.size = 5; 
+		telegramS.Qcmd = SETDATA;
 		
 	
 		// send value to setSpeed_task via Queue 
-		if ( xQueueSend ( QSpd_handle, (void *)&telegram, xDelay ) == pdPASS )
+		if ( xQueueSend ( QSpd_handle, (void *)&telegramS, xDelay ) == pdPASS )
 		{	
 					
-			if (  xQueueReceive ( QSpd_handle, &telegram, xDelay))
+			if (  xQueueReceive ( QSpd_handle, &telegramR, xDelay))
 			{
-				if ( telegram.Qcmd == SUCCSESS) 
+				if ( telegramR.Qcmd == SUCCSESS) 
 				{	
 					sprintf(pcWriteBuffer, "Up ramp succsesfully set.\n\n");
 					xWriteBufferLen = 27; 	
@@ -208,84 +208,11 @@ int handleVariable_set (
 	
 	
 		
-		// now convert parameter to proper value and check if it is in range 
-        	Value[xValueLength-2] = '\0'; 	
-		uint16_t s1 = atoi ( Value ); 
-		// if speed is in range
-		if(s1 < 10 ||  s1 > 100 )
-		{
-			// send error via TCP
-			//
-			xWriteBufferLen = strlen ( Value ) + 11 ; 
-			//uint8_t buf [len]; //= "Error: speed is out of range!\n\n");
-			sprintf(pcWriteBuffer, "Errror : %d\n\n", s1);
-			pcWriteBuffer[11+ 3] = "\0"; 
-			//send( socket_0, buf, len, 0);
+				return 0; 
 
-	       		return pdFALSE; 	
-		}	
-	
-		// convert to correct value ( * 100 ) 
-		s1 *= 100; 
-		
-		
-		// setup telegram 
-		
-		telegram.data[0] = s1; 
-		telegram.size = 1; 
-		telegram.Qcmd = SETDATA;
-		
-	
-		// send value to setSpeed_task via Queue 
-		if ( xQueueSend ( QSpd_handle, (void *)&telegram, xDelay ) == pdPASS )
-		{	
-					
-			if (  xQueueReceive ( QSpd_handle, &telegram, xDelay))
-			{
-				if ( telegram.Qcmd == SUCCSESS) 
-				{	
-					sprintf(pcWriteBuffer, "Speed succsesfully set.\n\n");
-					xWriteBufferLen = 25; 	
-					//send( socket, buf, len, 0);
-
-
-					return pdPASS;
-
-				}
-				else
-				{
-					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
-			       		xWriteBufferLen = 19; 	
-					//send( socket, buf, len, 0);
-
-					return pdFALSE;
-
-
-				}
-						
-			}
-
-		}
-		else
-		{
-			// send to Queue was unsuccsessful
-			// send error via TCP 
-		
-			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
-	 		xWriteBufferLen = 22; 	
-			//send( socket, buf, len, 0);
-
-			return pdFALSE; 	
-		}
 	}
-
-	strcpy(pcWriteBuffer, xMotorCommand.pcHelpString);
-
-			return 0; 
-
-}
 			
-
+}
 
 int handleVariable_get (	
 				int8_t *pcWriteBuffer, 
@@ -304,20 +231,20 @@ int handleVariable_get (
 	if ( !strncmp ( Param, "speed", 5))
 	{	
 	
-		telegram.Qcmd = GETDATA; 
+		telegramS.Qcmd = GETDATA; 
 		
 	
 		// send value to setSpeed_task via Queue 
-		if ( xQueueSend ( QSpd_handle, (void *)&telegram, xDelay ) == pdPASS )
+		if ( xQueueSend ( QSpd_handle, (void *)&telegramS, xDelay ) == pdPASS )
 		{	
 					
-			if (  xQueueReceive ( QSpd_handle, &telegram, xDelay)== pdPASS)
+			if (  xQueueReceive ( QSpd_handle, &telegramR, xDelay)== pdPASS)
 			{
-				if ( telegram.Qcmd == SUCCSESS) 
+				if ( telegramR.Qcmd == SUCCSESS) 
 				{	
 					sprintf(pcWriteBuffer, "Speed is  %2d.%2dp \n\n\0", 
-					telegram.data[3]/100,
-					telegram.data[3] % 100);
+					telegramR.data[3]/100,
+					telegramR.data[3] % 100);
 				
 					//send( socket, buf, len, 0);
 
@@ -372,19 +299,19 @@ int handleVariable_get (
 	{	
 	
 	
-		telegram.Qcmd = GETDATA;
+		telegramS.Qcmd = GETDATA;
 			
 	
 		// send value to setSpeed_task via Queue 
-		if ( xQueueSend ( QSpd_handle, (void *)&telegram, xDelay ) == pdPASS )
+		if ( xQueueSend ( QSpd_handle, (void *)&telegramS, xDelay ) == pdPASS )
 		{	
 					
-			if (  xQueueReceive ( QSpd_handle, &telegram, xDelay))
+			if (  xQueueReceive ( QSpd_handle, &telegramR, xDelay))
 			{
-				if ( telegram.Qcmd == SUCCSESS) 
+				if ( telegramR.Qcmd == SUCCSESS) 
 				{	
 					sprintf(pcWriteBuffer, "Up ramp is %d seconds\n\n\0", 
-							telegram.data[3]);
+							telegramR.data[3]);
 					
 					xWriteBufferLen = 25; 	
 					//send( socket, buf, len, 0);
@@ -430,61 +357,16 @@ int handleVariable_get (
 	
 				
 	
-		// send value to setSpeed_task via Queue 
-		if ( xQueueSend ( QSpd_handle, (void *)&telegram, xDelay ) == pdPASS )
-		{	
-					
-			if (  xQueueReceive ( QSpd_handle, &telegram, xDelay))
-			{
-				if ( telegram.Qcmd == SUCCSESS) 
-				{	
-					sprintf(pcWriteBuffer, "Speed succsesfully set.\n\n");
-					xWriteBufferLen = 25; 	
-					//send( socket, buf, len, 0);
-
-
-					return pdPASS;
-
-				}
-				else
-				{
-					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
-			       		xWriteBufferLen = 19; 	
-					//send( socket, buf, len, 0);
-
-					return pdFALSE;
-
-
-				}
-						
-			}
-
-		}
-		else
-		{
-			// send to Queue was unsuccsessful
-			// send error via TCP 
-		
-			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
-	 		xWriteBufferLen = 22; 	
-			//send( socket, buf, len, 0);
-
-			return pdFALSE; 	
-		}
-	}
-
-
-	strcpy(pcWriteBuffer, xMotorCommand.pcHelpString);
-
+	
 
 			return 0; 
 
+	}
+
+
+
+
 }
-
-
-
-
-
 
 
 
@@ -644,15 +526,15 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 	if (!strncmp ( Option, "stop", 4))
 	{
 
-		telegram.Qcmd = STOP; 
-		telegram.size = 0; 
+		telegramS.Qcmd = STOP; 
+		telegramS.size = 5; 
 			// send value to setSpeed_task via Queue 
-		if ( xQueueSend ( QSpd_handle, (void *)&telegram, xDelay ) )
+		if ( xQueueSend ( QSpd_handle, (void *)&telegramS, xDelay ) )
 		{	
 					
-			if (  xQueueReceive ( QSpd_handle, &telegram, xDelay)== pdPASS)
+			if (  xQueueReceive ( QSpd_handle, &telegramR, xDelay)== pdPASS)
 			{
-				if ( telegram.Qcmd == SUCCSESS) 
+				if ( telegramR.Qcmd == SUCCSESS) 
 				{	
 					sprintf(pcWriteBuffer ,"Motor succsesfully stopped.\n\n");
 					xWriteBufferLen = 29 ; 	
@@ -705,15 +587,15 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 
 	if (!strncmp ( Option, "start", 5))
 	{
-		telegram.Qcmd = START; 
-		telegram.size = 0; 
+		telegramS.Qcmd = START; 
+		telegramS.size = 5; 
 			// send value to setSpeed_task via Queue 
-		if ( xQueueSend ( QSpd_handle, (void *)&telegram, xDelay ) == pdPASS )
+		if ( xQueueSend ( QSpd_handle, (void *)&telegramS, xDelay ) == pdPASS )
 		{	
 		//	vTaskDelay(500/portTICK_RATE_MS);		
-			if (  xQueueReceive ( QSpd_handle, &telegram, xDelay) == pdPASS)
+			if (  xQueueReceive ( QSpd_handle, &telegramR, xDelay) == pdPASS)
 			{
-				if ( telegram.Qcmd == SUCCSESS) 
+				if ( telegramR.Qcmd == SUCCSESS) 
 				{	
 					sprintf(pcWriteBuffer , "Motor succsesfully started.\n\n");
 					xWriteBufferLen = 29; 	
@@ -782,7 +664,11 @@ portBASE_TYPE prvTaskStatsCommand ( 	int8_t *pcWriteBuffer,
     /* pcWriteBuffer is used directly as the vTaskList() parameter, so the table
     generated by executing vTaskList() is written directly into the output
     buffer. */
-    vTaskList( pcWriteBuffer );
+
+  
+    vTaskList( pcWriteBuffer);
+
+ 
 
     /* The entire table was written directly to the output buffer.  Execution
     of this command is complete, so return pdFALSE. */
