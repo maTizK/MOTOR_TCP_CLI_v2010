@@ -137,6 +137,7 @@ void USART6_IRQHandler(void){
 	if( USART_GetITStatus(USARTx, USART_IT_RXNE) ){
 		
 		
+	//	USART_ClearITPendingBit ( USARTx, USART_IT_RXNE ) ;
 		static uint8_t cnt = 0; // this counter is used to determine the string length
 		volatile char t = USARTx->DR; // the character from the USART1 data register is saved in t
 		
@@ -155,6 +156,8 @@ void USART6_IRQHandler(void){
 			cnt = 0;
 		//	USART_ITConfig(USART6, USART_IT_RXNE, DISABLE); 
 		taskENTER_CRITICAL();
+				USART_ClearITPendingBit ( USARTx, USART_IT_RXNE ) ;
+
 			xSemaphoreGiveFromISR(xSmphrUSART,&xHigherPriorityTaskWoken_usart );
 		taskEXIT_CRITICAL();
 			//USART_puts(USART1, received_string);
@@ -440,13 +443,13 @@ void motorHeartBeat_task(void * pvParameters)
 	//vTaskDelay(portMAX_DELAY);	
 	//vTaskSuspend(NULL); 
 	
-	while(1)
+	for(;;)
 	{
 
 		
 		modbus_RR(0,10,tab_reg);
 
-		vTaskDelay(1000/portTICK_RATE_MS);
+		vTaskDelay(500/portTICK_RATE_MS);
 
 	}
 	/* Tasks must not attempt to return from their implementing
@@ -529,7 +532,7 @@ void motorControl_task(void * pvParameters)
 
 					vTaskDelay ( 1000 / portTICK_RATE_MS);
 
-					// send response to CLI 
+				// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
 					xQueueSend(QSpd_handle, &telegramS, xDelay);
 
@@ -557,6 +560,8 @@ void motorControl_task(void * pvParameters)
 				
 				case START: 
 					HB_flag = 1; 
+				//	vTaskResume(motorHeartBeatHandle);
+
 					// set motor speed to 10% 
 				         src[0]=1; src[1]=1; src[2]=1; src[3]=1;
 
@@ -568,19 +573,17 @@ void motorControl_task(void * pvParameters)
 					//	break;
 					}
 
-				/*	vTaskDelay ( 1000 / portTICK_RATE_MS);
+					vTaskDelay ( 1000 / portTICK_RATE_MS);
 					if (!modbus_WR( 0, 5, telegramR.data))
 					{
 							// send response to CLI 
 						telegramS.Qcmd = ERROR_MODBUS;
 					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
 					//	break;
-					}*/
+					}
 
 					vTaskDelay ( 1000 / portTICK_RATE_MS);
-
-				//	vTaskResume(motorHeartBeatHandle);
-
+			
 					// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
 					xQueueSend(QSpd_handle, &telegramS, xDelay);
@@ -589,8 +592,9 @@ void motorControl_task(void * pvParameters)
 				
 				case STOP:
 					
+				//	vTaskSuspend (motorHeartBeatHandle);	
 					// send stop bits to motor 
-					src[0]=0; src[1]=0; src[2]=0; src[3]=0;
+					src[0]=0; src[1]=1; src[2]=1; src[3]=1;
 
 					if (!modbus_WIB( 0 , 3, src)) 
 					{
@@ -603,7 +607,7 @@ void motorControl_task(void * pvParameters)
 					vTaskDelay ( 1000 / portTICK_RATE_MS);
 
 
-//					vTaskSuspend (motorHeartBeatHandle);					// send response to CLI 
+								// send response to CLI 
 					telegramS.Qcmd = SUCCSESS;
 					xQueueSend(QSpd_handle, &telegramS, xDelay);
 

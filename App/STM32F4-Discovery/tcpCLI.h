@@ -5,7 +5,7 @@
 #include "main.h"
 #include "FreeRTOS_CLI.h"
 #include "W5200.h"
-
+#include "modbus_mk.h"
 // prototypes of CLI functions 
 
 
@@ -32,7 +32,7 @@ static const CLI_Command_Definition_t xTaskStatsCommand =
 	(const int8_t * const)	"task",
 	(const int8_t * const)  "task - return tasks list\r\n\n\0",
 	prvTaskStatsCommand,
-	0
+	-1
 };
 
 

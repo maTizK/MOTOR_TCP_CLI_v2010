@@ -131,11 +131,11 @@ int main(void)
 
 	// echo server task 
 	xTaskCreate(set_macTask, "TCPsrv", configMINIMAL_STACK_SIZE * 8 , 
-			NULL, mainFLASH_TASK_PRIORITY , &set_macTaskHandle);
+			NULL, mainFLASH_TASK_PRIORITY + 1, &set_macTaskHandle);
 	
 	// run motor task 
 	xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE * 8 ,
-		       	NULL, mainFLASH_TASK_PRIORITY, &motorHBHandle);
+		       	NULL, mainFLASH_TASK_PRIORITY + 1, &motorHBHandle);
 
 	// set motor task 
 	xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 8,		       				

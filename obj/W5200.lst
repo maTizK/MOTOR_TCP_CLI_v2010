@@ -3185,7 +3185,7 @@
  2463              		.cfi_def_cfa_register 7
  2464 0006 3B1D     		adds	r3, r7, #4
  2465 0008 1860     		str	r0, [r3]
- 2466              	.L146:
+ 2466              	.L148:
  770:App/STM32F4-Discovery/W5200.c **** 
  771:App/STM32F4-Discovery/W5200.c **** 	/*!**********************************************************************
  772:App/STM32F4-Discovery/W5200.c **** 	 * 
@@ -3218,7 +3218,7 @@
  796:App/STM32F4-Discovery/W5200.c **** 		// receive data 
  797:App/STM32F4-Discovery/W5200.c **** 		len = recv(socket_0, buf, 100, 0);
  2470              		.loc 1 797 0
- 2471 0010 304B     		ldr	r3, .L147
+ 2471 0010 3A4B     		ldr	r3, .L149
  2472 0012 1B68     		ldr	r3, [r3]
  2473 0014 DAB2     		uxtb	r2, r3
  2474 0016 07F59E73 		add	r3, r7, #316
@@ -3227,11 +3227,11 @@
  2477 001e 6422     		movs	r2, #100
  2478 0020 0023     		movs	r3, #0
  2479 0022 FFF7FEFF 		bl	recv
- 2480 0026 C7F87C01 		str	r0, [r7, #380]
+ 2480 0026 C7F87801 		str	r0, [r7, #376]
  798:App/STM32F4-Discovery/W5200.c **** 
  799:App/STM32F4-Discovery/W5200.c **** 		if ( len < 3 )
  2481              		.loc 1 799 0
- 2482 002a D7F87C31 		ldr	r3, [r7, #380]
+ 2482 002a D7F87831 		ldr	r3, [r7, #376]
  2483 002e 022B     		cmp	r3, #2
  2484 0030 1FDC     		bgt	.L144
  2485              	.LBB2:
@@ -3252,116 +3252,132 @@
  2495 004a 1846     		mov	r0, r3
  2496 004c FFF7FEFF 		bl	strlen
  2497 0050 0346     		mov	r3, r0
- 2498 0052 C7F87831 		str	r3, [r7, #376]
+ 2498 0052 C7F87431 		str	r3, [r7, #372]
  805:App/STM32F4-Discovery/W5200.c **** 			
  806:App/STM32F4-Discovery/W5200.c **** 			send(socket_0, buf1,  slen, gl);
  2499              		.loc 1 806 0
- 2500 0056 1F4B     		ldr	r3, .L147
+ 2500 0056 294B     		ldr	r3, .L149
  2501 0058 1B68     		ldr	r3, [r3]
  2502 005a D8B2     		uxtb	r0, r3
- 2503 005c D7F87831 		ldr	r3, [r7, #376]
+ 2503 005c D7F87431 		ldr	r3, [r7, #372]
  2504 0060 9AB2     		uxth	r2, r3
- 2505 0062 D7F87431 		ldr	r3, [r7, #372]
+ 2505 0062 D7F87031 		ldr	r3, [r7, #368]
  2506 0066 9BB2     		uxth	r3, r3
  2507 0068 07F13C01 		add	r1, r7, #60
  2508 006c FFF7FEFF 		bl	send
  2509              	.LBE2:
+ 2510 0070 43E0     		b	.L145
+ 2511              	.L144:
+ 2512              	.LBB3:
  807:App/STM32F4-Discovery/W5200.c **** 
- 808:App/STM32F4-Discovery/W5200.c **** 		
+ 808:App/STM32F4-Discovery/W5200.c **** 				
  809:App/STM32F4-Discovery/W5200.c **** 
  810:App/STM32F4-Discovery/W5200.c **** 		}	
  811:App/STM32F4-Discovery/W5200.c **** 	
  812:App/STM32F4-Discovery/W5200.c **** 		else 
  813:App/STM32F4-Discovery/W5200.c **** 		{		
  814:App/STM32F4-Discovery/W5200.c **** 			buf[len-2]='\0';
+ 2513              		.loc 1 814 0
+ 2514 0072 D7F87831 		ldr	r3, [r7, #376]
+ 2515 0076 023B     		subs	r3, r3, #2
+ 2516 0078 07F5C072 		add	r2, r7, #384
+ 2517 007c 1344     		add	r3, r3, r2
+ 2518 007e 0022     		movs	r2, #0
+ 2519 0080 03F8442C 		strb	r2, [r3, #-68]
  815:App/STM32F4-Discovery/W5200.c **** 			// proces data with CLI 
  816:App/STM32F4-Discovery/W5200.c **** 		
  817:App/STM32F4-Discovery/W5200.c **** 			FreeRTOS_CLIProcessCommand ( buf, buf1, 256);
+ 2520              		.loc 1 817 0
+ 2521 0084 07F59E72 		add	r2, r7, #316
+ 2522 0088 07F13C03 		add	r3, r7, #60
+ 2523 008c 1046     		mov	r0, r2
+ 2524 008e 1946     		mov	r1, r3
+ 2525 0090 4FF48072 		mov	r2, #256
+ 2526 0094 FFF7FEFF 		bl	FreeRTOS_CLIProcessCommand
  818:App/STM32F4-Discovery/W5200.c **** 			
  819:App/STM32F4-Discovery/W5200.c **** 			int slen = strlen(buf1);
+ 2527              		.loc 1 819 0
+ 2528 0098 07F13C03 		add	r3, r7, #60
+ 2529 009c 1846     		mov	r0, r3
+ 2530 009e FFF7FEFF 		bl	strlen
+ 2531 00a2 0346     		mov	r3, r0
+ 2532 00a4 C7F87C31 		str	r3, [r7, #380]
  820:App/STM32F4-Discovery/W5200.c **** 			
  821:App/STM32F4-Discovery/W5200.c **** 			send(socket_0, buf1,  slen, gl);
+ 2533              		.loc 1 821 0
+ 2534 00a8 144B     		ldr	r3, .L149
+ 2535 00aa 1B68     		ldr	r3, [r3]
+ 2536 00ac D8B2     		uxtb	r0, r3
+ 2537 00ae D7F87C31 		ldr	r3, [r7, #380]
+ 2538 00b2 9AB2     		uxth	r2, r3
+ 2539 00b4 D7F87031 		ldr	r3, [r7, #368]
+ 2540 00b8 9BB2     		uxth	r3, r3
+ 2541 00ba 07F13C01 		add	r1, r7, #60
+ 2542 00be FFF7FEFF 		bl	send
  822:App/STM32F4-Discovery/W5200.c **** 
  823:App/STM32F4-Discovery/W5200.c **** 			strcpy(oldbuf, buf);
- 824:App/STM32F4-Discovery/W5200.c **** 		}
- 825:App/STM32F4-Discovery/W5200.c **** 		
- 826:App/STM32F4-Discovery/W5200.c **** 	
+ 2543              		.loc 1 823 0
+ 2544 00c2 07F10802 		add	r2, r7, #8
+ 2545 00c6 07F59E73 		add	r3, r7, #316
+ 2546 00ca 1046     		mov	r0, r2
+ 2547 00cc 1946     		mov	r1, r3
+ 2548 00ce FFF7FEFF 		bl	strcpy
+ 824:App/STM32F4-Discovery/W5200.c **** 
+ 825:App/STM32F4-Discovery/W5200.c **** 			for (slen = 0 ; slen < 10; slen++) buf[slen] = NULL;
+ 2549              		.loc 1 825 0
+ 2550 00d2 0023     		movs	r3, #0
+ 2551 00d4 C7F87C31 		str	r3, [r7, #380]
+ 2552 00d8 0BE0     		b	.L146
+ 2553              	.L147:
+ 2554              		.loc 1 825 0 is_stmt 0 discriminator 2
+ 2555 00da 07F59E72 		add	r2, r7, #316
+ 2556 00de D7F87C31 		ldr	r3, [r7, #380]
+ 2557 00e2 1344     		add	r3, r3, r2
+ 2558 00e4 0022     		movs	r2, #0
+ 2559 00e6 1A70     		strb	r2, [r3]
+ 2560 00e8 D7F87C31 		ldr	r3, [r7, #380]
+ 2561 00ec 0133     		adds	r3, r3, #1
+ 2562 00ee C7F87C31 		str	r3, [r7, #380]
+ 2563              	.L146:
+ 2564              		.loc 1 825 0 discriminator 1
+ 2565 00f2 D7F87C31 		ldr	r3, [r7, #380]
+ 2566 00f6 092B     		cmp	r3, #9
+ 2567 00f8 EFDD     		ble	.L147
+ 2568              	.L145:
+ 2569              	.LBE3:
+ 826:App/STM32F4-Discovery/W5200.c **** 		}
  827:App/STM32F4-Discovery/W5200.c **** 		
- 828:App/STM32F4-Discovery/W5200.c **** 
+ 828:App/STM32F4-Discovery/W5200.c **** 	
  829:App/STM32F4-Discovery/W5200.c **** 		
- 830:App/STM32F4-Discovery/W5200.c **** 	}	
- 2510              		.loc 1 830 0
- 2511 0070 CBE7     		b	.L146
- 2512              	.L144:
- 2513              	.LBB3:
- 814:App/STM32F4-Discovery/W5200.c **** 			buf[len-2]='\0';
- 2514              		.loc 1 814 0
- 2515 0072 D7F87C31 		ldr	r3, [r7, #380]
- 2516 0076 023B     		subs	r3, r3, #2
- 2517 0078 07F5C072 		add	r2, r7, #384
- 2518 007c 1344     		add	r3, r3, r2
- 2519 007e 0022     		movs	r2, #0
- 2520 0080 03F8442C 		strb	r2, [r3, #-68]
- 817:App/STM32F4-Discovery/W5200.c **** 			FreeRTOS_CLIProcessCommand ( buf, buf1, 256);
- 2521              		.loc 1 817 0
- 2522 0084 07F59E72 		add	r2, r7, #316
- 2523 0088 07F13C03 		add	r3, r7, #60
- 2524 008c 1046     		mov	r0, r2
- 2525 008e 1946     		mov	r1, r3
- 2526 0090 4FF48072 		mov	r2, #256
- 2527 0094 FFF7FEFF 		bl	FreeRTOS_CLIProcessCommand
- 819:App/STM32F4-Discovery/W5200.c **** 			int slen = strlen(buf1);
- 2528              		.loc 1 819 0
- 2529 0098 07F13C03 		add	r3, r7, #60
- 2530 009c 1846     		mov	r0, r3
- 2531 009e FFF7FEFF 		bl	strlen
- 2532 00a2 0346     		mov	r3, r0
- 2533 00a4 C7F87031 		str	r3, [r7, #368]
- 821:App/STM32F4-Discovery/W5200.c **** 			send(socket_0, buf1,  slen, gl);
- 2534              		.loc 1 821 0
- 2535 00a8 0A4B     		ldr	r3, .L147
- 2536 00aa 1B68     		ldr	r3, [r3]
- 2537 00ac D8B2     		uxtb	r0, r3
- 2538 00ae D7F87031 		ldr	r3, [r7, #368]
- 2539 00b2 9AB2     		uxth	r2, r3
- 2540 00b4 D7F87431 		ldr	r3, [r7, #372]
- 2541 00b8 9BB2     		uxth	r3, r3
- 2542 00ba 07F13C01 		add	r1, r7, #60
- 2543 00be FFF7FEFF 		bl	send
- 823:App/STM32F4-Discovery/W5200.c **** 			strcpy(oldbuf, buf);
- 2544              		.loc 1 823 0
- 2545 00c2 07F10802 		add	r2, r7, #8
- 2546 00c6 07F59E73 		add	r3, r7, #316
- 2547 00ca 1046     		mov	r0, r2
- 2548 00cc 1946     		mov	r1, r3
- 2549 00ce FFF7FEFF 		bl	strcpy
- 2550              	.LBE3:
- 2551              		.loc 1 830 0
- 2552 00d2 9AE7     		b	.L146
- 2553              	.L148:
- 2554              		.align	2
- 2555              	.L147:
- 2556 00d4 00000000 		.word	socket_0
- 2557              		.cfi_endproc
- 2558              	.LFE134:
- 2560              		.text
- 2561              	.Letext0:
- 2562              		.file 2 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
- 2563              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
- 2564              		.file 4 "App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h"
- 2565              		.file 5 "Source/portable/GCC/ARM_CM4F/portmacro.h"
- 2566              		.file 6 "Source/include/task.h"
- 2567              		.file 7 "Source/include/queue.h"
- 2568              		.file 8 "Source/include/semphr.h"
- 2569              		.file 9 "App/STM32F4-Discovery/main.h"
- 2570              		.file 10 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
- 2571              		.file 11 "App/STM32F4-Discovery/spi.h"
- 2572              		.file 12 "App/STM32F4-Discovery/W5200.h"
+ 830:App/STM32F4-Discovery/W5200.c **** 
+ 831:App/STM32F4-Discovery/W5200.c **** 		
+ 832:App/STM32F4-Discovery/W5200.c **** 	}	
+ 2570              		.loc 1 832 0 is_stmt 1
+ 2571 00fa 86E7     		b	.L148
+ 2572              	.L150:
+ 2573              		.align	2
+ 2574              	.L149:
+ 2575 00fc 00000000 		.word	socket_0
+ 2576              		.cfi_endproc
+ 2577              	.LFE134:
+ 2579              		.text
+ 2580              	.Letext0:
+ 2581              		.file 2 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
+ 2582              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
+ 2583              		.file 4 "App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h"
+ 2584              		.file 5 "Source/portable/GCC/ARM_CM4F/portmacro.h"
+ 2585              		.file 6 "Source/include/task.h"
+ 2586              		.file 7 "Source/include/queue.h"
+ 2587              		.file 8 "Source/include/semphr.h"
+ 2588              		.file 9 "App/STM32F4-Discovery/main.h"
+ 2589              		.file 10 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
+ 2590              		.file 11 "App/STM32F4-Discovery/spi.h"
+ 2591              		.file 12 "App/STM32F4-Discovery/W5200.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 W5200.c
                             *COM*:0000000000000004 xSemaphoreDMASPI
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:21     .bss.xHigherPriorityTaskWoken:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:24     .bss.xHigherPriorityTaskWoken:0000000000000000 xHigherPriorityTaskWoken
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:21     .bss.xHigherPriorityTaskWoken:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:24     .bss.xHigherPriorityTaskWoken:0000000000000000 xHigherPriorityTaskWoken
                             *COM*:0000000000000004 xSmphrUSART
                             *COM*:0000000000000004 motorHeartBeatHandle
                             *COM*:0000000000000004 motorHBHandle
@@ -3375,86 +3391,86 @@ DEFINED SYMBOLS
                             *COM*:0000000000000004 dat_lengthRX
                             *COM*:0000000000000004 dat_lengthTX
                             *COM*:0000000000000004 set_macTaskHandle
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:40     .rodata.RAMSIZE_TABLE:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:43     .rodata.RAMSIZE_TABLE:0000000000000000 RAMSIZE_TABLE
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:63     .bss.socket_table:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:66     .bss.socket_table:0000000000000000 socket_table
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:69     .bss.socket_flg:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:72     .bss.socket_flg:0000000000000000 socket_flg
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:75     .rodata.socket_open_status:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:78     .rodata.socket_open_status:0000000000000000 socket_open_status
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:86     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:113    .text.init_W5200:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:118    .text.init_W5200:0000000000000000 init_W5200
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:423    .text.W5200_configure_network:0000000000000000 W5200_configure_network
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:341    .text.W5200_set_hardware_address:0000000000000000 W5200_set_hardware_address
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1264   .text.socket:0000000000000000 socket
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2184   .text.listen:0000000000000000 listen
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:324    .text.init_W5200:0000000000000178 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:336    .text.W5200_set_hardware_address:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:373    .text.W5200_get_hardware_address:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:378    .text.W5200_get_hardware_address:0000000000000000 W5200_get_hardware_address
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:413    .text.W5200_get_hardware_address:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:418    .text.W5200_configure_network:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:467    .text.W5200_get_ipaddress:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:472    .text.W5200_get_ipaddress:0000000000000000 W5200_get_ipaddress
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:507    .text.W5200_get_ipaddress:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:512    .text.get_CRStatus:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:516    .text.get_CRStatus:0000000000000000 get_CRStatus
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:561    .text.get_CRStatus:0000000000000034 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:566    .text.get_SRStatus:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:570    .text.get_SRStatus:0000000000000000 get_SRStatus
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:615    .text.get_SRStatus:0000000000000034 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:620    .text.get_TXFSRStatus:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:624    .text.get_TXFSRStatus:0000000000000000 get_TXFSRStatus
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:676    .text.get_TXFSRStatus:0000000000000044 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:681    .text.get_TXWRStatus:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:685    .text.get_TXWRStatus:0000000000000000 get_TXWRStatus
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:737    .text.get_TXWRStatus:0000000000000044 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:742    .text.get_TXRD:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:746    .text.get_TXRD:0000000000000000 get_TXRD
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:798    .text.get_TXRD:0000000000000044 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:803    .text.set_TXWR:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:807    .text.set_TXWR:0000000000000000 set_TXWR
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:849    .text.get_RXRSR:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:853    .text.get_RXRSR:0000000000000000 get_RXRSR
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:905    .text.get_RXRSR:0000000000000044 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:910    .text.get_RXRD:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:914    .text.get_RXRD:0000000000000000 get_RXRD
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:966    .text.get_RXRD:0000000000000044 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:971    .text.set_RXRD:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:975    .text.set_RXRD:0000000000000000 set_RXRD
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1017   .text.write_memory:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1022   .text.write_memory:0000000000000000 write_memory
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1133   .text.read_memory:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1138   .text.read_memory:0000000000000000 read_memory
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1254   .text.read_memory:00000000000000bc $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1259   .text.socket:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1474   .text.socket:000000000000014c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1479   .text.closesocket:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1484   .text.closesocket:0000000000000000 closesocket
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1572   .text.closesocket:0000000000000078 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1577   .text.connect:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1582   .text.connect:0000000000000000 connect
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1747   .text.connect:0000000000000104 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1752   .text.send:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:1757   .text.send:0000000000000000 send
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2014   .text.send:00000000000001a4 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2020   .text.recv:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2025   .text.recv:0000000000000000 recv
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2174   .text.recv:00000000000000e0 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2179   .text.listen:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2293   .text.listen:00000000000000a0 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2299   .text.locate_interrupt:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2304   .text.locate_interrupt:0000000000000000 locate_interrupt
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2362   .text.locate_interrupt:0000000000000054 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2378   .text.locate_interrupt:0000000000000094 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2399   .text.locate_interrupt:00000000000000a8 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2405   .text.EXTI4_IRQHandler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2410   .text.EXTI4_IRQHandler:0000000000000000 EXTI4_IRQHandler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2442   .text.set_macTask:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2447   .text.set_macTask:0000000000000000 set_macTask
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccyPB5bg.s:2556   .text.set_macTask:00000000000000d4 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:40     .rodata.RAMSIZE_TABLE:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:43     .rodata.RAMSIZE_TABLE:0000000000000000 RAMSIZE_TABLE
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:63     .bss.socket_table:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:66     .bss.socket_table:0000000000000000 socket_table
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:69     .bss.socket_flg:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:72     .bss.socket_flg:0000000000000000 socket_flg
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:75     .rodata.socket_open_status:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:78     .rodata.socket_open_status:0000000000000000 socket_open_status
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:86     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:113    .text.init_W5200:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:118    .text.init_W5200:0000000000000000 init_W5200
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:423    .text.W5200_configure_network:0000000000000000 W5200_configure_network
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:341    .text.W5200_set_hardware_address:0000000000000000 W5200_set_hardware_address
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1264   .text.socket:0000000000000000 socket
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2184   .text.listen:0000000000000000 listen
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:324    .text.init_W5200:0000000000000178 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:336    .text.W5200_set_hardware_address:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:373    .text.W5200_get_hardware_address:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:378    .text.W5200_get_hardware_address:0000000000000000 W5200_get_hardware_address
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:413    .text.W5200_get_hardware_address:0000000000000020 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:418    .text.W5200_configure_network:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:467    .text.W5200_get_ipaddress:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:472    .text.W5200_get_ipaddress:0000000000000000 W5200_get_ipaddress
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:507    .text.W5200_get_ipaddress:0000000000000020 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:512    .text.get_CRStatus:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:516    .text.get_CRStatus:0000000000000000 get_CRStatus
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:561    .text.get_CRStatus:0000000000000034 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:566    .text.get_SRStatus:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:570    .text.get_SRStatus:0000000000000000 get_SRStatus
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:615    .text.get_SRStatus:0000000000000034 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:620    .text.get_TXFSRStatus:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:624    .text.get_TXFSRStatus:0000000000000000 get_TXFSRStatus
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:676    .text.get_TXFSRStatus:0000000000000044 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:681    .text.get_TXWRStatus:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:685    .text.get_TXWRStatus:0000000000000000 get_TXWRStatus
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:737    .text.get_TXWRStatus:0000000000000044 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:742    .text.get_TXRD:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:746    .text.get_TXRD:0000000000000000 get_TXRD
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:798    .text.get_TXRD:0000000000000044 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:803    .text.set_TXWR:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:807    .text.set_TXWR:0000000000000000 set_TXWR
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:849    .text.get_RXRSR:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:853    .text.get_RXRSR:0000000000000000 get_RXRSR
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:905    .text.get_RXRSR:0000000000000044 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:910    .text.get_RXRD:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:914    .text.get_RXRD:0000000000000000 get_RXRD
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:966    .text.get_RXRD:0000000000000044 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:971    .text.set_RXRD:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:975    .text.set_RXRD:0000000000000000 set_RXRD
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1017   .text.write_memory:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1022   .text.write_memory:0000000000000000 write_memory
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1133   .text.read_memory:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1138   .text.read_memory:0000000000000000 read_memory
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1254   .text.read_memory:00000000000000bc $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1259   .text.socket:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1474   .text.socket:000000000000014c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1479   .text.closesocket:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1484   .text.closesocket:0000000000000000 closesocket
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1572   .text.closesocket:0000000000000078 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1577   .text.connect:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1582   .text.connect:0000000000000000 connect
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1747   .text.connect:0000000000000104 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1752   .text.send:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:1757   .text.send:0000000000000000 send
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2014   .text.send:00000000000001a4 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2020   .text.recv:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2025   .text.recv:0000000000000000 recv
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2174   .text.recv:00000000000000e0 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2179   .text.listen:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2293   .text.listen:00000000000000a0 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2299   .text.locate_interrupt:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2304   .text.locate_interrupt:0000000000000000 locate_interrupt
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2362   .text.locate_interrupt:0000000000000054 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2378   .text.locate_interrupt:0000000000000094 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2399   .text.locate_interrupt:00000000000000a8 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2405   .text.EXTI4_IRQHandler:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2410   .text.EXTI4_IRQHandler:0000000000000000 EXTI4_IRQHandler
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2442   .text.set_macTask:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2447   .text.set_macTask:0000000000000000 set_macTask
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccxPFODS.s:2575   .text.set_macTask:00000000000000fc $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

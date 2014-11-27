@@ -805,7 +805,7 @@ void set_macTask(void *pvParameters)
 			
 			send(socket_0, buf1,  slen, gl);
 
-		
+				
 
 		}	
 	
@@ -821,6 +821,8 @@ void set_macTask(void *pvParameters)
 			send(socket_0, buf1,  slen, gl);
 
 			strcpy(oldbuf, buf);
+
+			for (slen = 0 ; slen < 10; slen++) buf[slen] = NULL;
 		}
 		
 	
