@@ -251,11 +251,11 @@ int  recv(uint8_t sck_fd, uint8_t *buf, uint16_t len, uint16_t flag);
 
 
 /*!********************************************************************************
- * \fn void set_macTask(void *);
+ * \fn void tcp_srv_Task(void *);
  *	\brief Test task TCP simple server 
  *	\param *pvParameters - possible parameters for task 
  **********************************************************************************/
-void set_macTask(void *pvParameters);
+void tcp_srv_Task(void *pvParameters);
 
 /*!********************************************************************************
  * \fn int listen(int sck_fd)

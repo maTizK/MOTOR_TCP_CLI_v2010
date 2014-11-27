@@ -4,6 +4,8 @@
 
 
 #include "modbus_mk.h"
+#include "printf.h"
+
 
 
 /* This funcion initializes the USART1 peripheral
@@ -442,14 +444,14 @@ void motorHeartBeat_task(void * pvParameters)
 	uint16_t tab_reg[10];
 	//vTaskDelay(portMAX_DELAY);	
 	//vTaskSuspend(NULL); 
-	
+	int counter = 0;	
 	for(;;)
 	{
 
-		
+		t_printf("heart beat %d\n", counter);		
 		modbus_RR(0,10,tab_reg);
-
-		vTaskDelay(500/portTICK_RATE_MS);
+		counter ++;
+		vTaskDelay(3000/portTICK_RATE_MS);
 
 	}
 	/* Tasks must not attempt to return from their implementing

@@ -1,6 +1,4 @@
-obj/App/STM32F4-Discovery/main.o: App/STM32F4-Discovery/main.c \
- App/STM32F4-Discovery/main.h Source/include/FreeRTOS.h \
- Source/include/projdefs.h App/STM32F4-Discovery/FreeRTOSConfig.h \
+obj/Source/printf.o: Source/printf.c \
  App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h \
  App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h \
  App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cmInstr.h \
@@ -34,22 +32,7 @@ obj/App/STM32F4-Discovery/main.o: App/STM32F4-Discovery/main.c \
  App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_usart.h \
  App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_wwdg.h \
  App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/misc.h \
- Source/include/portable.h Source/portable/GCC/ARM_CM4F/portmacro.h \
- Source/include/mpu_wrappers.h Source/include/task.h \
- Source/include/list.h Source/include/timers.h Source/include/task.h \
- Source/include/semphr.h Source/include/queue.h \
- App/STM32F4-Discovery/stm32f4xx_conf.h App/STM32F4-Discovery/spi.h \
- App/STM32F4-Discovery/W5200.h App/STM32F4-Discovery/modbus_mk.h \
- App/STM32F4-Discovery/tcpCLI.h Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h \
  bojan/printf.h
-
-App/STM32F4-Discovery/main.h:
-
-Source/include/FreeRTOS.h:
-
-Source/include/projdefs.h:
-
-App/STM32F4-Discovery/FreeRTOSConfig.h:
 
 App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h:
 
@@ -116,35 +99,5 @@ App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_usart.h
 App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/stm32f4xx_wwdg.h:
 
 App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/misc.h:
-
-Source/include/portable.h:
-
-Source/portable/GCC/ARM_CM4F/portmacro.h:
-
-Source/include/mpu_wrappers.h:
-
-Source/include/task.h:
-
-Source/include/list.h:
-
-Source/include/timers.h:
-
-Source/include/task.h:
-
-Source/include/semphr.h:
-
-Source/include/queue.h:
-
-App/STM32F4-Discovery/stm32f4xx_conf.h:
-
-App/STM32F4-Discovery/spi.h:
-
-App/STM32F4-Discovery/W5200.h:
-
-App/STM32F4-Discovery/modbus_mk.h:
-
-App/STM32F4-Discovery/tcpCLI.h:
-
-Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h:
 
 bojan/printf.h:

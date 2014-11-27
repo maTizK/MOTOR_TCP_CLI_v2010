@@ -41,7 +41,7 @@ obj/App/STM32F4-Discovery/modbus_mk.o: App/STM32F4-Discovery/modbus_mk.c \
  Source/include/semphr.h Source/include/queue.h \
  App/STM32F4-Discovery/stm32f4xx_conf.h App/STM32F4-Discovery/tcpCLI.h \
  Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h App/STM32F4-Discovery/W5200.h \
- App/STM32F4-Discovery/spi.h
+ App/STM32F4-Discovery/spi.h bojan/printf.h
 
 App/STM32F4-Discovery/modbus_mk.h:
 
@@ -146,3 +146,5 @@ Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h:
 App/STM32F4-Discovery/W5200.h:
 
 App/STM32F4-Discovery/spi.h:
+
+bojan/printf.h:

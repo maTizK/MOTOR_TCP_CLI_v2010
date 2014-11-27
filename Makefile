@@ -41,6 +41,7 @@ SOURCES += Source/list.c
 SOURCES += Source/croutine.c
 SOURCES += Source/portable/GCC/ARM_CM4F/port.c 
 SOURCES += Source/timers.c
+SOURCES += Source/printf.c
 
 # free-rtos plus source code 
 SOURCES += Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.c
@@ -128,6 +129,7 @@ OBJECTS  = $(addprefix $(OBJDIR)/,$(addsuffix .o,$(basename $(SOURCES))))
 # Place -D, -U or -I options here for C and C++ sources
 CPPFLAGS += -ISource
 CPPFLAGS += -ISource/include/
+CPPFLAGS += -Ibojan/
 CPPFLAGS += -ISource/FreeRTOS-Plus-CLI/
 CPPFLAGS += -IApp/STM32F4-Discovery/Libraries/CMSIS/Include
 CPPFLAGS += -IApp/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include
@@ -157,6 +159,10 @@ CFLAGS += -w
 #CFLAGS += -Wunreachable-code
 #CFLAGS += -Wundef
 CFLAGS += -Wa,-adhlns=$(OBJDIR)/$(*F).lst
+CFLAGS += -DITM_TRACE
+CFLAGS+=-DCORTEX_M4
+#CFLAGS+=-DCORTEX_M3
+CFLAGS+=-DSTM32F4xx
 
 # Optimize use of the single-precision FPU
 #

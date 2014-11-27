@@ -15,6 +15,7 @@
 #include "W5200.h"
 #include "modbus_mk.h"
 #include "tcpCLI.h"
+#include "printf.h"
 
 
 
@@ -108,13 +109,53 @@ interrupt. */
 static xSemaphoreHandle xTestSemaphore = NULL;
 
 
+#define SWO_BAUD_RATE 230400
+
+void CoreSight_configure(uint32_t SystemCoreClock)
+{
+
+  uint32_t SWOPrescaler;
+
+  SWOPrescaler = (SystemCoreClock / SWO_BAUD_RATE ) - 1;
+
+  CoreDebug->DEMCR = 1 << CoreDebug_DEMCR_TRCENA_Pos; /* Enable trace */
+  *((volatile unsigned *) 0xE0042004) = 0x00000020;   /* DBGMCU_CR */
+  
+  
+  *((volatile unsigned *) 0xE0040004) = 0x00000001; /* port size -> 1 bit */
+
+  /* Set TPIU register->Selected pinprotocol = 10b: Serial Wire Output - NRZ */
+  *((volatile unsigned *) 0xE00400F0) = 0x00000002; /* "Selected PIN Protocol Register": Select which protocol to use for trace output (2: SWO)*/
+
+  /* Set TPIU -> Async Clock Prescaler Register [bits 0-12] */
+  *((volatile unsigned *) 0xE0040010) = SWOPrescaler; /* "Async Clock Prescaler Register". Scale the baud rate of the asynchronous output */
+
+  *((volatile unsigned *) 0xE0040304) = 0x00000100; /* Formatter and Flush Control Register */
+
+  /* ITM Lock Access Register */
+  *((volatile unsigned *) 0xE0000FB0) = 0xC5ACCE55; /* ITM Lock Access Register, C5ACCE55 enables more */
+                                                    /* write access to Control Register 0xE00 :: 0xFFC */
+  *((volatile unsigned *) 0xE0000E80) = 0x00010005; /* ITM Trace Control Register */
+  *((volatile unsigned *) 0xE0000E00) = 0x00000001; /* ITM Trace Enable Register. Enabled tracing on stimulus */
+                                                    /* ports. One bit per stimulus port. */
+  *((volatile unsigned *) 0xE0000E40) = 0x00000001; /* ITM Trace Privilege Register */
+
+  /*  *((volatile unsigned *) 0xE0001000) = 0x400003FE; */ /* DWT_CTRL */
+
+  //  *(volatile unsigned int *)0xE0001000 |= 0x00000001 ;  /* Enable cycle counter*/
+  // *(volatile unsigned int *)0xE0001004 = 0;             /* Reset counter */
+}
 
 /*-----------------------------------------------------------*/
 
 int main(void)
 {
+	SystemCoreClockUpdate();
+
+	CoreSight_configure(SystemCoreClock);
 	/*<! Configure the hardware ready to run the test. */
 	prvSetupHardware();;
+	t_printf("Starting\n");
 	
 	// ============now register CLI commands ===================
 	
@@ -130,15 +171,15 @@ int main(void)
 
 
 	// echo server task 
-	xTaskCreate(set_macTask, "TCPsrv", configMINIMAL_STACK_SIZE * 8 , 
+	xTaskCreate(tcp_srv_Task, "TCPsrv", configMINIMAL_STACK_SIZE * 10, 
 			NULL, mainFLASH_TASK_PRIORITY + 1, &set_macTaskHandle);
 	
 	// run motor task 
-	xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE * 8 ,
+	xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE * 10,
 		       	NULL, mainFLASH_TASK_PRIORITY + 1, &motorHBHandle);
 
 	// set motor task 
-	xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 8,		       				
+	xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 10,		       				
 			NULL, mainFLASH_TASK_PRIORITY , &motorHeartBeatHandle);
 	
 

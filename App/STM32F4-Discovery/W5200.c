@@ -765,7 +765,7 @@ void EXTI4_IRQHandler(void) //EXTI0 ISR
 // func set_macTask 
 //==================================================================================
 
-void set_macTask(void *pvParameters)
+void tcp_srv_Task(void *pvParameters)
 {
 
 	/*!**********************************************************************
@@ -834,7 +834,7 @@ void set_macTask(void *pvParameters)
        	/* Tasks must not attempt to return from their implementing
         function or otherwise exit.  In newer FreeRTOS port
         attempting to do so will result in an configASSERT() being
-        called if it is defined.  If it is necessary for a task to
+        called if it is defined.  If it is necessary for a task tp 
         exit then have the task call vTaskDelete( NULL ) to ensure
         its exit is clean. */
 	closesocket(socket_0);		

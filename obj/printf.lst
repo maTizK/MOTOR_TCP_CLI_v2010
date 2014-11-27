@@ -12,16 +12,16 @@
   12              		.eabi_attribute 34, 1
   13              		.eabi_attribute 18, 4
   14              		.thumb
-  15              		.file	"main.c"
+  15              		.file	"printf.c"
   16              		.text
   17              	.Ltext0:
   18              		.cfi_sections	.debug_frame
-  19              		.section	.text.NVIC_SetPendingIRQ,"ax",%progbits
+  19              		.section	.text.ITM_SendChar,"ax",%progbits
   20              		.align	2
   21              		.thumb
   22              		.thumb_func
-  24              	NVIC_SetPendingIRQ:
-  25              	.LFB98:
+  24              	ITM_SendChar:
+  25              	.LFB107:
   26              		.file 1 "App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h"
    1:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /**************************************************************************//**
    2:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  * @file     core_cm4.h
@@ -1137,7 +1137,213 @@
 1112:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
 1113:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** static __INLINE void NVIC_SetPendingIRQ(IRQn_Type IRQn)
 1114:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** {
-  27              		.loc 1 1114 0
+1115:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   NVIC->ISPR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* set interrupt pending 
+1116:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
+1117:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1118:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1119:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \brief  Clear Pending Interrupt
+1120:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1121:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     This function clears the pending bit for the specified interrupt.
+1122:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     The interrupt number cannot be a negative value.
+1123:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1124:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]      IRQn  Number of the interrupt for clear pending
+1125:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1126:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** static __INLINE void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
+1127:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** {
+1128:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   NVIC->ICPR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* Clear pending interrup
+1129:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
+1130:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1131:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1132:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \brief  Get Active Interrupt
+1133:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1134:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     This function reads the active register in NVIC and returns the active bit.
+1135:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]      IRQn  Number of the interrupt for get active
+1136:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \return             0  Interrupt status is not active
+1137:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \return             1  Interrupt status is active
+1138:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1139:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** static __INLINE uint32_t NVIC_GetActive(IRQn_Type IRQn)
+1140:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** {
+1141:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   return((uint32_t)((NVIC->IABR[(uint32_t)(IRQn) >> 5] & (1 << ((uint32_t)(IRQn) & 0x1F)))?1:0)); /
+1142:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
+1143:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1144:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1145:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \brief  Set Interrupt Priority
+1146:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1147:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     This function sets the priority for the specified interrupt. The interrupt
+1148:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     number can be positive to specify an external (device specific)
+1149:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     interrupt, or negative to specify an internal (core) interrupt.
+1150:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1151:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     Note: The priority cannot be set for every core interrupt.
+1152:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1153:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]      IRQn  Number of the interrupt for set priority
+1154:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]  priority  Priority to set
+1155:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1156:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** static __INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+1157:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** {
+1158:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   if(IRQn < 0) {
+1159:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff); } /* set 
+1160:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   else {
+1161:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     NVIC->IP[(uint32_t)(IRQn)] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff);    }        /* set 
+1162:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
+1163:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1164:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1165:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \brief  Get Interrupt Priority
+1166:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1167:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     This function reads the priority for the specified interrupt. The interrupt
+1168:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     number can be positive to specify an external (device specific)
+1169:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     interrupt, or negative to specify an internal (core) interrupt.
+1170:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1171:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     The returned priority value is automatically aligned to the implemented
+1172:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     priority bits of the microcontroller.
+1173:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1174:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]   IRQn  Number of the interrupt for get priority
+1175:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \return             Interrupt Priority
+1176:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1177:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** static __INLINE uint32_t NVIC_GetPriority(IRQn_Type IRQn)
+1178:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** {
+1179:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1180:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   if(IRQn < 0) {
+1181:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     return((uint32_t)(SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] >> (8 - __NVIC_PRIO_BITS)));  } /* get p
+1182:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   else {
+1183:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     return((uint32_t)(NVIC->IP[(uint32_t)(IRQn)]           >> (8 - __NVIC_PRIO_BITS)));  } /* get p
+1184:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
+1185:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1186:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1187:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \brief  Encode Priority
+1188:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1189:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     This function encodes the priority for an interrupt with the given priority group,
+1190:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     preemptive priority value and sub priority value.
+1191:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     In case of a conflict between priority grouping and available
+1192:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     priority bits (__NVIC_PRIO_BITS) the samllest possible priority group is set.
+1193:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1194:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     The returned priority value can be used for NVIC_SetPriority(...) function
+1195:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1196:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]     PriorityGroup  Used priority group
+1197:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]   PreemptPriority  Preemptive priority value (starting from 0)
+1198:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]       SubPriority  Sub priority value (starting from 0)
+1199:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \return                        Encoded priority for the interrupt
+1200:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1201:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** static __INLINE uint32_t NVIC_EncodePriority (uint32_t PriorityGroup, uint32_t PreemptPriority, uin
+1202:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** {
+1203:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);          /* only values 0..7 are used        
+1204:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   uint32_t PreemptPriorityBits;
+1205:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   uint32_t SubPriorityBits;
+1206:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1207:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   PreemptPriorityBits = ((7 - PriorityGroupTmp) > __NVIC_PRIO_BITS) ? __NVIC_PRIO_BITS : 7 - Priori
+1208:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   SubPriorityBits     = ((PriorityGroupTmp + __NVIC_PRIO_BITS) < 7) ? 0 : PriorityGroupTmp - 7 + __
+1209:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1210:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   return (
+1211:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****            ((PreemptPriority & ((1 << (PreemptPriorityBits)) - 1)) << SubPriorityBits) |
+1212:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****            ((SubPriority     & ((1 << (SubPriorityBits    )) - 1)))
+1213:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****          );
+1214:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
+1215:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1216:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1217:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \brief  Decode Priority
+1218:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1219:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     This function decodes an interrupt priority value with the given priority group to
+1220:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     preemptive priority value and sub priority value.
+1221:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     In case of a conflict between priority grouping and available
+1222:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     priority bits (__NVIC_PRIO_BITS) the samllest possible priority group is set.
+1223:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1224:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     The priority value can be retrieved with NVIC_GetPriority(...) function
+1225:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1226:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]         Priority   Priority value
+1227:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]     PriorityGroup  Used priority group
+1228:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [out] pPreemptPriority  Preemptive priority value (starting from 0)
+1229:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [out]     pSubPriority  Sub priority value (starting from 0)
+1230:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1231:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** static __INLINE void NVIC_DecodePriority (uint32_t Priority, uint32_t PriorityGroup, uint32_t* pPre
+1232:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** {
+1233:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   uint32_t PriorityGroupTmp = (PriorityGroup & 0x07);          /* only values 0..7 are used        
+1234:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   uint32_t PreemptPriorityBits;
+1235:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   uint32_t SubPriorityBits;
+1236:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1237:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   PreemptPriorityBits = ((7 - PriorityGroupTmp) > __NVIC_PRIO_BITS) ? __NVIC_PRIO_BITS : 7 - Priori
+1238:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   SubPriorityBits     = ((PriorityGroupTmp + __NVIC_PRIO_BITS) < 7) ? 0 : PriorityGroupTmp - 7 + __
+1239:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1240:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   *pPreemptPriority = (Priority >> SubPriorityBits) & ((1 << (PreemptPriorityBits)) - 1);
+1241:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   *pSubPriority     = (Priority                   ) & ((1 << (SubPriorityBits    )) - 1);
+1242:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
+1243:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1244:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1245:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \brief  System Reset
+1246:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1247:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     This function initiate a system reset request to reset the MCU.
+1248:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1249:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** static __INLINE void NVIC_SystemReset(void)
+1250:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** {
+1251:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   __DSB();                                                     /* Ensure all outstanding memory acc
+1252:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****                                                                   buffered write are completed befo
+1253:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   SCB->AIRCR  = ((0x5FA << SCB_AIRCR_VECTKEY_Pos)      |
+1254:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****                  (SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) |
+1255:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****                  SCB_AIRCR_SYSRESETREQ_Msk);                   /* Keep priority group unchanged */
+1256:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   __DSB();                                                     /* Ensure completion of memory acces
+1257:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   while(1);                                                    /* wait until reset */
+1258:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
+1259:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1260:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /*@} end of CMSIS_Core_NVICFunctions */
+1261:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1262:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1263:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1264:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /* ##################################    SysTick function  ########################################
+1265:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+1266:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \defgroup CMSIS_Core_SysTickFunctions CMSIS Core SysTick Functions
+1267:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   @{
+1268:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1269:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1270:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** #if (__Vendor_SysTickConfig == 0)
+1271:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1272:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \brief  System Tick Configuration
+1273:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1274:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     This function initialises the system tick timer and its interrupt and start the system tick tim
+1275:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     Counter is in free running mode to generate periodical interrupts.
+1276:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1277:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]  ticks  Number of ticks between two interrupts
+1278:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \return          0  Function succeeded
+1279:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \return          1  Function failed
+1280:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1281:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** static __INLINE uint32_t SysTick_Config(uint32_t ticks)
+1282:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** {
+1283:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   if (ticks > SysTick_LOAD_RELOAD_Msk)  return (1);            /* Reload value impossible */
+1284:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1285:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   SysTick->LOAD  = (ticks & SysTick_LOAD_RELOAD_Msk) - 1;      /* set reload register */
+1286:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);  /* set Priority for Cortex-M0 System
+1287:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   SysTick->VAL   = 0;                                          /* Load the SysTick Counter Value */
+1288:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
+1289:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****                    SysTick_CTRL_TICKINT_Msk   |
+1290:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****                    SysTick_CTRL_ENABLE_Msk;                    /* Enable SysTick IRQ and SysTick Ti
+1291:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   return (0);                                                  /* Function successful */
+1292:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
+1293:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1294:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** #endif
+1295:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1296:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /*@} end of CMSIS_Core_SysTickFunctions */
+1297:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1298:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1299:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1300:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /* ##################################### Debug In/Output function #################################
+1301:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \ingroup  CMSIS_Core_FunctionInterface
+1302:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \defgroup CMSIS_core_DebugFunctions CMSIS Core Debug Functions
+1303:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   @{
+1304:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1305:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1306:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** extern volatile int32_t ITM_RxBuffer;                    /*!< external variable to receive characte
+1307:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** #define                 ITM_RXBUFFER_EMPTY    0x5AA55AA5 /*!< value identifying ITM_RxBuffer is rea
+1308:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1309:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1310:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** /** \brief  ITM Send Character
+1311:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1312:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     This function transmits a character via the ITM channel 0.
+1313:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     It just returns when no debugger is connected that has booked the output.
+1314:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     It is blocking when a debugger is connected, but the previous character send is not transmitted
+1315:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** 
+1316:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \param [in]     ch  Character to transmit
+1317:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     \return             Character to transmit
+1318:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****  */
+1319:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** static __INLINE uint32_t ITM_SendChar (uint32_t ch)
+1320:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** {
+  27              		.loc 1 1320 0
   28              		.cfi_startproc
   29              		@ args = 0, pretend = 0, frame = 8
   30              		@ frame_needed = 1, uses_anonymous_args = 0
@@ -1152,1741 +1358,1593 @@
   39 0004 00AF     		add	r7, sp, #0
   40              	.LCFI2:
   41              		.cfi_def_cfa_register 7
-  42 0006 0346     		mov	r3, r0
-  43 0008 FB71     		strb	r3, [r7, #7]
-1115:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   NVIC->ISPR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* set interrupt pending 
-  44              		.loc 1 1115 0
-  45 000a 094B     		ldr	r3, .L2
-  46 000c 97F90720 		ldrsb	r2, [r7, #7]
-  47 0010 5209     		lsrs	r2, r2, #5
-  48 0012 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
-  49 0014 01F01F01 		and	r1, r1, #31
-  50 0018 0120     		movs	r0, #1
-  51 001a 00FA01F1 		lsl	r1, r0, r1
-  52 001e 4032     		adds	r2, r2, #64
-  53 0020 43F82210 		str	r1, [r3, r2, lsl #2]
-1116:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
-  54              		.loc 1 1116 0
-  55 0024 0C37     		adds	r7, r7, #12
-  56 0026 BD46     		mov	sp, r7
-  57              		@ sp needed
-  58 0028 5DF8047B 		ldr	r7, [sp], #4
-  59 002c 7047     		bx	lr
-  60              	.L3:
-  61 002e 00BF     		.align	2
-  62              	.L2:
-  63 0030 00E100E0 		.word	-536813312
-  64              		.cfi_endproc
-  65              	.LFE98:
-  67              		.comm	xSemaphoreDMASPI,4,4
-  68              		.section	.bss.xHigherPriorityTaskWoken,"aw",%nobits
-  69              		.align	2
-  72              	xHigherPriorityTaskWoken:
-  73 0000 00000000 		.space	4
-  74              		.comm	xSmphrUSART,4,4
-  75              		.comm	motorHeartBeatHandle,4,4
-  76              		.comm	motorHBHandle,4,4
-  77              		.comm	QSpd_handle,4,4
-  78              		.comm	QStatus_handle,4,4
-  79              		.comm	socket_0,4,4
-  80              		.comm	bufferTX,2000,4
-  81              		.comm	bufferRX,2000,4
-  82              		.comm	bufferRXidx,4,4
-  83              		.comm	bufferTXidx,4,4
-  84              		.comm	dat_lengthRX,4,4
-  85              		.comm	dat_lengthTX,4,4
-  86              		.comm	set_macTaskHandle,4,4
-  87              		.section	.rodata
-  88              		.align	2
-  89              	.LC0:
-  90 0000 6D6F746F 		.ascii	"motor\000"
-  90      7200
-  91 0006 0000     		.align	2
-  92              	.LC1:
-  93 0008 6D6F746F 		.ascii	"motor  [options]\302\240[parameters]\302\240- Type "
-  93      7220205B 
-  93      6F707469 
-  93      6F6E735D 
-  93      C2A05B70 
-  94 002f 6D6F746F 		.ascii	"motor help for more help\015\012\012\000\000"
-  94      72206865 
-  94      6C702066 
-  94      6F72206D 
-  94      6F726520 
-  95              		.section	.rodata.xMotorCommand,"a",%progbits
-  96              		.align	2
-  99              	xMotorCommand:
- 100 0000 00000000 		.word	.LC0
- 101 0004 08000000 		.word	.LC1
- 102 0008 00000000 		.word	prvMotorCommand
- 103 000c FF       		.byte	-1
- 104 000d 000000   		.space	3
- 105              		.section	.rodata
+  42 0006 7860     		str	r0, [r7, #4]
+1321:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   if ((CoreDebug->DEMCR & CoreDebug_DEMCR_TRCENA_Msk)  &&      /* Trace enabled */
+  43              		.loc 1 1321 0
+  44 0008 134B     		ldr	r3, .L5
+  45 000a DB68     		ldr	r3, [r3, #12]
+  46 000c 03F08073 		and	r3, r3, #16777216
+  47 0010 002B     		cmp	r3, #0
+  48 0012 1AD0     		beq	.L2
+1322:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****       (ITM->TCR & ITM_TCR_ITMENA_Msk)                  &&      /* ITM enabled */
+  49              		.loc 1 1322 0 discriminator 1
+  50 0014 4FF06043 		mov	r3, #-536870912
+  51 0018 D3F8803E 		ldr	r3, [r3, #3712]
+  52 001c 03F00103 		and	r3, r3, #1
+1321:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   if ((CoreDebug->DEMCR & CoreDebug_DEMCR_TRCENA_Msk)  &&      /* Trace enabled */
+  53              		.loc 1 1321 0 discriminator 1
+  54 0020 002B     		cmp	r3, #0
+  55 0022 12D0     		beq	.L2
+1323:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****       (ITM->TER & (1UL << 0)        )                    )     /* ITM Port #0 enabled */
+  56              		.loc 1 1323 0
+  57 0024 4FF06043 		mov	r3, #-536870912
+  58 0028 D3F8003E 		ldr	r3, [r3, #3584]
+  59 002c 03F00103 		and	r3, r3, #1
+1322:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****       (ITM->TCR & ITM_TCR_ITMENA_Msk)                  &&      /* ITM enabled */
+  60              		.loc 1 1322 0
+  61 0030 002B     		cmp	r3, #0
+  62 0032 0AD0     		beq	.L2
+1324:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   {
+1325:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     while (ITM->PORT[0].u32 == 0);
+  63              		.loc 1 1325 0
+  64 0034 00BF     		nop
+  65              	.L3:
+  66              		.loc 1 1325 0 is_stmt 0 discriminator 1
+  67 0036 4FF06043 		mov	r3, #-536870912
+  68 003a 1B68     		ldr	r3, [r3]
+  69 003c 002B     		cmp	r3, #0
+  70 003e FAD0     		beq	.L3
+1326:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****     ITM->PORT[0].u8 = (uint8_t) ch;
+  71              		.loc 1 1326 0 is_stmt 1
+  72 0040 4FF06043 		mov	r3, #-536870912
+  73 0044 7A68     		ldr	r2, [r7, #4]
+  74 0046 D2B2     		uxtb	r2, r2
+  75 0048 1A70     		strb	r2, [r3]
+  76              	.L2:
+1327:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   }
+1328:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h ****   return (ch);
+  77              		.loc 1 1328 0
+  78 004a 7B68     		ldr	r3, [r7, #4]
+1329:App/STM32F4-Discovery/Libraries/CMSIS/Include/core_cm4.h **** }
+  79              		.loc 1 1329 0
+  80 004c 1846     		mov	r0, r3
+  81 004e 0C37     		adds	r7, r7, #12
+  82 0050 BD46     		mov	sp, r7
+  83              		@ sp needed
+  84 0052 5DF8047B 		ldr	r7, [sp], #4
+  85 0056 7047     		bx	lr
+  86              	.L6:
+  87              		.align	2
+  88              	.L5:
+  89 0058 F0ED00E0 		.word	-536810000
+  90              		.cfi_endproc
+  91              	.LFE107:
+  93              		.section	.bss.bf,"aw",%nobits
+  94              		.align	2
+  97              	bf:
+  98 0000 00000000 		.space	4
+  99              		.section	.bss.buf,"aw",%nobits
+ 100              		.align	2
+ 103              	buf:
+ 104 0000 00000000 		.space	12
+ 104      00000000 
+ 104      00000000 
+ 105              		.section	.bss.num,"aw",%nobits
  106              		.align	2
- 107              	.LC2:
- 108 004c 7461736B 		.ascii	"task\000"
- 108      00
- 109 0051 000000   		.align	2
- 110              	.LC3:
- 111 0054 7461736B 		.ascii	"task - return tasks list\015\012\012\000\000"
- 111      202D2072 
- 111      65747572 
- 111      6E207461 
- 111      736B7320 
- 112              		.section	.rodata.xTaskStatsCommand,"a",%progbits
- 113              		.align	2
- 116              	xTaskStatsCommand:
- 117 0000 4C000000 		.word	.LC2
- 118 0004 54000000 		.word	.LC3
- 119 0008 00000000 		.word	prvTaskStatsCommand
- 120 000c FF       		.byte	-1
- 121 000d 000000   		.space	3
- 122              		.section	.rodata.table_crc_hi,"a",%progbits
- 123              		.align	2
- 126              	table_crc_hi:
- 127 0000 00       		.byte	0
- 128 0001 C1       		.byte	-63
- 129 0002 81       		.byte	-127
- 130 0003 40       		.byte	64
- 131 0004 01       		.byte	1
- 132 0005 C0       		.byte	-64
- 133 0006 80       		.byte	-128
- 134 0007 41       		.byte	65
- 135 0008 01       		.byte	1
- 136 0009 C0       		.byte	-64
- 137 000a 80       		.byte	-128
- 138 000b 41       		.byte	65
- 139 000c 00       		.byte	0
- 140 000d C1       		.byte	-63
- 141 000e 81       		.byte	-127
- 142 000f 40       		.byte	64
- 143 0010 01       		.byte	1
- 144 0011 C0       		.byte	-64
- 145 0012 80       		.byte	-128
- 146 0013 41       		.byte	65
- 147 0014 00       		.byte	0
- 148 0015 C1       		.byte	-63
- 149 0016 81       		.byte	-127
- 150 0017 40       		.byte	64
- 151 0018 00       		.byte	0
- 152 0019 C1       		.byte	-63
- 153 001a 81       		.byte	-127
- 154 001b 40       		.byte	64
- 155 001c 01       		.byte	1
- 156 001d C0       		.byte	-64
- 157 001e 80       		.byte	-128
- 158 001f 41       		.byte	65
- 159 0020 01       		.byte	1
- 160 0021 C0       		.byte	-64
- 161 0022 80       		.byte	-128
- 162 0023 41       		.byte	65
- 163 0024 00       		.byte	0
- 164 0025 C1       		.byte	-63
- 165 0026 81       		.byte	-127
- 166 0027 40       		.byte	64
- 167 0028 00       		.byte	0
- 168 0029 C1       		.byte	-63
- 169 002a 81       		.byte	-127
- 170 002b 40       		.byte	64
- 171 002c 01       		.byte	1
- 172 002d C0       		.byte	-64
- 173 002e 80       		.byte	-128
- 174 002f 41       		.byte	65
- 175 0030 00       		.byte	0
- 176 0031 C1       		.byte	-63
- 177 0032 81       		.byte	-127
- 178 0033 40       		.byte	64
- 179 0034 01       		.byte	1
- 180 0035 C0       		.byte	-64
- 181 0036 80       		.byte	-128
- 182 0037 41       		.byte	65
- 183 0038 01       		.byte	1
- 184 0039 C0       		.byte	-64
- 185 003a 80       		.byte	-128
- 186 003b 41       		.byte	65
- 187 003c 00       		.byte	0
- 188 003d C1       		.byte	-63
- 189 003e 81       		.byte	-127
- 190 003f 40       		.byte	64
- 191 0040 01       		.byte	1
- 192 0041 C0       		.byte	-64
- 193 0042 80       		.byte	-128
- 194 0043 41       		.byte	65
- 195 0044 00       		.byte	0
- 196 0045 C1       		.byte	-63
- 197 0046 81       		.byte	-127
- 198 0047 40       		.byte	64
- 199 0048 00       		.byte	0
- 200 0049 C1       		.byte	-63
- 201 004a 81       		.byte	-127
- 202 004b 40       		.byte	64
- 203 004c 01       		.byte	1
- 204 004d C0       		.byte	-64
- 205 004e 80       		.byte	-128
- 206 004f 41       		.byte	65
- 207 0050 00       		.byte	0
- 208 0051 C1       		.byte	-63
- 209 0052 81       		.byte	-127
- 210 0053 40       		.byte	64
- 211 0054 01       		.byte	1
- 212 0055 C0       		.byte	-64
- 213 0056 80       		.byte	-128
- 214 0057 41       		.byte	65
- 215 0058 01       		.byte	1
- 216 0059 C0       		.byte	-64
- 217 005a 80       		.byte	-128
- 218 005b 41       		.byte	65
- 219 005c 00       		.byte	0
- 220 005d C1       		.byte	-63
- 221 005e 81       		.byte	-127
- 222 005f 40       		.byte	64
- 223 0060 00       		.byte	0
- 224 0061 C1       		.byte	-63
- 225 0062 81       		.byte	-127
- 226 0063 40       		.byte	64
- 227 0064 01       		.byte	1
- 228 0065 C0       		.byte	-64
- 229 0066 80       		.byte	-128
- 230 0067 41       		.byte	65
- 231 0068 01       		.byte	1
- 232 0069 C0       		.byte	-64
- 233 006a 80       		.byte	-128
- 234 006b 41       		.byte	65
- 235 006c 00       		.byte	0
- 236 006d C1       		.byte	-63
- 237 006e 81       		.byte	-127
- 238 006f 40       		.byte	64
- 239 0070 01       		.byte	1
- 240 0071 C0       		.byte	-64
- 241 0072 80       		.byte	-128
- 242 0073 41       		.byte	65
- 243 0074 00       		.byte	0
- 244 0075 C1       		.byte	-63
- 245 0076 81       		.byte	-127
- 246 0077 40       		.byte	64
- 247 0078 00       		.byte	0
- 248 0079 C1       		.byte	-63
- 249 007a 81       		.byte	-127
- 250 007b 40       		.byte	64
- 251 007c 01       		.byte	1
- 252 007d C0       		.byte	-64
- 253 007e 80       		.byte	-128
- 254 007f 41       		.byte	65
- 255 0080 01       		.byte	1
- 256 0081 C0       		.byte	-64
- 257 0082 80       		.byte	-128
- 258 0083 41       		.byte	65
- 259 0084 00       		.byte	0
- 260 0085 C1       		.byte	-63
- 261 0086 81       		.byte	-127
- 262 0087 40       		.byte	64
- 263 0088 00       		.byte	0
- 264 0089 C1       		.byte	-63
- 265 008a 81       		.byte	-127
- 266 008b 40       		.byte	64
- 267 008c 01       		.byte	1
- 268 008d C0       		.byte	-64
- 269 008e 80       		.byte	-128
- 270 008f 41       		.byte	65
- 271 0090 00       		.byte	0
- 272 0091 C1       		.byte	-63
- 273 0092 81       		.byte	-127
- 274 0093 40       		.byte	64
- 275 0094 01       		.byte	1
- 276 0095 C0       		.byte	-64
- 277 0096 80       		.byte	-128
- 278 0097 41       		.byte	65
- 279 0098 01       		.byte	1
- 280 0099 C0       		.byte	-64
- 281 009a 80       		.byte	-128
- 282 009b 41       		.byte	65
- 283 009c 00       		.byte	0
- 284 009d C1       		.byte	-63
- 285 009e 81       		.byte	-127
- 286 009f 40       		.byte	64
- 287 00a0 00       		.byte	0
- 288 00a1 C1       		.byte	-63
- 289 00a2 81       		.byte	-127
- 290 00a3 40       		.byte	64
- 291 00a4 01       		.byte	1
- 292 00a5 C0       		.byte	-64
- 293 00a6 80       		.byte	-128
- 294 00a7 41       		.byte	65
- 295 00a8 01       		.byte	1
- 296 00a9 C0       		.byte	-64
- 297 00aa 80       		.byte	-128
- 298 00ab 41       		.byte	65
- 299 00ac 00       		.byte	0
- 300 00ad C1       		.byte	-63
- 301 00ae 81       		.byte	-127
- 302 00af 40       		.byte	64
- 303 00b0 01       		.byte	1
- 304 00b1 C0       		.byte	-64
- 305 00b2 80       		.byte	-128
- 306 00b3 41       		.byte	65
- 307 00b4 00       		.byte	0
- 308 00b5 C1       		.byte	-63
- 309 00b6 81       		.byte	-127
- 310 00b7 40       		.byte	64
- 311 00b8 00       		.byte	0
- 312 00b9 C1       		.byte	-63
- 313 00ba 81       		.byte	-127
- 314 00bb 40       		.byte	64
- 315 00bc 01       		.byte	1
- 316 00bd C0       		.byte	-64
- 317 00be 80       		.byte	-128
- 318 00bf 41       		.byte	65
- 319 00c0 00       		.byte	0
- 320 00c1 C1       		.byte	-63
- 321 00c2 81       		.byte	-127
- 322 00c3 40       		.byte	64
- 323 00c4 01       		.byte	1
- 324 00c5 C0       		.byte	-64
- 325 00c6 80       		.byte	-128
- 326 00c7 41       		.byte	65
- 327 00c8 01       		.byte	1
- 328 00c9 C0       		.byte	-64
- 329 00ca 80       		.byte	-128
- 330 00cb 41       		.byte	65
- 331 00cc 00       		.byte	0
- 332 00cd C1       		.byte	-63
- 333 00ce 81       		.byte	-127
- 334 00cf 40       		.byte	64
- 335 00d0 01       		.byte	1
- 336 00d1 C0       		.byte	-64
- 337 00d2 80       		.byte	-128
- 338 00d3 41       		.byte	65
- 339 00d4 00       		.byte	0
- 340 00d5 C1       		.byte	-63
- 341 00d6 81       		.byte	-127
- 342 00d7 40       		.byte	64
- 343 00d8 00       		.byte	0
- 344 00d9 C1       		.byte	-63
- 345 00da 81       		.byte	-127
- 346 00db 40       		.byte	64
- 347 00dc 01       		.byte	1
- 348 00dd C0       		.byte	-64
- 349 00de 80       		.byte	-128
- 350 00df 41       		.byte	65
- 351 00e0 01       		.byte	1
- 352 00e1 C0       		.byte	-64
- 353 00e2 80       		.byte	-128
- 354 00e3 41       		.byte	65
- 355 00e4 00       		.byte	0
- 356 00e5 C1       		.byte	-63
- 357 00e6 81       		.byte	-127
- 358 00e7 40       		.byte	64
- 359 00e8 00       		.byte	0
- 360 00e9 C1       		.byte	-63
- 361 00ea 81       		.byte	-127
- 362 00eb 40       		.byte	64
- 363 00ec 01       		.byte	1
- 364 00ed C0       		.byte	-64
- 365 00ee 80       		.byte	-128
- 366 00ef 41       		.byte	65
- 367 00f0 00       		.byte	0
- 368 00f1 C1       		.byte	-63
- 369 00f2 81       		.byte	-127
- 370 00f3 40       		.byte	64
- 371 00f4 01       		.byte	1
- 372 00f5 C0       		.byte	-64
- 373 00f6 80       		.byte	-128
- 374 00f7 41       		.byte	65
- 375 00f8 01       		.byte	1
- 376 00f9 C0       		.byte	-64
- 377 00fa 80       		.byte	-128
- 378 00fb 41       		.byte	65
- 379 00fc 00       		.byte	0
- 380 00fd C1       		.byte	-63
- 381 00fe 81       		.byte	-127
- 382 00ff 40       		.byte	64
- 383              		.section	.rodata.table_crc_lo,"a",%progbits
- 384              		.align	2
- 387              	table_crc_lo:
- 388 0000 00       		.byte	0
- 389 0001 C0       		.byte	-64
- 390 0002 C1       		.byte	-63
- 391 0003 01       		.byte	1
- 392 0004 C3       		.byte	-61
- 393 0005 03       		.byte	3
- 394 0006 02       		.byte	2
- 395 0007 C2       		.byte	-62
- 396 0008 C6       		.byte	-58
- 397 0009 06       		.byte	6
- 398 000a 07       		.byte	7
- 399 000b C7       		.byte	-57
- 400 000c 05       		.byte	5
- 401 000d C5       		.byte	-59
- 402 000e C4       		.byte	-60
- 403 000f 04       		.byte	4
- 404 0010 CC       		.byte	-52
- 405 0011 0C       		.byte	12
- 406 0012 0D       		.byte	13
- 407 0013 CD       		.byte	-51
- 408 0014 0F       		.byte	15
- 409 0015 CF       		.byte	-49
- 410 0016 CE       		.byte	-50
- 411 0017 0E       		.byte	14
- 412 0018 0A       		.byte	10
- 413 0019 CA       		.byte	-54
- 414 001a CB       		.byte	-53
- 415 001b 0B       		.byte	11
- 416 001c C9       		.byte	-55
- 417 001d 09       		.byte	9
- 418 001e 08       		.byte	8
- 419 001f C8       		.byte	-56
- 420 0020 D8       		.byte	-40
- 421 0021 18       		.byte	24
- 422 0022 19       		.byte	25
- 423 0023 D9       		.byte	-39
- 424 0024 1B       		.byte	27
- 425 0025 DB       		.byte	-37
- 426 0026 DA       		.byte	-38
- 427 0027 1A       		.byte	26
- 428 0028 1E       		.byte	30
- 429 0029 DE       		.byte	-34
- 430 002a DF       		.byte	-33
- 431 002b 1F       		.byte	31
- 432 002c DD       		.byte	-35
- 433 002d 1D       		.byte	29
- 434 002e 1C       		.byte	28
- 435 002f DC       		.byte	-36
- 436 0030 14       		.byte	20
- 437 0031 D4       		.byte	-44
- 438 0032 D5       		.byte	-43
- 439 0033 15       		.byte	21
- 440 0034 D7       		.byte	-41
- 441 0035 17       		.byte	23
- 442 0036 16       		.byte	22
- 443 0037 D6       		.byte	-42
- 444 0038 D2       		.byte	-46
- 445 0039 12       		.byte	18
- 446 003a 13       		.byte	19
- 447 003b D3       		.byte	-45
- 448 003c 11       		.byte	17
- 449 003d D1       		.byte	-47
- 450 003e D0       		.byte	-48
- 451 003f 10       		.byte	16
- 452 0040 F0       		.byte	-16
- 453 0041 30       		.byte	48
- 454 0042 31       		.byte	49
- 455 0043 F1       		.byte	-15
- 456 0044 33       		.byte	51
- 457 0045 F3       		.byte	-13
- 458 0046 F2       		.byte	-14
- 459 0047 32       		.byte	50
- 460 0048 36       		.byte	54
- 461 0049 F6       		.byte	-10
- 462 004a F7       		.byte	-9
- 463 004b 37       		.byte	55
- 464 004c F5       		.byte	-11
- 465 004d 35       		.byte	53
- 466 004e 34       		.byte	52
- 467 004f F4       		.byte	-12
- 468 0050 3C       		.byte	60
- 469 0051 FC       		.byte	-4
- 470 0052 FD       		.byte	-3
- 471 0053 3D       		.byte	61
- 472 0054 FF       		.byte	-1
- 473 0055 3F       		.byte	63
- 474 0056 3E       		.byte	62
- 475 0057 FE       		.byte	-2
- 476 0058 FA       		.byte	-6
- 477 0059 3A       		.byte	58
- 478 005a 3B       		.byte	59
- 479 005b FB       		.byte	-5
- 480 005c 39       		.byte	57
- 481 005d F9       		.byte	-7
- 482 005e F8       		.byte	-8
- 483 005f 38       		.byte	56
- 484 0060 28       		.byte	40
- 485 0061 E8       		.byte	-24
- 486 0062 E9       		.byte	-23
- 487 0063 29       		.byte	41
- 488 0064 EB       		.byte	-21
- 489 0065 2B       		.byte	43
- 490 0066 2A       		.byte	42
- 491 0067 EA       		.byte	-22
- 492 0068 EE       		.byte	-18
- 493 0069 2E       		.byte	46
- 494 006a 2F       		.byte	47
- 495 006b EF       		.byte	-17
- 496 006c 2D       		.byte	45
- 497 006d ED       		.byte	-19
- 498 006e EC       		.byte	-20
- 499 006f 2C       		.byte	44
- 500 0070 E4       		.byte	-28
- 501 0071 24       		.byte	36
- 502 0072 25       		.byte	37
- 503 0073 E5       		.byte	-27
- 504 0074 27       		.byte	39
- 505 0075 E7       		.byte	-25
- 506 0076 E6       		.byte	-26
- 507 0077 26       		.byte	38
- 508 0078 22       		.byte	34
- 509 0079 E2       		.byte	-30
- 510 007a E3       		.byte	-29
- 511 007b 23       		.byte	35
- 512 007c E1       		.byte	-31
- 513 007d 21       		.byte	33
- 514 007e 20       		.byte	32
- 515 007f E0       		.byte	-32
- 516 0080 A0       		.byte	-96
- 517 0081 60       		.byte	96
- 518 0082 61       		.byte	97
- 519 0083 A1       		.byte	-95
- 520 0084 63       		.byte	99
- 521 0085 A3       		.byte	-93
- 522 0086 A2       		.byte	-94
- 523 0087 62       		.byte	98
- 524 0088 66       		.byte	102
- 525 0089 A6       		.byte	-90
- 526 008a A7       		.byte	-89
- 527 008b 67       		.byte	103
- 528 008c A5       		.byte	-91
- 529 008d 65       		.byte	101
- 530 008e 64       		.byte	100
- 531 008f A4       		.byte	-92
- 532 0090 6C       		.byte	108
- 533 0091 AC       		.byte	-84
- 534 0092 AD       		.byte	-83
- 535 0093 6D       		.byte	109
- 536 0094 AF       		.byte	-81
- 537 0095 6F       		.byte	111
- 538 0096 6E       		.byte	110
- 539 0097 AE       		.byte	-82
- 540 0098 AA       		.byte	-86
- 541 0099 6A       		.byte	106
- 542 009a 6B       		.byte	107
- 543 009b AB       		.byte	-85
- 544 009c 69       		.byte	105
- 545 009d A9       		.byte	-87
- 546 009e A8       		.byte	-88
- 547 009f 68       		.byte	104
- 548 00a0 78       		.byte	120
- 549 00a1 B8       		.byte	-72
- 550 00a2 B9       		.byte	-71
- 551 00a3 79       		.byte	121
- 552 00a4 BB       		.byte	-69
- 553 00a5 7B       		.byte	123
- 554 00a6 7A       		.byte	122
- 555 00a7 BA       		.byte	-70
- 556 00a8 BE       		.byte	-66
- 557 00a9 7E       		.byte	126
- 558 00aa 7F       		.byte	127
- 559 00ab BF       		.byte	-65
- 560 00ac 7D       		.byte	125
- 561 00ad BD       		.byte	-67
- 562 00ae BC       		.byte	-68
- 563 00af 7C       		.byte	124
- 564 00b0 B4       		.byte	-76
- 565 00b1 74       		.byte	116
- 566 00b2 75       		.byte	117
- 567 00b3 B5       		.byte	-75
- 568 00b4 77       		.byte	119
- 569 00b5 B7       		.byte	-73
- 570 00b6 B6       		.byte	-74
- 571 00b7 76       		.byte	118
- 572 00b8 72       		.byte	114
- 573 00b9 B2       		.byte	-78
- 574 00ba B3       		.byte	-77
- 575 00bb 73       		.byte	115
- 576 00bc B1       		.byte	-79
- 577 00bd 71       		.byte	113
- 578 00be 70       		.byte	112
- 579 00bf B0       		.byte	-80
- 580 00c0 50       		.byte	80
- 581 00c1 90       		.byte	-112
- 582 00c2 91       		.byte	-111
- 583 00c3 51       		.byte	81
- 584 00c4 93       		.byte	-109
- 585 00c5 53       		.byte	83
- 586 00c6 52       		.byte	82
- 587 00c7 92       		.byte	-110
- 588 00c8 96       		.byte	-106
- 589 00c9 56       		.byte	86
- 590 00ca 57       		.byte	87
- 591 00cb 97       		.byte	-105
- 592 00cc 55       		.byte	85
- 593 00cd 95       		.byte	-107
- 594 00ce 94       		.byte	-108
- 595 00cf 54       		.byte	84
- 596 00d0 9C       		.byte	-100
- 597 00d1 5C       		.byte	92
- 598 00d2 5D       		.byte	93
- 599 00d3 9D       		.byte	-99
- 600 00d4 5F       		.byte	95
- 601 00d5 9F       		.byte	-97
- 602 00d6 9E       		.byte	-98
- 603 00d7 5E       		.byte	94
- 604 00d8 5A       		.byte	90
- 605 00d9 9A       		.byte	-102
- 606 00da 9B       		.byte	-101
- 607 00db 5B       		.byte	91
- 608 00dc 99       		.byte	-103
- 609 00dd 59       		.byte	89
- 610 00de 58       		.byte	88
- 611 00df 98       		.byte	-104
- 612 00e0 88       		.byte	-120
- 613 00e1 48       		.byte	72
- 614 00e2 49       		.byte	73
- 615 00e3 89       		.byte	-119
- 616 00e4 4B       		.byte	75
- 617 00e5 8B       		.byte	-117
- 618 00e6 8A       		.byte	-118
- 619 00e7 4A       		.byte	74
- 620 00e8 4E       		.byte	78
- 621 00e9 8E       		.byte	-114
- 622 00ea 8F       		.byte	-113
- 623 00eb 4F       		.byte	79
- 624 00ec 8D       		.byte	-115
- 625 00ed 4D       		.byte	77
- 626 00ee 4C       		.byte	76
- 627 00ef 8C       		.byte	-116
- 628 00f0 44       		.byte	68
- 629 00f1 84       		.byte	-124
- 630 00f2 85       		.byte	-123
- 631 00f3 45       		.byte	69
- 632 00f4 87       		.byte	-121
- 633 00f5 47       		.byte	71
- 634 00f6 46       		.byte	70
- 635 00f7 86       		.byte	-122
- 636 00f8 82       		.byte	-126
- 637 00f9 42       		.byte	66
- 638 00fa 43       		.byte	67
- 639 00fb 83       		.byte	-125
- 640 00fc 41       		.byte	65
- 641 00fd 81       		.byte	-127
- 642 00fe 80       		.byte	-128
- 643 00ff 40       		.byte	64
- 644              		.comm	fd,4,4
- 645              		.comm	received_string,513,4
- 646              		.comm	rx_length,4,4
- 647              		.section	.bss.xHigherPriorityTaskWoken_usart,"aw",%nobits
- 648              		.align	2
- 651              	xHigherPriorityTaskWoken_usart:
- 652 0000 00000000 		.space	4
- 653              		.comm	input_Register,20,4
- 654              		.global	ulRegTest1LoopCounter
- 655              		.section	.bss.ulRegTest1LoopCounter,"aw",%nobits
- 656              		.align	2
- 659              	ulRegTest1LoopCounter:
- 660 0000 00000000 		.space	4
- 661              		.global	ulRegTest2LoopCounter
- 662              		.section	.bss.ulRegTest2LoopCounter,"aw",%nobits
- 663              		.align	2
- 666              	ulRegTest2LoopCounter:
- 667 0000 00000000 		.space	4
- 668              		.global	ulFPUInterruptNesting
- 669              		.section	.bss.ulFPUInterruptNesting,"aw",%nobits
- 670              		.align	2
- 673              	ulFPUInterruptNesting:
- 674 0000 00000000 		.space	4
- 675              		.global	ulMaxFPUInterruptNesting
- 676              		.section	.bss.ulMaxFPUInterruptNesting,"aw",%nobits
- 677              		.align	2
- 680              	ulMaxFPUInterruptNesting:
- 681 0000 00000000 		.space	4
- 682              		.section	.bss.xTestSemaphore,"aw",%nobits
- 683              		.align	2
- 686              	xTestSemaphore:
- 687 0000 00000000 		.space	4
- 688              		.section	.text.CoreSight_configure,"ax",%progbits
- 689              		.align	2
- 690              		.global	CoreSight_configure
- 691              		.thumb
- 692              		.thumb_func
- 694              	CoreSight_configure:
- 695              	.LFB110:
- 696              		.file 2 "App/STM32F4-Discovery/main.c"
-   1:App/STM32F4-Discovery/main.c **** /*
-   2:App/STM32F4-Discovery/main.c ****     FreeRTOS V7.5.3 - Copyright (C) 2013 Real Time Engineers Ltd.
-   3:App/STM32F4-Discovery/main.c ****     All rights reserved
-   4:App/STM32F4-Discovery/main.c ****  */
-   5:App/STM32F4-Discovery/main.c **** 
-   6:App/STM32F4-Discovery/main.c **** /*!	\file main.c
-   7:App/STM32F4-Discovery/main.c ****  * 	\brief Main file with main functions for MOTOR TCP CLI application 
-   8:App/STM32F4-Discovery/main.c ****  */
-   9:App/STM32F4-Discovery/main.c **** 
-  10:App/STM32F4-Discovery/main.c **** 
-  11:App/STM32F4-Discovery/main.c **** // includes 
-  12:App/STM32F4-Discovery/main.c **** 
-  13:App/STM32F4-Discovery/main.c **** #include "main.h"
-  14:App/STM32F4-Discovery/main.c **** #include "spi.h"
-  15:App/STM32F4-Discovery/main.c **** #include "W5200.h"
-  16:App/STM32F4-Discovery/main.c **** #include "modbus_mk.h"
-  17:App/STM32F4-Discovery/main.c **** #include "tcpCLI.h"
-  18:App/STM32F4-Discovery/main.c **** #include "printf.h"
-  19:App/STM32F4-Discovery/main.c **** 
-  20:App/STM32F4-Discovery/main.c **** 
-  21:App/STM32F4-Discovery/main.c **** 
-  22:App/STM32F4-Discovery/main.c **** ///* Priorities for the demo application tasks. */
-  23:App/STM32F4-Discovery/main.c **** #define mainFLASH_TASK_PRIORITY				( tskIDLE_PRIORITY + 1UL )
-  24:App/STM32F4-Discovery/main.c **** #define mainQUEUE_POLL_PRIORITY				( tskIDLE_PRIORITY + 2UL )
-  25:App/STM32F4-Discovery/main.c **** #define mainSEM_TEST_PRIORITY				( tskIDLE_PRIORITY + 1UL )
-  26:App/STM32F4-Discovery/main.c **** #define mainBLOCK_Q_PRIORITY				( tskIDLE_PRIORITY + 2UL )
-  27:App/STM32F4-Discovery/main.c **** #define mainCREATOR_TASK_PRIORITY			( tskIDLE_PRIORITY + 3UL )
-  28:App/STM32F4-Discovery/main.c **** #define mainFLOP_TASK_PRIORITY				( tskIDLE_PRIORITY )
-  29:App/STM32F4-Discovery/main.c **** 
-  30:App/STM32F4-Discovery/main.c **** 
-  31:App/STM32F4-Discovery/main.c **** /* The period after which the check timer will expire, in ms, provided no errors
-  32:App/STM32F4-Discovery/main.c **** have been reported by any of the standard demo tasks.  ms are converted to the
-  33:App/STM32F4-Discovery/main.c **** equivalent in ticks using the portTICK_RATE_MS constant. */
-  34:App/STM32F4-Discovery/main.c **** #define mainCHECK_TIMER_PERIOD_MS			( 3000UL / portTICK_RATE_MS )
-  35:App/STM32F4-Discovery/main.c **** 
-  36:App/STM32F4-Discovery/main.c **** /* The period at which the check timer will expire, in ms, if an error has been
-  37:App/STM32F4-Discovery/main.c **** reported in one of the standard demo tasks.  ms are converted to the equivalent
-  38:App/STM32F4-Discovery/main.c **** in ticks using the portTICK_RATE_MS constant. */
-  39:App/STM32F4-Discovery/main.c **** #define mainERROR_CHECK_TIMER_PERIOD_MS 	( 200UL / portTICK_RATE_MS )
-  40:App/STM32F4-Discovery/main.c **** 
-  41:App/STM32F4-Discovery/main.c **** /* Set mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY to 1 to create a simple demo.
-  42:App/STM32F4-Discovery/main.c **** Set mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY to 0 to create a much more
-  43:App/STM32F4-Discovery/main.c **** comprehensive test application.  See the comments at the top of this file, and
-  44:App/STM32F4-Discovery/main.c **** the documentation page on the http://www.FreeRTOS.org web site for more
-  45:App/STM32F4-Discovery/main.c **** information. */
-  46:App/STM32F4-Discovery/main.c **** #define mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY		0
-  47:App/STM32F4-Discovery/main.c **** 
-  48:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
-  49:App/STM32F4-Discovery/main.c **** 
-  50:App/STM32F4-Discovery/main.c **** /** setup hardware for system */ 
-  51:App/STM32F4-Discovery/main.c **** static void prvSetupHardware( void );
-  52:App/STM32F4-Discovery/main.c **** 
-  53:App/STM32F4-Discovery/main.c **** /*
-  54:App/STM32F4-Discovery/main.c ****  * The check timer callback function, as described at the top of this file.
-  55:App/STM32F4-Discovery/main.c ****  */
-  56:App/STM32F4-Discovery/main.c **** static void prvCheckTimerCallback( xTimerHandle xTimer );
-  57:App/STM32F4-Discovery/main.c **** 
-  58:App/STM32F4-Discovery/main.c **** /*
-  59:App/STM32F4-Discovery/main.c ****  * Configure the interrupts used to test the interrupt nesting depth as
-  60:App/STM32F4-Discovery/main.c ****  * described at the top of this file.
-  61:App/STM32F4-Discovery/main.c ****  */
-  62:App/STM32F4-Discovery/main.c **** static void prvSetupNestedFPUInterruptsTest( void );
-  63:App/STM32F4-Discovery/main.c **** 
-  64:App/STM32F4-Discovery/main.c **** /*
-  65:App/STM32F4-Discovery/main.c ****  * Register check tasks, and the tasks used to write over and check the contents
-  66:App/STM32F4-Discovery/main.c ****  * of the FPU registers, as described at the top of this file.  The nature of
-  67:App/STM32F4-Discovery/main.c ****  * these files necessitates that they are written in an assembly file.
-  68:App/STM32F4-Discovery/main.c ****  */
-  69:App/STM32F4-Discovery/main.c **** extern void vRegTest1Task( void *pvParameters );
-  70:App/STM32F4-Discovery/main.c **** extern void vRegTest2Task( void *pvParameters );
-  71:App/STM32F4-Discovery/main.c **** extern void vRegTestClearFlopRegistersToParameterValue( unsigned long ulValue );
-  72:App/STM32F4-Discovery/main.c **** extern unsigned long ulRegTestCheckFlopRegistersContainParameterValue( unsigned long ulValue );
-  73:App/STM32F4-Discovery/main.c **** 
-  74:App/STM32F4-Discovery/main.c **** /*
-  75:App/STM32F4-Discovery/main.c ****  * The task that is synchronised with the button interrupt.  This is done just
-  76:App/STM32F4-Discovery/main.c ****  * to demonstrate how to write interrupt service routines, and how to
-  77:App/STM32F4-Discovery/main.c ****  * synchronise a task with an interrupt.
-  78:App/STM32F4-Discovery/main.c ****  */
-  79:App/STM32F4-Discovery/main.c **** static void prvButtonTestTask( void *pvParameters );
-  80:App/STM32F4-Discovery/main.c **** static void main_task(void *pvParameters);
-  81:App/STM32F4-Discovery/main.c **** 
-  82:App/STM32F4-Discovery/main.c **** /*
-  83:App/STM32F4-Discovery/main.c ****  * This file can be used to create either a simple LED flasher example, or a
-  84:App/STM32F4-Discovery/main.c ****  * comprehensive test/demo application - depending on the setting of the
-  85:App/STM32F4-Discovery/main.c ****  * mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY constant defined above.  If
-  86:App/STM32F4-Discovery/main.c ****  * mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY is set to 1, then the following
-  87:App/STM32F4-Discovery/main.c ****  * function will create a lot of additional tasks and a software timer.  If
-  88:App/STM32F4-Discovery/main.c ****  * mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY is set to 0, then the following
-  89:App/STM32F4-Discovery/main.c ****  * function will do nothing.
-  90:App/STM32F4-Discovery/main.c ****  */
-  91:App/STM32F4-Discovery/main.c **** static void prvOptionallyCreateComprehensveTestApplication( void );
-  92:App/STM32F4-Discovery/main.c **** 
-  93:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
-  94:App/STM32F4-Discovery/main.c **** 
-  95:App/STM32F4-Discovery/main.c **** /* The following two variables are used to communicate the status of the
-  96:App/STM32F4-Discovery/main.c **** register check tasks to the check software timer.  If the variables keep
-  97:App/STM32F4-Discovery/main.c **** incrementing, then the register check tasks has not discovered any errors.  If
-  98:App/STM32F4-Discovery/main.c **** a variable stops incrementing, then an error has been found. */
-  99:App/STM32F4-Discovery/main.c **** volatile unsigned long ulRegTest1LoopCounter = 0UL, ulRegTest2LoopCounter = 0UL;
- 100:App/STM32F4-Discovery/main.c **** 
- 101:App/STM32F4-Discovery/main.c **** /* The following variables are used to verify that the interrupt nesting depth
- 102:App/STM32F4-Discovery/main.c **** is as intended.  ulFPUInterruptNesting is incremented on entry to an interrupt
- 103:App/STM32F4-Discovery/main.c **** that uses the FPU, and decremented on exit of the same interrupt.
- 104:App/STM32F4-Discovery/main.c **** ulMaxFPUInterruptNesting latches the highest value reached by
- 105:App/STM32F4-Discovery/main.c **** ulFPUInterruptNesting.  These variables have no other purpose. */
- 106:App/STM32F4-Discovery/main.c **** volatile unsigned long ulFPUInterruptNesting = 0UL, ulMaxFPUInterruptNesting = 0UL;
- 107:App/STM32F4-Discovery/main.c **** /* The semaphore used to demonstrate a task being synchronised with an
- 108:App/STM32F4-Discovery/main.c **** interrupt. */
- 109:App/STM32F4-Discovery/main.c **** static xSemaphoreHandle xTestSemaphore = NULL;
- 110:App/STM32F4-Discovery/main.c **** 
- 111:App/STM32F4-Discovery/main.c **** 
- 112:App/STM32F4-Discovery/main.c **** #define SWO_BAUD_RATE 230400
- 113:App/STM32F4-Discovery/main.c **** 
- 114:App/STM32F4-Discovery/main.c **** void CoreSight_configure(uint32_t SystemCoreClock)
- 115:App/STM32F4-Discovery/main.c **** {
- 697              		.loc 2 115 0
- 698              		.cfi_startproc
- 699              		@ args = 0, pretend = 0, frame = 16
- 700              		@ frame_needed = 1, uses_anonymous_args = 0
- 701              		@ link register save eliminated.
- 702 0000 80B4     		push	{r7}
- 703              	.LCFI3:
- 704              		.cfi_def_cfa_offset 4
- 705              		.cfi_offset 7, -4
- 706 0002 85B0     		sub	sp, sp, #20
- 707              	.LCFI4:
- 708              		.cfi_def_cfa_offset 24
- 709 0004 00AF     		add	r7, sp, #0
- 710              	.LCFI5:
- 711              		.cfi_def_cfa_register 7
- 712 0006 7860     		str	r0, [r7, #4]
- 116:App/STM32F4-Discovery/main.c **** 
- 117:App/STM32F4-Discovery/main.c ****   uint32_t SWOPrescaler;
- 118:App/STM32F4-Discovery/main.c **** 
- 119:App/STM32F4-Discovery/main.c ****   SWOPrescaler = (SystemCoreClock / SWO_BAUD_RATE ) - 1;
- 713              		.loc 2 119 0
- 714 0008 7A68     		ldr	r2, [r7, #4]
- 715 000a 154B     		ldr	r3, .L5
- 716 000c A3FB0213 		umull	r1, r3, r3, r2
- 717 0010 5B0C     		lsrs	r3, r3, #17
- 718 0012 013B     		subs	r3, r3, #1
- 719 0014 FB60     		str	r3, [r7, #12]
- 120:App/STM32F4-Discovery/main.c **** 
- 121:App/STM32F4-Discovery/main.c ****   CoreDebug->DEMCR = 1 << CoreDebug_DEMCR_TRCENA_Pos; /* Enable trace */
- 720              		.loc 2 121 0
- 721 0016 134B     		ldr	r3, .L5+4
- 722 0018 4FF08072 		mov	r2, #16777216
- 723 001c DA60     		str	r2, [r3, #12]
- 122:App/STM32F4-Discovery/main.c ****   *((volatile unsigned *) 0xE0042004) = 0x00000020;   /* DBGMCU_CR */
- 724              		.loc 2 122 0
- 725 001e 124B     		ldr	r3, .L5+8
- 726 0020 2022     		movs	r2, #32
- 727 0022 1A60     		str	r2, [r3]
- 123:App/STM32F4-Discovery/main.c ****   
- 124:App/STM32F4-Discovery/main.c ****   
- 125:App/STM32F4-Discovery/main.c ****   *((volatile unsigned *) 0xE0040004) = 0x00000001; /* port size -> 1 bit */
- 728              		.loc 2 125 0
- 729 0024 114B     		ldr	r3, .L5+12
- 730 0026 0122     		movs	r2, #1
- 731 0028 1A60     		str	r2, [r3]
- 126:App/STM32F4-Discovery/main.c **** 
- 127:App/STM32F4-Discovery/main.c ****   /* Set TPIU register->Selected pinprotocol = 10b: Serial Wire Output - NRZ */
- 128:App/STM32F4-Discovery/main.c ****   *((volatile unsigned *) 0xE00400F0) = 0x00000002; /* "Selected PIN Protocol Register": Select whi
- 732              		.loc 2 128 0
- 733 002a 114B     		ldr	r3, .L5+16
- 734 002c 0222     		movs	r2, #2
- 735 002e 1A60     		str	r2, [r3]
- 129:App/STM32F4-Discovery/main.c **** 
- 130:App/STM32F4-Discovery/main.c ****   /* Set TPIU -> Async Clock Prescaler Register [bits 0-12] */
- 131:App/STM32F4-Discovery/main.c ****   *((volatile unsigned *) 0xE0040010) = SWOPrescaler; /* "Async Clock Prescaler Register". Scale th
- 736              		.loc 2 131 0
- 737 0030 104B     		ldr	r3, .L5+20
- 738 0032 FA68     		ldr	r2, [r7, #12]
- 739 0034 1A60     		str	r2, [r3]
- 132:App/STM32F4-Discovery/main.c **** 
- 133:App/STM32F4-Discovery/main.c ****   *((volatile unsigned *) 0xE0040304) = 0x00000100; /* Formatter and Flush Control Register */
- 740              		.loc 2 133 0
- 741 0036 104B     		ldr	r3, .L5+24
- 742 0038 4FF48072 		mov	r2, #256
- 743 003c 1A60     		str	r2, [r3]
- 134:App/STM32F4-Discovery/main.c **** 
- 135:App/STM32F4-Discovery/main.c ****   /* ITM Lock Access Register */
- 136:App/STM32F4-Discovery/main.c ****   *((volatile unsigned *) 0xE0000FB0) = 0xC5ACCE55; /* ITM Lock Access Register, C5ACCE55 enables m
- 744              		.loc 2 136 0
- 745 003e 0F4B     		ldr	r3, .L5+28
- 746 0040 0F4A     		ldr	r2, .L5+32
- 747 0042 1A60     		str	r2, [r3]
- 137:App/STM32F4-Discovery/main.c ****                                                     /* write access to Control Register 0xE00 :: 0x
- 138:App/STM32F4-Discovery/main.c ****   *((volatile unsigned *) 0xE0000E80) = 0x00010005; /* ITM Trace Control Register */
- 748              		.loc 2 138 0
- 749 0044 0F4B     		ldr	r3, .L5+36
- 750 0046 104A     		ldr	r2, .L5+40
- 751 0048 1A60     		str	r2, [r3]
- 139:App/STM32F4-Discovery/main.c ****   *((volatile unsigned *) 0xE0000E00) = 0x00000001; /* ITM Trace Enable Register. Enabled tracing o
- 752              		.loc 2 139 0
- 753 004a 104B     		ldr	r3, .L5+44
- 754 004c 0122     		movs	r2, #1
- 755 004e 1A60     		str	r2, [r3]
- 140:App/STM32F4-Discovery/main.c ****                                                     /* ports. One bit per stimulus port. */
- 141:App/STM32F4-Discovery/main.c ****   *((volatile unsigned *) 0xE0000E40) = 0x00000001; /* ITM Trace Privilege Register */
- 756              		.loc 2 141 0
- 757 0050 0F4B     		ldr	r3, .L5+48
- 758 0052 0122     		movs	r2, #1
- 759 0054 1A60     		str	r2, [r3]
- 142:App/STM32F4-Discovery/main.c **** 
- 143:App/STM32F4-Discovery/main.c ****   /*  *((volatile unsigned *) 0xE0001000) = 0x400003FE; */ /* DWT_CTRL */
- 144:App/STM32F4-Discovery/main.c **** 
- 145:App/STM32F4-Discovery/main.c ****   //  *(volatile unsigned int *)0xE0001000 |= 0x00000001 ;  /* Enable cycle counter*/
- 146:App/STM32F4-Discovery/main.c ****   // *(volatile unsigned int *)0xE0001004 = 0;             /* Reset counter */
- 147:App/STM32F4-Discovery/main.c **** }
- 760              		.loc 2 147 0
- 761 0056 1437     		adds	r7, r7, #20
- 762 0058 BD46     		mov	sp, r7
- 763              		@ sp needed
- 764 005a 5DF8047B 		ldr	r7, [sp], #4
- 765 005e 7047     		bx	lr
- 766              	.L6:
- 767              		.align	2
- 768              	.L5:
- 769 0060 C5B3A291 		.word	-1851608123
- 770 0064 F0ED00E0 		.word	-536810000
- 771 0068 042004E0 		.word	-536600572
- 772 006c 040004E0 		.word	-536608764
- 773 0070 F00004E0 		.word	-536608528
- 774 0074 100004E0 		.word	-536608752
- 775 0078 040304E0 		.word	-536607996
- 776 007c B00F00E0 		.word	-536866896
- 777 0080 55CEACC5 		.word	-978530731
- 778 0084 800E00E0 		.word	-536867200
- 779 0088 05000100 		.word	65541
- 780 008c 000E00E0 		.word	-536867328
- 781 0090 400E00E0 		.word	-536867264
- 782              		.cfi_endproc
- 783              	.LFE110:
- 785              		.section	.rodata
- 786 0071 000000   		.align	2
- 787              	.LC4:
- 788 0074 53746172 		.ascii	"Starting\012\000"
- 788      74696E67 
- 788      0A00
- 789 007e 0000     		.align	2
- 790              	.LC5:
- 791 0080 54435073 		.ascii	"TCPsrv\000"
- 791      727600
- 792 0087 00       		.align	2
- 793              	.LC6:
- 794 0088 6D6F746F 		.ascii	"motorHB\000"
- 794      72484200 
- 795              		.section	.text.main,"ax",%progbits
- 796              		.align	2
- 797              		.global	main
- 798              		.thumb
- 799              		.thumb_func
- 801              	main:
- 802              	.LFB111:
- 148:App/STM32F4-Discovery/main.c **** 
- 149:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 150:App/STM32F4-Discovery/main.c **** 
- 151:App/STM32F4-Discovery/main.c **** int main(void)
- 152:App/STM32F4-Discovery/main.c **** {
- 803              		.loc 2 152 0
- 804              		.cfi_startproc
- 805              		@ args = 0, pretend = 0, frame = 0
- 806              		@ frame_needed = 1, uses_anonymous_args = 0
- 807 0000 80B5     		push	{r7, lr}
- 808              	.LCFI6:
- 809              		.cfi_def_cfa_offset 8
- 810              		.cfi_offset 7, -8
- 811              		.cfi_offset 14, -4
- 812 0002 84B0     		sub	sp, sp, #16
- 813              	.LCFI7:
- 814              		.cfi_def_cfa_offset 24
- 815 0004 04AF     		add	r7, sp, #16
- 816              	.LCFI8:
- 817              		.cfi_def_cfa 7, 8
- 153:App/STM32F4-Discovery/main.c **** 	SystemCoreClockUpdate();
- 818              		.loc 2 153 0
- 819 0006 FFF7FEFF 		bl	SystemCoreClockUpdate
- 154:App/STM32F4-Discovery/main.c **** 
- 155:App/STM32F4-Discovery/main.c **** 	CoreSight_configure(SystemCoreClock);
- 820              		.loc 2 155 0
- 821 000a 244B     		ldr	r3, .L9
- 822 000c 1B68     		ldr	r3, [r3]
- 823 000e 1846     		mov	r0, r3
- 824 0010 FFF7FEFF 		bl	CoreSight_configure
- 156:App/STM32F4-Discovery/main.c **** 	/*<! Configure the hardware ready to run the test. */
- 157:App/STM32F4-Discovery/main.c **** 	prvSetupHardware();;
- 825              		.loc 2 157 0
- 826 0014 FFF7FEFF 		bl	prvSetupHardware
- 158:App/STM32F4-Discovery/main.c **** 	t_printf("Starting\n");
- 827              		.loc 2 158 0
- 828 0018 2148     		ldr	r0, .L9+4
- 829 001a FFF7FEFF 		bl	t_printf
- 159:App/STM32F4-Discovery/main.c **** 	
- 160:App/STM32F4-Discovery/main.c **** 	// ============now register CLI commands ===================
- 161:App/STM32F4-Discovery/main.c **** 	
- 162:App/STM32F4-Discovery/main.c **** 	FreeRTOS_CLIRegisterCommand( &xMotorCommand );
- 830              		.loc 2 162 0
- 831 001e 2148     		ldr	r0, .L9+8
- 832 0020 FFF7FEFF 		bl	FreeRTOS_CLIRegisterCommand
- 163:App/STM32F4-Discovery/main.c ****        	FreeRTOS_CLIRegisterCommand( &xTaskStatsCommand);		
- 833              		.loc 2 163 0
- 834 0024 2048     		ldr	r0, .L9+12
- 835 0026 FFF7FEFF 		bl	FreeRTOS_CLIRegisterCommand
- 164:App/STM32F4-Discovery/main.c **** 
- 165:App/STM32F4-Discovery/main.c **** 	// create queues 
- 166:App/STM32F4-Discovery/main.c **** 	QSpd_handle = xQueueCreate(2, sizeof(QueueTelegram));
- 836              		.loc 2 166 0
- 837 002a 0220     		movs	r0, #2
- 838 002c 1C21     		movs	r1, #28
- 839 002e 0022     		movs	r2, #0
- 840 0030 FFF7FEFF 		bl	xQueueGenericCreate
- 841 0034 0246     		mov	r2, r0
- 842 0036 1D4B     		ldr	r3, .L9+16
- 843 0038 1A60     		str	r2, [r3]
- 167:App/STM32F4-Discovery/main.c **** 
- 168:App/STM32F4-Discovery/main.c **** 
- 169:App/STM32F4-Discovery/main.c **** /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
- 170:App/STM32F4-Discovery/main.c **** 
- 171:App/STM32F4-Discovery/main.c **** 
- 172:App/STM32F4-Discovery/main.c **** 
- 173:App/STM32F4-Discovery/main.c **** 	// echo server task 
- 174:App/STM32F4-Discovery/main.c **** 	xTaskCreate(tcp_srv_Task, "TCPsrv", configMINIMAL_STACK_SIZE * 10, 
- 844              		.loc 2 174 0
- 845 003a 0223     		movs	r3, #2
- 846 003c 0093     		str	r3, [sp]
- 847 003e 1C4B     		ldr	r3, .L9+20
- 848 0040 0193     		str	r3, [sp, #4]
- 849 0042 0023     		movs	r3, #0
- 850 0044 0293     		str	r3, [sp, #8]
- 851 0046 0023     		movs	r3, #0
- 852 0048 0393     		str	r3, [sp, #12]
- 853 004a 1A48     		ldr	r0, .L9+24
- 854 004c 1A49     		ldr	r1, .L9+28
- 855 004e 4FF42062 		mov	r2, #2560
- 856 0052 0023     		movs	r3, #0
- 857 0054 FFF7FEFF 		bl	xTaskGenericCreate
- 175:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY + 1, &set_macTaskHandle);
- 176:App/STM32F4-Discovery/main.c **** 	
- 177:App/STM32F4-Discovery/main.c **** 	// run motor task 
- 178:App/STM32F4-Discovery/main.c **** 	xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE * 10,
- 858              		.loc 2 178 0
- 859 0058 0223     		movs	r3, #2
- 860 005a 0093     		str	r3, [sp]
- 861 005c 174B     		ldr	r3, .L9+32
- 862 005e 0193     		str	r3, [sp, #4]
- 863 0060 0023     		movs	r3, #0
- 864 0062 0293     		str	r3, [sp, #8]
- 865 0064 0023     		movs	r3, #0
- 866 0066 0393     		str	r3, [sp, #12]
- 867 0068 1548     		ldr	r0, .L9+36
- 868 006a 1649     		ldr	r1, .L9+40
- 869 006c 4FF42062 		mov	r2, #2560
- 870 0070 0023     		movs	r3, #0
- 871 0072 FFF7FEFF 		bl	xTaskGenericCreate
- 179:App/STM32F4-Discovery/main.c **** 		       	NULL, mainFLASH_TASK_PRIORITY + 1, &motorHBHandle);
- 180:App/STM32F4-Discovery/main.c **** 
- 181:App/STM32F4-Discovery/main.c **** 	// set motor task 
- 182:App/STM32F4-Discovery/main.c **** 	xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 10,		       				
- 872              		.loc 2 182 0
- 873 0076 0123     		movs	r3, #1
- 874 0078 0093     		str	r3, [sp]
- 875 007a 134B     		ldr	r3, .L9+44
- 876 007c 0193     		str	r3, [sp, #4]
- 877 007e 0023     		movs	r3, #0
- 878 0080 0293     		str	r3, [sp, #8]
- 879 0082 0023     		movs	r3, #0
- 880 0084 0393     		str	r3, [sp, #12]
- 881 0086 1148     		ldr	r0, .L9+48
- 882 0088 1149     		ldr	r1, .L9+52
- 883 008a 4FF42062 		mov	r2, #2560
- 884 008e 0023     		movs	r3, #0
- 885 0090 FFF7FEFF 		bl	xTaskGenericCreate
- 183:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY , &motorHeartBeatHandle);
- 184:App/STM32F4-Discovery/main.c **** 	
- 185:App/STM32F4-Discovery/main.c **** 
- 186:App/STM32F4-Discovery/main.c **** /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
- 187:App/STM32F4-Discovery/main.c **** 
- 188:App/STM32F4-Discovery/main.c **** 
- 189:App/STM32F4-Discovery/main.c **** 	/* The following function will only create more tasks and timers if
- 190:App/STM32F4-Discovery/main.c **** 	mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY is set to 0 (at the top of this
- 191:App/STM32F4-Discovery/main.c **** 	file).  See the comments at the top of this file for more information. */
- 192:App/STM32F4-Discovery/main.c **** 	//prvOptionallyCreateComprehensveTestApplication();
- 193:App/STM32F4-Discovery/main.c **** 
- 194:App/STM32F4-Discovery/main.c **** 	/* Start the scheduler. */
- 195:App/STM32F4-Discovery/main.c **** 	vTaskStartScheduler();
- 886              		.loc 2 195 0
- 887 0094 FFF7FEFF 		bl	vTaskStartScheduler
- 888              	.L8:
- 196:App/STM32F4-Discovery/main.c **** 
- 197:App/STM32F4-Discovery/main.c **** 	/* If all is well, the scheduler will now be running, and the following line
- 198:App/STM32F4-Discovery/main.c **** 	will never be reached.  If the following line does execute, then there was
- 199:App/STM32F4-Discovery/main.c **** 	insufficient FreeRTOS heap memory available for the idle and/or timer tasks
- 200:App/STM32F4-Discovery/main.c **** 	to be created.  See the memory management section on the FreeRTOS web site
- 201:App/STM32F4-Discovery/main.c **** 	for more details. */
- 202:App/STM32F4-Discovery/main.c **** 	for( ;; );
- 889              		.loc 2 202 0 discriminator 1
- 890 0098 FEE7     		b	.L8
- 891              	.L10:
- 892 009a 00BF     		.align	2
- 893              	.L9:
- 894 009c 00000000 		.word	SystemCoreClock
- 895 00a0 74000000 		.word	.LC4
- 896 00a4 00000000 		.word	xMotorCommand
- 897 00a8 00000000 		.word	xTaskStatsCommand
- 898 00ac 00000000 		.word	QSpd_handle
- 899 00b0 00000000 		.word	set_macTaskHandle
- 900 00b4 00000000 		.word	tcp_srv_Task
- 901 00b8 80000000 		.word	.LC5
- 902 00bc 00000000 		.word	motorHBHandle
- 903 00c0 00000000 		.word	motorControl_task
- 904 00c4 00000000 		.word	.LC0
- 905 00c8 00000000 		.word	motorHeartBeatHandle
- 906 00cc 00000000 		.word	motorHeartBeat_task
- 907 00d0 88000000 		.word	.LC6
- 908              		.cfi_endproc
- 909              	.LFE111:
- 911              		.section	.rodata
- 912              		.align	2
- 913              	.LC7:
- 914 0090 696E6974 		.ascii	"init_W5200\000"
- 914      5F573532 
- 914      303000
- 915 009b 00       		.section	.text.prvSetupHardware,"ax",%progbits
- 916              		.align	2
- 917              		.thumb
- 918              		.thumb_func
- 920              	prvSetupHardware:
- 921              	.LFB112:
- 203:App/STM32F4-Discovery/main.c **** }
- 204:App/STM32F4-Discovery/main.c **** 
- 205:App/STM32F4-Discovery/main.c **** 
- 206:App/STM32F4-Discovery/main.c **** 
- 207:App/STM32F4-Discovery/main.c **** /*! 	\fn static void prvSetupHardware(void) 
- 208:App/STM32F4-Discovery/main.c ****  *	\brief Sets up hardware
- 209:App/STM32F4-Discovery/main.c ****  * 	
- 210:App/STM32F4-Discovery/main.c ****  */
- 211:App/STM32F4-Discovery/main.c **** void prvSetupHardware( void )
- 212:App/STM32F4-Discovery/main.c **** {
- 922              		.loc 2 212 0
- 923              		.cfi_startproc
- 924              		@ args = 0, pretend = 0, frame = 0
- 925              		@ frame_needed = 1, uses_anonymous_args = 0
- 926 0000 80B5     		push	{r7, lr}
- 927              	.LCFI9:
- 928              		.cfi_def_cfa_offset 8
- 929              		.cfi_offset 7, -8
- 930              		.cfi_offset 14, -4
- 931 0002 84B0     		sub	sp, sp, #16
- 932              	.LCFI10:
- 933              		.cfi_def_cfa_offset 24
- 934 0004 04AF     		add	r7, sp, #16
- 935              	.LCFI11:
- 936              		.cfi_def_cfa 7, 8
- 213:App/STM32F4-Discovery/main.c **** 	/* Setup STM32 system (clock, PLL and Flash configuration) */
- 214:App/STM32F4-Discovery/main.c **** 	SystemInit();
- 937              		.loc 2 214 0
- 938 0006 FFF7FEFF 		bl	SystemInit
- 215:App/STM32F4-Discovery/main.c **** 
- 216:App/STM32F4-Discovery/main.c **** 	/* Ensure all priority bits are assigned as preemption priority bits. */
- 217:App/STM32F4-Discovery/main.c **** 	NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );
- 939              		.loc 2 217 0
- 940 000a 4FF44070 		mov	r0, #768
- 941 000e FFF7FEFF 		bl	NVIC_PriorityGroupConfig
- 218:App/STM32F4-Discovery/main.c **** 	
- 219:App/STM32F4-Discovery/main.c **** 	//init_SPIx();
- 220:App/STM32F4-Discovery/main.c **** 	init_SPIx();	
- 942              		.loc 2 220 0
- 943 0012 FFF7FEFF 		bl	init_SPIx
- 221:App/STM32F4-Discovery/main.c **** 	
- 222:App/STM32F4-Discovery/main.c **** 	// init USARTx 
- 223:App/STM32F4-Discovery/main.c **** 	init_USARTx();
- 944              		.loc 2 223 0
- 945 0016 FFF7FEFF 		bl	init_USARTx
- 224:App/STM32F4-Discovery/main.c **** 
- 225:App/STM32F4-Discovery/main.c **** 	/*
- 226:App/STM32F4-Discovery/main.c **** 	 * Create task - initialize Wiznet
- 227:App/STM32F4-Discovery/main.c **** 	 * It creates task for Wiznet initialization and at end delete it. 
- 228:App/STM32F4-Discovery/main.c **** 	 * Function : 		init_W5200 from W5200.c file 
- 229:App/STM32F4-Discovery/main.c **** 	 * Stack size :		5 times minimial stack size 
- 230:App/STM32F4-Discovery/main.c **** 	 * Task priority :	main flash task priority + 1 
- 231:App/STM32F4-Discovery/main.c **** 	 * Parameters 	 :	no parameters (NULL)
- 232:App/STM32F4-Discovery/main.c **** 	 */  
- 233:App/STM32F4-Discovery/main.c **** 	xTaskCreate(init_W5200, "init_W5200", configMINIMAL_STACK_SIZE*4, 
- 946              		.loc 2 233 0
- 947 001a 0223     		movs	r3, #2
- 948 001c 0093     		str	r3, [sp]
- 949 001e 0023     		movs	r3, #0
- 950 0020 0193     		str	r3, [sp, #4]
- 951 0022 0023     		movs	r3, #0
- 952 0024 0293     		str	r3, [sp, #8]
- 953 0026 0023     		movs	r3, #0
- 954 0028 0393     		str	r3, [sp, #12]
- 955 002a 0448     		ldr	r0, .L12
- 956 002c 0449     		ldr	r1, .L12+4
- 957 002e 4FF48062 		mov	r2, #1024
- 958 0032 0023     		movs	r3, #0
- 959 0034 FFF7FEFF 		bl	xTaskGenericCreate
- 234:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY + 1 , NULL);
- 235:App/STM32F4-Discovery/main.c **** 	
- 236:App/STM32F4-Discovery/main.c **** 	
- 237:App/STM32F4-Discovery/main.c **** }
- 960              		.loc 2 237 0
- 961 0038 BD46     		mov	sp, r7
- 962              		@ sp needed
- 963 003a 80BD     		pop	{r7, pc}
- 964              	.L13:
- 965              		.align	2
- 966              	.L12:
- 967 003c 00000000 		.word	init_W5200
- 968 0040 90000000 		.word	.LC7
- 969              		.cfi_endproc
- 970              	.LFE112:
- 972              		.section	.text.vApplicationTickHook,"ax",%progbits
- 973              		.align	2
- 974              		.global	vApplicationTickHook
- 975              		.thumb
- 976              		.thumb_func
- 978              	vApplicationTickHook:
- 979              	.LFB113:
- 238:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 239:App/STM32F4-Discovery/main.c **** 
- 240:App/STM32F4-Discovery/main.c **** void vApplicationTickHook( void )
- 241:App/STM32F4-Discovery/main.c **** {
- 980              		.loc 2 241 0
- 981              		.cfi_startproc
- 982              		@ args = 0, pretend = 0, frame = 0
- 983              		@ frame_needed = 1, uses_anonymous_args = 0
- 984 0000 80B5     		push	{r7, lr}
- 985              	.LCFI12:
- 986              		.cfi_def_cfa_offset 8
- 987              		.cfi_offset 7, -8
- 988              		.cfi_offset 14, -4
- 989 0002 00AF     		add	r7, sp, #0
- 990              	.LCFI13:
- 991              		.cfi_def_cfa_register 7
- 242:App/STM32F4-Discovery/main.c **** 	#if ( mainCREATE_SIMPLE_LED_FLASHER_DEMO_ONLY == 0 )
- 243:App/STM32F4-Discovery/main.c **** 	{
- 244:App/STM32F4-Discovery/main.c **** 		/* Just to verify that the interrupt nesting behaves as expected,
- 245:App/STM32F4-Discovery/main.c **** 		increment ulFPUInterruptNesting on entry, and decrement it on exit. */
- 246:App/STM32F4-Discovery/main.c **** 		ulFPUInterruptNesting++;
- 992              		.loc 2 246 0
- 993 0004 064B     		ldr	r3, .L15
- 994 0006 1B68     		ldr	r3, [r3]
- 995 0008 5A1C     		adds	r2, r3, #1
- 996 000a 054B     		ldr	r3, .L15
- 997 000c 1A60     		str	r2, [r3]
- 247:App/STM32F4-Discovery/main.c **** 
- 248:App/STM32F4-Discovery/main.c **** 		/* Fill the FPU registers with 0. */
- 249:App/STM32F4-Discovery/main.c **** 		//vRegTestClearFlopRegistersToParameterValue( 0UL );
- 250:App/STM32F4-Discovery/main.c **** 
- 251:App/STM32F4-Discovery/main.c **** 		/* Trigger a timer 2 interrupt, which will fill the registers with a
- 252:App/STM32F4-Discovery/main.c **** 		different value and itself trigger a timer 3 interrupt.  Note that the
- 253:App/STM32F4-Discovery/main.c **** 		timers are not actually used.  The timer 2 and 3 interrupt vectors are
- 254:App/STM32F4-Discovery/main.c **** 		just used for convenience. */
- 255:App/STM32F4-Discovery/main.c **** 		NVIC_SetPendingIRQ( TIM2_IRQn );
- 998              		.loc 2 255 0
- 999 000e 1C20     		movs	r0, #28
- 1000 0010 FFF7FEFF 		bl	NVIC_SetPendingIRQ
- 256:App/STM32F4-Discovery/main.c **** 
- 257:App/STM32F4-Discovery/main.c **** 		/* Ensure that, after returning from the nested interrupts, all the FPU
- 258:App/STM32F4-Discovery/main.c **** 		registers contain the value to which they were set by the tick hook
- 259:App/STM32F4-Discovery/main.c **** 		function. */
- 260:App/STM32F4-Discovery/main.c **** 		//configASSERT( ulRegTestCheckFlopRegistersContainParameterValue( 0UL ) );
- 261:App/STM32F4-Discovery/main.c **** 
- 262:App/STM32F4-Discovery/main.c **** 		ulFPUInterruptNesting--;
- 1001              		.loc 2 262 0
- 1002 0014 024B     		ldr	r3, .L15
- 1003 0016 1B68     		ldr	r3, [r3]
- 1004 0018 5A1E     		subs	r2, r3, #1
- 1005 001a 014B     		ldr	r3, .L15
- 1006 001c 1A60     		str	r2, [r3]
- 263:App/STM32F4-Discovery/main.c **** 	}
- 264:App/STM32F4-Discovery/main.c **** 	#endif
- 265:App/STM32F4-Discovery/main.c **** }
- 1007              		.loc 2 265 0
- 1008 001e 80BD     		pop	{r7, pc}
- 1009              	.L16:
- 1010              		.align	2
- 1011              	.L15:
- 1012 0020 00000000 		.word	ulFPUInterruptNesting
- 1013              		.cfi_endproc
- 1014              	.LFE113:
- 1016              		.section	.text.prvSetupNestedFPUInterruptsTest,"ax",%progbits
- 1017              		.align	2
- 1018              		.thumb
- 1019              		.thumb_func
- 1021              	prvSetupNestedFPUInterruptsTest:
- 1022              	.LFB114:
- 266:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 267:App/STM32F4-Discovery/main.c **** 
- 268:App/STM32F4-Discovery/main.c **** static void prvSetupNestedFPUInterruptsTest( void )
- 269:App/STM32F4-Discovery/main.c **** {
+ 109              	num:
+ 110 0000 00000000 		.space	4
+ 111              		.section	.bss.uc,"aw",%nobits
+ 114              	uc:
+ 115 0000 00       		.space	1
+ 116              		.section	.bss.zs,"aw",%nobits
+ 119              	zs:
+ 120 0000 00       		.space	1
+ 121              		.section	.text.out,"ax",%progbits
+ 122              		.align	2
+ 123              		.thumb
+ 124              		.thumb_func
+ 126              	out:
+ 127              	.LFB110:
+ 128              		.file 2 "Source/printf.c"
+   1:Source/printf.c **** /*
+   2:Source/printf.c ****   File: printf.c
+   3:Source/printf.c **** 
+   4:Source/printf.c ****   Copyright (C) 2004,2008  Kustaa Nyholm
+   5:Source/printf.c **** 
+   6:Source/printf.c ****   This library is free software; you can redistribute it and/or
+   7:Source/printf.c ****   modify it under the terms of the GNU Lesser General Public
+   8:Source/printf.c ****   License as published by the Free Software Foundation; either
+   9:Source/printf.c ****   version 2.1 of the License, or (at your option) any later version.
+  10:Source/printf.c **** 
+  11:Source/printf.c ****   This library is distributed in the hope that it will be useful,
+  12:Source/printf.c ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  13:Source/printf.c ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  14:Source/printf.c ****   Lesser General Public License for more details.
+  15:Source/printf.c **** 
+  16:Source/printf.c ****   You should have received a copy of the GNU Lesser General Public
+  17:Source/printf.c ****   License along with this library; if not, write to the Free Software
+  18:Source/printf.c ****   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  19:Source/printf.c **** 
+  20:Source/printf.c **** */
+  21:Source/printf.c **** 
+  22:Source/printf.c **** #include <stdint.h>
+  23:Source/printf.c **** 
+  24:Source/printf.c **** #ifdef ITM_TRACE
+  25:Source/printf.c **** #if defined (CORTEX_M4) && defined (STM32F4xx)
+  26:Source/printf.c **** #include "stm32f4xx.h"
+  27:Source/printf.c **** #elif defined (CORTEX_M4) && defined (STM32F30x)
+  28:Source/printf.c **** #include "stm32f30x.h"
+  29:Source/printf.c **** #elif defined (CORTEX_M3) && defined (STM32F10x)
+  30:Source/printf.c **** #include "stm32f10x.h"
+  31:Source/printf.c **** #else
+  32:Source/printf.c **** #error No core defined!
+  33:Source/printf.c **** #endif
+  34:Source/printf.c **** #elif MEM_TRACE
+  35:Source/printf.c **** #include "memtrace.h"
+  36:Source/printf.c **** #else
+  37:Source/printf.c **** #include "serial.h"
+  38:Source/printf.c **** #endif
+  39:Source/printf.c **** 
+  40:Source/printf.c **** #include "printf.h"
+  41:Source/printf.c **** 
+  42:Source/printf.c **** static char* bf;
+  43:Source/printf.c **** static char buf[12];
+  44:Source/printf.c **** static unsigned int num;
+  45:Source/printf.c **** static char uc;
+  46:Source/printf.c **** static char zs;
+  47:Source/printf.c **** 
+  48:Source/printf.c **** static void out(char c) {
+ 129              		.loc 2 48 0
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 8
+ 132              		@ frame_needed = 1, uses_anonymous_args = 0
+ 133              		@ link register save eliminated.
+ 134 0000 80B4     		push	{r7}
+ 135              	.LCFI3:
+ 136              		.cfi_def_cfa_offset 4
+ 137              		.cfi_offset 7, -4
+ 138 0002 83B0     		sub	sp, sp, #12
+ 139              	.LCFI4:
+ 140              		.cfi_def_cfa_offset 16
+ 141 0004 00AF     		add	r7, sp, #0
+ 142              	.LCFI5:
+ 143              		.cfi_def_cfa_register 7
+ 144 0006 0346     		mov	r3, r0
+ 145 0008 FB71     		strb	r3, [r7, #7]
+  49:Source/printf.c ****   *bf++ = c;
+ 146              		.loc 2 49 0
+ 147 000a 064B     		ldr	r3, .L8
+ 148 000c 1B68     		ldr	r3, [r3]
+ 149 000e 591C     		adds	r1, r3, #1
+ 150 0010 044A     		ldr	r2, .L8
+ 151 0012 1160     		str	r1, [r2]
+ 152 0014 FA79     		ldrb	r2, [r7, #7]
+ 153 0016 1A70     		strb	r2, [r3]
+  50:Source/printf.c **** }
+ 154              		.loc 2 50 0
+ 155 0018 0C37     		adds	r7, r7, #12
+ 156 001a BD46     		mov	sp, r7
+ 157              		@ sp needed
+ 158 001c 5DF8047B 		ldr	r7, [sp], #4
+ 159 0020 7047     		bx	lr
+ 160              	.L9:
+ 161 0022 00BF     		.align	2
+ 162              	.L8:
+ 163 0024 00000000 		.word	bf
+ 164              		.cfi_endproc
+ 165              	.LFE110:
+ 167              		.section	.text.outDgt,"ax",%progbits
+ 168              		.align	2
+ 169              		.thumb
+ 170              		.thumb_func
+ 172              	outDgt:
+ 173              	.LFB111:
+  51:Source/printf.c **** 
+  52:Source/printf.c **** static void outDgt(char dgt) {
+ 174              		.loc 2 52 0
+ 175              		.cfi_startproc
+ 176              		@ args = 0, pretend = 0, frame = 8
+ 177              		@ frame_needed = 1, uses_anonymous_args = 0
+ 178 0000 80B5     		push	{r7, lr}
+ 179              	.LCFI6:
+ 180              		.cfi_def_cfa_offset 8
+ 181              		.cfi_offset 7, -8
+ 182              		.cfi_offset 14, -4
+ 183 0002 82B0     		sub	sp, sp, #8
+ 184              	.LCFI7:
+ 185              		.cfi_def_cfa_offset 16
+ 186 0004 00AF     		add	r7, sp, #0
+ 187              	.LCFI8:
+ 188              		.cfi_def_cfa_register 7
+ 189 0006 0346     		mov	r3, r0
+ 190 0008 FB71     		strb	r3, [r7, #7]
+  53:Source/printf.c ****   out(dgt+(dgt<10 ? '0' : (uc ? 'A' : 'a')-10));
+ 191              		.loc 2 53 0
+ 192 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 193 000c 092B     		cmp	r3, #9
+ 194 000e 07D9     		bls	.L11
+ 195              		.loc 2 53 0 is_stmt 0 discriminator 1
+ 196 0010 0A4B     		ldr	r3, .L15
+ 197 0012 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 198 0014 002B     		cmp	r3, #0
+ 199 0016 01D0     		beq	.L12
+ 200              		.loc 2 53 0 discriminator 3
+ 201 0018 3723     		movs	r3, #55
+ 202 001a 02E0     		b	.L14
+ 203              	.L12:
+ 204              		.loc 2 53 0 discriminator 4
+ 205 001c 5723     		movs	r3, #87
+ 206 001e 00E0     		b	.L14
+ 207              	.L11:
+ 208              		.loc 2 53 0 discriminator 2
+ 209 0020 3023     		movs	r3, #48
+ 210              	.L14:
+ 211              		.loc 2 53 0 discriminator 5
+ 212 0022 FA79     		ldrb	r2, [r7, #7]
+ 213 0024 1344     		add	r3, r3, r2
+ 214 0026 DBB2     		uxtb	r3, r3
+ 215 0028 1846     		mov	r0, r3
+ 216 002a FFF7FEFF 		bl	out
+  54:Source/printf.c ****   zs=1;
+ 217              		.loc 2 54 0 is_stmt 1 discriminator 5
+ 218 002e 044B     		ldr	r3, .L15+4
+ 219 0030 0122     		movs	r2, #1
+ 220 0032 1A70     		strb	r2, [r3]
+  55:Source/printf.c **** }
+ 221              		.loc 2 55 0 discriminator 5
+ 222 0034 0837     		adds	r7, r7, #8
+ 223 0036 BD46     		mov	sp, r7
+ 224              		@ sp needed
+ 225 0038 80BD     		pop	{r7, pc}
+ 226              	.L16:
+ 227 003a 00BF     		.align	2
+ 228              	.L15:
+ 229 003c 00000000 		.word	uc
+ 230 0040 00000000 		.word	zs
+ 231              		.cfi_endproc
+ 232              	.LFE111:
+ 234              		.section	.text.divOut,"ax",%progbits
+ 235              		.align	2
+ 236              		.thumb
+ 237              		.thumb_func
+ 239              	divOut:
+ 240              	.LFB112:
+  56:Source/printf.c **** 
+  57:Source/printf.c **** static void divOut(unsigned int div) {
+ 241              		.loc 2 57 0
+ 242              		.cfi_startproc
+ 243              		@ args = 0, pretend = 0, frame = 16
+ 244              		@ frame_needed = 1, uses_anonymous_args = 0
+ 245 0000 80B5     		push	{r7, lr}
+ 246              	.LCFI9:
+ 247              		.cfi_def_cfa_offset 8
+ 248              		.cfi_offset 7, -8
+ 249              		.cfi_offset 14, -4
+ 250 0002 84B0     		sub	sp, sp, #16
+ 251              	.LCFI10:
+ 252              		.cfi_def_cfa_offset 24
+ 253 0004 00AF     		add	r7, sp, #0
+ 254              	.LCFI11:
+ 255              		.cfi_def_cfa_register 7
+ 256 0006 7860     		str	r0, [r7, #4]
+  58:Source/printf.c ****   unsigned char dgt=0;
+ 257              		.loc 2 58 0
+ 258 0008 0023     		movs	r3, #0
+ 259 000a FB73     		strb	r3, [r7, #15]
+  59:Source/printf.c ****   num &= 0xffffffff;
+ 260              		.loc 2 59 0
+ 261 000c 104B     		ldr	r3, .L22
+ 262 000e 1A68     		ldr	r2, [r3]
+ 263 0010 0F4B     		ldr	r3, .L22
+ 264 0012 1A60     		str	r2, [r3]
+  60:Source/printf.c ****   while (num>=div) {
+ 265              		.loc 2 60 0
+ 266 0014 08E0     		b	.L18
+ 267              	.L19:
+  61:Source/printf.c ****     num -= div;
+ 268              		.loc 2 61 0
+ 269 0016 0E4B     		ldr	r3, .L22
+ 270 0018 1A68     		ldr	r2, [r3]
+ 271 001a 7B68     		ldr	r3, [r7, #4]
+ 272 001c D21A     		subs	r2, r2, r3
+ 273 001e 0C4B     		ldr	r3, .L22
+ 274 0020 1A60     		str	r2, [r3]
+  62:Source/printf.c ****     dgt++;
+ 275              		.loc 2 62 0
+ 276 0022 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 277 0024 0133     		adds	r3, r3, #1
+ 278 0026 FB73     		strb	r3, [r7, #15]
+ 279              	.L18:
+  60:Source/printf.c ****   while (num>=div) {
+ 280              		.loc 2 60 0 discriminator 1
+ 281 0028 094B     		ldr	r3, .L22
+ 282 002a 1A68     		ldr	r2, [r3]
+ 283 002c 7B68     		ldr	r3, [r7, #4]
+ 284 002e 9A42     		cmp	r2, r3
+ 285 0030 F1D2     		bcs	.L19
+  63:Source/printf.c ****   }
+  64:Source/printf.c ****   if (zs || dgt>0)
+ 286              		.loc 2 64 0
+ 287 0032 084B     		ldr	r3, .L22+4
+ 288 0034 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 289 0036 002B     		cmp	r3, #0
+ 290 0038 02D1     		bne	.L20
+ 291              		.loc 2 64 0 is_stmt 0 discriminator 1
+ 292 003a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 293 003c 002B     		cmp	r3, #0
+ 294 003e 03D0     		beq	.L17
+ 295              	.L20:
+  65:Source/printf.c ****     outDgt(dgt);
+ 296              		.loc 2 65 0 is_stmt 1
+ 297 0040 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 298 0042 1846     		mov	r0, r3
+ 299 0044 FFF7FEFF 		bl	outDgt
+ 300              	.L17:
+  66:Source/printf.c **** }
+ 301              		.loc 2 66 0
+ 302 0048 1037     		adds	r7, r7, #16
+ 303 004a BD46     		mov	sp, r7
+ 304              		@ sp needed
+ 305 004c 80BD     		pop	{r7, pc}
+ 306              	.L23:
+ 307 004e 00BF     		.align	2
+ 308              	.L22:
+ 309 0050 00000000 		.word	num
+ 310 0054 00000000 		.word	zs
+ 311              		.cfi_endproc
+ 312              	.LFE112:
+ 314              		.section	.text.t_puts,"ax",%progbits
+ 315              		.align	2
+ 316              		.global	t_puts
+ 317              		.thumb
+ 318              		.thumb_func
+ 320              	t_puts:
+ 321              	.LFB113:
+  67:Source/printf.c **** 
+  68:Source/printf.c **** 
+  69:Source/printf.c **** int  t_puts(const char *s)
+  70:Source/printf.c **** {
+ 322              		.loc 2 70 0
+ 323              		.cfi_startproc
+ 324              		@ args = 0, pretend = 0, frame = 16
+ 325              		@ frame_needed = 1, uses_anonymous_args = 0
+ 326 0000 80B5     		push	{r7, lr}
+ 327              	.LCFI12:
+ 328              		.cfi_def_cfa_offset 8
+ 329              		.cfi_offset 7, -8
+ 330              		.cfi_offset 14, -4
+ 331 0002 84B0     		sub	sp, sp, #16
+ 332              	.LCFI13:
+ 333              		.cfi_def_cfa_offset 24
+ 334 0004 00AF     		add	r7, sp, #0
+ 335              	.LCFI14:
+ 336              		.cfi_def_cfa_register 7
+ 337 0006 7860     		str	r0, [r7, #4]
+  71:Source/printf.c ****   char *p;
+  72:Source/printf.c **** 
+  73:Source/printf.c ****   p = (char *) s;
+ 338              		.loc 2 73 0
+ 339 0008 7B68     		ldr	r3, [r7, #4]
+ 340 000a FB60     		str	r3, [r7, #12]
+  74:Source/printf.c ****   while (*p != '\0')
+ 341              		.loc 2 74 0
+ 342 000c 07E0     		b	.L25
+ 343              	.L26:
+  75:Source/printf.c ****     {
+  76:Source/printf.c **** #ifdef ITM_TRACE
+  77:Source/printf.c ****       ITM_SendChar ((uint32_t) *p);
+ 344              		.loc 2 77 0
+ 345 000e FB68     		ldr	r3, [r7, #12]
+ 346 0010 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 347 0012 1846     		mov	r0, r3
+ 348 0014 FFF7FEFF 		bl	ITM_SendChar
+  78:Source/printf.c **** #elif MEM_TRACE
+  79:Source/printf.c ****       mem_putchar(*p);
+  80:Source/printf.c **** #else
+  81:Source/printf.c ****       putchar(*p);
+  82:Source/printf.c **** #endif
+  83:Source/printf.c ****       p++;
+ 349              		.loc 2 83 0
+ 350 0018 FB68     		ldr	r3, [r7, #12]
+ 351 001a 0133     		adds	r3, r3, #1
+ 352 001c FB60     		str	r3, [r7, #12]
+ 353              	.L25:
+  74:Source/printf.c ****   while (*p != '\0')
+ 354              		.loc 2 74 0 discriminator 1
+ 355 001e FB68     		ldr	r3, [r7, #12]
+ 356 0020 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 357 0022 002B     		cmp	r3, #0
+ 358 0024 F3D1     		bne	.L26
+  84:Source/printf.c ****     }
+  85:Source/printf.c **** #if defined (TFP_PUTS_ENDL)
+  86:Source/printf.c **** #ifdef ITM_TRACE
+  87:Source/printf.c ****   ITM_SendChar ((uint32_t) 10);
+ 359              		.loc 2 87 0
+ 360 0026 0A20     		movs	r0, #10
+ 361 0028 FFF7FEFF 		bl	ITM_SendChar
+  88:Source/printf.c **** #elif MEM_TRACE
+  89:Source/printf.c ****   mem_putchar(10);
+  90:Source/printf.c **** #else
+  91:Source/printf.c ****   putchar(10);
+  92:Source/printf.c **** #endif
+  93:Source/printf.c **** #endif
+  94:Source/printf.c ****   return 1;
+ 362              		.loc 2 94 0
+ 363 002c 0123     		movs	r3, #1
+  95:Source/printf.c **** }
+ 364              		.loc 2 95 0
+ 365 002e 1846     		mov	r0, r3
+ 366 0030 1037     		adds	r7, r7, #16
+ 367 0032 BD46     		mov	sp, r7
+ 368              		@ sp needed
+ 369 0034 80BD     		pop	{r7, pc}
+ 370              		.cfi_endproc
+ 371              	.LFE113:
+ 373 0036 00BF     		.section	.text.t_printf,"ax",%progbits
+ 374              		.align	2
+ 375              		.global	t_printf
+ 376              		.thumb
+ 377              		.thumb_func
+ 379              	t_printf:
+ 380              	.LFB114:
+  96:Source/printf.c **** 
+  97:Source/printf.c **** void t_printf(const char *fmt, ...)
+  98:Source/printf.c **** {
+ 381              		.loc 2 98 0
+ 382              		.cfi_startproc
+ 383              		@ args = 4, pretend = 16, frame = 16
+ 384              		@ frame_needed = 1, uses_anonymous_args = 1
+ 385 0000 0FB4     		push	{r0, r1, r2, r3}
+ 386              	.LCFI15:
+ 387              		.cfi_def_cfa_offset 16
+ 388              		.cfi_offset 0, -16
+ 389              		.cfi_offset 1, -12
+ 390              		.cfi_offset 2, -8
+ 391              		.cfi_offset 3, -4
+ 392 0002 80B5     		push	{r7, lr}
+ 393              	.LCFI16:
+ 394              		.cfi_def_cfa_offset 24
+ 395              		.cfi_offset 7, -24
+ 396              		.cfi_offset 14, -20
+ 397 0004 84B0     		sub	sp, sp, #16
+ 398              	.LCFI17:
+ 399              		.cfi_def_cfa_offset 40
+ 400 0006 00AF     		add	r7, sp, #0
+ 401              	.LCFI18:
+ 402              		.cfi_def_cfa_register 7
+  99:Source/printf.c ****   va_list va;
+ 100:Source/printf.c ****   char ch;
+ 101:Source/printf.c ****   char* p;
+ 102:Source/printf.c **** 
+ 103:Source/printf.c ****   va_start(va,fmt);
+ 403              		.loc 2 103 0
+ 404 0008 07F11C03 		add	r3, r7, #28
+ 405 000c 3B60     		str	r3, [r7]
+ 104:Source/printf.c **** 
+ 105:Source/printf.c ****   while ((ch=*(fmt++))) {
+ 406              		.loc 2 105 0
+ 407 000e 0FE1     		b	.L29
+ 408              	.L56:
+ 106:Source/printf.c ****     if (ch!='%') {
+ 409              		.loc 2 106 0
+ 410 0010 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 411 0012 252B     		cmp	r3, #37
+ 412 0014 04D0     		beq	.L30
+ 107:Source/printf.c **** #ifdef ITM_TRACE
+ 108:Source/printf.c ****       ITM_SendChar ((uint32_t) ch);
+ 413              		.loc 2 108 0
+ 414 0016 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 415 0018 1846     		mov	r0, r3
+ 416 001a FFF7FEFF 		bl	ITM_SendChar
+ 417 001e 07E1     		b	.L29
+ 418              	.L30:
+ 419              	.LBB2:
+ 109:Source/printf.c **** #elif MEM_TRACE
+ 110:Source/printf.c ****   mem_putchar(ch);
+ 111:Source/printf.c **** #else
+ 112:Source/printf.c ****       putchar(ch);
+ 113:Source/printf.c **** #endif
+ 114:Source/printf.c ****     }
+ 115:Source/printf.c ****     else {
+ 116:Source/printf.c ****       char lz=0;
+ 420              		.loc 2 116 0
+ 421 0020 0023     		movs	r3, #0
+ 422 0022 FB71     		strb	r3, [r7, #7]
+ 117:Source/printf.c ****       char w=0;
+ 423              		.loc 2 117 0
+ 424 0024 0023     		movs	r3, #0
+ 425 0026 BB71     		strb	r3, [r7, #6]
+ 118:Source/printf.c ****       ch=*(fmt++);
+ 426              		.loc 2 118 0
+ 427 0028 BB69     		ldr	r3, [r7, #24]
+ 428 002a 5A1C     		adds	r2, r3, #1
+ 429 002c BA61     		str	r2, [r7, #24]
+ 430 002e 1B78     		ldrb	r3, [r3]
+ 431 0030 FB73     		strb	r3, [r7, #15]
+ 119:Source/printf.c ****       if (ch=='0') {
+ 432              		.loc 2 119 0
+ 433 0032 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 434 0034 302B     		cmp	r3, #48
+ 435 0036 06D1     		bne	.L31
+ 120:Source/printf.c **** 	ch=*(fmt++);
+ 436              		.loc 2 120 0
+ 437 0038 BB69     		ldr	r3, [r7, #24]
+ 438 003a 5A1C     		adds	r2, r3, #1
+ 439 003c BA61     		str	r2, [r7, #24]
+ 440 003e 1B78     		ldrb	r3, [r3]
+ 441 0040 FB73     		strb	r3, [r7, #15]
+ 121:Source/printf.c **** 	lz=1;
+ 442              		.loc 2 121 0
+ 443 0042 0123     		movs	r3, #1
+ 444 0044 FB71     		strb	r3, [r7, #7]
+ 445              	.L31:
+ 122:Source/printf.c ****       }
+ 123:Source/printf.c ****       if (ch>='0' && ch<='9') {
+ 446              		.loc 2 123 0
+ 447 0046 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 448 0048 2F2B     		cmp	r3, #47
+ 449 004a 1DD9     		bls	.L32
+ 450              		.loc 2 123 0 is_stmt 0 discriminator 1
+ 451 004c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 452 004e 392B     		cmp	r3, #57
+ 453 0050 1AD8     		bhi	.L32
+ 124:Source/printf.c **** 	w=0;
+ 454              		.loc 2 124 0 is_stmt 1
+ 455 0052 0023     		movs	r3, #0
+ 456 0054 BB71     		strb	r3, [r7, #6]
+ 125:Source/printf.c **** 	while (ch>='0' && ch<='9') {
+ 457              		.loc 2 125 0
+ 458 0056 11E0     		b	.L33
+ 459              	.L34:
+ 126:Source/printf.c **** 	  w=(((w<<2)+w)<<1)+ch-'0';
+ 460              		.loc 2 126 0
+ 461 0058 BB79     		ldrb	r3, [r7, #6]
+ 462 005a 9B00     		lsls	r3, r3, #2
+ 463 005c DAB2     		uxtb	r2, r3
+ 464 005e BB79     		ldrb	r3, [r7, #6]
+ 465 0060 1344     		add	r3, r3, r2
+ 466 0062 DBB2     		uxtb	r3, r3
+ 467 0064 5B00     		lsls	r3, r3, #1
+ 468 0066 DAB2     		uxtb	r2, r3
+ 469 0068 FB7B     		ldrb	r3, [r7, #15]
+ 470 006a 1344     		add	r3, r3, r2
+ 471 006c DBB2     		uxtb	r3, r3
+ 472 006e 303B     		subs	r3, r3, #48
+ 473 0070 BB71     		strb	r3, [r7, #6]
+ 127:Source/printf.c **** 	  ch=*fmt++;
+ 474              		.loc 2 127 0
+ 475 0072 BB69     		ldr	r3, [r7, #24]
+ 476 0074 5A1C     		adds	r2, r3, #1
+ 477 0076 BA61     		str	r2, [r7, #24]
+ 478 0078 1B78     		ldrb	r3, [r3]
+ 479 007a FB73     		strb	r3, [r7, #15]
+ 480              	.L33:
+ 125:Source/printf.c **** 	while (ch>='0' && ch<='9') {
+ 481              		.loc 2 125 0 discriminator 1
+ 482 007c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 483 007e 2F2B     		cmp	r3, #47
+ 484 0080 02D9     		bls	.L32
+ 125:Source/printf.c **** 	while (ch>='0' && ch<='9') {
+ 485              		.loc 2 125 0 is_stmt 0 discriminator 2
+ 486 0082 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 487 0084 392B     		cmp	r3, #57
+ 488 0086 E7D9     		bls	.L34
+ 489              	.L32:
+ 128:Source/printf.c **** 	}
+ 129:Source/printf.c ****       }
+ 130:Source/printf.c ****       bf=buf;
+ 490              		.loc 2 130 0 is_stmt 1
+ 491 0088 724B     		ldr	r3, .L59
+ 492 008a 734A     		ldr	r2, .L59+4
+ 493 008c 1A60     		str	r2, [r3]
+ 131:Source/printf.c ****       p=bf;
+ 494              		.loc 2 131 0
+ 495 008e 714B     		ldr	r3, .L59
+ 496 0090 1B68     		ldr	r3, [r3]
+ 497 0092 BB60     		str	r3, [r7, #8]
+ 132:Source/printf.c ****       zs=0;
+ 498              		.loc 2 132 0
+ 499 0094 714B     		ldr	r3, .L59+8
+ 500 0096 0022     		movs	r2, #0
+ 501 0098 1A70     		strb	r2, [r3]
+ 133:Source/printf.c ****       switch (ch) {
+ 502              		.loc 2 133 0
+ 503 009a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 504 009c 632B     		cmp	r3, #99
+ 505 009e 00F08280 		beq	.L36
+ 506 00a2 632B     		cmp	r3, #99
+ 507 00a4 08DC     		bgt	.L37
+ 508 00a6 252B     		cmp	r3, #37
+ 509 00a8 00F08C80 		beq	.L38
+ 510 00ac 582B     		cmp	r3, #88
+ 511 00ae 49D0     		beq	.L39
+ 512 00b0 002B     		cmp	r3, #0
+ 513 00b2 00F0C780 		beq	.L57
+ 134:Source/printf.c ****       case 0:
+ 135:Source/printf.c **** 	goto abort;
+ 136:Source/printf.c ****       case 'u':
+ 137:Source/printf.c ****       case 'd' :
+ 138:Source/printf.c **** 	num=va_arg(va, unsigned int);
+ 139:Source/printf.c **** 	if (ch=='d' && (int)num<0) {
+ 140:Source/printf.c **** 	  num = -(int)num;
+ 141:Source/printf.c **** 	  out('-');
+ 142:Source/printf.c **** 	}
+ 143:Source/printf.c **** 	divOut(1000000000);
+ 144:Source/printf.c **** 	divOut(100000000);
+ 145:Source/printf.c **** 	divOut(10000000);
+ 146:Source/printf.c **** 	divOut(1000000);
+ 147:Source/printf.c **** 	divOut(100000);
+ 148:Source/printf.c **** 	divOut(10000);
+ 149:Source/printf.c **** 	divOut(1000);
+ 150:Source/printf.c **** 	divOut(100);
+ 151:Source/printf.c **** 	divOut(10);
+ 152:Source/printf.c **** 	outDgt(num);
+ 153:Source/printf.c **** 	break;
+ 154:Source/printf.c ****       case 'x':
+ 155:Source/printf.c ****       case 'X' :
+ 156:Source/printf.c **** 	uc= ch=='X';
+ 157:Source/printf.c **** 	num=va_arg(va, unsigned int);
+ 158:Source/printf.c **** 	divOut(0x10000000);
+ 159:Source/printf.c **** 	divOut(0x1000000);
+ 160:Source/printf.c **** 	divOut(0x100000);
+ 161:Source/printf.c **** 	divOut(0x10000);
+ 162:Source/printf.c **** 	divOut(0x1000);
+ 163:Source/printf.c **** 	divOut(0x100);
+ 164:Source/printf.c **** 	divOut(0x10);
+ 165:Source/printf.c **** 	outDgt(num);
+ 166:Source/printf.c **** 	break;
+ 167:Source/printf.c ****       case 'c' :
+ 168:Source/printf.c **** 	out((char)(va_arg(va, int)));
+ 169:Source/printf.c **** 	break;
+ 170:Source/printf.c ****       case 's' :
+ 171:Source/printf.c **** 	p=va_arg(va, char*);
+ 172:Source/printf.c **** 	break;
+ 173:Source/printf.c ****       case '%' :
+ 174:Source/printf.c **** 	out('%');
+ 175:Source/printf.c ****       default:
+ 176:Source/printf.c **** 	break;
+ 514              		.loc 2 176 0
+ 515 00b6 88E0     		b	.L58
+ 516              	.L37:
+ 133:Source/printf.c ****       switch (ch) {
+ 517              		.loc 2 133 0
+ 518 00b8 732B     		cmp	r3, #115
+ 519 00ba 7DD0     		beq	.L41
+ 520 00bc 732B     		cmp	r3, #115
+ 521 00be 02DC     		bgt	.L42
+ 522 00c0 642B     		cmp	r3, #100
+ 523 00c2 05D0     		beq	.L43
+ 524              		.loc 2 176 0
+ 525 00c4 81E0     		b	.L58
+ 526              	.L42:
+ 133:Source/printf.c ****       switch (ch) {
+ 527              		.loc 2 133 0
+ 528 00c6 752B     		cmp	r3, #117
+ 529 00c8 02D0     		beq	.L43
+ 530 00ca 782B     		cmp	r3, #120
+ 531 00cc 3AD0     		beq	.L39
+ 532              		.loc 2 176 0
+ 533 00ce 7CE0     		b	.L58
+ 534              	.L43:
+ 138:Source/printf.c **** 	num=va_arg(va, unsigned int);
+ 535              		.loc 2 138 0
+ 536 00d0 3B68     		ldr	r3, [r7]
+ 537 00d2 1A1D     		adds	r2, r3, #4
+ 538 00d4 3A60     		str	r2, [r7]
+ 539 00d6 1A68     		ldr	r2, [r3]
+ 540 00d8 614B     		ldr	r3, .L59+12
+ 541 00da 1A60     		str	r2, [r3]
+ 139:Source/printf.c **** 	if (ch=='d' && (int)num<0) {
+ 542              		.loc 2 139 0
+ 543 00dc FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 544 00de 642B     		cmp	r3, #100
+ 545 00e0 0CD1     		bne	.L45
+ 139:Source/printf.c **** 	if (ch=='d' && (int)num<0) {
+ 546              		.loc 2 139 0 is_stmt 0 discriminator 1
+ 547 00e2 5F4B     		ldr	r3, .L59+12
+ 548 00e4 1B68     		ldr	r3, [r3]
+ 549 00e6 002B     		cmp	r3, #0
+ 550 00e8 08DA     		bge	.L45
+ 140:Source/printf.c **** 	  num = -(int)num;
+ 551              		.loc 2 140 0 is_stmt 1
+ 552 00ea 5D4B     		ldr	r3, .L59+12
+ 553 00ec 1B68     		ldr	r3, [r3]
+ 554 00ee 5B42     		negs	r3, r3
+ 555 00f0 1A46     		mov	r2, r3
+ 556 00f2 5B4B     		ldr	r3, .L59+12
+ 557 00f4 1A60     		str	r2, [r3]
+ 141:Source/printf.c **** 	  out('-');
+ 558              		.loc 2 141 0
+ 559 00f6 2D20     		movs	r0, #45
+ 560 00f8 FFF7FEFF 		bl	out
+ 561              	.L45:
+ 143:Source/printf.c **** 	divOut(1000000000);
+ 562              		.loc 2 143 0
+ 563 00fc 5948     		ldr	r0, .L59+16
+ 564 00fe FFF7FEFF 		bl	divOut
+ 144:Source/printf.c **** 	divOut(100000000);
+ 565              		.loc 2 144 0
+ 566 0102 5948     		ldr	r0, .L59+20
+ 567 0104 FFF7FEFF 		bl	divOut
+ 145:Source/printf.c **** 	divOut(10000000);
+ 568              		.loc 2 145 0
+ 569 0108 5848     		ldr	r0, .L59+24
+ 570 010a FFF7FEFF 		bl	divOut
+ 146:Source/printf.c **** 	divOut(1000000);
+ 571              		.loc 2 146 0
+ 572 010e 5848     		ldr	r0, .L59+28
+ 573 0110 FFF7FEFF 		bl	divOut
+ 147:Source/printf.c **** 	divOut(100000);
+ 574              		.loc 2 147 0
+ 575 0114 5748     		ldr	r0, .L59+32
+ 576 0116 FFF7FEFF 		bl	divOut
+ 148:Source/printf.c **** 	divOut(10000);
+ 577              		.loc 2 148 0
+ 578 011a 42F21070 		movw	r0, #10000
+ 579 011e FFF7FEFF 		bl	divOut
+ 149:Source/printf.c **** 	divOut(1000);
+ 580              		.loc 2 149 0
+ 581 0122 4FF47A70 		mov	r0, #1000
+ 582 0126 FFF7FEFF 		bl	divOut
+ 150:Source/printf.c **** 	divOut(100);
+ 583              		.loc 2 150 0
+ 584 012a 6420     		movs	r0, #100
+ 585 012c FFF7FEFF 		bl	divOut
+ 151:Source/printf.c **** 	divOut(10);
+ 586              		.loc 2 151 0
+ 587 0130 0A20     		movs	r0, #10
+ 588 0132 FFF7FEFF 		bl	divOut
+ 152:Source/printf.c **** 	outDgt(num);
+ 589              		.loc 2 152 0
+ 590 0136 4A4B     		ldr	r3, .L59+12
+ 591 0138 1B68     		ldr	r3, [r3]
+ 592 013a DBB2     		uxtb	r3, r3
+ 593 013c 1846     		mov	r0, r3
+ 594 013e FFF7FEFF 		bl	outDgt
+ 153:Source/printf.c **** 	break;
+ 595              		.loc 2 153 0
+ 596 0142 43E0     		b	.L46
+ 597              	.L39:
+ 156:Source/printf.c **** 	uc= ch=='X';
+ 598              		.loc 2 156 0
+ 599 0144 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 600 0146 582B     		cmp	r3, #88
+ 601 0148 14BF     		ite	ne
+ 602 014a 0023     		movne	r3, #0
+ 603 014c 0123     		moveq	r3, #1
+ 604 014e DBB2     		uxtb	r3, r3
+ 605 0150 1A46     		mov	r2, r3
+ 606 0152 494B     		ldr	r3, .L59+36
+ 607 0154 1A70     		strb	r2, [r3]
+ 157:Source/printf.c **** 	num=va_arg(va, unsigned int);
+ 608              		.loc 2 157 0
+ 609 0156 3B68     		ldr	r3, [r7]
+ 610 0158 1A1D     		adds	r2, r3, #4
+ 611 015a 3A60     		str	r2, [r7]
+ 612 015c 1A68     		ldr	r2, [r3]
+ 613 015e 404B     		ldr	r3, .L59+12
+ 614 0160 1A60     		str	r2, [r3]
+ 158:Source/printf.c **** 	divOut(0x10000000);
+ 615              		.loc 2 158 0
+ 616 0162 4FF08050 		mov	r0, #268435456
+ 617 0166 FFF7FEFF 		bl	divOut
+ 159:Source/printf.c **** 	divOut(0x1000000);
+ 618              		.loc 2 159 0
+ 619 016a 4FF08070 		mov	r0, #16777216
+ 620 016e FFF7FEFF 		bl	divOut
+ 160:Source/printf.c **** 	divOut(0x100000);
+ 621              		.loc 2 160 0
+ 622 0172 4FF48010 		mov	r0, #1048576
+ 623 0176 FFF7FEFF 		bl	divOut
+ 161:Source/printf.c **** 	divOut(0x10000);
+ 624              		.loc 2 161 0
+ 625 017a 4FF48030 		mov	r0, #65536
+ 626 017e FFF7FEFF 		bl	divOut
+ 162:Source/printf.c **** 	divOut(0x1000);
+ 627              		.loc 2 162 0
+ 628 0182 4FF48050 		mov	r0, #4096
+ 629 0186 FFF7FEFF 		bl	divOut
+ 163:Source/printf.c **** 	divOut(0x100);
+ 630              		.loc 2 163 0
+ 631 018a 4FF48070 		mov	r0, #256
+ 632 018e FFF7FEFF 		bl	divOut
+ 164:Source/printf.c **** 	divOut(0x10);
+ 633              		.loc 2 164 0
+ 634 0192 1020     		movs	r0, #16
+ 635 0194 FFF7FEFF 		bl	divOut
+ 165:Source/printf.c **** 	outDgt(num);
+ 636              		.loc 2 165 0
+ 637 0198 314B     		ldr	r3, .L59+12
+ 638 019a 1B68     		ldr	r3, [r3]
+ 639 019c DBB2     		uxtb	r3, r3
+ 640 019e 1846     		mov	r0, r3
+ 641 01a0 FFF7FEFF 		bl	outDgt
+ 166:Source/printf.c **** 	break;
+ 642              		.loc 2 166 0
+ 643 01a4 12E0     		b	.L46
+ 644              	.L36:
+ 168:Source/printf.c **** 	out((char)(va_arg(va, int)));
+ 645              		.loc 2 168 0
+ 646 01a6 3B68     		ldr	r3, [r7]
+ 647 01a8 1A1D     		adds	r2, r3, #4
+ 648 01aa 3A60     		str	r2, [r7]
+ 649 01ac 1B68     		ldr	r3, [r3]
+ 650 01ae DBB2     		uxtb	r3, r3
+ 651 01b0 1846     		mov	r0, r3
+ 652 01b2 FFF7FEFF 		bl	out
+ 169:Source/printf.c **** 	break;
+ 653              		.loc 2 169 0
+ 654 01b6 09E0     		b	.L46
+ 655              	.L41:
+ 171:Source/printf.c **** 	p=va_arg(va, char*);
+ 656              		.loc 2 171 0
+ 657 01b8 3B68     		ldr	r3, [r7]
+ 658 01ba 1A1D     		adds	r2, r3, #4
+ 659 01bc 3A60     		str	r2, [r7]
+ 660 01be 1B68     		ldr	r3, [r3]
+ 661 01c0 BB60     		str	r3, [r7, #8]
+ 172:Source/printf.c **** 	break;
+ 662              		.loc 2 172 0
+ 663 01c2 03E0     		b	.L46
+ 664              	.L38:
+ 174:Source/printf.c **** 	out('%');
+ 665              		.loc 2 174 0
+ 666 01c4 2520     		movs	r0, #37
+ 667 01c6 FFF7FEFF 		bl	out
+ 668              	.L58:
+ 669              		.loc 2 176 0
+ 670 01ca 00BF     		nop
+ 671              	.L46:
+ 177:Source/printf.c ****       }
+ 178:Source/printf.c ****       *bf=0;
+ 672              		.loc 2 178 0
+ 673 01cc 214B     		ldr	r3, .L59
+ 674 01ce 1B68     		ldr	r3, [r3]
+ 675 01d0 0022     		movs	r2, #0
+ 676 01d2 1A70     		strb	r2, [r3]
+ 179:Source/printf.c ****       bf=p;
+ 677              		.loc 2 179 0
+ 678 01d4 1F4B     		ldr	r3, .L59
+ 679 01d6 BA68     		ldr	r2, [r7, #8]
+ 680 01d8 1A60     		str	r2, [r3]
+ 180:Source/printf.c ****       while (*bf++ && w > 0)
+ 681              		.loc 2 180 0
+ 682 01da 02E0     		b	.L47
+ 683              	.L49:
+ 181:Source/printf.c **** 	w--;
+ 684              		.loc 2 181 0
+ 685 01dc BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 686 01de 013B     		subs	r3, r3, #1
+ 687 01e0 BB71     		strb	r3, [r7, #6]
+ 688              	.L47:
+ 180:Source/printf.c ****       while (*bf++ && w > 0)
+ 689              		.loc 2 180 0 discriminator 1
+ 690 01e2 1C4B     		ldr	r3, .L59
+ 691 01e4 1B68     		ldr	r3, [r3]
+ 692 01e6 591C     		adds	r1, r3, #1
+ 693 01e8 1A4A     		ldr	r2, .L59
+ 694 01ea 1160     		str	r1, [r2]
+ 695 01ec 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 696 01ee 002B     		cmp	r3, #0
+ 697 01f0 02D0     		beq	.L48
+ 180:Source/printf.c ****       while (*bf++ && w > 0)
+ 698              		.loc 2 180 0 is_stmt 0 discriminator 2
+ 699 01f2 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 700 01f4 002B     		cmp	r3, #0
+ 701 01f6 F1D1     		bne	.L49
+ 702              	.L48:
+ 182:Source/printf.c ****       while (w-- > 0)
+ 703              		.loc 2 182 0 is_stmt 1
+ 704 01f8 08E0     		b	.L50
+ 705              	.L53:
+ 183:Source/printf.c **** 	{
+ 184:Source/printf.c **** #ifdef ITM_TRACE
+ 185:Source/printf.c **** 	  ITM_SendChar ((uint32_t) (lz ? '0' : ' '));
+ 706              		.loc 2 185 0
+ 707 01fa FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 708 01fc 002B     		cmp	r3, #0
+ 709 01fe 01D0     		beq	.L51
+ 710              		.loc 2 185 0 is_stmt 0 discriminator 1
+ 711 0200 3023     		movs	r3, #48
+ 712 0202 00E0     		b	.L52
+ 713              	.L51:
+ 714              		.loc 2 185 0 discriminator 2
+ 715 0204 2023     		movs	r3, #32
+ 716              	.L52:
+ 717              		.loc 2 185 0 discriminator 3
+ 718 0206 1846     		mov	r0, r3
+ 719 0208 FFF7FEFF 		bl	ITM_SendChar
+ 720              	.L50:
+ 182:Source/printf.c ****       while (w-- > 0)
+ 721              		.loc 2 182 0 is_stmt 1 discriminator 1
+ 722 020c BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 723 020e 5A1E     		subs	r2, r3, #1
+ 724 0210 BA71     		strb	r2, [r7, #6]
+ 725 0212 002B     		cmp	r3, #0
+ 726 0214 F1D1     		bne	.L53
+ 186:Source/printf.c **** #elif MEM_TRACE
+ 187:Source/printf.c **** 	  mem_putchar(lz ? '0' : ' ');
+ 188:Source/printf.c **** #else
+ 189:Source/printf.c **** 	  putchar(lz ? '0' : ' ');
+ 190:Source/printf.c **** #endif
+ 191:Source/printf.c **** 	}
+ 192:Source/printf.c **** 
+ 193:Source/printf.c ****       while ((ch= *p++))
+ 727              		.loc 2 193 0
+ 728 0216 03E0     		b	.L54
+ 729              	.L55:
+ 194:Source/printf.c **** 	{
+ 195:Source/printf.c **** #ifdef ITM_TRACE
+ 196:Source/printf.c **** 	  ITM_SendChar ((uint32_t) ch);
+ 730              		.loc 2 196 0
+ 731 0218 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 732 021a 1846     		mov	r0, r3
+ 733 021c FFF7FEFF 		bl	ITM_SendChar
+ 734              	.L54:
+ 193:Source/printf.c ****       while ((ch= *p++))
+ 735              		.loc 2 193 0 discriminator 1
+ 736 0220 BB68     		ldr	r3, [r7, #8]
+ 737 0222 5A1C     		adds	r2, r3, #1
+ 738 0224 BA60     		str	r2, [r7, #8]
+ 739 0226 1B78     		ldrb	r3, [r3]
+ 740 0228 FB73     		strb	r3, [r7, #15]
+ 741 022a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 742 022c 002B     		cmp	r3, #0
+ 743 022e F3D1     		bne	.L55
+ 744              	.L29:
+ 745              	.LBE2:
+ 105:Source/printf.c ****   while ((ch=*(fmt++))) {
+ 746              		.loc 2 105 0 discriminator 1
+ 747 0230 BB69     		ldr	r3, [r7, #24]
+ 748 0232 5A1C     		adds	r2, r3, #1
+ 749 0234 BA61     		str	r2, [r7, #24]
+ 750 0236 1B78     		ldrb	r3, [r3]
+ 751 0238 FB73     		strb	r3, [r7, #15]
+ 752 023a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 753 023c 002B     		cmp	r3, #0
+ 754 023e 7FF4E7AE 		bne	.L56
+ 755 0242 00E0     		b	.L28
+ 756              	.L44:
+ 757              	.L57:
+ 758              	.LBB3:
+ 135:Source/printf.c **** 	goto abort;
+ 759              		.loc 2 135 0
+ 760 0244 00BF     		nop
+ 761              	.L28:
+ 762              	.LBE3:
+ 197:Source/printf.c **** #elif MEM_TRACE
+ 198:Source/printf.c **** 	  mem_putchar(ch);
+ 199:Source/printf.c **** #else
+ 200:Source/printf.c **** 	  putchar(ch);
+ 201:Source/printf.c **** #endif
+ 202:Source/printf.c **** 	}
+ 203:Source/printf.c ****     }
+ 204:Source/printf.c ****   }
+ 205:Source/printf.c ****  abort:;
+ 206:Source/printf.c ****   va_end(va);
+ 207:Source/printf.c **** }
+ 763              		.loc 2 207 0
+ 764 0246 1037     		adds	r7, r7, #16
+ 765 0248 BD46     		mov	sp, r7
+ 766              		@ sp needed
+ 767 024a BDE88040 		pop	{r7, lr}
+ 768 024e 04B0     		add	sp, sp, #16
+ 769 0250 7047     		bx	lr
+ 770              	.L60:
+ 771 0252 00BF     		.align	2
+ 772              	.L59:
+ 773 0254 00000000 		.word	bf
+ 774 0258 00000000 		.word	buf
+ 775 025c 00000000 		.word	zs
+ 776 0260 00000000 		.word	num
+ 777 0264 00CA9A3B 		.word	1000000000
+ 778 0268 00E1F505 		.word	100000000
+ 779 026c 80969800 		.word	10000000
+ 780 0270 40420F00 		.word	1000000
+ 781 0274 A0860100 		.word	100000
+ 782 0278 00000000 		.word	uc
+ 783              		.cfi_endproc
+ 784              	.LFE114:
+ 786              		.section	.text.t_snprintf,"ax",%progbits
+ 787              		.align	2
+ 788              		.global	t_snprintf
+ 789              		.thumb
+ 790              		.thumb_func
+ 792              	t_snprintf:
+ 793              	.LFB115:
+ 208:Source/printf.c **** 
+ 209:Source/printf.c **** void t_snprintf(char *str, int size, const char *fmt, ...)
+ 210:Source/printf.c **** { 
+ 794              		.loc 2 210 0
+ 795              		.cfi_startproc
+ 796              		@ args = 4, pretend = 8, frame = 32
+ 797              		@ frame_needed = 1, uses_anonymous_args = 1
+ 798 0000 0CB4     		push	{r2, r3}
+ 799              	.LCFI19:
+ 800              		.cfi_def_cfa_offset 8
+ 801              		.cfi_offset 2, -8
+ 802              		.cfi_offset 3, -4
+ 803 0002 80B5     		push	{r7, lr}
+ 804              	.LCFI20:
+ 805              		.cfi_def_cfa_offset 16
+ 806              		.cfi_offset 7, -16
+ 807              		.cfi_offset 14, -12
+ 808 0004 88B0     		sub	sp, sp, #32
+ 809              	.LCFI21:
+ 810              		.cfi_def_cfa_offset 48
+ 811 0006 00AF     		add	r7, sp, #0
+ 812              	.LCFI22:
+ 813              		.cfi_def_cfa_register 7
+ 814 0008 7860     		str	r0, [r7, #4]
+ 815 000a 3960     		str	r1, [r7]
+ 211:Source/printf.c ****   va_list va;
+ 212:Source/printf.c ****   char ch;
+ 213:Source/printf.c ****   char* p;
+ 214:Source/printf.c ****   char *outp;
+ 215:Source/printf.c ****   int32_t nout;
+ 216:Source/printf.c **** 
+ 217:Source/printf.c ****   outp = str;
+ 816              		.loc 2 217 0
+ 817 000c 7B68     		ldr	r3, [r7, #4]
+ 818 000e 7B61     		str	r3, [r7, #20]
+ 218:Source/printf.c ****   nout = 0;
+ 819              		.loc 2 218 0
+ 820 0010 0023     		movs	r3, #0
+ 821 0012 3B61     		str	r3, [r7, #16]
+ 219:Source/printf.c **** 
+ 220:Source/printf.c ****   va_start(va,fmt);
+ 822              		.loc 2 220 0
+ 823 0014 07F12C03 		add	r3, r7, #44
+ 824 0018 BB60     		str	r3, [r7, #8]
+ 221:Source/printf.c **** 
+ 222:Source/printf.c ****   while ((ch=*(fmt++))) 
+ 825              		.loc 2 222 0
+ 826 001a 07E1     		b	.L62
+ 827              	.L90:
+ 223:Source/printf.c ****     {
+ 224:Source/printf.c ****       if (ch!='%') 
+ 828              		.loc 2 224 0
+ 829 001c FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 830 001e 252B     		cmp	r3, #37
+ 831 0020 0DD0     		beq	.L63
+ 225:Source/printf.c **** 	{
+ 226:Source/printf.c **** 	  if (nout < size)
+ 832              		.loc 2 226 0
+ 833 0022 3A69     		ldr	r2, [r7, #16]
+ 834 0024 3B68     		ldr	r3, [r7]
+ 835 0026 9A42     		cmp	r2, r3
+ 836 0028 80F20081 		bge	.L62
+ 227:Source/printf.c **** 	    {
+ 228:Source/printf.c **** 	      *(outp++) = ch;
+ 837              		.loc 2 228 0
+ 838 002c 7B69     		ldr	r3, [r7, #20]
+ 839 002e 5A1C     		adds	r2, r3, #1
+ 840 0030 7A61     		str	r2, [r7, #20]
+ 841 0032 FA7F     		ldrb	r2, [r7, #31]
+ 842 0034 1A70     		strb	r2, [r3]
+ 229:Source/printf.c **** 	      nout++;
+ 843              		.loc 2 229 0
+ 844 0036 3B69     		ldr	r3, [r7, #16]
+ 845 0038 0133     		adds	r3, r3, #1
+ 846 003a 3B61     		str	r3, [r7, #16]
+ 847 003c F6E0     		b	.L62
+ 848              	.L63:
+ 849              	.LBB4:
+ 230:Source/printf.c **** 	    }
+ 231:Source/printf.c **** 	}
+ 232:Source/printf.c ****       else {
+ 233:Source/printf.c **** 	char lz=0;
+ 850              		.loc 2 233 0
+ 851 003e 0023     		movs	r3, #0
+ 852 0040 FB73     		strb	r3, [r7, #15]
+ 234:Source/printf.c **** 	char w=0;
+ 853              		.loc 2 234 0
+ 854 0042 0023     		movs	r3, #0
+ 855 0044 BB73     		strb	r3, [r7, #14]
+ 235:Source/printf.c **** 	ch=*(fmt++);
+ 856              		.loc 2 235 0
+ 857 0046 BB6A     		ldr	r3, [r7, #40]
+ 858 0048 5A1C     		adds	r2, r3, #1
+ 859 004a BA62     		str	r2, [r7, #40]
+ 860 004c 1B78     		ldrb	r3, [r3]
+ 861 004e FB77     		strb	r3, [r7, #31]
+ 236:Source/printf.c **** 	if (ch=='0') {
+ 862              		.loc 2 236 0
+ 863 0050 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 864 0052 302B     		cmp	r3, #48
+ 865 0054 06D1     		bne	.L65
+ 237:Source/printf.c **** 	  ch=*(fmt++);
+ 866              		.loc 2 237 0
+ 867 0056 BB6A     		ldr	r3, [r7, #40]
+ 868 0058 5A1C     		adds	r2, r3, #1
+ 869 005a BA62     		str	r2, [r7, #40]
+ 870 005c 1B78     		ldrb	r3, [r3]
+ 871 005e FB77     		strb	r3, [r7, #31]
+ 238:Source/printf.c **** 	  lz=1;
+ 872              		.loc 2 238 0
+ 873 0060 0123     		movs	r3, #1
+ 874 0062 FB73     		strb	r3, [r7, #15]
+ 875              	.L65:
+ 239:Source/printf.c **** 	}
+ 240:Source/printf.c **** 	if (ch>='0' && ch<='9') {
+ 876              		.loc 2 240 0
+ 877 0064 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 878 0066 2F2B     		cmp	r3, #47
+ 879 0068 1DD9     		bls	.L66
+ 880              		.loc 2 240 0 is_stmt 0 discriminator 1
+ 881 006a FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 882 006c 392B     		cmp	r3, #57
+ 883 006e 1AD8     		bhi	.L66
+ 241:Source/printf.c **** 	  w=0;
+ 884              		.loc 2 241 0 is_stmt 1
+ 885 0070 0023     		movs	r3, #0
+ 886 0072 BB73     		strb	r3, [r7, #14]
+ 242:Source/printf.c **** 	  while (ch>='0' && ch<='9') {
+ 887              		.loc 2 242 0
+ 888 0074 11E0     		b	.L67
+ 889              	.L68:
+ 243:Source/printf.c **** 	    w=(((w<<2)+w)<<1)+ch-'0';
+ 890              		.loc 2 243 0
+ 891 0076 BB7B     		ldrb	r3, [r7, #14]
+ 892 0078 9B00     		lsls	r3, r3, #2
+ 893 007a DAB2     		uxtb	r2, r3
+ 894 007c BB7B     		ldrb	r3, [r7, #14]
+ 895 007e 1344     		add	r3, r3, r2
+ 896 0080 DBB2     		uxtb	r3, r3
+ 897 0082 5B00     		lsls	r3, r3, #1
+ 898 0084 DAB2     		uxtb	r2, r3
+ 899 0086 FB7F     		ldrb	r3, [r7, #31]
+ 900 0088 1344     		add	r3, r3, r2
+ 901 008a DBB2     		uxtb	r3, r3
+ 902 008c 303B     		subs	r3, r3, #48
+ 903 008e BB73     		strb	r3, [r7, #14]
+ 244:Source/printf.c **** 	    ch=*fmt++;
+ 904              		.loc 2 244 0
+ 905 0090 BB6A     		ldr	r3, [r7, #40]
+ 906 0092 5A1C     		adds	r2, r3, #1
+ 907 0094 BA62     		str	r2, [r7, #40]
+ 908 0096 1B78     		ldrb	r3, [r3]
+ 909 0098 FB77     		strb	r3, [r7, #31]
+ 910              	.L67:
+ 242:Source/printf.c **** 	  while (ch>='0' && ch<='9') {
+ 911              		.loc 2 242 0 discriminator 1
+ 912 009a FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 913 009c 2F2B     		cmp	r3, #47
+ 914 009e 02D9     		bls	.L66
+ 242:Source/printf.c **** 	  while (ch>='0' && ch<='9') {
+ 915              		.loc 2 242 0 is_stmt 0 discriminator 2
+ 916 00a0 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 917 00a2 392B     		cmp	r3, #57
+ 918 00a4 E7D9     		bls	.L68
+ 919              	.L66:
+ 245:Source/printf.c **** 	  }
+ 246:Source/printf.c **** 	}
+ 247:Source/printf.c **** 	bf=buf;
+ 920              		.loc 2 247 0 is_stmt 1
+ 921 00a6 6C4B     		ldr	r3, .L93
+ 922 00a8 6C4A     		ldr	r2, .L93+4
+ 923 00aa 1A60     		str	r2, [r3]
+ 248:Source/printf.c **** 	p=bf;
+ 924              		.loc 2 248 0
+ 925 00ac 6A4B     		ldr	r3, .L93
+ 926 00ae 1B68     		ldr	r3, [r3]
+ 927 00b0 BB61     		str	r3, [r7, #24]
+ 249:Source/printf.c **** 	zs=0;
+ 928              		.loc 2 249 0
+ 929 00b2 6B4B     		ldr	r3, .L93+8
+ 930 00b4 0022     		movs	r2, #0
+ 931 00b6 1A70     		strb	r2, [r3]
+ 250:Source/printf.c **** 	switch (ch) {
+ 932              		.loc 2 250 0
+ 933 00b8 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 934 00ba 632B     		cmp	r3, #99
+ 935 00bc 61D0     		beq	.L70
+ 936 00be 632B     		cmp	r3, #99
+ 937 00c0 07DC     		bgt	.L71
+ 938 00c2 252B     		cmp	r3, #37
+ 939 00c4 6CD0     		beq	.L72
+ 940 00c6 582B     		cmp	r3, #88
+ 941 00c8 3AD0     		beq	.L73
+ 942 00ca 002B     		cmp	r3, #0
+ 943 00cc 00F0B880 		beq	.L91
+ 251:Source/printf.c **** 	case 0:
+ 252:Source/printf.c **** 	  goto abort;
+ 253:Source/printf.c **** 	case 'u':
+ 254:Source/printf.c **** 	case 'd' :
+ 255:Source/printf.c **** 	  num=va_arg(va, unsigned int);
+ 256:Source/printf.c **** 	  if (ch=='d' && (int)num<0) {
+ 257:Source/printf.c **** 	    num = -(int)num;
+ 258:Source/printf.c **** 	    out('-');
+ 259:Source/printf.c **** 	  }
+ 260:Source/printf.c **** 	  divOut(10000);
+ 261:Source/printf.c **** 	  divOut(1000);
+ 262:Source/printf.c **** 	  divOut(100);
+ 263:Source/printf.c **** 	  divOut(10);
+ 264:Source/printf.c **** 	  outDgt(num);
+ 265:Source/printf.c **** 	  break;
+ 266:Source/printf.c **** 	case 'x':
+ 267:Source/printf.c **** 	case 'X' :
+ 268:Source/printf.c **** 	  uc= ch=='X';
+ 269:Source/printf.c **** 	  num=va_arg(va, unsigned int);
+ 270:Source/printf.c **** 	  divOut(0x1000);
+ 271:Source/printf.c **** 	  divOut(0x100);
+ 272:Source/printf.c **** 	  divOut(0x10);
+ 273:Source/printf.c **** 	  outDgt(num);
+ 274:Source/printf.c **** 	  break;
+ 275:Source/printf.c **** 	case 'c' :
+ 276:Source/printf.c **** 	  out((char)(va_arg(va, int)));
+ 277:Source/printf.c **** 	  break;
+ 278:Source/printf.c **** 	case 's' :
+ 279:Source/printf.c **** 	  p=va_arg(va, char*);
+ 280:Source/printf.c **** 	  break;
+ 281:Source/printf.c **** 	case '%' :
+ 282:Source/printf.c **** 	  out('%');
+ 283:Source/printf.c **** 	default:
+ 284:Source/printf.c **** 	  break;
+ 944              		.loc 2 284 0
+ 945 00d0 69E0     		b	.L92
+ 946              	.L71:
+ 250:Source/printf.c **** 	switch (ch) {
+ 947              		.loc 2 250 0
+ 948 00d2 732B     		cmp	r3, #115
+ 949 00d4 5ED0     		beq	.L75
+ 950 00d6 732B     		cmp	r3, #115
+ 951 00d8 02DC     		bgt	.L76
+ 952 00da 642B     		cmp	r3, #100
+ 953 00dc 05D0     		beq	.L77
+ 954              		.loc 2 284 0
+ 955 00de 62E0     		b	.L92
+ 956              	.L76:
+ 250:Source/printf.c **** 	switch (ch) {
+ 957              		.loc 2 250 0
+ 958 00e0 752B     		cmp	r3, #117
+ 959 00e2 02D0     		beq	.L77
+ 960 00e4 782B     		cmp	r3, #120
+ 961 00e6 2BD0     		beq	.L73
+ 962              		.loc 2 284 0
+ 963 00e8 5DE0     		b	.L92
+ 964              	.L77:
+ 255:Source/printf.c **** 	  num=va_arg(va, unsigned int);
+ 965              		.loc 2 255 0
+ 966 00ea BB68     		ldr	r3, [r7, #8]
+ 967 00ec 1A1D     		adds	r2, r3, #4
+ 968 00ee BA60     		str	r2, [r7, #8]
+ 969 00f0 1A68     		ldr	r2, [r3]
+ 970 00f2 5C4B     		ldr	r3, .L93+12
+ 971 00f4 1A60     		str	r2, [r3]
+ 256:Source/printf.c **** 	  if (ch=='d' && (int)num<0) {
+ 972              		.loc 2 256 0
+ 973 00f6 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 974 00f8 642B     		cmp	r3, #100
+ 975 00fa 0CD1     		bne	.L79
+ 256:Source/printf.c **** 	  if (ch=='d' && (int)num<0) {
+ 976              		.loc 2 256 0 is_stmt 0 discriminator 1
+ 977 00fc 594B     		ldr	r3, .L93+12
+ 978 00fe 1B68     		ldr	r3, [r3]
+ 979 0100 002B     		cmp	r3, #0
+ 980 0102 08DA     		bge	.L79
+ 257:Source/printf.c **** 	    num = -(int)num;
+ 981              		.loc 2 257 0 is_stmt 1
+ 982 0104 574B     		ldr	r3, .L93+12
+ 983 0106 1B68     		ldr	r3, [r3]
+ 984 0108 5B42     		negs	r3, r3
+ 985 010a 1A46     		mov	r2, r3
+ 986 010c 554B     		ldr	r3, .L93+12
+ 987 010e 1A60     		str	r2, [r3]
+ 258:Source/printf.c **** 	    out('-');
+ 988              		.loc 2 258 0
+ 989 0110 2D20     		movs	r0, #45
+ 990 0112 FFF7FEFF 		bl	out
+ 991              	.L79:
+ 260:Source/printf.c **** 	  divOut(10000);
+ 992              		.loc 2 260 0
+ 993 0116 42F21070 		movw	r0, #10000
+ 994 011a FFF7FEFF 		bl	divOut
+ 261:Source/printf.c **** 	  divOut(1000);
+ 995              		.loc 2 261 0
+ 996 011e 4FF47A70 		mov	r0, #1000
+ 997 0122 FFF7FEFF 		bl	divOut
+ 262:Source/printf.c **** 	  divOut(100);
+ 998              		.loc 2 262 0
+ 999 0126 6420     		movs	r0, #100
+ 1000 0128 FFF7FEFF 		bl	divOut
+ 263:Source/printf.c **** 	  divOut(10);
+ 1001              		.loc 2 263 0
+ 1002 012c 0A20     		movs	r0, #10
+ 1003 012e FFF7FEFF 		bl	divOut
+ 264:Source/printf.c **** 	  outDgt(num);
+ 1004              		.loc 2 264 0
+ 1005 0132 4C4B     		ldr	r3, .L93+12
+ 1006 0134 1B68     		ldr	r3, [r3]
+ 1007 0136 DBB2     		uxtb	r3, r3
+ 1008 0138 1846     		mov	r0, r3
+ 1009 013a FFF7FEFF 		bl	outDgt
+ 265:Source/printf.c **** 	  break;
+ 1010              		.loc 2 265 0
+ 1011 013e 33E0     		b	.L80
+ 1012              	.L73:
+ 268:Source/printf.c **** 	  uc= ch=='X';
+ 1013              		.loc 2 268 0
+ 1014 0140 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 1015 0142 582B     		cmp	r3, #88
+ 1016 0144 14BF     		ite	ne
+ 1017 0146 0023     		movne	r3, #0
+ 1018 0148 0123     		moveq	r3, #1
+ 1019 014a DBB2     		uxtb	r3, r3
+ 1020 014c 1A46     		mov	r2, r3
+ 1021 014e 464B     		ldr	r3, .L93+16
+ 1022 0150 1A70     		strb	r2, [r3]
+ 269:Source/printf.c **** 	  num=va_arg(va, unsigned int);
  1023              		.loc 2 269 0
- 1024              		.cfi_startproc
- 1025              		@ args = 0, pretend = 0, frame = 8
- 1026              		@ frame_needed = 1, uses_anonymous_args = 0
- 1027 0000 80B5     		push	{r7, lr}
- 1028              	.LCFI14:
- 1029              		.cfi_def_cfa_offset 8
- 1030              		.cfi_offset 7, -8
- 1031              		.cfi_offset 14, -4
- 1032 0002 82B0     		sub	sp, sp, #8
- 1033              	.LCFI15:
- 1034              		.cfi_def_cfa_offset 16
- 1035 0004 00AF     		add	r7, sp, #0
- 1036              	.LCFI16:
- 1037              		.cfi_def_cfa_register 7
- 270:App/STM32F4-Discovery/main.c **** NVIC_InitTypeDef NVIC_InitStructure;
- 271:App/STM32F4-Discovery/main.c **** 
- 272:App/STM32F4-Discovery/main.c **** 	/* Enable the TIM2 interrupt in the NVIC.  The timer itself is not used,
- 273:App/STM32F4-Discovery/main.c **** 	just its interrupt vector to force nesting from software.  TIM2 must have
- 274:App/STM32F4-Discovery/main.c **** 	a lower priority than TIM3, and both must have priorities above
- 275:App/STM32F4-Discovery/main.c **** 	configMAX_SYSCALL_INTERRUPT_PRIORITY. */
- 276:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
- 1038              		.loc 2 276 0
- 1039 0006 1C23     		movs	r3, #28
- 1040 0008 3B71     		strb	r3, [r7, #4]
- 277:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORIT
- 1041              		.loc 2 277 0
- 1042 000a 0423     		movs	r3, #4
- 1043 000c 7B71     		strb	r3, [r7, #5]
- 278:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
- 1044              		.loc 2 278 0
- 1045 000e 0023     		movs	r3, #0
- 1046 0010 BB71     		strb	r3, [r7, #6]
- 279:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
- 1047              		.loc 2 279 0
- 1048 0012 0123     		movs	r3, #1
- 1049 0014 FB71     		strb	r3, [r7, #7]
- 280:App/STM32F4-Discovery/main.c **** 	NVIC_Init( &NVIC_InitStructure );
- 1050              		.loc 2 280 0
- 1051 0016 3B1D     		adds	r3, r7, #4
- 1052 0018 1846     		mov	r0, r3
- 1053 001a FFF7FEFF 		bl	NVIC_Init
- 281:App/STM32F4-Discovery/main.c **** 
- 282:App/STM32F4-Discovery/main.c **** 	/* Enable the TIM3 interrupt in the NVIC.  The timer itself is not used,
- 283:App/STM32F4-Discovery/main.c **** 	just its interrupt vector to force nesting from software.  TIM2 must have
- 284:App/STM32F4-Discovery/main.c **** 	a lower priority than TIM3, and both must have priorities above
- 285:App/STM32F4-Discovery/main.c **** 	configMAX_SYSCALL_INTERRUPT_PRIORITY. */
- 286:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
- 1054              		.loc 2 286 0
- 1055 001e 1D23     		movs	r3, #29
- 1056 0020 3B71     		strb	r3, [r7, #4]
- 287:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORIT
- 1057              		.loc 2 287 0
- 1058 0022 0323     		movs	r3, #3
- 1059 0024 7B71     		strb	r3, [r7, #5]
- 288:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
- 1060              		.loc 2 288 0
- 1061 0026 0023     		movs	r3, #0
- 1062 0028 BB71     		strb	r3, [r7, #6]
- 289:App/STM32F4-Discovery/main.c **** 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
- 1063              		.loc 2 289 0
- 1064 002a 0123     		movs	r3, #1
- 1065 002c FB71     		strb	r3, [r7, #7]
- 290:App/STM32F4-Discovery/main.c **** 	NVIC_Init( &NVIC_InitStructure );
- 1066              		.loc 2 290 0
- 1067 002e 3B1D     		adds	r3, r7, #4
- 1068 0030 1846     		mov	r0, r3
- 1069 0032 FFF7FEFF 		bl	NVIC_Init
- 291:App/STM32F4-Discovery/main.c **** }
- 1070              		.loc 2 291 0
- 1071 0036 0837     		adds	r7, r7, #8
- 1072 0038 BD46     		mov	sp, r7
- 1073              		@ sp needed
- 1074 003a 80BD     		pop	{r7, pc}
- 1075              		.cfi_endproc
- 1076              	.LFE114:
- 1078              		.section	.text.TIM3_IRQHandler,"ax",%progbits
- 1079              		.align	2
- 1080              		.global	TIM3_IRQHandler
- 1081              		.thumb
- 1082              		.thumb_func
- 1084              	TIM3_IRQHandler:
- 1085              	.LFB115:
- 292:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 293:App/STM32F4-Discovery/main.c **** 
- 294:App/STM32F4-Discovery/main.c **** void TIM3_IRQHandler( void )
- 295:App/STM32F4-Discovery/main.c **** {
- 1086              		.loc 2 295 0
- 1087              		.cfi_startproc
- 1088              		@ args = 0, pretend = 0, frame = 0
- 1089              		@ frame_needed = 1, uses_anonymous_args = 0
- 1090              		@ link register save eliminated.
- 1091 0000 80B4     		push	{r7}
- 1092              	.LCFI17:
- 1093              		.cfi_def_cfa_offset 4
- 1094              		.cfi_offset 7, -4
- 1095 0002 00AF     		add	r7, sp, #0
- 1096              	.LCFI18:
- 1097              		.cfi_def_cfa_register 7
- 296:App/STM32F4-Discovery/main.c **** 	/* Just to verify that the interrupt nesting behaves as expected, increment
- 297:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting on entry, and decrement it on exit. */
- 298:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting++;
- 1098              		.loc 2 298 0
- 1099 0004 0B4B     		ldr	r3, .L20
- 1100 0006 1B68     		ldr	r3, [r3]
- 1101 0008 5A1C     		adds	r2, r3, #1
- 1102 000a 0A4B     		ldr	r3, .L20
- 1103 000c 1A60     		str	r2, [r3]
- 299:App/STM32F4-Discovery/main.c **** 
- 300:App/STM32F4-Discovery/main.c **** 	/* This is the highest priority interrupt in the chain of forced nesting
- 301:App/STM32F4-Discovery/main.c **** 	interrupts, so latch the maximum value reached by ulFPUInterruptNesting.
- 302:App/STM32F4-Discovery/main.c **** 	This is done purely to allow verification that the nesting depth reaches
- 303:App/STM32F4-Discovery/main.c **** 	that intended. */
- 304:App/STM32F4-Discovery/main.c **** 	if( ulFPUInterruptNesting > ulMaxFPUInterruptNesting )
- 1104              		.loc 2 304 0
- 1105 000e 094B     		ldr	r3, .L20
- 1106 0010 1A68     		ldr	r2, [r3]
- 1107 0012 094B     		ldr	r3, .L20+4
- 1108 0014 1B68     		ldr	r3, [r3]
- 1109 0016 9A42     		cmp	r2, r3
- 1110 0018 03D9     		bls	.L19
- 305:App/STM32F4-Discovery/main.c **** 	{
- 306:App/STM32F4-Discovery/main.c **** 		ulMaxFPUInterruptNesting = ulFPUInterruptNesting;
- 1111              		.loc 2 306 0
- 1112 001a 064B     		ldr	r3, .L20
- 1113 001c 1A68     		ldr	r2, [r3]
- 1114 001e 064B     		ldr	r3, .L20+4
- 1115 0020 1A60     		str	r2, [r3]
- 1116              	.L19:
- 307:App/STM32F4-Discovery/main.c **** 	}
- 308:App/STM32F4-Discovery/main.c **** 
- 309:App/STM32F4-Discovery/main.c **** 	/* Fill the FPU registers with 99 to overwrite the values written by
- 310:App/STM32F4-Discovery/main.c **** 	TIM2_IRQHandler(). */
- 311:App/STM32F4-Discovery/main.c **** 	//vRegTestClearFlopRegistersToParameterValue( 99UL );
- 312:App/STM32F4-Discovery/main.c **** 
- 313:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting--;
- 1117              		.loc 2 313 0
- 1118 0022 044B     		ldr	r3, .L20
- 1119 0024 1B68     		ldr	r3, [r3]
- 1120 0026 5A1E     		subs	r2, r3, #1
- 1121 0028 024B     		ldr	r3, .L20
- 1122 002a 1A60     		str	r2, [r3]
- 314:App/STM32F4-Discovery/main.c **** }
- 1123              		.loc 2 314 0
- 1124 002c BD46     		mov	sp, r7
- 1125              		@ sp needed
- 1126 002e 5DF8047B 		ldr	r7, [sp], #4
- 1127 0032 7047     		bx	lr
- 1128              	.L21:
- 1129              		.align	2
- 1130              	.L20:
- 1131 0034 00000000 		.word	ulFPUInterruptNesting
- 1132 0038 00000000 		.word	ulMaxFPUInterruptNesting
- 1133              		.cfi_endproc
- 1134              	.LFE115:
- 1136              		.section	.text.TIM2_IRQHandler,"ax",%progbits
- 1137              		.align	2
- 1138              		.global	TIM2_IRQHandler
- 1139              		.thumb
- 1140              		.thumb_func
- 1142              	TIM2_IRQHandler:
- 1143              	.LFB116:
- 315:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 316:App/STM32F4-Discovery/main.c **** 
- 317:App/STM32F4-Discovery/main.c **** void TIM2_IRQHandler( void )
- 318:App/STM32F4-Discovery/main.c **** {
- 1144              		.loc 2 318 0
- 1145              		.cfi_startproc
- 1146              		@ args = 0, pretend = 0, frame = 0
- 1147              		@ frame_needed = 1, uses_anonymous_args = 0
- 1148 0000 80B5     		push	{r7, lr}
- 1149              	.LCFI19:
- 1150              		.cfi_def_cfa_offset 8
- 1151              		.cfi_offset 7, -8
- 1152              		.cfi_offset 14, -4
- 1153 0002 00AF     		add	r7, sp, #0
- 1154              	.LCFI20:
- 1155              		.cfi_def_cfa_register 7
- 319:App/STM32F4-Discovery/main.c **** 	/* Just to verify that the interrupt nesting behaves as expected, increment
- 320:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting on entry, and decrement it on exit. */
- 321:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting++;
- 1156              		.loc 2 321 0
- 1157 0004 064B     		ldr	r3, .L23
- 1158 0006 1B68     		ldr	r3, [r3]
- 1159 0008 5A1C     		adds	r2, r3, #1
- 1160 000a 054B     		ldr	r3, .L23
- 1161 000c 1A60     		str	r2, [r3]
- 322:App/STM32F4-Discovery/main.c **** 
- 323:App/STM32F4-Discovery/main.c **** 	/* Fill the FPU registers with 1. */
- 324:App/STM32F4-Discovery/main.c **** 	//vRegTestClearFlopRegistersToParameterValue( 1UL );
- 325:App/STM32F4-Discovery/main.c **** 
- 326:App/STM32F4-Discovery/main.c **** 	/* Trigger a timer 3 interrupt, which will fill the registers with a
- 327:App/STM32F4-Discovery/main.c **** 	different value. */
- 328:App/STM32F4-Discovery/main.c **** 	NVIC_SetPendingIRQ( TIM3_IRQn );
- 1162              		.loc 2 328 0
- 1163 000e 1D20     		movs	r0, #29
- 1164 0010 FFF7FEFF 		bl	NVIC_SetPendingIRQ
- 329:App/STM32F4-Discovery/main.c **** 
- 330:App/STM32F4-Discovery/main.c **** 	/* Ensure that, after returning from the nesting interrupt, all the FPU
- 331:App/STM32F4-Discovery/main.c **** 	registers contain the value to which they were set by this interrupt
- 332:App/STM32F4-Discovery/main.c **** 	function. */
- 333:App/STM32F4-Discovery/main.c **** 	//configASSERT( ulRegTestCheckFlopRegistersContainParameterValue( 1UL ) );
- 334:App/STM32F4-Discovery/main.c **** 
- 335:App/STM32F4-Discovery/main.c **** 	ulFPUInterruptNesting--;
- 1165              		.loc 2 335 0
- 1166 0014 024B     		ldr	r3, .L23
- 1167 0016 1B68     		ldr	r3, [r3]
- 1168 0018 5A1E     		subs	r2, r3, #1
- 1169 001a 014B     		ldr	r3, .L23
- 1170 001c 1A60     		str	r2, [r3]
- 336:App/STM32F4-Discovery/main.c **** }
- 1171              		.loc 2 336 0
- 1172 001e 80BD     		pop	{r7, pc}
- 1173              	.L24:
- 1174              		.align	2
- 1175              	.L23:
- 1176 0020 00000000 		.word	ulFPUInterruptNesting
- 1177              		.cfi_endproc
- 1178              	.LFE116:
- 1180              		.section	.text.vApplicationMallocFailedHook,"ax",%progbits
- 1181              		.align	2
- 1182              		.global	vApplicationMallocFailedHook
- 1183              		.thumb
- 1184              		.thumb_func
- 1186              	vApplicationMallocFailedHook:
- 1187              	.LFB117:
- 337:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 338:App/STM32F4-Discovery/main.c **** 
- 339:App/STM32F4-Discovery/main.c **** 
- 340:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 341:App/STM32F4-Discovery/main.c **** 
- 342:App/STM32F4-Discovery/main.c **** void vApplicationMallocFailedHook( void )
- 343:App/STM32F4-Discovery/main.c **** {
- 1188              		.loc 2 343 0
- 1189              		.cfi_startproc
- 1190              		@ args = 0, pretend = 0, frame = 0
- 1191              		@ frame_needed = 1, uses_anonymous_args = 0
- 1192 0000 80B5     		push	{r7, lr}
- 1193              	.LCFI21:
- 1194              		.cfi_def_cfa_offset 8
- 1195              		.cfi_offset 7, -8
- 1196              		.cfi_offset 14, -4
- 1197 0002 00AF     		add	r7, sp, #0
- 1198              	.LCFI22:
- 1199              		.cfi_def_cfa_register 7
- 344:App/STM32F4-Discovery/main.c **** 	/* vApplicationMallocFailedHook() will only be called if
- 345:App/STM32F4-Discovery/main.c **** 	configUSE_MALLOC_FAILED_HOOK is set to 1 in FreeRTOSConfig.h.  It is a hook
- 346:App/STM32F4-Discovery/main.c **** 	function that will get called if a call to pvPortMalloc() fails.
- 347:App/STM32F4-Discovery/main.c **** 	pvPortMalloc() is called internally by the kernel whenever a task, queue,
- 348:App/STM32F4-Discovery/main.c **** 	timer or semaphore is created.  It is also called by various parts of the
- 349:App/STM32F4-Discovery/main.c **** 	demo application.  If heap_1.c or heap_2.c are used, then the size of the
- 350:App/STM32F4-Discovery/main.c **** 	heap available to pvPortMalloc() is defined by configTOTAL_HEAP_SIZE in
- 351:App/STM32F4-Discovery/main.c **** 	FreeRTOSConfig.h, and the xPortGetFreeHeapSize() API function can be used
- 352:App/STM32F4-Discovery/main.c **** 	to query the size of free heap space that remains (although it does not
- 353:App/STM32F4-Discovery/main.c **** 	provide information on how the remaining heap might be fragmented). */
- 354:App/STM32F4-Discovery/main.c **** 	taskDISABLE_INTERRUPTS();
- 1200              		.loc 2 354 0
- 1201 0004 FFF7FEFF 		bl	ulPortSetInterruptMask
- 1202              	.L26:
- 355:App/STM32F4-Discovery/main.c **** 	for( ;; );
- 1203              		.loc 2 355 0 discriminator 1
- 1204 0008 FEE7     		b	.L26
- 1205              		.cfi_endproc
- 1206              	.LFE117:
- 1208 000a 00BF     		.section	.text.vApplicationIdleHook,"ax",%progbits
- 1209              		.align	2
- 1210              		.global	vApplicationIdleHook
- 1211              		.thumb
- 1212              		.thumb_func
- 1214              	vApplicationIdleHook:
- 1215              	.LFB118:
- 356:App/STM32F4-Discovery/main.c **** }
- 357:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 358:App/STM32F4-Discovery/main.c **** 
- 359:App/STM32F4-Discovery/main.c **** void vApplicationIdleHook( void )
- 360:App/STM32F4-Discovery/main.c **** {
- 1216              		.loc 2 360 0
- 1217              		.cfi_startproc
- 1218              		@ args = 0, pretend = 0, frame = 0
- 1219              		@ frame_needed = 1, uses_anonymous_args = 0
- 1220              		@ link register save eliminated.
- 1221 0000 80B4     		push	{r7}
- 1222              	.LCFI23:
- 1223              		.cfi_def_cfa_offset 4
- 1224              		.cfi_offset 7, -4
- 1225 0002 00AF     		add	r7, sp, #0
- 1226              	.LCFI24:
- 1227              		.cfi_def_cfa_register 7
- 361:App/STM32F4-Discovery/main.c **** 	/* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
- 362:App/STM32F4-Discovery/main.c **** 	to 1 in FreeRTOSConfig.h.  It will be called on each iteration of the idle
- 363:App/STM32F4-Discovery/main.c **** 	task.  It is essential that code added to this hook function never attempts
- 364:App/STM32F4-Discovery/main.c **** 	to block in any way (for example, call xQueueReceive() with a block time
- 365:App/STM32F4-Discovery/main.c **** 	specified, or call vTaskDelay()).  If the application makes use of the
- 366:App/STM32F4-Discovery/main.c **** 	vTaskDelete() API function (as this demo application does) then it is also
- 367:App/STM32F4-Discovery/main.c **** 	important that vApplicationIdleHook() is permitted to return to its calling
- 368:App/STM32F4-Discovery/main.c **** 	unction, because it is the responsibility of the idle task to clean up
- 369:App/STM32F4-Discovery/main.c **** 	memory allocated by the kernel to any task that has since been deleted. */
- 370:App/STM32F4-Discovery/main.c **** }
- 1228              		.loc 2 370 0
- 1229 0004 BD46     		mov	sp, r7
- 1230              		@ sp needed
- 1231 0006 5DF8047B 		ldr	r7, [sp], #4
- 1232 000a 7047     		bx	lr
- 1233              		.cfi_endproc
- 1234              	.LFE118:
- 1236              		.section	.text.vApplicationStackOverflowHook,"ax",%progbits
- 1237              		.align	2
- 1238              		.global	vApplicationStackOverflowHook
- 1239              		.thumb
- 1240              		.thumb_func
- 1242              	vApplicationStackOverflowHook:
- 1243              	.LFB119:
- 371:App/STM32F4-Discovery/main.c **** /*-----------------------------------------------------------*/
- 372:App/STM32F4-Discovery/main.c **** 
- 373:App/STM32F4-Discovery/main.c **** void vApplicationStackOverflowHook( xTaskHandle pxTask, signed char *pcTaskName )
- 374:App/STM32F4-Discovery/main.c **** {
- 1244              		.loc 2 374 0
- 1245              		.cfi_startproc
- 1246              		@ args = 0, pretend = 0, frame = 8
- 1247              		@ frame_needed = 1, uses_anonymous_args = 0
- 1248 0000 80B5     		push	{r7, lr}
- 1249              	.LCFI25:
- 1250              		.cfi_def_cfa_offset 8
- 1251              		.cfi_offset 7, -8
- 1252              		.cfi_offset 14, -4
- 1253 0002 82B0     		sub	sp, sp, #8
- 1254              	.LCFI26:
- 1255              		.cfi_def_cfa_offset 16
- 1256 0004 00AF     		add	r7, sp, #0
- 1257              	.LCFI27:
- 1258              		.cfi_def_cfa_register 7
- 1259 0006 7860     		str	r0, [r7, #4]
- 1260 0008 3960     		str	r1, [r7]
- 375:App/STM32F4-Discovery/main.c **** 	( void ) pcTaskName;
- 376:App/STM32F4-Discovery/main.c **** 	( void ) pxTask;
- 377:App/STM32F4-Discovery/main.c **** 
- 378:App/STM32F4-Discovery/main.c **** 	/* Run time stack overflow checking is performed if
- 379:App/STM32F4-Discovery/main.c **** 	configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
- 380:App/STM32F4-Discovery/main.c **** 	function is called if a stack overflow is detected. */
- 381:App/STM32F4-Discovery/main.c **** 	taskDISABLE_INTERRUPTS();
- 1261              		.loc 2 381 0
- 1262 000a FFF7FEFF 		bl	ulPortSetInterruptMask
- 1263              	.L29:
- 382:App/STM32F4-Discovery/main.c **** 	for( ;; );
- 1264              		.loc 2 382 0 discriminator 1
- 1265 000e FEE7     		b	.L29
- 1266              		.cfi_endproc
- 1267              	.LFE119:
- 1269              		.section	.text.assert_failed,"ax",%progbits
- 1270              		.align	2
- 1271              		.global	assert_failed
- 1272              		.thumb
- 1273              		.thumb_func
- 1275              	assert_failed:
- 1276              	.LFB120:
- 383:App/STM32F4-Discovery/main.c **** }
- 384:App/STM32F4-Discovery/main.c **** ///*-----------------------------------------------------------*/
- 385:App/STM32F4-Discovery/main.c **** void assert_failed(uint8_t* file, uint32_t line){
- 1277              		.loc 2 385 0
- 1278              		.cfi_startproc
- 1279              		@ args = 0, pretend = 0, frame = 8
- 1280              		@ frame_needed = 1, uses_anonymous_args = 0
- 1281              		@ link register save eliminated.
- 1282 0000 80B4     		push	{r7}
- 1283              	.LCFI28:
- 1284              		.cfi_def_cfa_offset 4
- 1285              		.cfi_offset 7, -4
- 1286 0002 83B0     		sub	sp, sp, #12
- 1287              	.LCFI29:
- 1288              		.cfi_def_cfa_offset 16
- 1289 0004 00AF     		add	r7, sp, #0
- 1290              	.LCFI30:
- 1291              		.cfi_def_cfa_register 7
- 1292 0006 7860     		str	r0, [r7, #4]
- 1293 0008 3960     		str	r1, [r7]
- 386:App/STM32F4-Discovery/main.c **** 
- 387:App/STM32F4-Discovery/main.c **** }
- 1294              		.loc 2 387 0
- 1295 000a 0C37     		adds	r7, r7, #12
- 1296 000c BD46     		mov	sp, r7
- 1297              		@ sp needed
- 1298 000e 5DF8047B 		ldr	r7, [sp], #4
- 1299 0012 7047     		bx	lr
- 1300              		.cfi_endproc
- 1301              	.LFE120:
- 1303              		.text
- 1304              	.Letext0:
- 1305              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/lib/gcc/arm-none-eabi/4.8.4/include/std
- 1306              		.file 4 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
- 1307              		.file 5 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
- 1308              		.file 6 "App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/stm32f4xx.h"
- 1309              		.file 7 "App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/inc/misc.h"
- 1310              		.file 8 "Source/include/task.h"
- 1311              		.file 9 "Source/include/queue.h"
- 1312              		.file 10 "Source/include/semphr.h"
- 1313              		.file 11 "Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.h"
- 1314              		.file 12 "App/STM32F4-Discovery/main.h"
- 1315              		.file 13 "App/STM32F4-Discovery/tcpCLI.h"
- 1316              		.file 14 "App/STM32F4-Discovery/modbus_mk.h"
- 1317              		.file 15 "App/STM32F4-Discovery/Libraries/CMSIS/ST/STM32F4xx/Include/system_stm32f4xx.h"
- 1318              		.file 16 "App/STM32F4-Discovery/spi.h"
- 1319              		.file 17 "App/STM32F4-Discovery/W5200.h"
+ 1024 0152 BB68     		ldr	r3, [r7, #8]
+ 1025 0154 1A1D     		adds	r2, r3, #4
+ 1026 0156 BA60     		str	r2, [r7, #8]
+ 1027 0158 1A68     		ldr	r2, [r3]
+ 1028 015a 424B     		ldr	r3, .L93+12
+ 1029 015c 1A60     		str	r2, [r3]
+ 270:Source/printf.c **** 	  divOut(0x1000);
+ 1030              		.loc 2 270 0
+ 1031 015e 4FF48050 		mov	r0, #4096
+ 1032 0162 FFF7FEFF 		bl	divOut
+ 271:Source/printf.c **** 	  divOut(0x100);
+ 1033              		.loc 2 271 0
+ 1034 0166 4FF48070 		mov	r0, #256
+ 1035 016a FFF7FEFF 		bl	divOut
+ 272:Source/printf.c **** 	  divOut(0x10);
+ 1036              		.loc 2 272 0
+ 1037 016e 1020     		movs	r0, #16
+ 1038 0170 FFF7FEFF 		bl	divOut
+ 273:Source/printf.c **** 	  outDgt(num);
+ 1039              		.loc 2 273 0
+ 1040 0174 3B4B     		ldr	r3, .L93+12
+ 1041 0176 1B68     		ldr	r3, [r3]
+ 1042 0178 DBB2     		uxtb	r3, r3
+ 1043 017a 1846     		mov	r0, r3
+ 1044 017c FFF7FEFF 		bl	outDgt
+ 274:Source/printf.c **** 	  break;
+ 1045              		.loc 2 274 0
+ 1046 0180 12E0     		b	.L80
+ 1047              	.L70:
+ 276:Source/printf.c **** 	  out((char)(va_arg(va, int)));
+ 1048              		.loc 2 276 0
+ 1049 0182 BB68     		ldr	r3, [r7, #8]
+ 1050 0184 1A1D     		adds	r2, r3, #4
+ 1051 0186 BA60     		str	r2, [r7, #8]
+ 1052 0188 1B68     		ldr	r3, [r3]
+ 1053 018a DBB2     		uxtb	r3, r3
+ 1054 018c 1846     		mov	r0, r3
+ 1055 018e FFF7FEFF 		bl	out
+ 277:Source/printf.c **** 	  break;
+ 1056              		.loc 2 277 0
+ 1057 0192 09E0     		b	.L80
+ 1058              	.L75:
+ 279:Source/printf.c **** 	  p=va_arg(va, char*);
+ 1059              		.loc 2 279 0
+ 1060 0194 BB68     		ldr	r3, [r7, #8]
+ 1061 0196 1A1D     		adds	r2, r3, #4
+ 1062 0198 BA60     		str	r2, [r7, #8]
+ 1063 019a 1B68     		ldr	r3, [r3]
+ 1064 019c BB61     		str	r3, [r7, #24]
+ 280:Source/printf.c **** 	  break;
+ 1065              		.loc 2 280 0
+ 1066 019e 03E0     		b	.L80
+ 1067              	.L72:
+ 282:Source/printf.c **** 	  out('%');
+ 1068              		.loc 2 282 0
+ 1069 01a0 2520     		movs	r0, #37
+ 1070 01a2 FFF7FEFF 		bl	out
+ 1071              	.L92:
+ 1072              		.loc 2 284 0
+ 1073 01a6 00BF     		nop
+ 1074              	.L80:
+ 285:Source/printf.c **** 	}
+ 286:Source/printf.c **** 	*bf=0;
+ 1075              		.loc 2 286 0
+ 1076 01a8 2B4B     		ldr	r3, .L93
+ 1077 01aa 1B68     		ldr	r3, [r3]
+ 1078 01ac 0022     		movs	r2, #0
+ 1079 01ae 1A70     		strb	r2, [r3]
+ 287:Source/printf.c **** 	bf=p;
+ 1080              		.loc 2 287 0
+ 1081 01b0 294B     		ldr	r3, .L93
+ 1082 01b2 BA69     		ldr	r2, [r7, #24]
+ 1083 01b4 1A60     		str	r2, [r3]
+ 288:Source/printf.c **** 	while (*bf++ && w > 0)
+ 1084              		.loc 2 288 0
+ 1085 01b6 02E0     		b	.L81
+ 1086              	.L83:
+ 289:Source/printf.c **** 	  w--;
+ 1087              		.loc 2 289 0
+ 1088 01b8 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1089 01ba 013B     		subs	r3, r3, #1
+ 1090 01bc BB73     		strb	r3, [r7, #14]
+ 1091              	.L81:
+ 288:Source/printf.c **** 	while (*bf++ && w > 0)
+ 1092              		.loc 2 288 0 discriminator 1
+ 1093 01be 264B     		ldr	r3, .L93
+ 1094 01c0 1B68     		ldr	r3, [r3]
+ 1095 01c2 591C     		adds	r1, r3, #1
+ 1096 01c4 244A     		ldr	r2, .L93
+ 1097 01c6 1160     		str	r1, [r2]
+ 1098 01c8 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1099 01ca 002B     		cmp	r3, #0
+ 1100 01cc 02D0     		beq	.L82
+ 288:Source/printf.c **** 	while (*bf++ && w > 0)
+ 1101              		.loc 2 288 0 is_stmt 0 discriminator 2
+ 1102 01ce BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1103 01d0 002B     		cmp	r3, #0
+ 1104 01d2 F1D1     		bne	.L83
+ 1105              	.L82:
+ 290:Source/printf.c **** 	while (w-- > 0)
+ 1106              		.loc 2 290 0 is_stmt 1
+ 1107 01d4 10E0     		b	.L84
+ 1108              	.L87:
+ 291:Source/printf.c **** 	  {
+ 292:Source/printf.c **** 	    if (nout < size)
+ 1109              		.loc 2 292 0
+ 1110 01d6 3A69     		ldr	r2, [r7, #16]
+ 1111 01d8 3B68     		ldr	r3, [r7]
+ 1112 01da 9A42     		cmp	r2, r3
+ 1113 01dc 0CDA     		bge	.L84
+ 293:Source/printf.c **** 	      {
+ 294:Source/printf.c **** 		*(outp++) = lz ? '0' : ' ';
+ 1114              		.loc 2 294 0
+ 1115 01de 7B69     		ldr	r3, [r7, #20]
+ 1116 01e0 5A1C     		adds	r2, r3, #1
+ 1117 01e2 7A61     		str	r2, [r7, #20]
+ 1118 01e4 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1119 01e6 002A     		cmp	r2, #0
+ 1120 01e8 01D0     		beq	.L85
+ 1121              		.loc 2 294 0 is_stmt 0 discriminator 1
+ 1122 01ea 3022     		movs	r2, #48
+ 1123 01ec 00E0     		b	.L86
+ 1124              	.L85:
+ 1125              		.loc 2 294 0 discriminator 2
+ 1126 01ee 2022     		movs	r2, #32
+ 1127              	.L86:
+ 1128              		.loc 2 294 0 discriminator 3
+ 1129 01f0 1A70     		strb	r2, [r3]
+ 295:Source/printf.c **** 		nout++;
+ 1130              		.loc 2 295 0 is_stmt 1 discriminator 3
+ 1131 01f2 3B69     		ldr	r3, [r7, #16]
+ 1132 01f4 0133     		adds	r3, r3, #1
+ 1133 01f6 3B61     		str	r3, [r7, #16]
+ 1134              	.L84:
+ 290:Source/printf.c **** 	while (w-- > 0)
+ 1135              		.loc 2 290 0 discriminator 1
+ 1136 01f8 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1137 01fa 5A1E     		subs	r2, r3, #1
+ 1138 01fc BA73     		strb	r2, [r7, #14]
+ 1139 01fe 002B     		cmp	r3, #0
+ 1140 0200 E9D1     		bne	.L87
+ 296:Source/printf.c **** 	      }
+ 297:Source/printf.c **** 
+ 298:Source/printf.c **** 	  }
+ 299:Source/printf.c **** 	while ((ch= *p++))
+ 1141              		.loc 2 299 0
+ 1142 0202 0BE0     		b	.L88
+ 1143              	.L89:
+ 300:Source/printf.c **** 	  {
+ 301:Source/printf.c **** 	    if (nout < size)
+ 1144              		.loc 2 301 0
+ 1145 0204 3A69     		ldr	r2, [r7, #16]
+ 1146 0206 3B68     		ldr	r3, [r7]
+ 1147 0208 9A42     		cmp	r2, r3
+ 1148 020a 07DA     		bge	.L88
+ 302:Source/printf.c **** 	      {
+ 303:Source/printf.c **** 		*(outp++) = ch;
+ 1149              		.loc 2 303 0
+ 1150 020c 7B69     		ldr	r3, [r7, #20]
+ 1151 020e 5A1C     		adds	r2, r3, #1
+ 1152 0210 7A61     		str	r2, [r7, #20]
+ 1153 0212 FA7F     		ldrb	r2, [r7, #31]
+ 1154 0214 1A70     		strb	r2, [r3]
+ 304:Source/printf.c **** 		nout++;
+ 1155              		.loc 2 304 0
+ 1156 0216 3B69     		ldr	r3, [r7, #16]
+ 1157 0218 0133     		adds	r3, r3, #1
+ 1158 021a 3B61     		str	r3, [r7, #16]
+ 1159              	.L88:
+ 299:Source/printf.c **** 	while ((ch= *p++))
+ 1160              		.loc 2 299 0 discriminator 1
+ 1161 021c BB69     		ldr	r3, [r7, #24]
+ 1162 021e 5A1C     		adds	r2, r3, #1
+ 1163 0220 BA61     		str	r2, [r7, #24]
+ 1164 0222 1B78     		ldrb	r3, [r3]
+ 1165 0224 FB77     		strb	r3, [r7, #31]
+ 1166 0226 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 1167 0228 002B     		cmp	r3, #0
+ 1168 022a EBD1     		bne	.L89
+ 1169              	.L62:
+ 1170              	.LBE4:
+ 222:Source/printf.c ****   while ((ch=*(fmt++))) 
+ 1171              		.loc 2 222 0 discriminator 1
+ 1172 022c BB6A     		ldr	r3, [r7, #40]
+ 1173 022e 5A1C     		adds	r2, r3, #1
+ 1174 0230 BA62     		str	r2, [r7, #40]
+ 1175 0232 1B78     		ldrb	r3, [r3]
+ 1176 0234 FB77     		strb	r3, [r7, #31]
+ 1177 0236 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2
+ 1178 0238 002B     		cmp	r3, #0
+ 1179 023a 7FF4EFAE 		bne	.L90
+ 1180 023e 00E0     		b	.L78
+ 1181              	.L91:
+ 1182              	.LBB5:
+ 252:Source/printf.c **** 	  goto abort;
+ 1183              		.loc 2 252 0
+ 1184 0240 00BF     		nop
+ 1185              	.L78:
+ 1186              	.LBE5:
+ 305:Source/printf.c **** 	      }
+ 306:Source/printf.c **** 	  
+ 307:Source/printf.c **** 	  }
+ 308:Source/printf.c ****       }
+ 309:Source/printf.c ****     }
+ 310:Source/printf.c ****  abort:
+ 311:Source/printf.c ****   str[nout] = '\0';
+ 1187              		.loc 2 311 0
+ 1188 0242 3B69     		ldr	r3, [r7, #16]
+ 1189 0244 7A68     		ldr	r2, [r7, #4]
+ 1190 0246 1344     		add	r3, r3, r2
+ 1191 0248 0022     		movs	r2, #0
+ 1192 024a 1A70     		strb	r2, [r3]
+ 312:Source/printf.c ****   va_end(va);
+ 313:Source/printf.c **** }
+ 1193              		.loc 2 313 0
+ 1194 024c 2037     		adds	r7, r7, #32
+ 1195 024e BD46     		mov	sp, r7
+ 1196              		@ sp needed
+ 1197 0250 BDE88040 		pop	{r7, lr}
+ 1198 0254 02B0     		add	sp, sp, #8
+ 1199 0256 7047     		bx	lr
+ 1200              	.L94:
+ 1201              		.align	2
+ 1202              	.L93:
+ 1203 0258 00000000 		.word	bf
+ 1204 025c 00000000 		.word	buf
+ 1205 0260 00000000 		.word	zs
+ 1206 0264 00000000 		.word	num
+ 1207 0268 00000000 		.word	uc
+ 1208              		.cfi_endproc
+ 1209              	.LFE115:
+ 1211              		.text
+ 1212              	.Letext0:
+ 1213              		.file 3 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/machine/_default_
+ 1214              		.file 4 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/arm-none-eabi/include/stdint.h"
+ 1215              		.file 5 "/Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/lib/gcc/arm-none-eabi/4.8.4/include/std
+ 1216              		.file 6 "<built-in>"
 DEFINED SYMBOLS
-                            *ABS*:0000000000000000 main.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:20     .text.NVIC_SetPendingIRQ:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:24     .text.NVIC_SetPendingIRQ:0000000000000000 NVIC_SetPendingIRQ
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:63     .text.NVIC_SetPendingIRQ:0000000000000030 $d
-                            *COM*:0000000000000004 xSemaphoreDMASPI
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:69     .bss.xHigherPriorityTaskWoken:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:72     .bss.xHigherPriorityTaskWoken:0000000000000000 xHigherPriorityTaskWoken
-                            *COM*:0000000000000004 xSmphrUSART
-                            *COM*:0000000000000004 motorHeartBeatHandle
-                            *COM*:0000000000000004 motorHBHandle
-                            *COM*:0000000000000004 QSpd_handle
-                            *COM*:0000000000000004 QStatus_handle
-                            *COM*:0000000000000004 socket_0
-                            *COM*:00000000000007d0 bufferTX
-                            *COM*:00000000000007d0 bufferRX
-                            *COM*:0000000000000004 bufferRXidx
-                            *COM*:0000000000000004 bufferTXidx
-                            *COM*:0000000000000004 dat_lengthRX
-                            *COM*:0000000000000004 dat_lengthTX
-                            *COM*:0000000000000004 set_macTaskHandle
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:88     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:96     .rodata.xMotorCommand:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:99     .rodata.xMotorCommand:0000000000000000 xMotorCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:113    .rodata.xTaskStatsCommand:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:116    .rodata.xTaskStatsCommand:0000000000000000 xTaskStatsCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:123    .rodata.table_crc_hi:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:126    .rodata.table_crc_hi:0000000000000000 table_crc_hi
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:384    .rodata.table_crc_lo:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:387    .rodata.table_crc_lo:0000000000000000 table_crc_lo
-                            *COM*:0000000000000004 fd
-                            *COM*:0000000000000201 received_string
-                            *COM*:0000000000000004 rx_length
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:648    .bss.xHigherPriorityTaskWoken_usart:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:651    .bss.xHigherPriorityTaskWoken_usart:0000000000000000 xHigherPriorityTaskWoken_usart
-                            *COM*:0000000000000014 input_Register
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:659    .bss.ulRegTest1LoopCounter:0000000000000000 ulRegTest1LoopCounter
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:656    .bss.ulRegTest1LoopCounter:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:666    .bss.ulRegTest2LoopCounter:0000000000000000 ulRegTest2LoopCounter
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:663    .bss.ulRegTest2LoopCounter:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:673    .bss.ulFPUInterruptNesting:0000000000000000 ulFPUInterruptNesting
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:670    .bss.ulFPUInterruptNesting:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:680    .bss.ulMaxFPUInterruptNesting:0000000000000000 ulMaxFPUInterruptNesting
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:677    .bss.ulMaxFPUInterruptNesting:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:683    .bss.xTestSemaphore:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:686    .bss.xTestSemaphore:0000000000000000 xTestSemaphore
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:689    .text.CoreSight_configure:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:694    .text.CoreSight_configure:0000000000000000 CoreSight_configure
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:769    .text.CoreSight_configure:0000000000000060 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:796    .text.main:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:801    .text.main:0000000000000000 main
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:920    .text.prvSetupHardware:0000000000000000 prvSetupHardware
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:894    .text.main:000000000000009c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:916    .text.prvSetupHardware:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:967    .text.prvSetupHardware:000000000000003c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:973    .text.vApplicationTickHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:978    .text.vApplicationTickHook:0000000000000000 vApplicationTickHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1012   .text.vApplicationTickHook:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1017   .text.prvSetupNestedFPUInterruptsTest:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1021   .text.prvSetupNestedFPUInterruptsTest:0000000000000000 prvSetupNestedFPUInterruptsTest
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1079   .text.TIM3_IRQHandler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1084   .text.TIM3_IRQHandler:0000000000000000 TIM3_IRQHandler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1131   .text.TIM3_IRQHandler:0000000000000034 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1137   .text.TIM2_IRQHandler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1142   .text.TIM2_IRQHandler:0000000000000000 TIM2_IRQHandler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1176   .text.TIM2_IRQHandler:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1181   .text.vApplicationMallocFailedHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1186   .text.vApplicationMallocFailedHook:0000000000000000 vApplicationMallocFailedHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1209   .text.vApplicationIdleHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1214   .text.vApplicationIdleHook:0000000000000000 vApplicationIdleHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1237   .text.vApplicationStackOverflowHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1242   .text.vApplicationStackOverflowHook:0000000000000000 vApplicationStackOverflowHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1270   .text.assert_failed:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccDJk7Hw.s:1275   .text.assert_failed:0000000000000000 assert_failed
+                            *ABS*:0000000000000000 printf.c
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:20     .text.ITM_SendChar:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:24     .text.ITM_SendChar:0000000000000000 ITM_SendChar
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:89     .text.ITM_SendChar:0000000000000058 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:94     .bss.bf:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:97     .bss.bf:0000000000000000 bf
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:100    .bss.buf:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:103    .bss.buf:0000000000000000 buf
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:106    .bss.num:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:109    .bss.num:0000000000000000 num
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:114    .bss.uc:0000000000000000 uc
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:115    .bss.uc:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:119    .bss.zs:0000000000000000 zs
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:120    .bss.zs:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:122    .text.out:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:126    .text.out:0000000000000000 out
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:163    .text.out:0000000000000024 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:168    .text.outDgt:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:172    .text.outDgt:0000000000000000 outDgt
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:229    .text.outDgt:000000000000003c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:235    .text.divOut:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:239    .text.divOut:0000000000000000 divOut
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:309    .text.divOut:0000000000000050 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:315    .text.t_puts:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:320    .text.t_puts:0000000000000000 t_puts
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:374    .text.t_printf:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:379    .text.t_printf:0000000000000000 t_printf
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:773    .text.t_printf:0000000000000254 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:787    .text.t_snprintf:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:792    .text.t_snprintf:0000000000000000 t_snprintf
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cc7DUty4.s:1203   .text.t_snprintf:0000000000000258 $d
                      .debug_frame:0000000000000010 $d
 
-UNDEFINED SYMBOLS
-prvMotorCommand
-prvTaskStatsCommand
-SystemCoreClockUpdate
-t_printf
-FreeRTOS_CLIRegisterCommand
-xQueueGenericCreate
-xTaskGenericCreate
-vTaskStartScheduler
-SystemCoreClock
-tcp_srv_Task
-motorControl_task
-motorHeartBeat_task
-SystemInit
-NVIC_PriorityGroupConfig
-init_SPIx
-init_USARTx
-init_W5200
-NVIC_Init
-ulPortSetInterruptMask
+NO UNDEFINED SYMBOLS
