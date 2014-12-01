@@ -27,23 +27,22 @@
 #include <stm32f4xx_rcc.h>
 #include <stm32f4xx_gpio.h>
 
+#define DEBUG
+
 /*! 	\var xSemaphoreHandle xSemaphoreDMASPI
  * 	\brief Semaphore handle for DMA SPI pheriphal
  */
 
 xSemaphoreHandle xSemaphoreDMASPI;
 
-/*!	\var static unsigned portBASE_TYPE xHigherPriorityTaskWoken
- * 	\brief Indicates if higher priority has been woken
- */
-
-static unsigned portBASE_TYPE xHigherPriorityTaskWoken;
-
 /*!	\var xSemaphoreHandle xSmphrUSART; 
 	\brief Sempahore handle for USART port 
 */
 
 xSemaphoreHandle xSmphrUSART; 
+
+xSemaphoreHandle xSemaphoreREADLEN;
+
 
 /*!	\var xTaskHandle setSpeedHandle
 * 	\brief Task handles for setspeed
@@ -71,12 +70,47 @@ xQueueHandle QSpd_handle,
 */
 	     
 	     
-	     QStatus_handle;
+	     QTCP_handle;
 
 /*!	\var int socket_0
  * 	\brief Socket 0 descriptor
  */	      
 int socket_0;
+
+/*!	\enum QueueCommand 
+ * 	\brief Queue telegram command
+ *
+ * 	Queue telegram command for tasks commmunication
+ */
+typedef enum
+{
+	SETDATA,	/**< enum DATA if sending data. */ 
+	GETDATA, //!< enum GETDATA if getting data */ 
+	IDLE,	/**< enum IDLE if task has to go to idle mode. */ 
+	DELETE,	/**< enum DELETE if task has to delete itself. */
+	START, //!< enum START if task has to start motor
+	STOP,  //!< enum STOP if task has to stop motor 
+	SUCCSESS, //!< enum SUCCSESS if command has been succssessfully receieved
+	ERROR_MODBUS, //!< enum ERROR if error has occured
+	TCP_CONNECTED, //!< enum TCP connected status 
+	TCP_RECEIVE, //!< enum TCP recieve TCP data packet 
+	TCP_CLOSE //!< enum close TCP connection 
+	
+		
+} QueueCommand;
+
+/*!	\struct QueueTelegram struct
+ * 	\brief Telegram communication betwen task
+ *
+ * 	Telegram communication between tasks in specific format 
+ */
+typedef struct
+{
+	QueueCommand Qcmd; /**< QueueCommand what type of telegram we received */
+	size_t size; 	   /**< size of data transmited */ 
+	uint16_t  data[10]; /**< data of telegram */ 
+
+}QueueTelegram; 
 
 
 #endif

@@ -30,6 +30,11 @@
 
 #include "W5200.h"
 
+#ifdef DEBUG
+	#include "printf.h"
+#endif
+
+
 /* This table abstracts the W5200 RAM size configuration for 1 to 8 sockets. */
 /* We divide available RAM equally amoung the number of configured sockets.  */
 /* We don't try to give unequal amounts of RAM to different sockets.         */
@@ -64,7 +69,7 @@ static struct
 } socket_table[W5200_MAX_SOCKETS];
 
 static uint8_t socket_flg[W5200_MAX_SOCKETS];
-
+static QueueTelegram telegram;
 
 const static	uint8_t	socket_open_status[] = {
 			W5200_Sn_SR_SOCK_CLOSED,	// mode is CLOSE
@@ -176,7 +181,6 @@ void init_W5200(void)
 
 
 //	vTaskResume( set_macTaskHandle); 
-
 	vTaskDelete ( NULL );
 	
 	
@@ -715,18 +719,22 @@ void locate_interrupt()
 	switch (code )
 	{
 		case 0x1:// Connect interrupts when a connection is established with a peer  
-		
+			telegram.Qcmd = TCP_CONNECTED;
+			xQueueSend ( QTCP_handle, (void *)&telegram, 0);
 			// do nothing wait for input. 
 			break;
 		case 0x2:// disconnect interrupt 
+			
+			telegram.Qcmd = TCP_CLOSE;
+			xQueueSend ( QTCP_handle, (void *)&telegram, 0);
 
 
 			// do nothing 
 			break;
-		case 0x4:// Receive interuppts whenever data packet is received from a peer 
-			//vTaskResume(motorHBHandle);
-			vTaskResume(set_macTaskHandle); 
-			//vTaskResume(motorHeartBeatHandle);
+		case 0x4:// Receive interuppts whenever data packet is received from a peer 		
+			telegram.Qcmd = TCP_RECEIVE;
+			xQueueSend ( QTCP_handle, (void *)&telegram, 0);
+
 			break;
 		case 0x10:
 			break;
@@ -773,62 +781,97 @@ void tcp_srv_Task(void *pvParameters)
 	 * Task opens socket on port 80,  starts listening on port and susped 
 	 * suspend itself. If interrupt occures it process CLI command 
 	 * **********************************************************************/
-
+//	vTaskSuspend(NULL);
 
 	/* suspend task until init_W5200 is finished */
 	//vTaskSuspend(set_macTaskHandle);
 //	vTaskSuspend(NULL);
 	uint8_t	buf[50], buf1[256], oldbuf[50]; 
+	QueueTelegram telegram;
 	int len; 
 	int gl;
-		/*create socket and send byte */
+	uint8_t * hello = "Hello i'm dummy server!\n\n\0";
+	uint8_t * bye	= "Thank you, come again!\n\n\0";
+	/*create socket and send byte */
 	
 
 	for( ;; )
         {
-
-	
-		/*we are now listening
-		suspend task set_macTask()*/
-		vTaskSuspend(NULL);
 		
-		// interrupt on W5200 occured 
-		// receive data 
-		len = recv(socket_0, buf, 100, 0);
-
-		if ( len < 3 )
+		/* wait for queue */
+		if ( xQueueReceive ( QTCP_handle, (void *)&telegram, portMAX_DELAY))
 		{
+			switch ( telegram.Qcmd)
+			{
+				case TCP_CONNECTED:
+#ifdef DEBUG
+	t_printf("Client connected.\n");
+#endif
+
+					send ( socket_0, hello, strlen(hello), 0);
+					/* send hello */
+					break;
+				case TCP_RECEIVE:
+					/* receive and process data*/
+						// receive data 
+#ifdef DEBUG
+	t_printf("Packet received.\n");
+#endif
+
+					len = recv(socket_0, buf, 100, 0);
+
+					if ( len < 3 )
+					{
 				
-			FreeRTOS_CLIProcessCommand ( oldbuf, buf1, 256);
+						FreeRTOS_CLIProcessCommand ( oldbuf, buf1, 256);
 			
-			int slen = strlen(buf1);
+						int slen = strlen(buf1);
 			
-			send(socket_0, buf1,  slen, gl);
+						send(socket_0, buf1,  slen, gl);
 
 				
 
-		}	
+					}	
 	
-		else 
-		{		
-			buf[len-2]='\0';
-			// proces data with CLI 
+					else 
+					{		
+						buf[len-2]='\0';
+						// proces data with CLI 
 		
-			FreeRTOS_CLIProcessCommand ( buf, buf1, 256);
+						FreeRTOS_CLIProcessCommand ( buf, buf1, 256);
 			
-			int slen = strlen(buf1);
+						int slen = strlen(buf1);
 			
-			send(socket_0, buf1,  slen, gl);
+						send(socket_0, buf1,  slen, gl);
 
-			strcpy(oldbuf, buf);
+						strcpy(oldbuf, buf);
 
-			for (slen = 0 ; slen < 10; slen++) buf[slen] = NULL;
+						for (slen = 0 ; slen < 10; slen++) buf[slen] = NULL;
+					}
+		
+
+					
+
+					break;
+				case TCP_CLOSE: 
+					/*close current socket and 
+					 * open new socket */
+#ifdef DEBUG
+	t_printf("Client closed connection.\n");
+#endif
+
+					send ( socket_0, bye, strlen(bye), 0);
+					closesocket(socket_0);
+					socket_0 = socket(W5200_Sn_MR_TCP, 80, 0);
+					listen(socket_0);
+
+					break;
+				default:
+					break;
+			}
 		}
-		
-	
-		
-
-		
+					
+			
 	}	
        
        	/* Tasks must not attempt to return from their implementing

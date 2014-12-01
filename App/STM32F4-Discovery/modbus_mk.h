@@ -99,7 +99,7 @@ int fd;
 //recived charachters
 volatile uint8_t received_string[MAX_STRLEN + 1 ]; 
 int rx_length; 
-static unsigned portBASE_TYPE xHigherPriorityTaskWoken_usart;
+
 struct Spd_Settings{
 	
 	uint16_t speed; //!< motor speed

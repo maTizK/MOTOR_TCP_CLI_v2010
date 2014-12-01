@@ -39,7 +39,8 @@ obj/App/STM32F4-Discovery/W5200.o: App/STM32F4-Discovery/W5200.c \
  Source/include/mpu_wrappers.h Source/include/task.h \
  Source/include/list.h Source/include/timers.h Source/include/task.h \
  Source/include/semphr.h Source/include/queue.h \
- App/STM32F4-Discovery/stm32f4xx_conf.h App/STM32F4-Discovery/spi.h
+ App/STM32F4-Discovery/stm32f4xx_conf.h App/STM32F4-Discovery/spi.h \
+ bojan/printf.h
 
 App/STM32F4-Discovery/W5200.h:
 
@@ -138,3 +139,5 @@ Source/include/queue.h:
 App/STM32F4-Discovery/stm32f4xx_conf.h:
 
 App/STM32F4-Discovery/spi.h:
+
+bojan/printf.h:

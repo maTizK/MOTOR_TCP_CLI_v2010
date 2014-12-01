@@ -7,6 +7,8 @@
 #include "printf.h"
 
 
+#define DEBUG
+
 
 /* This funcion initializes the USART1 peripheral
  * 
@@ -90,8 +92,8 @@ void init_USARTx(void)
 	USART_ITConfig(USART6, USART_IT_RXNE, ENABLE); // enable the USART1 receive interrupt 
 	
 	NVIC_InitStructure.NVIC_IRQChannel = USART6_IRQn;		 // we want to configure the USART interrupts
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 2;;// this sets the priority group of the USART1 interrupts
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x6;		 // this sets the subpriority inside the group
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 1;;// this sets the priority group of the USART1 interrupts
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x1;		 // this sets the subpriority inside the group
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;			 // the USART1 interrupts are globally enabled
 	NVIC_Init(&NVIC_InitStructure);	 // the properties are passed to the NVIC_Init function which takes care of the low level stuff	
 
@@ -133,6 +135,7 @@ void USART_puts(uint8_t *s, int nb)
 // this is the interrupt request handler (IRQ) for ALL USART6 interrupts
 void USART6_IRQHandler(void){
 	
+	unsigned portBASE_TYPE xHigherPriorityTaskWoken_usart = pdFalse;
 	
 
 	// check if the USART1 receive interrupt flag was set
@@ -141,15 +144,15 @@ void USART6_IRQHandler(void){
 		
 	//	USART_ClearITPendingBit ( USARTx, USART_IT_RXNE ) ;
 		static uint8_t cnt = 0; // this counter is used to determine the string length
-		volatile char t = USARTx->DR; // the character from the USART1 data register is saved in t
+	 	char t = USARTx->DR; // the character from the USART1 data register is saved in t
 		
 		/* check if the received character is not the LF character (used to determine end of string) 
 		 * or the if the maximum string length has been been reached 
 		 */
-		xHigherPriorityTaskWoken_usart = pdFalse;
-
+	
 		
-		if( (cnt < rx_length  ) && (cnt < MAX_STRLEN) ){ 
+		if( (cnt < rx_length-1) &&
+				(cnt < MAX_STRLEN-400) ){ 
 			received_string[cnt] = t;
 			cnt++;
 		}
@@ -157,9 +160,9 @@ void USART6_IRQHandler(void){
 			received_string[cnt] = t; 
 			cnt = 0;
 		//	USART_ITConfig(USART6, USART_IT_RXNE, DISABLE); 
+	
+			USART_ClearITPendingBit ( USARTx, USART_IT_RXNE ) ;
 		taskENTER_CRITICAL();
-				USART_ClearITPendingBit ( USARTx, USART_IT_RXNE ) ;
-
 			xSemaphoreGiveFromISR(xSmphrUSART,&xHigherPriorityTaskWoken_usart );
 		taskEXIT_CRITICAL();
 			//USART_puts(USART1, received_string);
@@ -205,22 +208,29 @@ int modbus_confirmation ( uint8_t * req, uint8_t * rsp, uint16_t write_len, uint
 void write_read_modbus( uint8_t * req, uint8_t * rsp, int write_len, int read_len )
 {
 	int i; 
-
-	// tell ISR we expect only specific amount of data
 	rx_length = read_len + write_len - 1 ; 
 
 	// driver disable 
 	DD();
 	for (i=0; i < 4000; i++) ;
 	USART_puts(req,write_len);
-	for (i = 0; i < 4100; i++);
+	for (i = 0; i < 4000; i++);
 	// driver enable 
 	DE();
+	xSemaphoreTake(xSmphrUSART, 500/portTICK_RATE_MS);
 
-	xSemaphoreTake(xSmphrUSART, portMAX_DELAY);
-	
 	for (i = 0; i < read_len; i++) 
+	{
+
 		rsp[i] = received_string[i+write_len]; 
+#ifdef DEBUG
+		t_printf("[%x]", rsp[i]);
+#endif	
+	}
+
+#ifdef DEBUG
+		t_printf("\n");
+#endif		
 
 }
 
@@ -424,6 +434,11 @@ uint8_t modbus_RR( int address, int nb, uint16_t *src)
 		
         }
 
+//	for (i =0; i < nb; i++ ){ t_printf("[%d] ", src[i]); }
+//	t_printf("\n");
+
+	
+
 	return modbus_confirmation (req, rsp,req_length, nb*2 + 5); 
 
 
@@ -440,17 +455,20 @@ void motorHeartBeat_task(void * pvParameters)
 {
 	/*! sets speed of motor */
 
-	
 	uint16_t tab_reg[10];
+//	portTickType xLastWakeTime; 
+//	xLastWakeTime = xTaskGetTickCount();
 	//vTaskDelay(portMAX_DELAY);	
 	//vTaskSuspend(NULL); 
 	int counter = 0;	
 	for(;;)
 	{
-
-		t_printf("heart beat %d\n", counter);		
+		#ifdef DEBUG
+		t_printf("HB: %d\n\n", counter);
+		#endif
 		modbus_RR(0,10,tab_reg);
 		counter ++;
+	//	vTaskDelayUntil(&xLastWakeTime, 3000/portTICK_RATE_MS);
 		vTaskDelay(3000/portTICK_RATE_MS);
 
 	}
@@ -476,7 +494,7 @@ void motorControl_task(void * pvParameters)
 	uint16_t spd[5]; 
 	
 
-	
+//	vTaskSuspend(NULL);	
 
 	src[0]=1; src[1]=1; src[2]=1; src[3]=1;
 	
@@ -488,7 +506,7 @@ void motorControl_task(void * pvParameters)
 	portTickType xDelay = portMAX_DELAY;//3000 / portTICK_RATE_MS;	
 	
 
-	QueueTelegram telegramR, telegramS; 
+	static	QueueTelegram telegramR, telegramS; 
 
 	telegramR.data[0] = 1000;
 	telegramR.data[1] = 0;	
@@ -550,6 +568,16 @@ void motorControl_task(void * pvParameters)
 					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
 					//	break;
 					}
+
+					t_printf("Power In=%d, Iout=%d, Vin=%d, "
+							"PrcOut=%d, RPMOut=%d, "
+							"InternalTemp=%d\n",
+							telegramS.data[8],
+							telegramS.data[7],
+							telegramS.data[6],
+							telegramS.data[3],
+							telegramS.data[4],
+							telegramS.data[5]);
 
 					vTaskDelay ( 1000 / portTICK_RATE_MS);
 

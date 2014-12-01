@@ -15,7 +15,11 @@
 #include "W5200.h"
 #include "modbus_mk.h"
 #include "tcpCLI.h"
-#include "printf.h"
+
+
+#ifdef DEBUG
+	#include "printf.h"
+#endif
 
 
 
@@ -154,8 +158,13 @@ int main(void)
 
 	CoreSight_configure(SystemCoreClock);
 	/*<! Configure the hardware ready to run the test. */
-	prvSetupHardware();;
+	#ifdef DEBUG
 	t_printf("Starting\n");
+	#endif
+	prvSetupHardware();
+
+	xSemaphoreREADLEN = xSemaphoreCreateMutex();
+	xSmphrUSART = xSemaphoreCreateBinary();
 	
 	// ============now register CLI commands ===================
 	
@@ -164,23 +173,70 @@ int main(void)
 
 	// create queues 
 	QSpd_handle = xQueueCreate(2, sizeof(QueueTelegram));
-
+	QTCP_handle = xQueueCreate(2, sizeof(QueueTelegram));
+	
 
 /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
 
 
 
 	// echo server task 
-	xTaskCreate(tcp_srv_Task, "TCPsrv", configMINIMAL_STACK_SIZE * 10, 
-			NULL, mainFLASH_TASK_PRIORITY + 1, &set_macTaskHandle);
+	if ( xTaskCreate(tcp_srv_Task, "TCPsrv", configMINIMAL_STACK_SIZE * 10, 
+			NULL, mainFLASH_TASK_PRIORITY + 1, &set_macTaskHandle)
+			!= pdTRUE) 
+	{
+		#ifdef DEBUG
+		t_printf("Error creating tcp_srv_task\n");
+		#endif
+		return -1;
+	}
+	else
+	{
+		#ifdef DEBUG
+		t_printf("Succsessfully created tcp_srv_task\n");
+		#endif
+			
+	}
 	
-	// run motor task 
-	xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE * 10,
-		       	NULL, mainFLASH_TASK_PRIORITY + 1, &motorHBHandle);
+	// run motor task
+	if (xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE * 10,
+		       	NULL, mainFLASH_TASK_PRIORITY + 1, &motorHBHandle)
+		!= pdTRUE)
+	{
+		#ifdef DEBUG
+		t_printf("Error creating motor task.\n");
+		#endif
+		return -1;
+
+	}
+	else
+	{
+		#ifdef DEBUG
+		t_printf("Succsessfully created motor task\n");
+		#endif
+			
+	}
+
 
 	// set motor task 
-	xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 10,		       				
-			NULL, mainFLASH_TASK_PRIORITY , &motorHeartBeatHandle);
+	if (xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 5,		       				
+			NULL, mainFLASH_TASK_PRIORITY , NULL)
+			!= pdTRUE)
+	{
+		#ifdef DEBUG
+		t_printf("Error creating motorHB task.\n");
+		#endif
+		return -1;
+
+	}
+	else
+	{
+		#ifdef DEBUG
+		t_printf("Succsessfully created motorHB task\n");
+		#endif
+			
+	}
+
 	
 
 /*------------------added by Matic Knap 24 Jun 2014 ---------------------------------*/
@@ -193,6 +249,11 @@ int main(void)
 
 	/* Start the scheduler. */
 	vTaskStartScheduler();
+
+	#ifdef DEBUG
+	t_printf("\n\nError with scheduler!! .\n\n");
+	#endif
+
 
 	/* If all is well, the scheduler will now be running, and the following line
 	will never be reached.  If the following line does execute, then there was
@@ -230,8 +291,8 @@ void prvSetupHardware( void )
 	 * Task priority :	main flash task priority + 1 
 	 * Parameters 	 :	no parameters (NULL)
 	 */  
-	xTaskCreate(init_W5200, "init_W5200", configMINIMAL_STACK_SIZE*4, 
-			NULL, mainFLASH_TASK_PRIORITY + 1 , NULL);
+	xTaskCreate(init_W5200, "init_W5200", configMINIMAL_STACK_SIZE, 
+			NULL, mainFLASH_TASK_PRIORITY + 2 , NULL);
 	
 	
 }

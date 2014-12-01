@@ -161,13 +161,13 @@ void init_SPIx(void){
   	
 	// enable the interrupt in the NVIC
  	NVIC_InitStruct.NVIC_IRQChannel = SPIx_TX_DMA_IRQn;
-  	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 1;;
+  	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 2;
  	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0x1;
   	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
   	NVIC_Init (&NVIC_InitStruct);
 	// enable the interrupt in the NVIC
  	NVIC_InitStruct.NVIC_IRQChannel = SPIx_RX_DMA_IRQn;
-   	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 1;
+   	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 2;
  	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0x1;
   	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
   	NVIC_Init (&NVIC_InitStruct);
@@ -201,7 +201,7 @@ void init_SPIx(void){
  	
  	/* Enable and set EXTI Line Interrupt */
 	NVIC_InitStruct1.NVIC_IRQChannel = WIZ_IT_EXTI_IRQn;
- 	NVIC_InitStruct1.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 5;
+ 	NVIC_InitStruct1.NVIC_IRQChannelPreemptionPriority = configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY + 4;
 	NVIC_InitStruct1.NVIC_IRQChannelSubPriority = 0x3;
  	NVIC_InitStruct1.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStruct1);
@@ -212,6 +212,12 @@ void init_SPIx(void){
 
 void DMA2_Stream2_IRQHandler()
 {
+	/*!	\var static unsigned portBASE_TYPE xHigherPriorityTaskWoken
+	 * 	\brief Indicates if higher priority has been woken
+	 */
+
+	unsigned portBASE_TYPE xHigherPriorityTaskWoken = pdFalse;
+
   // Test if DMA Stream Transfer Complete interrupt
   if (DMA_GetITStatus (SPIx_RX_DMA_STREAM, DMA_IT_TCIF2)) {
     
@@ -231,7 +237,6 @@ void DMA2_Stream2_IRQHandler()
  
 	taskENTER_CRITICAL(); 
 //       xSemaphoreGive( xSemaphoreDMASPI);
-	xHigherPriorityTaskWoken = pdFalse;
 	xSemaphoreGiveFromISR( xSemaphoreDMASPI, &xHigherPriorityTaskWoken );
 	taskEXIT_CRITICAL(); //
   }	
@@ -239,6 +244,12 @@ void DMA2_Stream2_IRQHandler()
 }
 void DMA2_Stream3_IRQHandler()
 {
+	/*!	\var static unsigned portBASE_TYPE xHigherPriorityTaskWoken
+	 * 	\brief Indicates if higher priority has been woken
+	 */
+
+	unsigned portBASE_TYPE xHigherPriorityTaskWoken = pdFalse;
+
   // Test if DMA Stream Transfer Complete interrupt
   if (DMA_GetITStatus (SPIx_TX_DMA_STREAM, DMA_IT_TCIF3)) {
     
@@ -258,7 +269,6 @@ void DMA2_Stream3_IRQHandler()
        
 	taskENTER_CRITICAL(); 
 //	 xSemaphoreGive( xSemaphoreDMASPI );
-	xHigherPriorityTaskWoken = pdFalse;
 	xSemaphoreGiveFromISR( xSemaphoreDMASPI, &xHigherPriorityTaskWoken );
  	taskEXIT_CRITICAL();  
  }

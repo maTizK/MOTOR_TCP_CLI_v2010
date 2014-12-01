@@ -502,12 +502,72 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 			
 		// return pdFALSE if there is no 3rd parameter 
 
-		if(Value==NULL||Param==NULL)
+		if(Param==NULL)
 		{
-			strcpy(pcWriteBuffer, xMotorCommand.pcHelpString);
+			telegramS.Qcmd = GETDATA;
+		
+			if ( xQueueSend ( QSpd_handle, (void *)&telegramS, xDelay ) )
+			{	
+					
+				if (  xQueueReceive ( QSpd_handle, &telegramR, xDelay)== pdPASS)
+				{
+					if ( telegramR.Qcmd == SUCCSESS) 
+					{
 
-			return pdFALSE; 
+						sprintf(pcWriteBuffer ,
+							"Power In=%d, Iout=%d, Vin=%d, "
+							"PrcOut=%d, RPMOut=%d, "
+							"InternalTemp=%d\n",
+							telegramR.data[8],
+							telegramR.data[7],
+							telegramR.data[6],
+							telegramR.data[3],
+							telegramR.data[4],
+							telegramR.data[5]);
+						xWriteBufferLen = 50 ; 	
+						//send( socket_0, buf, len, 0);
 
+					
+						return pdPASS;
+
+					}
+					else
+					{
+						sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
+			       			xWriteBufferLen = 19; 	
+						//send( socket_0, buf, len, 0);
+
+						return pdFALSE;
+
+
+					}
+				}
+				else
+				{
+					// send to Queue was unsuccsessful
+					// send error via TCP 
+		
+					sprintf(pcWriteBuffer, "Error recieving response!\n\n");
+	 				xWriteBufferLen = 27; 	
+					//send( socket_0, buf, len, 0);
+
+					return pdFALSE; 	
+				}	
+			}
+			else
+			{
+			
+				// send to Queue was unsuccsessful
+				// send error via TCP 
+		
+				sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
+	 			xWriteBufferLen = 22; 	
+				//send( socket, buf, len, 0);
+
+				return pdFALSE; 	
+			}
+		
+		
 		}
 
 		
