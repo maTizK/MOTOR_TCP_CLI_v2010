@@ -220,7 +220,7 @@ int main(void)
 
 	// set motor task 
 	if (xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 5,		       				
-			NULL, mainFLASH_TASK_PRIORITY , NULL)
+			NULL, mainFLASH_TASK_PRIORITY + 1 , NULL)
 			!= pdTRUE)
 	{
 		#ifdef DEBUG

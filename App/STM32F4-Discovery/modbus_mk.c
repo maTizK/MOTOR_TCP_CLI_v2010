@@ -151,7 +151,7 @@ void USART6_IRQHandler(void){
 		 */
 	
 		
-		if( (cnt < rx_length-1) &&
+		if( (cnt < rx_length) &&
 				(cnt < MAX_STRLEN-400) ){ 
 			received_string[cnt] = t;
 			cnt++;
@@ -162,9 +162,9 @@ void USART6_IRQHandler(void){
 		//	USART_ITConfig(USART6, USART_IT_RXNE, DISABLE); 
 	
 			USART_ClearITPendingBit ( USARTx, USART_IT_RXNE ) ;
-		taskENTER_CRITICAL();
+	
 			xSemaphoreGiveFromISR(xSmphrUSART,&xHigherPriorityTaskWoken_usart );
-		taskEXIT_CRITICAL();
+	
 			//USART_puts(USART1, received_string);
 		}
 
@@ -217,8 +217,9 @@ void write_read_modbus( uint8_t * req, uint8_t * rsp, int write_len, int read_le
 	for (i = 0; i < 4000; i++);
 	// driver enable 
 	DE();
+	
 	xSemaphoreTake(xSmphrUSART, 500/portTICK_RATE_MS);
-
+	
 	for (i = 0; i < read_len; i++) 
 	{
 
