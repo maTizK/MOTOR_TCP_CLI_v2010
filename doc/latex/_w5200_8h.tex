@@ -325,7 +325,7 @@ int \hyperlink{_w5200_8h_a4004502afbe3d0609add6c322d8a9796}{closesocket} (int sc
 \begin{DoxyCompactList}\small\item\em Close socket handle. \end{DoxyCompactList}\item 
 int \hyperlink{_w5200_8h_aa4a183e9cf844ab7f012eb8baf0cbe31}{recv} (uint8\+\_\+t sck\+\_\+fd, uint8\+\_\+t $\ast$buf, uint16\+\_\+t len, uint16\+\_\+t flag)
 \begin{DoxyCompactList}\small\item\em Receive data to buffer via socket. \end{DoxyCompactList}\item 
-void \hyperlink{_w5200_8h_a184964bffa01a3c8eba1231fd0bf876f}{set\+\_\+mac\+Task} (void $\ast$pv\+Parameters)
+void \hyperlink{_w5200_8h_a7f9352edc21463cca4e19782bbf6394a}{tcp\+\_\+srv\+\_\+\+Task} (void $\ast$pv\+Parameters)
 \begin{DoxyCompactList}\small\item\em Test task T\+C\+P simple server. \end{DoxyCompactList}\item 
 int \hyperlink{_w5200_8h_a6be5d2045fac85f52cef19e4a9acf235}{listen} (int sck\+\_\+fd)
 \begin{DoxyCompactList}\small\item\em It listens on socket file descriptor previously created by function socket. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -497,31 +497,7 @@ Send buf data via socket.
 {\em flag} & -\/ socket flag N\+O\+T U\+S\+E\+D !!!!! \\
 \hline
 \end{DoxyParams}
-get real len \hypertarget{_w5200_8h_a184964bffa01a3c8eba1231fd0bf876f}{\index{W5200.\+h@{W5200.\+h}!set\+\_\+mac\+Task@{set\+\_\+mac\+Task}}
-\index{set\+\_\+mac\+Task@{set\+\_\+mac\+Task}!W5200.\+h@{W5200.\+h}}
-\subsubsection[{set\+\_\+mac\+Task}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+mac\+Task (
-\begin{DoxyParamCaption}
-\item[{void $\ast$}]{pv\+Parameters}
-\end{DoxyParamCaption}
-)}}\label{_w5200_8h_a184964bffa01a3c8eba1231fd0bf876f}
-
-
-Test task T\+C\+P simple server. 
-
-
-
-
-
-
-\begin{DoxyParams}{Parameters}
-{\em $\ast$pv\+Parameters} & -\/ possible parameters for task \\
-\hline
-\end{DoxyParams}
-
-
-
-
-Task opens socket on port 80, starts listening on port and susped suspend itself. If interrupt occures it process C\+L\+I command\hypertarget{_w5200_8h_a4c450c01f7c7ae1e2b3067bd9de7848f}{\index{W5200.\+h@{W5200.\+h}!socket@{socket}}
+get real len \hypertarget{_w5200_8h_a4c450c01f7c7ae1e2b3067bd9de7848f}{\index{W5200.\+h@{W5200.\+h}!socket@{socket}}
 \index{socket@{socket}!W5200.\+h@{W5200.\+h}}
 \subsubsection[{socket}]{\setlength{\rightskip}{0pt plus 5cm}uint8\+\_\+t socket (
 \begin{DoxyParamCaption}
@@ -547,7 +523,31 @@ Create socket return socket handle.
 {\em ip\+\_\+proto} & -\/ ip protocol number \\
 \hline
 \end{DoxyParams}
-\hypertarget{_w5200_8h_a40cf245893230e906da7356d4664441d}{\index{W5200.\+h@{W5200.\+h}!W5200\+\_\+configure\+\_\+network@{W5200\+\_\+configure\+\_\+network}}
+\hypertarget{_w5200_8h_a7f9352edc21463cca4e19782bbf6394a}{\index{W5200.\+h@{W5200.\+h}!tcp\+\_\+srv\+\_\+\+Task@{tcp\+\_\+srv\+\_\+\+Task}}
+\index{tcp\+\_\+srv\+\_\+\+Task@{tcp\+\_\+srv\+\_\+\+Task}!W5200.\+h@{W5200.\+h}}
+\subsubsection[{tcp\+\_\+srv\+\_\+\+Task}]{\setlength{\rightskip}{0pt plus 5cm}void tcp\+\_\+srv\+\_\+\+Task (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Parameters}
+\end{DoxyParamCaption}
+)}}\label{_w5200_8h_a7f9352edc21463cca4e19782bbf6394a}
+
+
+Test task T\+C\+P simple server. 
+
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$pv\+Parameters} & -\/ possible parameters for task \\
+\hline
+\end{DoxyParams}
+
+
+
+
+Task opens socket on port 80, starts listening on port and susped suspend itself. If interrupt occures it process C\+L\+I command\hypertarget{_w5200_8h_a40cf245893230e906da7356d4664441d}{\index{W5200.\+h@{W5200.\+h}!W5200\+\_\+configure\+\_\+network@{W5200\+\_\+configure\+\_\+network}}
 \index{W5200\+\_\+configure\+\_\+network@{W5200\+\_\+configure\+\_\+network}!W5200.\+h@{W5200.\+h}}
 \subsubsection[{W5200\+\_\+configure\+\_\+network}]{\setlength{\rightskip}{0pt plus 5cm}void W5200\+\_\+configure\+\_\+network (
 \begin{DoxyParamCaption}

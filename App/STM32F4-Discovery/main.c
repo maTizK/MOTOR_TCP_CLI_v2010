@@ -112,7 +112,7 @@ volatile unsigned long ulFPUInterruptNesting = 0UL, ulMaxFPUInterruptNesting = 0
 interrupt. */
 static xSemaphoreHandle xTestSemaphore = NULL;
 
-
+#ifdef DEBUG
 #define SWO_BAUD_RATE 230400
 
 void CoreSight_configure(uint32_t SystemCoreClock)
@@ -150,17 +150,21 @@ void CoreSight_configure(uint32_t SystemCoreClock)
   // *(volatile unsigned int *)0xE0001004 = 0;             /* Reset counter */
 }
 
+#endif
+
 /*-----------------------------------------------------------*/
 
 int main(void)
 {
+
+#ifdef DEBUG
 	SystemCoreClockUpdate();
 
 	CoreSight_configure(SystemCoreClock);
+	
 	/*<! Configure the hardware ready to run the test. */
-	#ifdef DEBUG
 	t_printf("Starting\n");
-	#endif
+#endif
 	prvSetupHardware();
 
 	xSemaphoreREADLEN = xSemaphoreCreateMutex();
@@ -220,7 +224,7 @@ int main(void)
 
 	// set motor task 
 	if (xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 5,		       				
-			NULL, mainFLASH_TASK_PRIORITY + 1 , NULL)
+			NULL, mainFLASH_TASK_PRIORITY + 1 , &motorHeartBeatHandle)
 			!= pdTRUE)
 	{
 		#ifdef DEBUG
@@ -445,6 +449,4 @@ void vApplicationStackOverflowHook( xTaskHandle pxTask, signed char *pcTaskName 
 	for( ;; );
 }
 ///*-----------------------------------------------------------*/
-void assert_failed(uint8_t* file, uint32_t line){
-
-}
+void assert_failed(uint8_t* file, uint32_t line){}

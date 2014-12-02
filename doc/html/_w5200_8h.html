@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Data Structures</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -423,9 +423,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa4a183e9cf844ab7f012eb8baf0cbe31"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_w5200_8h.html#aa4a183e9cf844ab7f012eb8baf0cbe31">recv</a> (uint8_t sck_fd, uint8_t *buf, uint16_t len, uint16_t flag)</td></tr>
 <tr class="memdesc:aa4a183e9cf844ab7f012eb8baf0cbe31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive data to buffer via socket.  <a href="#aa4a183e9cf844ab7f012eb8baf0cbe31">More...</a><br /></td></tr>
 <tr class="separator:aa4a183e9cf844ab7f012eb8baf0cbe31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a184964bffa01a3c8eba1231fd0bf876f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_w5200_8h.html#a184964bffa01a3c8eba1231fd0bf876f">set_macTask</a> (void *pvParameters)</td></tr>
-<tr class="memdesc:a184964bffa01a3c8eba1231fd0bf876f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test task TCP simple server.  <a href="#a184964bffa01a3c8eba1231fd0bf876f">More...</a><br /></td></tr>
-<tr class="separator:a184964bffa01a3c8eba1231fd0bf876f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f9352edc21463cca4e19782bbf6394a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_w5200_8h.html#a7f9352edc21463cca4e19782bbf6394a">tcp_srv_Task</a> (void *pvParameters)</td></tr>
+<tr class="memdesc:a7f9352edc21463cca4e19782bbf6394a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test task TCP simple server.  <a href="#a7f9352edc21463cca4e19782bbf6394a">More...</a><br /></td></tr>
+<tr class="separator:a7f9352edc21463cca4e19782bbf6394a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6be5d2045fac85f52cef19e4a9acf235"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_w5200_8h.html#a6be5d2045fac85f52cef19e4a9acf235">listen</a> (int sck_fd)</td></tr>
 <tr class="memdesc:a6be5d2045fac85f52cef19e4a9acf235"><td class="mdescLeft">&#160;</td><td class="mdescRight">It listens on socket file descriptor previously created by function socket.  <a href="#a6be5d2045fac85f52cef19e4a9acf235">More...</a><br /></td></tr>
 <tr class="separator:a6be5d2045fac85f52cef19e4a9acf235"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -670,33 +670,6 @@ xTaskHandle&#160;</td><td class="memItemRight" valign="bottom"><b>set_macTaskHan
 
 </div>
 </div>
-<a class="anchor" id="a184964bffa01a3c8eba1231fd0bf876f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void set_macTask </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>pvParameters</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Test task TCP simple server. </p>
-<hr/>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">*pvParameters</td><td>- possible parameters for task </td></tr>
-  </table>
-  </dd>
-</dl>
-<hr/>
-<p>Task opens socket on port 80, starts listening on port and susped suspend itself. If interrupt occures it process CLI command</p>
-
-</div>
-</div>
 <a class="anchor" id="a4c450c01f7c7ae1e2b3067bd9de7848f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -737,6 +710,33 @@ xTaskHandle&#160;</td><td class="memItemRight" valign="bottom"><b>set_macTaskHan
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a7f9352edc21463cca4e19782bbf6394a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tcp_srv_Task </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>pvParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Test task TCP simple server. </p>
+<hr/>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*pvParameters</td><td>- possible parameters for task </td></tr>
+  </table>
+  </dd>
+</dl>
+<hr/>
+<p>Task opens socket on port 80, starts listening on port and susped suspend itself. If interrupt occures it process CLI command</p>
 
 </div>
 </div>
@@ -858,7 +858,7 @@ xTaskHandle&#160;</td><td class="memItemRight" valign="bottom"><b>set_macTaskHan
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 18 2014 16:13:47 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 2 2014 14:17:57 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

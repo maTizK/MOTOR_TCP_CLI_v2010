@@ -41,7 +41,6 @@ xSemaphoreHandle xSemaphoreDMASPI;
 
 xSemaphoreHandle xSmphrUSART; 
 
-xSemaphoreHandle xSemaphoreREADLEN;
 
 
 /*!	\var xTaskHandle setSpeedHandle
@@ -59,13 +58,14 @@ xTaskHandle motorHeartBeatHandle,
 
 
 
-/*!	\var xQueueHandle QSpd_handle	\brief Queue handles
+/*!	\var xQueueHandle QSpd_handle	
+* 	\brief Queue handles
 */
 
 
 xQueueHandle QSpd_handle, 
 	     
-/*!	\var xQueueHandle QStatus_handle
+/*!	\var xQueueHandle QTCP_handle
 	\brief Queue handles
 */
 	     
