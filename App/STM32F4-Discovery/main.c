@@ -167,7 +167,6 @@ int main(void)
 #endif
 	prvSetupHardware();
 
-	xSemaphoreREADLEN = xSemaphoreCreateMutex();
 	xSmphrUSART = xSemaphoreCreateBinary();
 	
 	// ============now register CLI commands ===================
