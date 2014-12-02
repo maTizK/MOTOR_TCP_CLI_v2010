@@ -199,7 +199,16 @@ int modbus_confirmation ( uint8_t * req, uint8_t * rsp, uint16_t write_len, uint
 	uint16_t crc = crc16(rsp, read_len - 2 );
 
 	if (	rsp[read_len -1 ] == ( crc & 0x00ff ) && 
-		rsp[read_len - 2 ] == ( crc >> 8 ) ) return 1; 
+		rsp[read_len - 2 ] == ( crc >> 8 ) ) 
+	{
+#ifdef DEBUG
+		t_printf("modbus OK.\n");
+#endif
+		return 1;
+	}
+#ifdef DEBUF
+		t_printf("modbus FAIL.\n");
+#endif
 	return 0; 
 	
 }
@@ -538,8 +547,8 @@ void motorControl_task(void * pvParameters)
 					{
 							// send response to CLI 
 						telegramS.Qcmd = ERROR_MODBUS;
-					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
-					//	break;
+						xQueueSend(QSpd_handle, &telegramS, xDelay);
+						break;
 					}
 					vTaskDelay ( 1000 / portTICK_RATE_MS);
 					
@@ -547,8 +556,8 @@ void motorControl_task(void * pvParameters)
 					{
 							// send response to CLI 
 						telegramS.Qcmd = ERROR_MODBUS;
-					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
-					//	break;
+						xQueueSend(QSpd_handle, &telegramS, xDelay);
+						break;
 					}
 
 					vTaskDelay ( 1000 / portTICK_RATE_MS);
@@ -566,20 +575,11 @@ void motorControl_task(void * pvParameters)
 					{
 							// send response to CLI 
 						telegramS.Qcmd = ERROR_MODBUS;
-					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
-					//	break;
+						xQueueSend(QSpd_handle, &telegramS, xDelay);
+						break;
 					}
 
-					t_printf("Power In=%d, Iout=%d, Vin=%d, "
-							"PrcOut=%d, RPMOut=%d, "
-							"InternalTemp=%d\n",
-							telegramS.data[8],
-							telegramS.data[7],
-							telegramS.data[6],
-							telegramS.data[3],
-							telegramS.data[4],
-							telegramS.data[5]);
-
+				
 					vTaskDelay ( 1000 / portTICK_RATE_MS);
 
 					// send response to CLI 
@@ -600,8 +600,8 @@ void motorControl_task(void * pvParameters)
 					{
 							// send response to CLI 
 						telegramS.Qcmd = ERROR_MODBUS;
-					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
-					//	break;
+						xQueueSend(QSpd_handle, &telegramS, xDelay);
+						break;
 					}
 
 					vTaskDelay ( 1000 / portTICK_RATE_MS);
@@ -609,8 +609,8 @@ void motorControl_task(void * pvParameters)
 					{
 							// send response to CLI 
 						telegramS.Qcmd = ERROR_MODBUS;
-					//	xQueueSend(QSpd_handle, &telegramS, xDelay);
-					//	break;
+						xQueueSend(QSpd_handle, &telegramS, xDelay);
+						break;
 					}
 
 					vTaskDelay ( 1000 / portTICK_RATE_MS);
@@ -631,8 +631,8 @@ void motorControl_task(void * pvParameters)
 					{
 							// send response to CLI 
 						telegramS.Qcmd = ERROR_MODBUS;
-				//		xQueueSend(QSpd_handle, &telegramS, xDelay);
-					//	break;
+						xQueueSend(QSpd_handle, &telegramS, xDelay);
+						break;
 					}
 
 					vTaskDelay ( 1000 / portTICK_RATE_MS);

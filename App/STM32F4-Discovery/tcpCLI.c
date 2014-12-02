@@ -142,10 +142,9 @@ int handleVariable_set (
 		if(s1 < 15 ||  s1 > 300 )
 		{
 			// send error via TCP
-			//
+			
 			xWriteBufferLen = 100; 
-		//	uint8_t buf [len]; //= "Error: speed is out of range!\n\n");
-			sprintf(pcWriteBuffer, "Error: speed is out of range [15,300]p : %d\n\n\0", s1);
+			sprintf(pcWriteBuffer, "Error: Ramp time is out of range [15,300]s : %d\n\n\0", s1);
 			//send( socket_0, buf, len, 0);
 
 	       		return pdFALSE; 	
@@ -206,9 +205,70 @@ int handleVariable_set (
 	if ( !strncmp ( Param, "downramp", 8))
 	{	
 	
+		// now convert parameter to proper value and check if it is in range 
+        	Value[xValueLength] = '\0'; 	
+		uint16_t s1 = atoi ( Value ); 
+		// if speed is in range
+		if(s1 < 15 ||  s1 > 300 )
+		{
+			// send error via TCP
+			
+			xWriteBufferLen = 100; 
+			sprintf(pcWriteBuffer, "Error: Ramp time is out of range [15,300]s : %d\n\n\0", s1);
+			//send( socket_0, buf, len, 0);
+
+	       		return pdFALSE; 	
+		}	
+	
+		telegramS.data[3] = s1; 
+		telegramS.size = 5; 
+		telegramS.Qcmd = SETDATA;
+		
+	
+		// send value to setSpeed_task via Queue 
+		if ( xQueueSend ( QSpd_handle, (void *)&telegramS, xDelay ) == pdPASS )
+		{	
+					
+			if (  xQueueReceive ( QSpd_handle, &telegramR, xDelay))
+			{
+				if ( telegramR.Qcmd == SUCCSESS) 
+				{	
+					sprintf(pcWriteBuffer, "Down ramp succsesfully set.\n\n");
+					xWriteBufferLen = 29; 	
+					//send( socket, buf, len, 0);
+
+
+					return pdPASS;
+
+				}
+				else
+				{
+					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
+			       		xWriteBufferLen = 19; 	
+					//send( socket, buf, len, 0);
+
+					return pdFALSE;
+
+
+				}
+						
+			}
+
+		}
+		else
+		{
+			// send to Queue was unsuccsessful
+			// send error via TCP 
+		
+			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
+	 		xWriteBufferLen = 22; 	
+			//send( socket, buf, len, 0);
+
+			return pdFALSE; 	
+		}
 	
 		
-				return 0; 
+		
 
 	}
 			
@@ -295,79 +355,6 @@ int handleVariable_get (
 		}
 	}
 	
-	//================================================================================//
-	//		CASE PARAMETER upramp [value]
-	//================================================================================//
-
-	if ( !strncmp ( Param, "upramp", 6))
-	{	
-	
-	
-		telegramS.Qcmd = GETDATA;
-			
-	
-		// send value to setSpeed_task via Queue 
-		if ( xQueueSend ( QSpd_handle, (void *)&telegramS, xDelay ) == pdPASS )
-		{	
-					
-			if (  xQueueReceive ( QSpd_handle, &telegramR, xDelay))
-			{
-				if ( telegramR.Qcmd == SUCCSESS) 
-				{	
-					sprintf(pcWriteBuffer, "Up ramp is %d seconds\n\n\0", 
-							telegramR.data[3]);
-					
-					xWriteBufferLen = 25; 	
-					//send( socket, buf, len, 0);
-
-
-					return pdPASS;
-
-				}
-				else
-				{
-					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
-			       		xWriteBufferLen = 19; 	
-					//send( socket, buf, len, 0);
-
-					return pdFALSE;
-
-
-				}
-						
-			}
-
-		}
-		else
-		{
-			// send to Queue was unsuccsessful
-			// send error via TCP 
-		
-			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
-	 		xWriteBufferLen = 22; 	
-			//send( socket, buf, len, 0);
-
-			return pdFALSE; 	
-		}
-	}
-
-	//================================================================================//
-	//		CASE PARAMETER downramp [value]
-	//================================================================================//
-
-	if ( !strncmp ( Param, "downramp", 8))
-	{	
-	
-	
-				
-	
-	
-
-			return 0; 
-
-	}
-
-
 
 
 }
@@ -513,17 +500,23 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 				{
 					if ( telegramR.Qcmd == SUCCSESS) 
 					{
+					sprintf(pcWriteBuffer, "Speed is  %2d.%2dp \n\n\0", 
+					telegramR.data[3]/100,
+					telegramR.data[3] % 100);
+
 
 						sprintf(pcWriteBuffer ,
 							"Power In=%d, Iout=%d, Vin=%d, "
-							"PrcOut=%d, RPMOut=%d, "
-							"InternalTemp=%d\n",
+							"PrcOut=%d.%d, RPMOut=%d, "
+							"InternalTemp=%d.%d\n",
 							telegramR.data[8],
 							telegramR.data[7],
 							telegramR.data[6],
-							telegramR.data[3],
+							telegramR.data[3]/100,
+							telegramR.data[3] % 100, 
 							telegramR.data[4],
-							telegramR.data[5]);
+							telegramR.data[5]/100,
+							telegramR.data[5] % 100);
 						xWriteBufferLen = 50 ; 	
 						//send( socket_0, buf, len, 0);
 

@@ -2486,7 +2486,7 @@ LOAD /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-e
                 0x0000000008000000                g_pfnVectors
                 0x0000000008000188                . = ALIGN (0x4)
 
-.text           0x0000000008000188     0x9b24
+.text           0x0000000008000188     0x9c08
                 0x0000000008000188                . = ALIGN (0x4)
  *(.text)
  .text          0x0000000008000188       0x54 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
@@ -2579,617 +2579,617 @@ LOAD /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-e
  .text.crc16    0x0000000008001a14       0x6c obj/App/STM32F4-Discovery/modbus_mk.o
                 0x0000000008001a14                crc16
  .text.modbus_confirmation
-                0x0000000008001a80       0x58 obj/App/STM32F4-Discovery/modbus_mk.o
+                0x0000000008001a80       0x64 obj/App/STM32F4-Discovery/modbus_mk.o
                 0x0000000008001a80                modbus_confirmation
  .text.write_read_modbus
-                0x0000000008001ad8       0xd8 obj/App/STM32F4-Discovery/modbus_mk.o
-                0x0000000008001ad8                write_read_modbus
+                0x0000000008001ae4       0xd8 obj/App/STM32F4-Discovery/modbus_mk.o
+                0x0000000008001ae4                write_read_modbus
  .text.modbus_WIB
-                0x0000000008001bb0      0x210 obj/App/STM32F4-Discovery/modbus_mk.o
-                0x0000000008001bb0                modbus_WIB
+                0x0000000008001bbc      0x210 obj/App/STM32F4-Discovery/modbus_mk.o
+                0x0000000008001bbc                modbus_WIB
  .text.modbus_WR
-                0x0000000008001dc0      0x178 obj/App/STM32F4-Discovery/modbus_mk.o
-                0x0000000008001dc0                modbus_WR
+                0x0000000008001dcc      0x178 obj/App/STM32F4-Discovery/modbus_mk.o
+                0x0000000008001dcc                modbus_WR
  .text.modbus_RR
-                0x0000000008001f38      0x188 obj/App/STM32F4-Discovery/modbus_mk.o
-                0x0000000008001f38                modbus_RR
+                0x0000000008001f44      0x188 obj/App/STM32F4-Discovery/modbus_mk.o
+                0x0000000008001f44                modbus_RR
  .text.motorHeartBeat_task
-                0x00000000080020c0       0x38 obj/App/STM32F4-Discovery/modbus_mk.o
-                0x00000000080020c0                motorHeartBeat_task
+                0x00000000080020cc       0x38 obj/App/STM32F4-Discovery/modbus_mk.o
+                0x00000000080020cc                motorHeartBeat_task
  .text.motorControl_task
-                0x00000000080020f8      0x258 obj/App/STM32F4-Discovery/modbus_mk.o
-                0x00000000080020f8                motorControl_task
+                0x0000000008002104      0x294 obj/App/STM32F4-Discovery/modbus_mk.o
+                0x0000000008002104                motorControl_task
  .text.handleVariable_set
-                0x0000000008002350      0x2b4 obj/App/STM32F4-Discovery/tcpCLI.o
-                0x0000000008002350                handleVariable_set
+                0x0000000008002398      0x3bc obj/App/STM32F4-Discovery/tcpCLI.o
+                0x0000000008002398                handleVariable_set
  .text.handleVariable_get
-                0x0000000008002604      0x1f4 obj/App/STM32F4-Discovery/tcpCLI.o
-                0x0000000008002604                handleVariable_get
+                0x0000000008002754      0x128 obj/App/STM32F4-Discovery/tcpCLI.o
+                0x0000000008002754                handleVariable_get
  .text.prvMotorCommand
-                0x00000000080027f8      0x45c obj/App/STM32F4-Discovery/tcpCLI.o
-                0x00000000080027f8                prvMotorCommand
+                0x000000000800287c      0x4ec obj/App/STM32F4-Discovery/tcpCLI.o
+                0x000000000800287c                prvMotorCommand
  .text.prvTaskStatsCommand
-                0x0000000008002c54      0x100 obj/App/STM32F4-Discovery/tcpCLI.o
-                0x0000000008002c54                prvTaskStatsCommand
+                0x0000000008002d68      0x100 obj/App/STM32F4-Discovery/tcpCLI.o
+                0x0000000008002d68                prvTaskStatsCommand
  .text.printchar
-                0x0000000008002d54       0x30 obj/App/STM32F4-Discovery/printf-stdarg.o
- .text.prints   0x0000000008002d84       0xb4 obj/App/STM32F4-Discovery/printf-stdarg.o
- .text.printi   0x0000000008002e38       0xdc obj/App/STM32F4-Discovery/printf-stdarg.o
- .text.print    0x0000000008002f14      0x1d4 obj/App/STM32F4-Discovery/printf-stdarg.o
- .text.sprintf  0x00000000080030e8       0x2c obj/App/STM32F4-Discovery/printf-stdarg.o
-                0x00000000080030e8                sprintf
+                0x0000000008002e68       0x30 obj/App/STM32F4-Discovery/printf-stdarg.o
+ .text.prints   0x0000000008002e98       0xb4 obj/App/STM32F4-Discovery/printf-stdarg.o
+ .text.printi   0x0000000008002f4c       0xdc obj/App/STM32F4-Discovery/printf-stdarg.o
+ .text.print    0x0000000008003028      0x1d4 obj/App/STM32F4-Discovery/printf-stdarg.o
+ .text.sprintf  0x00000000080031fc       0x2c obj/App/STM32F4-Discovery/printf-stdarg.o
+                0x00000000080031fc                sprintf
  .text.NVIC_SetPendingIRQ
-                0x0000000008003114       0x34 obj/App/STM32F4-Discovery/main.o
+                0x0000000008003228       0x34 obj/App/STM32F4-Discovery/main.o
  .text.CoreSight_configure
-                0x0000000008003148       0x94 obj/App/STM32F4-Discovery/main.o
-                0x0000000008003148                CoreSight_configure
- .text.main     0x00000000080031dc      0x178 obj/App/STM32F4-Discovery/main.o
-                0x00000000080031dc                main
+                0x000000000800325c       0x94 obj/App/STM32F4-Discovery/main.o
+                0x000000000800325c                CoreSight_configure
+ .text.main     0x00000000080032f0      0x178 obj/App/STM32F4-Discovery/main.o
+                0x00000000080032f0                main
  .text.prvSetupHardware
-                0x0000000008003354       0x44 obj/App/STM32F4-Discovery/main.o
+                0x0000000008003468       0x44 obj/App/STM32F4-Discovery/main.o
  .text.vApplicationTickHook
-                0x0000000008003398       0x24 obj/App/STM32F4-Discovery/main.o
-                0x0000000008003398                vApplicationTickHook
+                0x00000000080034ac       0x24 obj/App/STM32F4-Discovery/main.o
+                0x00000000080034ac                vApplicationTickHook
  .text.TIM3_IRQHandler
-                0x00000000080033bc       0x3c obj/App/STM32F4-Discovery/main.o
-                0x00000000080033bc                TIM3_IRQHandler
+                0x00000000080034d0       0x3c obj/App/STM32F4-Discovery/main.o
+                0x00000000080034d0                TIM3_IRQHandler
  .text.TIM2_IRQHandler
-                0x00000000080033f8       0x24 obj/App/STM32F4-Discovery/main.o
-                0x00000000080033f8                TIM2_IRQHandler
+                0x000000000800350c       0x24 obj/App/STM32F4-Discovery/main.o
+                0x000000000800350c                TIM2_IRQHandler
  .text.vApplicationMallocFailedHook
-                0x000000000800341c        0xc obj/App/STM32F4-Discovery/main.o
-                0x000000000800341c                vApplicationMallocFailedHook
+                0x0000000008003530        0xc obj/App/STM32F4-Discovery/main.o
+                0x0000000008003530                vApplicationMallocFailedHook
  .text.vApplicationIdleHook
-                0x0000000008003428        0xc obj/App/STM32F4-Discovery/main.o
-                0x0000000008003428                vApplicationIdleHook
+                0x000000000800353c        0xc obj/App/STM32F4-Discovery/main.o
+                0x000000000800353c                vApplicationIdleHook
  .text.vApplicationStackOverflowHook
-                0x0000000008003434       0x10 obj/App/STM32F4-Discovery/main.o
-                0x0000000008003434                vApplicationStackOverflowHook
+                0x0000000008003548       0x10 obj/App/STM32F4-Discovery/main.o
+                0x0000000008003548                vApplicationStackOverflowHook
  .text.assert_failed
-                0x0000000008003444       0x14 obj/App/STM32F4-Discovery/main.o
-                0x0000000008003444                assert_failed
+                0x0000000008003558       0x14 obj/App/STM32F4-Discovery/main.o
+                0x0000000008003558                assert_failed
  .text.Reset_Handler
-                0x0000000008003458       0x60 obj/App/STM32F4-Discovery/startup/startup_stm32f4xx.o
-                0x0000000008003458                Reset_Handler
+                0x000000000800356c       0x60 obj/App/STM32F4-Discovery/startup/startup_stm32f4xx.o
+                0x000000000800356c                Reset_Handler
  .text.Default_Handler
-                0x00000000080034b8        0x4 obj/App/STM32F4-Discovery/startup/startup_stm32f4xx.o
-                0x00000000080034b8                DMA1_Stream3_IRQHandler
-                0x00000000080034b8                HASH_RNG_IRQHandler
-                0x00000000080034b8                EXTI2_IRQHandler
-                0x00000000080034b8                TIM8_CC_IRQHandler
-                0x00000000080034b8                DebugMon_Handler
-                0x00000000080034b8                TIM1_CC_IRQHandler
-                0x00000000080034b8                DMA2_Stream5_IRQHandler
-                0x00000000080034b8                HardFault_Handler
-                0x00000000080034b8                DMA1_Stream5_IRQHandler
-                0x00000000080034b8                PVD_IRQHandler
-                0x00000000080034b8                SDIO_IRQHandler
-                0x00000000080034b8                TAMP_STAMP_IRQHandler
-                0x00000000080034b8                NMI_Handler
-                0x00000000080034b8                CAN2_RX1_IRQHandler
-                0x00000000080034b8                EXTI3_IRQHandler
-                0x00000000080034b8                TIM8_TRG_COM_TIM14_IRQHandler
-                0x00000000080034b8                TIM1_UP_TIM10_IRQHandler
-                0x00000000080034b8                TIM8_UP_TIM13_IRQHandler
-                0x00000000080034b8                I2C3_ER_IRQHandler
-                0x00000000080034b8                EXTI0_IRQHandler
-                0x00000000080034b8                I2C2_EV_IRQHandler
-                0x00000000080034b8                DMA1_Stream2_IRQHandler
-                0x00000000080034b8                CAN1_RX0_IRQHandler
-                0x00000000080034b8                FPU_IRQHandler
-                0x00000000080034b8                OTG_HS_WKUP_IRQHandler
-                0x00000000080034b8                UsageFault_Handler
-                0x00000000080034b8                CAN2_SCE_IRQHandler
-                0x00000000080034b8                SPI1_IRQHandler
-                0x00000000080034b8                TIM6_DAC_IRQHandler
-                0x00000000080034b8                TIM1_BRK_TIM9_IRQHandler
-                0x00000000080034b8                DCMI_IRQHandler
-                0x00000000080034b8                CAN2_RX0_IRQHandler
-                0x00000000080034b8                USART3_IRQHandler
-                0x00000000080034b8                CRYP_IRQHandler
-                0x00000000080034b8                CAN1_RX1_IRQHandler
-                0x00000000080034b8                UART5_IRQHandler
-                0x00000000080034b8                DMA2_Stream0_IRQHandler
-                0x00000000080034b8                TIM4_IRQHandler
-                0x00000000080034b8                I2C1_EV_IRQHandler
-                0x00000000080034b8                DMA1_Stream6_IRQHandler
-                0x00000000080034b8                DMA1_Stream1_IRQHandler
-                0x00000000080034b8                UART4_IRQHandler
-                0x00000000080034b8                RCC_IRQHandler
-                0x00000000080034b8                TIM8_BRK_TIM12_IRQHandler
-                0x00000000080034b8                Default_Handler
-                0x00000000080034b8                EXTI15_10_IRQHandler
-                0x00000000080034b8                ADC_IRQHandler
-                0x00000000080034b8                DMA1_Stream7_IRQHandler
-                0x00000000080034b8                TIM7_IRQHandler
-                0x00000000080034b8                CAN2_TX_IRQHandler
-                0x00000000080034b8                TIM5_IRQHandler
-                0x00000000080034b8                DMA2_Stream7_IRQHandler
-                0x00000000080034b8                I2C3_EV_IRQHandler
-                0x00000000080034b8                EXTI9_5_IRQHandler
-                0x00000000080034b8                RTC_WKUP_IRQHandler
-                0x00000000080034b8                ETH_WKUP_IRQHandler
-                0x00000000080034b8                SPI2_IRQHandler
-                0x00000000080034b8                OTG_HS_EP1_IN_IRQHandler
-                0x00000000080034b8                MemManage_Handler
-                0x00000000080034b8                DMA1_Stream0_IRQHandler
-                0x00000000080034b8                CAN1_TX_IRQHandler
-                0x00000000080034b8                FSMC_IRQHandler
-                0x00000000080034b8                ETH_IRQHandler
-                0x00000000080034b8                OTG_HS_EP1_OUT_IRQHandler
-                0x00000000080034b8                WWDG_IRQHandler
-                0x00000000080034b8                OTG_FS_WKUP_IRQHandler
-                0x00000000080034b8                TIM1_TRG_COM_TIM11_IRQHandler
-                0x00000000080034b8                OTG_HS_IRQHandler
-                0x00000000080034b8                EXTI1_IRQHandler
-                0x00000000080034b8                USART2_IRQHandler
-                0x00000000080034b8                I2C2_ER_IRQHandler
-                0x00000000080034b8                DMA2_Stream1_IRQHandler
-                0x00000000080034b8                CAN1_SCE_IRQHandler
-                0x00000000080034b8                FLASH_IRQHandler
-                0x00000000080034b8                DMA2_Stream4_IRQHandler
-                0x00000000080034b8                BusFault_Handler
-                0x00000000080034b8                USART1_IRQHandler
-                0x00000000080034b8                OTG_FS_IRQHandler
-                0x00000000080034b8                SPI3_IRQHandler
-                0x00000000080034b8                DMA1_Stream4_IRQHandler
-                0x00000000080034b8                I2C1_ER_IRQHandler
-                0x00000000080034b8                DMA2_Stream6_IRQHandler
-                0x00000000080034b8                RTC_Alarm_IRQHandler
+                0x00000000080035cc        0x4 obj/App/STM32F4-Discovery/startup/startup_stm32f4xx.o
+                0x00000000080035cc                DMA1_Stream3_IRQHandler
+                0x00000000080035cc                HASH_RNG_IRQHandler
+                0x00000000080035cc                EXTI2_IRQHandler
+                0x00000000080035cc                TIM8_CC_IRQHandler
+                0x00000000080035cc                DebugMon_Handler
+                0x00000000080035cc                TIM1_CC_IRQHandler
+                0x00000000080035cc                DMA2_Stream5_IRQHandler
+                0x00000000080035cc                HardFault_Handler
+                0x00000000080035cc                DMA1_Stream5_IRQHandler
+                0x00000000080035cc                PVD_IRQHandler
+                0x00000000080035cc                SDIO_IRQHandler
+                0x00000000080035cc                TAMP_STAMP_IRQHandler
+                0x00000000080035cc                NMI_Handler
+                0x00000000080035cc                CAN2_RX1_IRQHandler
+                0x00000000080035cc                EXTI3_IRQHandler
+                0x00000000080035cc                TIM8_TRG_COM_TIM14_IRQHandler
+                0x00000000080035cc                TIM1_UP_TIM10_IRQHandler
+                0x00000000080035cc                TIM8_UP_TIM13_IRQHandler
+                0x00000000080035cc                I2C3_ER_IRQHandler
+                0x00000000080035cc                EXTI0_IRQHandler
+                0x00000000080035cc                I2C2_EV_IRQHandler
+                0x00000000080035cc                DMA1_Stream2_IRQHandler
+                0x00000000080035cc                CAN1_RX0_IRQHandler
+                0x00000000080035cc                FPU_IRQHandler
+                0x00000000080035cc                OTG_HS_WKUP_IRQHandler
+                0x00000000080035cc                UsageFault_Handler
+                0x00000000080035cc                CAN2_SCE_IRQHandler
+                0x00000000080035cc                SPI1_IRQHandler
+                0x00000000080035cc                TIM6_DAC_IRQHandler
+                0x00000000080035cc                TIM1_BRK_TIM9_IRQHandler
+                0x00000000080035cc                DCMI_IRQHandler
+                0x00000000080035cc                CAN2_RX0_IRQHandler
+                0x00000000080035cc                USART3_IRQHandler
+                0x00000000080035cc                CRYP_IRQHandler
+                0x00000000080035cc                CAN1_RX1_IRQHandler
+                0x00000000080035cc                UART5_IRQHandler
+                0x00000000080035cc                DMA2_Stream0_IRQHandler
+                0x00000000080035cc                TIM4_IRQHandler
+                0x00000000080035cc                I2C1_EV_IRQHandler
+                0x00000000080035cc                DMA1_Stream6_IRQHandler
+                0x00000000080035cc                DMA1_Stream1_IRQHandler
+                0x00000000080035cc                UART4_IRQHandler
+                0x00000000080035cc                RCC_IRQHandler
+                0x00000000080035cc                TIM8_BRK_TIM12_IRQHandler
+                0x00000000080035cc                Default_Handler
+                0x00000000080035cc                EXTI15_10_IRQHandler
+                0x00000000080035cc                ADC_IRQHandler
+                0x00000000080035cc                DMA1_Stream7_IRQHandler
+                0x00000000080035cc                TIM7_IRQHandler
+                0x00000000080035cc                CAN2_TX_IRQHandler
+                0x00000000080035cc                TIM5_IRQHandler
+                0x00000000080035cc                DMA2_Stream7_IRQHandler
+                0x00000000080035cc                I2C3_EV_IRQHandler
+                0x00000000080035cc                EXTI9_5_IRQHandler
+                0x00000000080035cc                RTC_WKUP_IRQHandler
+                0x00000000080035cc                ETH_WKUP_IRQHandler
+                0x00000000080035cc                SPI2_IRQHandler
+                0x00000000080035cc                OTG_HS_EP1_IN_IRQHandler
+                0x00000000080035cc                MemManage_Handler
+                0x00000000080035cc                DMA1_Stream0_IRQHandler
+                0x00000000080035cc                CAN1_TX_IRQHandler
+                0x00000000080035cc                FSMC_IRQHandler
+                0x00000000080035cc                ETH_IRQHandler
+                0x00000000080035cc                OTG_HS_EP1_OUT_IRQHandler
+                0x00000000080035cc                WWDG_IRQHandler
+                0x00000000080035cc                OTG_FS_WKUP_IRQHandler
+                0x00000000080035cc                TIM1_TRG_COM_TIM11_IRQHandler
+                0x00000000080035cc                OTG_HS_IRQHandler
+                0x00000000080035cc                EXTI1_IRQHandler
+                0x00000000080035cc                USART2_IRQHandler
+                0x00000000080035cc                I2C2_ER_IRQHandler
+                0x00000000080035cc                DMA2_Stream1_IRQHandler
+                0x00000000080035cc                CAN1_SCE_IRQHandler
+                0x00000000080035cc                FLASH_IRQHandler
+                0x00000000080035cc                DMA2_Stream4_IRQHandler
+                0x00000000080035cc                BusFault_Handler
+                0x00000000080035cc                USART1_IRQHandler
+                0x00000000080035cc                OTG_FS_IRQHandler
+                0x00000000080035cc                SPI3_IRQHandler
+                0x00000000080035cc                DMA1_Stream4_IRQHandler
+                0x00000000080035cc                I2C1_ER_IRQHandler
+                0x00000000080035cc                DMA2_Stream6_IRQHandler
+                0x00000000080035cc                RTC_Alarm_IRQHandler
  .text.SystemInit
-                0x00000000080034bc       0x68 obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
-                0x00000000080034bc                SystemInit
+                0x00000000080035d0       0x68 obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
+                0x00000000080035d0                SystemInit
  .text.SystemCoreClockUpdate
-                0x0000000008003524       0xf8 obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
-                0x0000000008003524                SystemCoreClockUpdate
+                0x0000000008003638       0xf8 obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
+                0x0000000008003638                SystemCoreClockUpdate
  .text.SetSysClock
-                0x000000000800361c       0xf4 obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
+                0x0000000008003730       0xf4 obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
  .text.xTaskGenericCreate
-                0x0000000008003710      0x168 obj/Source/tasks.o
-                0x0000000008003710                xTaskGenericCreate
+                0x0000000008003824      0x168 obj/Source/tasks.o
+                0x0000000008003824                xTaskGenericCreate
  .text.vTaskDelete
-                0x0000000008003878       0x8c obj/Source/tasks.o
-                0x0000000008003878                vTaskDelete
+                0x000000000800398c       0x8c obj/Source/tasks.o
+                0x000000000800398c                vTaskDelete
  .text.vTaskDelayUntil
-                0x0000000008003904       0xb0 obj/Source/tasks.o
-                0x0000000008003904                vTaskDelayUntil
+                0x0000000008003a18       0xb0 obj/Source/tasks.o
+                0x0000000008003a18                vTaskDelayUntil
  .text.vTaskDelay
-                0x00000000080039b4       0x50 obj/Source/tasks.o
-                0x00000000080039b4                vTaskDelay
+                0x0000000008003ac8       0x50 obj/Source/tasks.o
+                0x0000000008003ac8                vTaskDelay
  .text.vTaskStartScheduler
-                0x0000000008003a04       0x70 obj/Source/tasks.o
-                0x0000000008003a04                vTaskStartScheduler
+                0x0000000008003b18       0x70 obj/Source/tasks.o
+                0x0000000008003b18                vTaskStartScheduler
  .text.vTaskSuspendAll
-                0x0000000008003a74       0x1c obj/Source/tasks.o
-                0x0000000008003a74                vTaskSuspendAll
+                0x0000000008003b88       0x1c obj/Source/tasks.o
+                0x0000000008003b88                vTaskSuspendAll
  .text.xTaskResumeAll
-                0x0000000008003a90      0x10c obj/Source/tasks.o
-                0x0000000008003a90                xTaskResumeAll
+                0x0000000008003ba4      0x10c obj/Source/tasks.o
+                0x0000000008003ba4                xTaskResumeAll
  .text.xTaskGetTickCount
-                0x0000000008003b9c       0x24 obj/Source/tasks.o
-                0x0000000008003b9c                xTaskGetTickCount
+                0x0000000008003cb0       0x24 obj/Source/tasks.o
+                0x0000000008003cb0                xTaskGetTickCount
  .text.uxTaskGetSystemState
-                0x0000000008003bc0       0xf8 obj/Source/tasks.o
-                0x0000000008003bc0                uxTaskGetSystemState
+                0x0000000008003cd4       0xf8 obj/Source/tasks.o
+                0x0000000008003cd4                uxTaskGetSystemState
  .text.xTaskIncrementTick
-                0x0000000008003cb8      0x1ac obj/Source/tasks.o
-                0x0000000008003cb8                xTaskIncrementTick
+                0x0000000008003dcc      0x1ac obj/Source/tasks.o
+                0x0000000008003dcc                xTaskIncrementTick
  .text.vTaskSwitchContext
-                0x0000000008003e64       0xf4 obj/Source/tasks.o
-                0x0000000008003e64                vTaskSwitchContext
+                0x0000000008003f78       0xf4 obj/Source/tasks.o
+                0x0000000008003f78                vTaskSwitchContext
  .text.vTaskPlaceOnEventList
-                0x0000000008003f58       0x6c obj/Source/tasks.o
-                0x0000000008003f58                vTaskPlaceOnEventList
+                0x000000000800406c       0x6c obj/Source/tasks.o
+                0x000000000800406c                vTaskPlaceOnEventList
  .text.vTaskPlaceOnEventListRestricted
-                0x0000000008003fc4       0x50 obj/Source/tasks.o
-                0x0000000008003fc4                vTaskPlaceOnEventListRestricted
+                0x00000000080040d8       0x50 obj/Source/tasks.o
+                0x00000000080040d8                vTaskPlaceOnEventListRestricted
  .text.xTaskRemoveFromEventList
-                0x0000000008004014       0xb8 obj/Source/tasks.o
-                0x0000000008004014                xTaskRemoveFromEventList
+                0x0000000008004128       0xb8 obj/Source/tasks.o
+                0x0000000008004128                xTaskRemoveFromEventList
  .text.vTaskSetTimeOutState
-                0x00000000080040cc       0x34 obj/Source/tasks.o
-                0x00000000080040cc                vTaskSetTimeOutState
+                0x00000000080041e0       0x34 obj/Source/tasks.o
+                0x00000000080041e0                vTaskSetTimeOutState
  .text.xTaskCheckForTimeOut
-                0x0000000008004100       0xa0 obj/Source/tasks.o
-                0x0000000008004100                xTaskCheckForTimeOut
+                0x0000000008004214       0xa0 obj/Source/tasks.o
+                0x0000000008004214                xTaskCheckForTimeOut
  .text.vTaskMissedYield
-                0x00000000080041a0       0x18 obj/Source/tasks.o
-                0x00000000080041a0                vTaskMissedYield
+                0x00000000080042b4       0x18 obj/Source/tasks.o
+                0x00000000080042b4                vTaskMissedYield
  .text.prvIdleTask
-                0x00000000080041b8       0x24 obj/Source/tasks.o
+                0x00000000080042cc       0x24 obj/Source/tasks.o
  .text.prvInitialiseTCBVariables
-                0x00000000080041dc       0x90 obj/Source/tasks.o
+                0x00000000080042f0       0x90 obj/Source/tasks.o
  .text.prvInitialiseTaskLists
-                0x000000000800426c       0x7c obj/Source/tasks.o
+                0x0000000008004380       0x7c obj/Source/tasks.o
  .text.prvCheckTasksWaitingTermination
-                0x00000000080042e8       0x74 obj/Source/tasks.o
+                0x00000000080043fc       0x74 obj/Source/tasks.o
  .text.prvAddCurrentTaskToDelayedList
-                0x000000000800435c       0x6c obj/Source/tasks.o
+                0x0000000008004470       0x6c obj/Source/tasks.o
  .text.prvAllocateTCBAndStack
-                0x00000000080043c8       0x64 obj/Source/tasks.o
+                0x00000000080044dc       0x64 obj/Source/tasks.o
  .text.prvListTaskWithinSingleList
-                0x000000000800442c       0xfc obj/Source/tasks.o
+                0x0000000008004540       0xfc obj/Source/tasks.o
  .text.prvTaskCheckFreeStackSpace
-                0x0000000008004528       0x38 obj/Source/tasks.o
+                0x000000000800463c       0x38 obj/Source/tasks.o
  .text.prvDeleteTCB
-                0x0000000008004560       0x20 obj/Source/tasks.o
+                0x0000000008004674       0x20 obj/Source/tasks.o
  .text.xTaskGetCurrentTaskHandle
-                0x0000000008004580       0x20 obj/Source/tasks.o
-                0x0000000008004580                xTaskGetCurrentTaskHandle
+                0x0000000008004694       0x20 obj/Source/tasks.o
+                0x0000000008004694                xTaskGetCurrentTaskHandle
  .text.xTaskGetSchedulerState
-                0x00000000080045a0       0x3c obj/Source/tasks.o
-                0x00000000080045a0                xTaskGetSchedulerState
+                0x00000000080046b4       0x3c obj/Source/tasks.o
+                0x00000000080046b4                xTaskGetSchedulerState
  .text.vTaskPriorityInherit
-                0x00000000080045dc       0xb4 obj/Source/tasks.o
-                0x00000000080045dc                vTaskPriorityInherit
+                0x00000000080046f0       0xb4 obj/Source/tasks.o
+                0x00000000080046f0                vTaskPriorityInherit
  .text.vTaskPriorityDisinherit
-                0x0000000008004690       0x7c obj/Source/tasks.o
-                0x0000000008004690                vTaskPriorityDisinherit
+                0x00000000080047a4       0x7c obj/Source/tasks.o
+                0x00000000080047a4                vTaskPriorityDisinherit
  .text.vTaskList
-                0x000000000800470c       0xec obj/Source/tasks.o
-                0x000000000800470c                vTaskList
+                0x0000000008004820       0xec obj/Source/tasks.o
+                0x0000000008004820                vTaskList
  .text.xQueueGenericReset
-                0x00000000080047f8       0xb0 obj/Source/queue.o
-                0x00000000080047f8                xQueueGenericReset
+                0x000000000800490c       0xb0 obj/Source/queue.o
+                0x000000000800490c                xQueueGenericReset
  .text.xQueueGenericCreate
-                0x00000000080048a8       0x84 obj/Source/queue.o
-                0x00000000080048a8                xQueueGenericCreate
+                0x00000000080049bc       0x84 obj/Source/queue.o
+                0x00000000080049bc                xQueueGenericCreate
  .text.xQueueCreateMutex
-                0x000000000800492c       0x90 obj/Source/queue.o
-                0x000000000800492c                xQueueCreateMutex
+                0x0000000008004a40       0x90 obj/Source/queue.o
+                0x0000000008004a40                xQueueCreateMutex
  .text.xQueueGenericSend
-                0x00000000080049bc      0x160 obj/Source/queue.o
-                0x00000000080049bc                xQueueGenericSend
+                0x0000000008004ad0      0x160 obj/Source/queue.o
+                0x0000000008004ad0                xQueueGenericSend
  .text.xQueueGenericSendFromISR
-                0x0000000008004b1c       0xd4 obj/Source/queue.o
-                0x0000000008004b1c                xQueueGenericSendFromISR
+                0x0000000008004c30       0xd4 obj/Source/queue.o
+                0x0000000008004c30                xQueueGenericSendFromISR
  .text.xQueueGenericReceive
-                0x0000000008004bf0      0x19c obj/Source/queue.o
-                0x0000000008004bf0                xQueueGenericReceive
+                0x0000000008004d04      0x19c obj/Source/queue.o
+                0x0000000008004d04                xQueueGenericReceive
  .text.prvCopyDataToQueue
-                0x0000000008004d8c       0xd0 obj/Source/queue.o
+                0x0000000008004ea0       0xd0 obj/Source/queue.o
  .text.prvCopyDataFromQueue
-                0x0000000008004e5c       0x4c obj/Source/queue.o
+                0x0000000008004f70       0x4c obj/Source/queue.o
  .text.prvUnlockQueue
-                0x0000000008004ea8       0x98 obj/Source/queue.o
+                0x0000000008004fbc       0x98 obj/Source/queue.o
  .text.prvIsQueueEmpty
-                0x0000000008004f40       0x2c obj/Source/queue.o
+                0x0000000008005054       0x2c obj/Source/queue.o
  .text.prvIsQueueFull
-                0x0000000008004f6c       0x30 obj/Source/queue.o
+                0x0000000008005080       0x30 obj/Source/queue.o
  .text.vQueueWaitForMessageRestricted
-                0x0000000008004f9c       0x58 obj/Source/queue.o
-                0x0000000008004f9c                vQueueWaitForMessageRestricted
+                0x00000000080050b0       0x58 obj/Source/queue.o
+                0x00000000080050b0                vQueueWaitForMessageRestricted
  .text.vListInitialise
-                0x0000000008004ff4       0x40 obj/Source/list.o
-                0x0000000008004ff4                vListInitialise
+                0x0000000008005108       0x40 obj/Source/list.o
+                0x0000000008005108                vListInitialise
  .text.vListInitialiseItem
-                0x0000000008005034       0x18 obj/Source/list.o
-                0x0000000008005034                vListInitialiseItem
+                0x0000000008005148       0x18 obj/Source/list.o
+                0x0000000008005148                vListInitialiseItem
  .text.vListInsertEnd
-                0x000000000800504c       0x48 obj/Source/list.o
-                0x000000000800504c                vListInsertEnd
+                0x0000000008005160       0x48 obj/Source/list.o
+                0x0000000008005160                vListInsertEnd
  .text.vListInsert
-                0x0000000008005094       0x70 obj/Source/list.o
-                0x0000000008005094                vListInsert
+                0x00000000080051a8       0x70 obj/Source/list.o
+                0x00000000080051a8                vListInsert
  .text.uxListRemove
-                0x0000000008005104       0x54 obj/Source/list.o
-                0x0000000008005104                uxListRemove
+                0x0000000008005218       0x54 obj/Source/list.o
+                0x0000000008005218                uxListRemove
  .text.pxPortInitialiseStack
-                0x0000000008005158       0x64 obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008005158                pxPortInitialiseStack
+                0x000000000800526c       0x64 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800526c                pxPortInitialiseStack
  .text.prvTaskExitError
-                0x00000000080051bc       0x20 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x00000000080052d0       0x20 obj/Source/portable/GCC/ARM_CM4F/port.o
  .text.SVC_Handler
-                0x00000000080051dc       0x1c obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x00000000080051dc                SVC_Handler
+                0x00000000080052f0       0x1c obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x00000000080052f0                SVC_Handler
  .text.prvPortStartFirstTask
-                0x00000000080051f8       0x14 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800530c       0x14 obj/Source/portable/GCC/ARM_CM4F/port.o
  .text.xPortStartScheduler
-                0x000000000800520c       0xcc obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x000000000800520c                xPortStartScheduler
+                0x0000000008005320       0xcc obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008005320                xPortStartScheduler
  .text.vPortYield
-                0x00000000080052d8       0x20 obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x00000000080052d8                vPortYield
+                0x00000000080053ec       0x20 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x00000000080053ec                vPortYield
  .text.vPortEnterCritical
-                0x00000000080052f8       0x20 obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x00000000080052f8                vPortEnterCritical
+                0x000000000800540c       0x20 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800540c                vPortEnterCritical
  .text.vPortExitCritical
-                0x0000000008005318       0x24 obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008005318                vPortExitCritical
+                0x000000000800542c       0x24 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800542c                vPortExitCritical
  .text.ulPortSetInterruptMask
-                0x000000000800533c       0x14 obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x000000000800533c                ulPortSetInterruptMask
+                0x0000000008005450       0x14 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008005450                ulPortSetInterruptMask
  .text.vPortClearInterruptMask
-                0x0000000008005350        0x8 obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008005350                vPortClearInterruptMask
+                0x0000000008005464        0x8 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008005464                vPortClearInterruptMask
  .text.PendSV_Handler
-                0x0000000008005358       0x50 obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008005358                PendSV_Handler
+                0x000000000800546c       0x50 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800546c                PendSV_Handler
  .text.SysTick_Handler
-                0x00000000080053a8       0x28 obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x00000000080053a8                SysTick_Handler
+                0x00000000080054bc       0x28 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x00000000080054bc                SysTick_Handler
  .text.vPortSetupTimerInterrupt
-                0x00000000080053d0       0x34 obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x00000000080053d0                vPortSetupTimerInterrupt
+                0x00000000080054e4       0x34 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x00000000080054e4                vPortSetupTimerInterrupt
  .text.vPortEnableVFP
-                0x0000000008005404       0x14 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x0000000008005518       0x14 obj/Source/portable/GCC/ARM_CM4F/port.o
  .text.vPortValidateInterruptPriority
-                0x0000000008005418       0x58 obj/Source/portable/GCC/ARM_CM4F/port.o
-                0x0000000008005418                vPortValidateInterruptPriority
+                0x000000000800552c       0x58 obj/Source/portable/GCC/ARM_CM4F/port.o
+                0x000000000800552c                vPortValidateInterruptPriority
  .text.xTimerCreateTimerTask
-                0x0000000008005470       0x58 obj/Source/timers.o
-                0x0000000008005470                xTimerCreateTimerTask
+                0x0000000008005584       0x58 obj/Source/timers.o
+                0x0000000008005584                xTimerCreateTimerTask
  .text.xTimerGenericCommand
-                0x00000000080054c8       0x8c obj/Source/timers.o
-                0x00000000080054c8                xTimerGenericCommand
+                0x00000000080055dc       0x8c obj/Source/timers.o
+                0x00000000080055dc                xTimerGenericCommand
  .text.prvProcessExpiredTimer
-                0x0000000008005554       0x70 obj/Source/timers.o
+                0x0000000008005668       0x70 obj/Source/timers.o
  .text.prvTimerTask
-                0x00000000080055c4       0x24 obj/Source/timers.o
+                0x00000000080056d8       0x24 obj/Source/timers.o
  .text.prvProcessTimerOrBlockTask
-                0x00000000080055e8       0x6c obj/Source/timers.o
+                0x00000000080056fc       0x6c obj/Source/timers.o
  .text.prvGetNextExpireTime
-                0x0000000008005654       0x48 obj/Source/timers.o
+                0x0000000008005768       0x48 obj/Source/timers.o
  .text.prvSampleTimeNow
-                0x000000000800569c       0x44 obj/Source/timers.o
+                0x00000000080057b0       0x44 obj/Source/timers.o
  .text.prvInsertTimerInActiveList
-                0x00000000080056e0       0x84 obj/Source/timers.o
+                0x00000000080057f4       0x84 obj/Source/timers.o
  .text.prvProcessReceivedCommands
-                0x0000000008005764       0xf0 obj/Source/timers.o
+                0x0000000008005878       0xf0 obj/Source/timers.o
  .text.prvSwitchTimerLists
-                0x0000000008005854       0xb4 obj/Source/timers.o
+                0x0000000008005968       0xb4 obj/Source/timers.o
  .text.prvCheckForValidListAndQueue
-                0x0000000008005908       0x54 obj/Source/timers.o
+                0x0000000008005a1c       0x54 obj/Source/timers.o
  .text.ITM_SendChar
-                0x000000000800595c       0x5c obj/Source/printf.o
- .text.out      0x00000000080059b8       0x28 obj/Source/printf.o
- .text.outDgt   0x00000000080059e0       0x44 obj/Source/printf.o
- .text.divOut   0x0000000008005a24       0x58 obj/Source/printf.o
+                0x0000000008005a70       0x5c obj/Source/printf.o
+ .text.out      0x0000000008005acc       0x28 obj/Source/printf.o
+ .text.outDgt   0x0000000008005af4       0x44 obj/Source/printf.o
+ .text.divOut   0x0000000008005b38       0x58 obj/Source/printf.o
  .text.t_printf
-                0x0000000008005a7c      0x27c obj/Source/printf.o
-                0x0000000008005a7c                t_printf
+                0x0000000008005b90      0x27c obj/Source/printf.o
+                0x0000000008005b90                t_printf
  .text.FreeRTOS_CLIRegisterCommand
-                0x0000000008005cf8       0x68 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
-                0x0000000008005cf8                FreeRTOS_CLIRegisterCommand
+                0x0000000008005e0c       0x68 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+                0x0000000008005e0c                FreeRTOS_CLIRegisterCommand
  .text.FreeRTOS_CLIProcessCommand
-                0x0000000008005d60      0x10c obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
-                0x0000000008005d60                FreeRTOS_CLIProcessCommand
+                0x0000000008005e74      0x10c obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+                0x0000000008005e74                FreeRTOS_CLIProcessCommand
  .text.FreeRTOS_CLIGetParameter
-                0x0000000008005e6c       0xb8 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
-                0x0000000008005e6c                FreeRTOS_CLIGetParameter
+                0x0000000008005f80       0xb8 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+                0x0000000008005f80                FreeRTOS_CLIGetParameter
  .text.prvHelpCommand
-                0x0000000008005f24       0x5c obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
-                0x0000000008005f24                prvHelpCommand
+                0x0000000008006038       0x5c obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+                0x0000000008006038                prvHelpCommand
  .text.prvGetNumberOfParameters
-                0x0000000008005f80       0x5c obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+                0x0000000008006094       0x5c obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
  .text.pvPortMalloc
-                0x0000000008005fdc      0x118 obj/Source/portable/MemMang/heap_4.o
-                0x0000000008005fdc                pvPortMalloc
+                0x00000000080060f0      0x118 obj/Source/portable/MemMang/heap_4.o
+                0x00000000080060f0                pvPortMalloc
  .text.vPortFree
-                0x00000000080060f4       0x94 obj/Source/portable/MemMang/heap_4.o
-                0x00000000080060f4                vPortFree
+                0x0000000008006208       0x94 obj/Source/portable/MemMang/heap_4.o
+                0x0000000008006208                vPortFree
  .text.prvHeapInit
-                0x0000000008006188       0x9c obj/Source/portable/MemMang/heap_4.o
+                0x000000000800629c       0x9c obj/Source/portable/MemMang/heap_4.o
  .text.prvInsertBlockIntoFreeList
-                0x0000000008006224       0xb0 obj/Source/portable/MemMang/heap_4.o
+                0x0000000008006338       0xb0 obj/Source/portable/MemMang/heap_4.o
  .text.NVIC_PriorityGroupConfig
-                0x00000000080062d4       0x54 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
-                0x00000000080062d4                NVIC_PriorityGroupConfig
+                0x00000000080063e8       0x54 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
+                0x00000000080063e8                NVIC_PriorityGroupConfig
  .text.NVIC_Init
-                0x0000000008006328       0xf4 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
-                0x0000000008006328                NVIC_Init
+                0x000000000800643c       0xf4 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
+                0x000000000800643c                NVIC_Init
  .text.DMA_DeInit
-                0x000000000800641c      0x22c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
-                0x000000000800641c                DMA_DeInit
+                0x0000000008006530      0x22c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+                0x0000000008006530                DMA_DeInit
  .text.DMA_Init
-                0x0000000008006648      0x388 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
-                0x0000000008006648                DMA_Init
+                0x000000000800675c      0x388 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+                0x000000000800675c                DMA_Init
  .text.DMA_StructInit
-                0x00000000080069d0       0x6c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
-                0x00000000080069d0                DMA_StructInit
- .text.DMA_Cmd  0x0000000008006a3c      0x118 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
-                0x0000000008006a3c                DMA_Cmd
+                0x0000000008006ae4       0x6c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+                0x0000000008006ae4                DMA_StructInit
+ .text.DMA_Cmd  0x0000000008006b50      0x118 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+                0x0000000008006b50                DMA_Cmd
  .text.DMA_SetCurrDataCounter
-                0x0000000008006b54       0xe8 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
-                0x0000000008006b54                DMA_SetCurrDataCounter
+                0x0000000008006c68       0xe8 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+                0x0000000008006c68                DMA_SetCurrDataCounter
  .text.DMA_GetCmdStatus
-                0x0000000008006c3c       0xfc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
-                0x0000000008006c3c                DMA_GetCmdStatus
+                0x0000000008006d50       0xfc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+                0x0000000008006d50                DMA_GetCmdStatus
  .text.DMA_ITConfig
-                0x0000000008006d38      0x16c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
-                0x0000000008006d38                DMA_ITConfig
+                0x0000000008006e4c      0x16c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+                0x0000000008006e4c                DMA_ITConfig
  .text.DMA_GetITStatus
-                0x0000000008006ea4      0x378 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
-                0x0000000008006ea4                DMA_GetITStatus
+                0x0000000008006fb8      0x378 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+                0x0000000008006fb8                DMA_GetITStatus
  .text.DMA_ClearITPendingBit
-                0x000000000800721c      0x158 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
-                0x000000000800721c                DMA_ClearITPendingBit
+                0x0000000008007330      0x158 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+                0x0000000008007330                DMA_ClearITPendingBit
  .text.EXTI_Init
-                0x0000000008007374      0x148 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
-                0x0000000008007374                EXTI_Init
+                0x0000000008007488      0x148 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
+                0x0000000008007488                EXTI_Init
  .text.EXTI_ClearFlag
-                0x00000000080074bc       0x34 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
-                0x00000000080074bc                EXTI_ClearFlag
+                0x00000000080075d0       0x34 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
+                0x00000000080075d0                EXTI_ClearFlag
  .text.EXTI_GetITStatus
-                0x00000000080074f0       0xfc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
-                0x00000000080074f0                EXTI_GetITStatus
+                0x0000000008007604       0xfc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
+                0x0000000008007604                EXTI_GetITStatus
  .text.GPIO_Init
-                0x00000000080075ec      0x22c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
-                0x00000000080075ec                GPIO_Init
+                0x0000000008007700      0x22c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
+                0x0000000008007700                GPIO_Init
  .text.GPIO_PinAFConfig
-                0x0000000008007818      0x250 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
-                0x0000000008007818                GPIO_PinAFConfig
+                0x000000000800792c      0x250 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
+                0x000000000800792c                GPIO_PinAFConfig
  .text.RCC_GetClocksFreq
-                0x0000000008007a68      0x154 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
-                0x0000000008007a68                RCC_GetClocksFreq
+                0x0000000008007b7c      0x154 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
+                0x0000000008007b7c                RCC_GetClocksFreq
  .text.RCC_AHB1PeriphClockCmd
-                0x0000000008007bbc       0x70 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
-                0x0000000008007bbc                RCC_AHB1PeriphClockCmd
+                0x0000000008007cd0       0x70 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
+                0x0000000008007cd0                RCC_AHB1PeriphClockCmd
  .text.RCC_APB2PeriphClockCmd
-                0x0000000008007c2c       0x70 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
-                0x0000000008007c2c                RCC_APB2PeriphClockCmd
+                0x0000000008007d40       0x70 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
+                0x0000000008007d40                RCC_APB2PeriphClockCmd
  .text.SPI_Init
-                0x0000000008007c9c      0x1e4 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
-                0x0000000008007c9c                SPI_Init
- .text.SPI_Cmd  0x0000000008007e80       0x84 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
-                0x0000000008007e80                SPI_Cmd
+                0x0000000008007db0      0x1e4 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
+                0x0000000008007db0                SPI_Init
+ .text.SPI_Cmd  0x0000000008007f94       0x84 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
+                0x0000000008007f94                SPI_Cmd
  .text.SPI_I2S_DMACmd
-                0x0000000008007f04       0xbc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
-                0x0000000008007f04                SPI_I2S_DMACmd
+                0x0000000008008018       0xbc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
+                0x0000000008008018                SPI_I2S_DMACmd
  .text.SPI_I2S_GetFlagStatus
-                0x0000000008007fc0       0xbc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
-                0x0000000008007fc0                SPI_I2S_GetFlagStatus
+                0x00000000080080d4       0xbc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
+                0x00000000080080d4                SPI_I2S_GetFlagStatus
  .text.SPI_I2S_ClearFlag
-                0x000000000800807c       0x74 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
-                0x000000000800807c                SPI_I2S_ClearFlag
+                0x0000000008008190       0x74 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
+                0x0000000008008190                SPI_I2S_ClearFlag
  .text.SYSCFG_EXTILineConfig
-                0x00000000080080f0      0x124 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
-                0x00000000080080f0                SYSCFG_EXTILineConfig
+                0x0000000008008204      0x124 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
+                0x0000000008008204                SYSCFG_EXTILineConfig
  .text.USART_Init
-                0x0000000008008214      0x2cc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
-                0x0000000008008214                USART_Init
+                0x0000000008008328      0x2cc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
+                0x0000000008008328                USART_Init
  .text.USART_Cmd
-                0x00000000080084e0       0xa8 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
-                0x00000000080084e0                USART_Cmd
+                0x00000000080085f4       0xa8 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
+                0x00000000080085f4                USART_Cmd
  .text.USART_ITConfig
-                0x0000000008008588      0x17c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
-                0x0000000008008588                USART_ITConfig
+                0x000000000800869c      0x17c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
+                0x000000000800869c                USART_ITConfig
  .text.USART_GetITStatus
-                0x0000000008008704      0x1ac obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
-                0x0000000008008704                USART_GetITStatus
+                0x0000000008008818      0x1ac obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
+                0x0000000008008818                USART_GetITStatus
  .text.USART_ClearITPendingBit
-                0x00000000080088b0       0xf0 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
-                0x00000000080088b0                USART_ClearITPendingBit
- .text.atoi     0x00000000080089a0        0x8 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-atoi.o)
-                0x00000000080089a0                atoi
+                0x00000000080089c4       0xf0 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
+                0x00000000080089c4                USART_ClearITPendingBit
+ .text.atoi     0x0000000008008ab4        0x8 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-atoi.o)
+                0x0000000008008ab4                atoi
  .text.__libc_init_array
-                0x00000000080089a8       0x50 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-init.o)
-                0x00000000080089a8                __libc_init_array
- .text.memcmp   0x00000000080089f8       0x68 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-memcmp.o)
-                0x00000000080089f8                memcmp
- .text.memset   0x0000000008008a60       0x94 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-memset.o)
-                0x0000000008008a60                memset
- .text.strcpy   0x0000000008008af4       0xbc /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strcpy.o)
-                0x0000000008008af4                strcpy
- .text.strlen   0x0000000008008bb0       0x60 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strlen.o)
-                0x0000000008008bb0                strlen
- .text.strncmp  0x0000000008008c10       0xb4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strncmp.o)
-                0x0000000008008c10                strncmp
- .text.strncpy  0x0000000008008cc4       0x64 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strncpy.o)
-                0x0000000008008cc4                strncpy
+                0x0000000008008abc       0x50 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-init.o)
+                0x0000000008008abc                __libc_init_array
+ .text.memcmp   0x0000000008008b0c       0x68 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-memcmp.o)
+                0x0000000008008b0c                memcmp
+ .text.memset   0x0000000008008b74       0x94 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-memset.o)
+                0x0000000008008b74                memset
+ .text.strcpy   0x0000000008008c08       0xbc /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strcpy.o)
+                0x0000000008008c08                strcpy
+ .text.strlen   0x0000000008008cc4       0x60 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strlen.o)
+                0x0000000008008cc4                strlen
+ .text.strncmp  0x0000000008008d24       0xb4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strncmp.o)
+                0x0000000008008d24                strncmp
+ .text.strncpy  0x0000000008008dd8       0x64 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strncpy.o)
+                0x0000000008008dd8                strncpy
  .text._strtol_r
-                0x0000000008008d28      0x114 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strtol.o)
-                0x0000000008008d28                _strtol_r
- .text.strtol   0x0000000008008e3c       0x18 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strtol.o)
-                0x0000000008008e3c                strtol
+                0x0000000008008e3c      0x114 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strtol.o)
+                0x0000000008008e3c                _strtol_r
+ .text.strtol   0x0000000008008f50       0x18 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strtol.o)
+                0x0000000008008f50                strtol
  .text.startup.register_fini
-                0x0000000008008e54       0x14 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-__call_atexit.o)
- .text.atexit   0x0000000008008e68        0xc /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-atexit.o)
-                0x0000000008008e68                atexit
+                0x0000000008008f68       0x14 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-__call_atexit.o)
+ .text.atexit   0x0000000008008f7c        0xc /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-atexit.o)
+                0x0000000008008f7c                atexit
  .text.__libc_fini_array
-                0x0000000008008e74       0x30 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-fini.o)
-                0x0000000008008e74                __libc_fini_array
+                0x0000000008008f88       0x30 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-fini.o)
+                0x0000000008008f88                __libc_fini_array
  .text.__register_exitproc
-                0x0000000008008ea4       0xa8 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-__atexit.o)
-                0x0000000008008ea4                __register_exitproc
+                0x0000000008008fb8       0xa8 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-__atexit.o)
+                0x0000000008008fb8                __register_exitproc
  *(.rodata)
- .rodata        0x0000000008008f4c       0x90 obj/App/STM32F4-Discovery/W5200.o
- .rodata        0x0000000008008fdc       0xd4 obj/App/STM32F4-Discovery/modbus_mk.o
- .rodata        0x00000000080090b0      0x384 obj/App/STM32F4-Discovery/tcpCLI.o
- .rodata        0x0000000008009434        0x8 obj/App/STM32F4-Discovery/printf-stdarg.o
- .rodata        0x000000000800943c      0x184 obj/App/STM32F4-Discovery/main.o
- .rodata        0x00000000080095c0       0x1c obj/Source/tasks.o
- .rodata        0x00000000080095dc        0x8 obj/Source/timers.o
- .rodata        0x00000000080095e4       0xe0 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
- .rodata        0x00000000080096c4       0x48 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
- .rodata        0x000000000800970c       0x50 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
- .rodata        0x000000000800975c       0x50 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
- .rodata        0x00000000080097ac       0x50 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
- .rodata        0x00000000080097fc       0x50 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
- .rodata        0x000000000800984c       0x50 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
- .rodata        0x000000000800989c       0x54 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
- .rodata        0x00000000080098f0       0x54 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
+ .rodata        0x0000000008009060       0x90 obj/App/STM32F4-Discovery/W5200.o
+ .rodata        0x00000000080090f0       0x98 obj/App/STM32F4-Discovery/modbus_mk.o
+ .rodata        0x0000000008009188      0x390 obj/App/STM32F4-Discovery/tcpCLI.o
+ .rodata        0x0000000008009518        0x8 obj/App/STM32F4-Discovery/printf-stdarg.o
+ .rodata        0x0000000008009520      0x184 obj/App/STM32F4-Discovery/main.o
+ .rodata        0x00000000080096a4       0x1c obj/Source/tasks.o
+ .rodata        0x00000000080096c0        0x8 obj/Source/timers.o
+ .rodata        0x00000000080096c8       0xe0 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+ .rodata        0x00000000080097a8       0x48 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
+ .rodata        0x00000000080097f0       0x50 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+ .rodata        0x0000000008009840       0x50 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
+ .rodata        0x0000000008009890       0x50 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
+ .rodata        0x00000000080098e0       0x50 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
+ .rodata        0x0000000008009930       0x50 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
+ .rodata        0x0000000008009980       0x54 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
+ .rodata        0x00000000080099d4       0x54 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
  *(.rodata*)
  .rodata.table_crc_hi
-                0x0000000008009944      0x100 obj/App/STM32F4-Discovery/modbus_mk.o
+                0x0000000008009a28      0x100 obj/App/STM32F4-Discovery/modbus_mk.o
  .rodata.table_crc_lo
-                0x0000000008009a44      0x100 obj/App/STM32F4-Discovery/modbus_mk.o
+                0x0000000008009b28      0x100 obj/App/STM32F4-Discovery/modbus_mk.o
  .rodata.xMotorCommand
-                0x0000000008009b44       0x10 obj/App/STM32F4-Discovery/main.o
+                0x0000000008009c28       0x10 obj/App/STM32F4-Discovery/main.o
  .rodata.xTaskStatsCommand
-                0x0000000008009b54       0x10 obj/App/STM32F4-Discovery/main.o
+                0x0000000008009c38       0x10 obj/App/STM32F4-Discovery/main.o
  .rodata.ucExpectedStackBytes.9202
-                0x0000000008009b64       0x14 obj/Source/tasks.o
+                0x0000000008009c48       0x14 obj/Source/tasks.o
  .rodata.xHelpCommand
-                0x0000000008009b78       0x10 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+                0x0000000008009c5c       0x10 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
  .rodata.str1.4
-                0x0000000008009b88        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-impure.o)
+                0x0000000008009c6c        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-impure.o)
  .rodata._global_impure_ptr
-                0x0000000008009b8c        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-impure.o)
-                0x0000000008009b8c                _global_impure_ptr
+                0x0000000008009c70        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-impure.o)
+                0x0000000008009c70                _global_impure_ptr
  .rodata._ctype_
-                0x0000000008009b90      0x104 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-ctype_.o)
-                0x0000000008009b90                _ctype_
+                0x0000000008009c74      0x104 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-ctype_.o)
+                0x0000000008009c74                _ctype_
  *(.glue_7)
  .glue_7        0x0000000000000000        0x0 linker stubs
  *(.glue_7t)
  .glue_7t       0x0000000000000000        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x0000000008009c94        0x0 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
+ .eh_frame      0x0000000008009d78        0x0 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
  *(.init)
- .init          0x0000000008009c94        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crti.o
-                0x0000000008009c94                _init
- .init          0x0000000008009c98        0x8 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtn.o
+ .init          0x0000000008009d78        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crti.o
+                0x0000000008009d78                _init
+ .init          0x0000000008009d7c        0x8 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtn.o
  *(.fini)
- .fini          0x0000000008009ca0        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crti.o
-                0x0000000008009ca0                _fini
- .fini          0x0000000008009ca4        0x8 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtn.o
-                0x0000000008009cac                . = ALIGN (0x4)
-                0x0000000008009cac                _etext = .
+ .fini          0x0000000008009d84        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crti.o
+                0x0000000008009d84                _fini
+ .fini          0x0000000008009d88        0x8 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtn.o
+                0x0000000008009d90                . = ALIGN (0x4)
+                0x0000000008009d90                _etext = .
 
-.vfp11_veneer   0x0000000008009cac        0x0
+.vfp11_veneer   0x0000000008009d90        0x0
  .vfp11_veneer  0x0000000000000000        0x0 linker stubs
 
-.v4_bx          0x0000000008009cac        0x0
+.v4_bx          0x0000000008009d90        0x0
  .v4_bx         0x0000000000000000        0x0 linker stubs
 
-.iplt           0x0000000008009cac        0x0
+.iplt           0x0000000008009d90        0x0
  .iplt          0x0000000000000000        0x0 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
 
-.rel.dyn        0x0000000008009cac        0x0
+.rel.dyn        0x0000000008009d90        0x0
  .rel.iplt      0x0000000000000000        0x0 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x0000000008009cac        0x0
-                0x0000000008009cac                __exidx_start = .
+.ARM            0x0000000008009d90        0x0
+                0x0000000008009d90                __exidx_start = .
  *(.ARM.exidx*)
-                0x0000000008009cac                __exidx_end = .
+                0x0000000008009d90                __exidx_end = .
 
-.preinit_array  0x0000000008009cac        0x0
-                0x0000000008009cac                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x0000000008009d90        0x0
+                0x0000000008009d90                PROVIDE (__preinit_array_start, .)
  *(.preinit_array*)
-                0x0000000008009cac                PROVIDE (__preinit_array_end, .)
+                0x0000000008009d90                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x0000000008009cac        0x8
-                0x0000000008009cac                PROVIDE (__init_array_start, .)
+.init_array     0x0000000008009d90        0x8
+                0x0000000008009d90                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  .init_array.00000
-                0x0000000008009cac        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-__call_atexit.o)
+                0x0000000008009d90        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-__call_atexit.o)
  *(.init_array*)
- .init_array    0x0000000008009cb0        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
-                0x0000000008009cb4                PROVIDE (__init_array_end, .)
+ .init_array    0x0000000008009d94        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
+                0x0000000008009d98                PROVIDE (__init_array_end, .)
 
-.fini_array     0x0000000008009cb4        0x4
-                0x0000000008009cb4                PROVIDE (__fini_array_start, .)
+.fini_array     0x0000000008009d98        0x4
+                0x0000000008009d98                PROVIDE (__fini_array_start, .)
  *(.fini_array*)
- .fini_array    0x0000000008009cb4        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
+ .fini_array    0x0000000008009d98        0x4 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
  *(SORT(.fini_array.*))
-                0x0000000008009cb8                PROVIDE (__fini_array_end, .)
-                0x0000000008009cb8                _sidata = .
+                0x0000000008009d9c                PROVIDE (__fini_array_end, .)
+                0x0000000008009d9c                _sidata = .
 
-.data           0x0000000020000000      0x470 load address 0x0000000008009cb8
+.data           0x0000000020000000      0x470 load address 0x0000000008009d9c
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -3224,14 +3224,14 @@ LOAD /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-e
                 0x0000000020000470                . = ALIGN (0x4)
                 0x0000000020000470                _edata = .
 
-.jcr            0x0000000020000470        0x0 load address 0x000000000800a128
+.jcr            0x0000000020000470        0x0 load address 0x000000000800a20c
  .jcr           0x0000000020000470        0x0 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
 
-.igot.plt       0x0000000020000470        0x0 load address 0x000000000800a128
+.igot.plt       0x0000000020000470        0x0 load address 0x000000000800a20c
  .igot.plt      0x0000000000000000        0x0 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtbegin.o
                 0x0000000020000470                . = ALIGN (0x4)
 
-.bss            0x0000000020000470    0x1401c load address 0x000000000800a128
+.bss            0x0000000020000470    0x1401c load address 0x000000000800a20c
                 0x0000000020000470                _sbss = .
                 0x0000000020000470                __bss_start__ = _sbss
  *(.bss)
@@ -3355,7 +3355,7 @@ LOAD /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-e
                 0x000000002001448c                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x000000002001448c      0x400 load address 0x000000000801e144
+                0x000000002001448c      0x400 load address 0x000000000801e228
                 0x000000002001448c                . = ALIGN (0x4)
                 0x000000002001448c                PROVIDE (end, .)
                 0x000000002001448c                PROVIDE (_end, .)
@@ -3466,30 +3466,30 @@ LOAD /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-e
                 0x0000000000000874       0x22 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/softfp/crtn.o
 OUTPUT(obj/STM32F4_Test.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000     0xbd19
+.debug_info     0x0000000000000000     0xbd3c
  .debug_info    0x0000000000000000      0xd27 obj/App/STM32F4-Discovery/spi.o
  .debug_info    0x0000000000000d27      0xd94 obj/App/STM32F4-Discovery/W5200.o
- .debug_info    0x0000000000001abb     0x10b6 obj/App/STM32F4-Discovery/modbus_mk.o
- .debug_info    0x0000000000002b71      0x6ec obj/App/STM32F4-Discovery/tcpCLI.o
- .debug_info    0x000000000000325d      0x3f6 obj/App/STM32F4-Discovery/printf-stdarg.o
- .debug_info    0x0000000000003653      0xa29 obj/App/STM32F4-Discovery/main.o
- .debug_info    0x000000000000407c      0x625 obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
- .debug_info    0x00000000000046a1     0x1201 obj/Source/tasks.o
- .debug_info    0x00000000000058a2      0xc05 obj/Source/queue.o
- .debug_info    0x00000000000064a7      0x2d7 obj/Source/list.o
- .debug_info    0x000000000000677e      0x379 obj/Source/portable/GCC/ARM_CM4F/port.o
- .debug_info    0x0000000000006af7      0x78b obj/Source/timers.o
- .debug_info    0x0000000000007282      0x4ed obj/Source/printf.o
- .debug_info    0x000000000000776f      0x419 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
- .debug_info    0x0000000000007b88      0x30d obj/Source/portable/MemMang/heap_4.o
- .debug_info    0x0000000000007e95      0x5b7 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
- .debug_info    0x000000000000844c      0x7ea obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
- .debug_info    0x0000000000008c36      0x3b9 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
- .debug_info    0x0000000000008fef      0x670 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
- .debug_info    0x000000000000965f      0xd79 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
- .debug_info    0x000000000000a3d8      0xc0e obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
- .debug_info    0x000000000000afe6      0x29e obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
- .debug_info    0x000000000000b284      0xa95 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
+ .debug_info    0x0000000000001abb     0x10b7 obj/App/STM32F4-Discovery/modbus_mk.o
+ .debug_info    0x0000000000002b72      0x70e obj/App/STM32F4-Discovery/tcpCLI.o
+ .debug_info    0x0000000000003280      0x3f6 obj/App/STM32F4-Discovery/printf-stdarg.o
+ .debug_info    0x0000000000003676      0xa29 obj/App/STM32F4-Discovery/main.o
+ .debug_info    0x000000000000409f      0x625 obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
+ .debug_info    0x00000000000046c4     0x1201 obj/Source/tasks.o
+ .debug_info    0x00000000000058c5      0xc05 obj/Source/queue.o
+ .debug_info    0x00000000000064ca      0x2d7 obj/Source/list.o
+ .debug_info    0x00000000000067a1      0x379 obj/Source/portable/GCC/ARM_CM4F/port.o
+ .debug_info    0x0000000000006b1a      0x78b obj/Source/timers.o
+ .debug_info    0x00000000000072a5      0x4ed obj/Source/printf.o
+ .debug_info    0x0000000000007792      0x419 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+ .debug_info    0x0000000000007bab      0x30d obj/Source/portable/MemMang/heap_4.o
+ .debug_info    0x0000000000007eb8      0x5b7 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
+ .debug_info    0x000000000000846f      0x7ea obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+ .debug_info    0x0000000000008c59      0x3b9 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
+ .debug_info    0x0000000000009012      0x670 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
+ .debug_info    0x0000000000009682      0xd79 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
+ .debug_info    0x000000000000a3fb      0xc0e obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
+ .debug_info    0x000000000000b009      0x29e obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
+ .debug_info    0x000000000000b2a7      0xa95 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
 
 .debug_abbrev   0x0000000000000000     0x26cf
  .debug_abbrev  0x0000000000000000      0x1c9 obj/App/STM32F4-Discovery/spi.o
@@ -3519,8 +3519,8 @@ OUTPUT(obj/STM32F4_Test.elf elf32-littlearm)
 .debug_loc      0x0000000000000000     0x49a6
  .debug_loc     0x0000000000000000      0x1c2 obj/App/STM32F4-Discovery/spi.o
  .debug_loc     0x00000000000001c2      0x570 obj/App/STM32F4-Discovery/W5200.o
- .debug_loc     0x0000000000000732      0x2e3 obj/App/STM32F4-Discovery/modbus_mk.o
- .debug_loc     0x0000000000000a15       0xe2 obj/App/STM32F4-Discovery/tcpCLI.o
+ .debug_loc     0x0000000000000732      0x2e2 obj/App/STM32F4-Discovery/modbus_mk.o
+ .debug_loc     0x0000000000000a14       0xe3 obj/App/STM32F4-Discovery/tcpCLI.o
  .debug_loc     0x0000000000000af7      0x1e7 obj/App/STM32F4-Discovery/printf-stdarg.o
  .debug_loc     0x0000000000000cde      0x264 obj/App/STM32F4-Discovery/main.o
  .debug_loc     0x0000000000000f42       0x9c obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
@@ -3614,30 +3614,30 @@ OUTPUT(obj/STM32F4_Test.elf elf32-littlearm)
  .debug_ranges  0x0000000000000a98       0x38 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
  .debug_ranges  0x0000000000000ad0       0xf0 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
 
-.debug_line     0x0000000000000000     0x64c0
+.debug_line     0x0000000000000000     0x64d9
  .debug_line    0x0000000000000000      0x422 obj/App/STM32F4-Discovery/spi.o
  .debug_line    0x0000000000000422      0x62b obj/App/STM32F4-Discovery/W5200.o
- .debug_line    0x0000000000000a4d      0x5ad obj/App/STM32F4-Discovery/modbus_mk.o
- .debug_line    0x0000000000000ffa      0x399 obj/App/STM32F4-Discovery/tcpCLI.o
- .debug_line    0x0000000000001393      0x258 obj/App/STM32F4-Discovery/printf-stdarg.o
- .debug_line    0x00000000000015eb      0x40d obj/App/STM32F4-Discovery/main.o
- .debug_line    0x00000000000019f8      0x20f obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
- .debug_line    0x0000000000001c07      0x962 obj/Source/tasks.o
- .debug_line    0x0000000000002569      0x6c8 obj/Source/queue.o
- .debug_line    0x0000000000002c31      0x1eb obj/Source/list.o
- .debug_line    0x0000000000002e1c      0x32b obj/Source/portable/GCC/ARM_CM4F/port.o
- .debug_line    0x0000000000003147      0x353 obj/Source/timers.o
- .debug_line    0x000000000000349a      0x3b0 obj/Source/printf.o
- .debug_line    0x000000000000384a      0x2bf obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
- .debug_line    0x0000000000003b09      0x279 obj/Source/portable/MemMang/heap_4.o
- .debug_line    0x0000000000003d82      0x2a2 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
- .debug_line    0x0000000000004024      0x58d obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
- .debug_line    0x00000000000045b1      0x319 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
- .debug_line    0x00000000000048ca      0x44d obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
- .debug_line    0x0000000000004d17      0x814 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
- .debug_line    0x000000000000552b      0x655 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
- .debug_line    0x0000000000005b80      0x251 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
- .debug_line    0x0000000000005dd1      0x6ef obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
+ .debug_line    0x0000000000000a4d      0x5a7 obj/App/STM32F4-Discovery/modbus_mk.o
+ .debug_line    0x0000000000000ff4      0x3b8 obj/App/STM32F4-Discovery/tcpCLI.o
+ .debug_line    0x00000000000013ac      0x258 obj/App/STM32F4-Discovery/printf-stdarg.o
+ .debug_line    0x0000000000001604      0x40d obj/App/STM32F4-Discovery/main.o
+ .debug_line    0x0000000000001a11      0x20f obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
+ .debug_line    0x0000000000001c20      0x962 obj/Source/tasks.o
+ .debug_line    0x0000000000002582      0x6c8 obj/Source/queue.o
+ .debug_line    0x0000000000002c4a      0x1eb obj/Source/list.o
+ .debug_line    0x0000000000002e35      0x32b obj/Source/portable/GCC/ARM_CM4F/port.o
+ .debug_line    0x0000000000003160      0x353 obj/Source/timers.o
+ .debug_line    0x00000000000034b3      0x3b0 obj/Source/printf.o
+ .debug_line    0x0000000000003863      0x2bf obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+ .debug_line    0x0000000000003b22      0x279 obj/Source/portable/MemMang/heap_4.o
+ .debug_line    0x0000000000003d9b      0x2a2 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
+ .debug_line    0x000000000000403d      0x58d obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+ .debug_line    0x00000000000045ca      0x319 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
+ .debug_line    0x00000000000048e3      0x44d obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
+ .debug_line    0x0000000000004d30      0x814 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
+ .debug_line    0x0000000000005544      0x655 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
+ .debug_line    0x0000000000005b99      0x251 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
+ .debug_line    0x0000000000005dea      0x6ef obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
 
 .debug_str      0x0000000000000000     0x443a
  .debug_str     0x0000000000000000      0xd9f obj/App/STM32F4-Discovery/spi.o
@@ -3713,43 +3713,43 @@ OUTPUT(obj/STM32F4_Test.elf elf32-littlearm)
  .comment       0x0000000000000000       0x71 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
  .comment       0x0000000000000000       0x71 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
 
-.debug_frame    0x0000000000000000     0x2e94
+.debug_frame    0x0000000000000000     0x2e90
  .debug_frame   0x0000000000000000      0x12c obj/App/STM32F4-Discovery/spi.o
  .debug_frame   0x000000000000012c      0x340 obj/App/STM32F4-Discovery/W5200.o
- .debug_frame   0x000000000000046c      0x1b0 obj/App/STM32F4-Discovery/modbus_mk.o
- .debug_frame   0x000000000000061c       0xb4 obj/App/STM32F4-Discovery/tcpCLI.o
- .debug_frame   0x00000000000006d0      0x154 obj/App/STM32F4-Discovery/printf-stdarg.o
- .debug_frame   0x0000000000000824      0x170 obj/App/STM32F4-Discovery/main.o
- .debug_frame   0x0000000000000994       0x64 obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
- .debug_frame   0x00000000000009f8      0x538 obj/Source/tasks.o
- .debug_frame   0x0000000000000f30      0x384 obj/Source/queue.o
- .debug_frame   0x00000000000012b4       0x9c obj/Source/list.o
- .debug_frame   0x0000000000001350      0x190 obj/Source/portable/GCC/ARM_CM4F/port.o
- .debug_frame   0x00000000000014e0      0x1c4 obj/Source/timers.o
- .debug_frame   0x00000000000016a4      0x100 obj/Source/printf.o
- .debug_frame   0x00000000000017a4       0xc4 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
- .debug_frame   0x0000000000001868       0xc4 obj/Source/portable/MemMang/heap_4.o
- .debug_frame   0x000000000000192c       0xb0 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
- .debug_frame   0x00000000000019dc      0x26c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
- .debug_frame   0x0000000000001c48      0x108 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
- .debug_frame   0x0000000000001d50      0x1cc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
- .debug_frame   0x0000000000001f1c      0x580 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
- .debug_frame   0x000000000000249c      0x328 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
- .debug_frame   0x00000000000027c4       0xcc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
- .debug_frame   0x0000000000002890      0x3a8 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
- .debug_frame   0x0000000000002c38       0x30 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-atoi.o)
- .debug_frame   0x0000000000002c68       0x2c /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-init.o)
- .debug_frame   0x0000000000002c94       0x2c /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-memcmp.o)
- .debug_frame   0x0000000000002cc0       0x2c /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-memset.o)
- .debug_frame   0x0000000000002cec       0x20 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strcpy.o)
- .debug_frame   0x0000000000002d0c       0x20 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strlen.o)
- .debug_frame   0x0000000000002d2c       0x28 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strncmp.o)
- .debug_frame   0x0000000000002d54       0x2c /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strncpy.o)
- .debug_frame   0x0000000000002d80       0x50 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strtol.o)
- .debug_frame   0x0000000000002dd0       0x48 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-__call_atexit.o)
- .debug_frame   0x0000000000002e18       0x20 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-atexit.o)
- .debug_frame   0x0000000000002e38       0x2c /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-fini.o)
- .debug_frame   0x0000000000002e64       0x30 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-__atexit.o)
+ .debug_frame   0x000000000000046c      0x1a8 obj/App/STM32F4-Discovery/modbus_mk.o
+ .debug_frame   0x0000000000000614       0xb8 obj/App/STM32F4-Discovery/tcpCLI.o
+ .debug_frame   0x00000000000006cc      0x154 obj/App/STM32F4-Discovery/printf-stdarg.o
+ .debug_frame   0x0000000000000820      0x170 obj/App/STM32F4-Discovery/main.o
+ .debug_frame   0x0000000000000990       0x64 obj/App/STM32F4-Discovery/startup/system_stm32f4xx.o
+ .debug_frame   0x00000000000009f4      0x538 obj/Source/tasks.o
+ .debug_frame   0x0000000000000f2c      0x384 obj/Source/queue.o
+ .debug_frame   0x00000000000012b0       0x9c obj/Source/list.o
+ .debug_frame   0x000000000000134c      0x190 obj/Source/portable/GCC/ARM_CM4F/port.o
+ .debug_frame   0x00000000000014dc      0x1c4 obj/Source/timers.o
+ .debug_frame   0x00000000000016a0      0x100 obj/Source/printf.o
+ .debug_frame   0x00000000000017a0       0xc4 obj/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+ .debug_frame   0x0000000000001864       0xc4 obj/Source/portable/MemMang/heap_4.o
+ .debug_frame   0x0000000000001928       0xb0 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.o
+ .debug_frame   0x00000000000019d8      0x26c obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_dma.o
+ .debug_frame   0x0000000000001c44      0x108 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_exti.o
+ .debug_frame   0x0000000000001d4c      0x1cc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.o
+ .debug_frame   0x0000000000001f18      0x580 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.o
+ .debug_frame   0x0000000000002498      0x328 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_spi.o
+ .debug_frame   0x00000000000027c0       0xcc obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_syscfg.o
+ .debug_frame   0x000000000000288c      0x3a8 obj/App/STM32F4-Discovery/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_usart.o
+ .debug_frame   0x0000000000002c34       0x30 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-atoi.o)
+ .debug_frame   0x0000000000002c64       0x2c /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-init.o)
+ .debug_frame   0x0000000000002c90       0x2c /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-memcmp.o)
+ .debug_frame   0x0000000000002cbc       0x2c /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-memset.o)
+ .debug_frame   0x0000000000002ce8       0x20 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strcpy.o)
+ .debug_frame   0x0000000000002d08       0x20 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strlen.o)
+ .debug_frame   0x0000000000002d28       0x28 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strncmp.o)
+ .debug_frame   0x0000000000002d50       0x2c /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strncpy.o)
+ .debug_frame   0x0000000000002d7c       0x50 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-strtol.o)
+ .debug_frame   0x0000000000002dcc       0x48 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x0000000000002e14       0x20 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-atexit.o)
+ .debug_frame   0x0000000000002e34       0x2c /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-fini.o)
+ .debug_frame   0x0000000000002e60       0x30 /Users/maticknap/ARM/gcc-arm-none-eabi-4_8-2014q2/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc.a(lib_a-__atexit.o)
 
 Cross Reference Table
 
