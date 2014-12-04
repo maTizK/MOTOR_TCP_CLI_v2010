@@ -6,15 +6,16 @@ static 	portTickType xDelay = portMAX_DELAY;//3000 / portTICK_RATE_MS;
 QueueTelegram telegramS, telegramR; 
 
 /* default telegram */
-/*
-telegram.data[0] = 1000;
-telegram.data[1] = 0;	
-telegram.data[2] = 2250;
-telegram.data[3] = 10;	
-telegram.data[4] = 10;	
-telegram.size = 5;
-telegram.Qcmd = SETDATA;		
-*/
+void telegram_init()
+{
+	telegramS.data[0] = 1000;
+	telegramS.data[1] = 0;	
+	telegramS.data[2] = 2250;
+	telegramS.data[3] = 10;	
+	telegramS.data[4] = 10;	
+	telegramS.size = 5;
+	telegramS.Qcmd = SETDATA;
+}
 
 
 
@@ -57,14 +58,6 @@ int handleVariable_set (
 		// convert to correct value ( * 100 ) 
 		s1 *= 100; 
 		
-		// test i
-		telegramS.data[1] = 0;	
-		telegramS.data[2] = 2250;
-		telegramS.data[3] = 10;	
-		telegramS.data[4] = 10;	
-		telegramS.size = 5;
-		telegramS.Qcmd = SETDATA;	
-		// test /
 		// setup telegram 
 		telegramS.Qcmd = SETDATA;
 		telegramS.size = 5;
@@ -385,7 +378,7 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 	int8_t *Option, *Param, *Value;
 	int xOptionLength, xParamLength, xValueLength; 
 	//QueueTelegram telegram; 
-	
+	telegram_init();	
 	// get option from command line 
 
 	Option = FreeRTOS_CLIGetParameter( pcCommandString, // command string 
@@ -745,7 +738,7 @@ portBASE_TYPE prvTaskStatsCommand ( 	int8_t *pcWriteBuffer,
 	{
 		// set motor task 
 		xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 8,		       				
-			NULL, 0x1/*mainFLASH_TASK_PRIORITY*/ , &motorHeartBeatHandle);
+			NULL,  0x2, &motorHeartBeatHandle);
 
 		strcpy ( pcWriteBuffer, "Task: motorHB succsessfully started\n\0");
 

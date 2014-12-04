@@ -187,8 +187,16 @@ uint8_t modbus_WSR( int , const uint16_t );
  */
 uint8_t modbus_RR( int , int , uint16_t *);
 
-
+/*! \fn void motorHeartBeat_task(void *)
+ *  \brief motor require heart bit application
+ *  \param pvParameters - pointer to set of parameters
+ */
 void motorHeartBeat_task(void *);
+
+/*! \fn motorControl_task(void *)
+ *  \brief motor controling task 
+ *  \param pvParamters - pointer to set of parameters
+ */
 void motorControl_task(void *);
 
 #endif

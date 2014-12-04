@@ -87,10 +87,9 @@ uint8\+\_\+t \hyperlink{modbus__mk_8h_a0b0ed5533d626fac3771c3eaee41b8f7}{modbus\
 uint8\+\_\+t \hyperlink{modbus__mk_8h_a8f5d167ea2951e169647679b8bdb3291}{modbus\+\_\+\+R\+R} (int, int, uint16\+\_\+t $\ast$)
 \begin{DoxyCompactList}\small\item\em read from motor register \end{DoxyCompactList}\item 
 void \hyperlink{modbus__mk_8h_ae97bc6035f16eba419c568ad2c50f129}{motor\+Heart\+Beat\+\_\+task} (void $\ast$)
-\item 
-\hypertarget{modbus__mk_8h_a4b840bf36cc079060fc221660e1a84c7}{void {\bfseries motor\+Control\+\_\+task} (void $\ast$)}\label{modbus__mk_8h_a4b840bf36cc079060fc221660e1a84c7}
-
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em motor require heart bit application \end{DoxyCompactList}\item 
+void \hyperlink{modbus__mk_8h_a4b840bf36cc079060fc221660e1a84c7}{motor\+Control\+\_\+task} (void $\ast$)
+\begin{DoxyCompactList}\small\item\em motor controling task \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -240,13 +239,38 @@ write to single register of motor
 {\em src} & -\/ data to send \\
 \hline
 \end{DoxyParams}
+\hypertarget{modbus__mk_8h_a4b840bf36cc079060fc221660e1a84c7}{\index{modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}!motor\+Control\+\_\+task@{motor\+Control\+\_\+task}}
+\index{motor\+Control\+\_\+task@{motor\+Control\+\_\+task}!modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}}
+\subsubsection[{motor\+Control\+\_\+task}]{\setlength{\rightskip}{0pt plus 5cm}void motor\+Control\+\_\+task (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\+Parameters}
+\end{DoxyParamCaption}
+)}}\label{modbus__mk_8h_a4b840bf36cc079060fc221660e1a84c7}
+
+
+motor controling task 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Paramters} & -\/ pointer to set of parameters \\
+\hline
+\end{DoxyParams}
 \hypertarget{modbus__mk_8h_ae97bc6035f16eba419c568ad2c50f129}{\index{modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}!motor\+Heart\+Beat\+\_\+task@{motor\+Heart\+Beat\+\_\+task}}
 \index{motor\+Heart\+Beat\+\_\+task@{motor\+Heart\+Beat\+\_\+task}!modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}}
 \subsubsection[{motor\+Heart\+Beat\+\_\+task}]{\setlength{\rightskip}{0pt plus 5cm}void motor\+Heart\+Beat\+\_\+task (
 \begin{DoxyParamCaption}
-\item[{void $\ast$}]{}
+\item[{void $\ast$}]{pv\+Parameters}
 \end{DoxyParamCaption}
 )}}\label{modbus__mk_8h_ae97bc6035f16eba419c568ad2c50f129}
+
+
+motor require heart bit application 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & -\/ pointer to set of parameters \\
+\hline
+\end{DoxyParams}
 sets speed of motor \hypertarget{modbus__mk_8h_a311958bfd049859f23038c3f565bcb47}{\index{modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}!U\+S\+A\+R\+T\+\_\+puts@{U\+S\+A\+R\+T\+\_\+puts}}
 \index{U\+S\+A\+R\+T\+\_\+puts@{U\+S\+A\+R\+T\+\_\+puts}!modbus\+\_\+mk.\+h@{modbus\+\_\+mk.\+h}}
 \subsubsection[{U\+S\+A\+R\+T\+\_\+puts}]{\setlength{\rightskip}{0pt plus 5cm}void U\+S\+A\+R\+T\+\_\+puts (

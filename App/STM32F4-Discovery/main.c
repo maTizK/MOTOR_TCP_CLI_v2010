@@ -18,7 +18,7 @@
 
 
 #ifdef DEBUG
-	#include "printf.h"
+#include "printf.h"
 #endif
 
 
@@ -185,7 +185,7 @@ int main(void)
 
 	// echo server task 
 	if ( xTaskCreate(tcp_srv_Task, "TCPsrv", configMINIMAL_STACK_SIZE * 10, 
-			NULL, mainFLASH_TASK_PRIORITY + 1, &set_macTaskHandle)
+			NULL, mainFLASH_TASK_PRIORITY , &set_macTaskHandle)
 			!= pdTRUE) 
 	{
 		#ifdef DEBUG
@@ -203,7 +203,7 @@ int main(void)
 	
 	// run motor task
 	if (xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE * 10,
-		       	NULL, mainFLASH_TASK_PRIORITY + 1, &motorHBHandle)
+		       	NULL, mainFLASH_TASK_PRIORITY , &motorHBHandle)
 		!= pdTRUE)
 	{
 		#ifdef DEBUG
@@ -223,7 +223,7 @@ int main(void)
 
 	// set motor task 
 	if (xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 5,		       				
-			NULL, mainFLASH_TASK_PRIORITY + 1 , &motorHeartBeatHandle)
+			NULL, mainFLASH_TASK_PRIORITY  , &motorHeartBeatHandle)
 			!= pdTRUE)
 	{
 		#ifdef DEBUG
@@ -291,7 +291,7 @@ void prvSetupHardware( void )
 	 * It creates task for Wiznet initialization and at end delete it. 
 	 * Function : 		init_W5200 from W5200.c file 
 	 * Stack size :		5 times minimial stack size 
-	 * Task priority :	main flash task priority + 1 
+	 * Task priority :	main flash task priority + 2 
 	 * Parameters 	 :	no parameters (NULL)
 	 */  
 	xTaskCreate(init_W5200, "init_W5200", configMINIMAL_STACK_SIZE, 

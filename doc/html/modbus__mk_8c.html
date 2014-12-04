@@ -141,10 +141,11 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>modbus_confirmation</b
 <tr class="memdesc:a8725df7914a575bb51cd9d628fc756a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">read from motor register  <a href="#a8725df7914a575bb51cd9d628fc756a4">More...</a><br /></td></tr>
 <tr class="separator:a8725df7914a575bb51cd9d628fc756a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53c1eb951aff5d669c77c6a68ef33724"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a53c1eb951aff5d669c77c6a68ef33724">motorHeartBeat_task</a> (void *pvParameters)</td></tr>
+<tr class="memdesc:a53c1eb951aff5d669c77c6a68ef33724"><td class="mdescLeft">&#160;</td><td class="mdescRight">motor require heart bit application  <a href="#a53c1eb951aff5d669c77c6a68ef33724">More...</a><br /></td></tr>
 <tr class="separator:a53c1eb951aff5d669c77c6a68ef33724"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56479a46fecb43bf2784060524ca2d69"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a56479a46fecb43bf2784060524ca2d69"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b> (void *pvParameters)</td></tr>
-<tr class="separator:a56479a46fecb43bf2784060524ca2d69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1653c624a4a7d4f8f4e80a6a47b5c6f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="modbus__mk_8c.html#a1653c624a4a7d4f8f4e80a6a47b5c6f1">motorControl_task</a> (void *pvParameters)</td></tr>
+<tr class="memdesc:a1653c624a4a7d4f8f4e80a6a47b5c6f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">motor controling task  <a href="#a1653c624a4a7d4f8f4e80a6a47b5c6f1">More...</a><br /></td></tr>
+<tr class="separator:a1653c624a4a7d4f8f4e80a6a47b5c6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>modbus protocol functions and motor control </p>
@@ -387,6 +388,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b>
 
 </div>
 </div>
+<a class="anchor" id="a1653c624a4a7d4f8f4e80a6a47b5c6f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">motorControl_task </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>pvParameters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>motor controling task </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParamters</td><td>- pointer to set of parameters </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a53c1eb951aff5d669c77c6a68ef33724"></a>
 <div class="memitem">
 <div class="memproto">
@@ -400,6 +425,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>motor require heart bit application </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pvParameters</td><td>- pointer to set of parameters </td></tr>
+  </table>
+  </dd>
+</dl>
 <p>sets speed of motor </p>
 
 </div>
@@ -493,7 +526,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motorControl_task</b>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 2 2014 14:17:56 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 4 2014 14:31:27 for MOTOR TCP CLI v2010 by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

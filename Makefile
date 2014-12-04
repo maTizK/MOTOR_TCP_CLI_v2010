@@ -30,7 +30,6 @@ SOURCES += App/STM32F4-Discovery/printf-stdarg.c
 #---------- added Matic Knap 26 Jun 2014 -----------------
 
 SOURCES += App/STM32F4-Discovery/main.c
-SOURCES += App/STM32F4-Discovery/ParTest.c
 SOURCES += App/STM32F4-Discovery/startup/startup_stm32f4xx.s
 SOURCES += App/STM32F4-Discovery/startup/system_stm32f4xx.c
 

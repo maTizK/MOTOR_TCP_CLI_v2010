@@ -1771,30 +1771,30 @@ DEFINED SYMBOLS
                             *COM*:0000000000000004 bufferTXidx
                             *COM*:0000000000000004 dat_lengthRX
                             *COM*:0000000000000004 dat_lengthTX
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:33     .text.init_SPIx:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:38     .text.init_SPIx:0000000000000000 init_SPIx
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:462    .text.init_SPIx:0000000000000304 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:474    .text.DMA2_Stream2_IRQHandler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:479    .text.DMA2_Stream2_IRQHandler:0000000000000000 DMA2_Stream2_IRQHandler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:567    .text.DMA2_Stream2_IRQHandler:0000000000000080 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:578    .text.DMA2_Stream3_IRQHandler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:583    .text.DMA2_Stream3_IRQHandler:0000000000000000 DMA2_Stream3_IRQHandler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:671    .text.DMA2_Stream3_IRQHandler:0000000000000080 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:682    .text.spi_dma_send:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:687    .text.spi_dma_send:0000000000000000 spi_dma_send
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:838    .text.spi_dma_send:0000000000000100 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:846    .text.spi_dma_send2B:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:851    .text.spi_dma_send2B:0000000000000000 spi_dma_send2B
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:948    .text.spi_dma_send2B:0000000000000094 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:956    .text.spi_dma_sendByte:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:961    .text.spi_dma_sendByte:0000000000000000 spi_dma_sendByte
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:1051   .text.spi_dma_sendByte:0000000000000088 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:1059   .text.spi_dma_read2B:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:1064   .text.spi_dma_read2B:0000000000000000 spi_dma_read2B
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:1181   .text.spi_dma_read2B:00000000000000b0 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:1190   .text.spi_dma_read:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:1195   .text.spi_dma_read:0000000000000000 spi_dma_read
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//cco0jtRC.s:1345   .text.spi_dma_read:00000000000000f8 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:33     .text.init_SPIx:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:38     .text.init_SPIx:0000000000000000 init_SPIx
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:462    .text.init_SPIx:0000000000000304 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:474    .text.DMA2_Stream2_IRQHandler:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:479    .text.DMA2_Stream2_IRQHandler:0000000000000000 DMA2_Stream2_IRQHandler
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:567    .text.DMA2_Stream2_IRQHandler:0000000000000080 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:578    .text.DMA2_Stream3_IRQHandler:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:583    .text.DMA2_Stream3_IRQHandler:0000000000000000 DMA2_Stream3_IRQHandler
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:671    .text.DMA2_Stream3_IRQHandler:0000000000000080 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:682    .text.spi_dma_send:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:687    .text.spi_dma_send:0000000000000000 spi_dma_send
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:838    .text.spi_dma_send:0000000000000100 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:846    .text.spi_dma_send2B:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:851    .text.spi_dma_send2B:0000000000000000 spi_dma_send2B
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:948    .text.spi_dma_send2B:0000000000000094 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:956    .text.spi_dma_sendByte:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:961    .text.spi_dma_sendByte:0000000000000000 spi_dma_sendByte
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:1051   .text.spi_dma_sendByte:0000000000000088 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:1059   .text.spi_dma_read2B:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:1064   .text.spi_dma_read2B:0000000000000000 spi_dma_read2B
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:1181   .text.spi_dma_read2B:00000000000000b0 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:1190   .text.spi_dma_read:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:1195   .text.spi_dma_read:0000000000000000 spi_dma_read
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccwaOhJA.s:1345   .text.spi_dma_read:00000000000000f8 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

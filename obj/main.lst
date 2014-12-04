@@ -1811,7 +1811,7 @@
   18:App/STM32F4-Discovery/main.c **** 
   19:App/STM32F4-Discovery/main.c **** 
   20:App/STM32F4-Discovery/main.c **** #ifdef DEBUG
-  21:App/STM32F4-Discovery/main.c **** 	#include "printf.h"
+  21:App/STM32F4-Discovery/main.c **** #include "printf.h"
   22:App/STM32F4-Discovery/main.c **** #endif
   23:App/STM32F4-Discovery/main.c **** 
   24:App/STM32F4-Discovery/main.c **** 
@@ -2193,7 +2193,7 @@
  186:App/STM32F4-Discovery/main.c **** 	// echo server task 
  187:App/STM32F4-Discovery/main.c **** 	if ( xTaskCreate(tcp_srv_Task, "TCPsrv", configMINIMAL_STACK_SIZE * 10, 
  869              		.loc 2 187 0
- 870 005a 0223     		movs	r3, #2
+ 870 005a 0123     		movs	r3, #1
  871 005c 0093     		str	r3, [sp]
  872 005e 334B     		ldr	r3, .L13+28
  873 0060 0193     		str	r3, [sp, #4]
@@ -2209,7 +2209,7 @@
  883 0078 0346     		mov	r3, r0
  884 007a 012B     		cmp	r3, #1
  885 007c 05D0     		beq	.L8
- 188:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY + 1, &set_macTaskHandle)
+ 188:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY , &set_macTaskHandle)
  189:App/STM32F4-Discovery/main.c **** 			!= pdTRUE) 
  190:App/STM32F4-Discovery/main.c **** 	{
  191:App/STM32F4-Discovery/main.c **** 		#ifdef DEBUG
@@ -2238,7 +2238,7 @@
  204:App/STM32F4-Discovery/main.c **** 	// run motor task
  205:App/STM32F4-Discovery/main.c **** 	if (xTaskCreate(motorControl_task, "motor", configMINIMAL_STACK_SIZE * 10,
  896              		.loc 2 205 0
- 897 0090 0223     		movs	r3, #2
+ 897 0090 0123     		movs	r3, #1
  898 0092 0093     		str	r3, [sp]
  899 0094 2A4B     		ldr	r3, .L13+48
  900 0096 0193     		str	r3, [sp, #4]
@@ -2254,7 +2254,7 @@
  910 00ae 0346     		mov	r3, r0
  911 00b0 012B     		cmp	r3, #1
  912 00b2 05D0     		beq	.L10
- 206:App/STM32F4-Discovery/main.c **** 		       	NULL, mainFLASH_TASK_PRIORITY + 1, &motorHBHandle)
+ 206:App/STM32F4-Discovery/main.c **** 		       	NULL, mainFLASH_TASK_PRIORITY , &motorHBHandle)
  207:App/STM32F4-Discovery/main.c **** 		!= pdTRUE)
  208:App/STM32F4-Discovery/main.c **** 	{
  209:App/STM32F4-Discovery/main.c **** 		#ifdef DEBUG
@@ -2285,7 +2285,7 @@
  224:App/STM32F4-Discovery/main.c **** 	// set motor task 
  225:App/STM32F4-Discovery/main.c **** 	if (xTaskCreate(motorHeartBeat_task, "motorHB", configMINIMAL_STACK_SIZE * 5,		       				
  923              		.loc 2 225 0
- 924 00c6 0223     		movs	r3, #2
+ 924 00c6 0123     		movs	r3, #1
  925 00c8 0093     		str	r3, [sp]
  926 00ca 224B     		ldr	r3, .L13+68
  927 00cc 0193     		str	r3, [sp, #4]
@@ -2301,7 +2301,7 @@
  937 00e4 0346     		mov	r3, r0
  938 00e6 012B     		cmp	r3, #1
  939 00e8 05D0     		beq	.L11
- 226:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY + 1 , &motorHeartBeatHandle)
+ 226:App/STM32F4-Discovery/main.c **** 			NULL, mainFLASH_TASK_PRIORITY  , &motorHeartBeatHandle)
  227:App/STM32F4-Discovery/main.c **** 			!= pdTRUE)
  228:App/STM32F4-Discovery/main.c **** 	{
  229:App/STM32F4-Discovery/main.c **** 		#ifdef DEBUG
@@ -2457,7 +2457,7 @@
  291:App/STM32F4-Discovery/main.c **** 	 * It creates task for Wiznet initialization and at end delete it. 
  292:App/STM32F4-Discovery/main.c **** 	 * Function : 		init_W5200 from W5200.c file 
  293:App/STM32F4-Discovery/main.c **** 	 * Stack size :		5 times minimial stack size 
- 294:App/STM32F4-Discovery/main.c **** 	 * Task priority :	main flash task priority + 1 
+ 294:App/STM32F4-Discovery/main.c **** 	 * Task priority :	main flash task priority + 2 
  295:App/STM32F4-Discovery/main.c **** 	 * Parameters 	 :	no parameters (NULL)
  296:App/STM32F4-Discovery/main.c **** 	 */  
  297:App/STM32F4-Discovery/main.c **** 	xTaskCreate(init_W5200, "init_W5200", configMINIMAL_STACK_SIZE, 
@@ -2974,9 +2974,9 @@
  1401              		.file 17 "App/STM32F4-Discovery/W5200.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:20     .text.NVIC_SetPendingIRQ:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:24     .text.NVIC_SetPendingIRQ:0000000000000000 NVIC_SetPendingIRQ
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:63     .text.NVIC_SetPendingIRQ:0000000000000030 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:20     .text.NVIC_SetPendingIRQ:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:24     .text.NVIC_SetPendingIRQ:0000000000000000 NVIC_SetPendingIRQ
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:63     .text.NVIC_SetPendingIRQ:0000000000000030 $d
                             *COM*:0000000000000004 xSemaphoreDMASPI
                             *COM*:0000000000000004 xSmphrUSART
                             *COM*:0000000000000004 motorHeartBeatHandle
@@ -2991,57 +2991,57 @@ DEFINED SYMBOLS
                             *COM*:0000000000000004 dat_lengthRX
                             *COM*:0000000000000004 dat_lengthTX
                             *COM*:0000000000000004 set_macTaskHandle
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:82     .rodata:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:90     .rodata.xMotorCommand:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:93     .rodata.xMotorCommand:0000000000000000 xMotorCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:107    .rodata.xTaskStatsCommand:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:110    .rodata.xTaskStatsCommand:0000000000000000 xTaskStatsCommand
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:117    .rodata.table_crc_hi:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:120    .rodata.table_crc_hi:0000000000000000 table_crc_hi
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:378    .rodata.table_crc_lo:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:381    .rodata.table_crc_lo:0000000000000000 table_crc_lo
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:82     .rodata:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:90     .rodata.xMotorCommand:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:93     .rodata.xMotorCommand:0000000000000000 xMotorCommand
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:107    .rodata.xTaskStatsCommand:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:110    .rodata.xTaskStatsCommand:0000000000000000 xTaskStatsCommand
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:117    .rodata.table_crc_hi:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:120    .rodata.table_crc_hi:0000000000000000 table_crc_hi
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:378    .rodata.table_crc_lo:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:381    .rodata.table_crc_lo:0000000000000000 table_crc_lo
                             *COM*:0000000000000004 fd
                             *COM*:0000000000000201 received_string
                             *COM*:0000000000000004 rx_length
                             *COM*:0000000000000014 input_Register
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:647    .bss.ulRegTest1LoopCounter:0000000000000000 ulRegTest1LoopCounter
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:644    .bss.ulRegTest1LoopCounter:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:654    .bss.ulRegTest2LoopCounter:0000000000000000 ulRegTest2LoopCounter
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:651    .bss.ulRegTest2LoopCounter:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:661    .bss.ulFPUInterruptNesting:0000000000000000 ulFPUInterruptNesting
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:658    .bss.ulFPUInterruptNesting:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:668    .bss.ulMaxFPUInterruptNesting:0000000000000000 ulMaxFPUInterruptNesting
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:665    .bss.ulMaxFPUInterruptNesting:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:671    .bss.xTestSemaphore:0000000000000000 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:674    .bss.xTestSemaphore:0000000000000000 xTestSemaphore
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:677    .text.CoreSight_configure:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:682    .text.CoreSight_configure:0000000000000000 CoreSight_configure
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:757    .text.CoreSight_configure:0000000000000060 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:805    .text.main:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:810    .text.main:0000000000000000 main
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1002   .text.prvSetupHardware:0000000000000000 prvSetupHardware
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:967    .text.main:0000000000000110 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:998    .text.prvSetupHardware:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1049   .text.prvSetupHardware:000000000000003c $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1055   .text.vApplicationTickHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1060   .text.vApplicationTickHook:0000000000000000 vApplicationTickHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1094   .text.vApplicationTickHook:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1099   .text.prvSetupNestedFPUInterruptsTest:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1103   .text.prvSetupNestedFPUInterruptsTest:0000000000000000 prvSetupNestedFPUInterruptsTest
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1161   .text.TIM3_IRQHandler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1166   .text.TIM3_IRQHandler:0000000000000000 TIM3_IRQHandler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1213   .text.TIM3_IRQHandler:0000000000000034 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1219   .text.TIM2_IRQHandler:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1224   .text.TIM2_IRQHandler:0000000000000000 TIM2_IRQHandler
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1258   .text.TIM2_IRQHandler:0000000000000020 $d
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1263   .text.vApplicationMallocFailedHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1268   .text.vApplicationMallocFailedHook:0000000000000000 vApplicationMallocFailedHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1291   .text.vApplicationIdleHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1296   .text.vApplicationIdleHook:0000000000000000 vApplicationIdleHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1319   .text.vApplicationStackOverflowHook:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1324   .text.vApplicationStackOverflowHook:0000000000000000 vApplicationStackOverflowHook
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1352   .text.assert_failed:0000000000000000 $t
-/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccixbbxv.s:1357   .text.assert_failed:0000000000000000 assert_failed
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:647    .bss.ulRegTest1LoopCounter:0000000000000000 ulRegTest1LoopCounter
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:644    .bss.ulRegTest1LoopCounter:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:654    .bss.ulRegTest2LoopCounter:0000000000000000 ulRegTest2LoopCounter
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:651    .bss.ulRegTest2LoopCounter:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:661    .bss.ulFPUInterruptNesting:0000000000000000 ulFPUInterruptNesting
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:658    .bss.ulFPUInterruptNesting:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:668    .bss.ulMaxFPUInterruptNesting:0000000000000000 ulMaxFPUInterruptNesting
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:665    .bss.ulMaxFPUInterruptNesting:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:671    .bss.xTestSemaphore:0000000000000000 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:674    .bss.xTestSemaphore:0000000000000000 xTestSemaphore
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:677    .text.CoreSight_configure:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:682    .text.CoreSight_configure:0000000000000000 CoreSight_configure
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:757    .text.CoreSight_configure:0000000000000060 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:805    .text.main:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:810    .text.main:0000000000000000 main
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1002   .text.prvSetupHardware:0000000000000000 prvSetupHardware
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:967    .text.main:0000000000000110 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:998    .text.prvSetupHardware:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1049   .text.prvSetupHardware:000000000000003c $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1055   .text.vApplicationTickHook:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1060   .text.vApplicationTickHook:0000000000000000 vApplicationTickHook
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1094   .text.vApplicationTickHook:0000000000000020 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1099   .text.prvSetupNestedFPUInterruptsTest:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1103   .text.prvSetupNestedFPUInterruptsTest:0000000000000000 prvSetupNestedFPUInterruptsTest
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1161   .text.TIM3_IRQHandler:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1166   .text.TIM3_IRQHandler:0000000000000000 TIM3_IRQHandler
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1213   .text.TIM3_IRQHandler:0000000000000034 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1219   .text.TIM2_IRQHandler:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1224   .text.TIM2_IRQHandler:0000000000000000 TIM2_IRQHandler
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1258   .text.TIM2_IRQHandler:0000000000000020 $d
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1263   .text.vApplicationMallocFailedHook:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1268   .text.vApplicationMallocFailedHook:0000000000000000 vApplicationMallocFailedHook
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1291   .text.vApplicationIdleHook:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1296   .text.vApplicationIdleHook:0000000000000000 vApplicationIdleHook
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1319   .text.vApplicationStackOverflowHook:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1324   .text.vApplicationStackOverflowHook:0000000000000000 vApplicationStackOverflowHook
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1352   .text.assert_failed:0000000000000000 $t
+/var/folders/hq/s45830mn6w17j2ybbkgkrjk00000gn/T//ccmGivbt.s:1357   .text.assert_failed:0000000000000000 assert_failed
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
