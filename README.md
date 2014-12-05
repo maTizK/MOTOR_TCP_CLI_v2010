@@ -1,5 +1,5 @@
 MOTOR_TCP_CLI_v2010
-=================
+====================
 
 Program provides simple control of motor via MODBUS communication. It sets up a simple telnet server. 
 
@@ -12,7 +12,7 @@ $make
 
 
 TODO
-====
+---------
 
 - command task currently kills and starts only motor heart bieat task (motorHB)
 - USART via DMA 

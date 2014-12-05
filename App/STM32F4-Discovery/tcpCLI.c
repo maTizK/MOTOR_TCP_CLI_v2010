@@ -1,3 +1,8 @@
+/*!  \file tcpCLI.c
+ *   \brief CLI interface handling functions. 
+ */
+
+
 #include "tcpCLI.h"
 
 
@@ -6,7 +11,7 @@ static 	portTickType xDelay = portMAX_DELAY;//3000 / portTICK_RATE_MS;
 QueueTelegram telegramS, telegramR; 
 
 /* default telegram */
-void telegram_init()
+static void telegram_init()
 {
 	telegramS.data[0] = 1000;
 	telegramS.data[1] = 0;	
@@ -48,10 +53,7 @@ int handleVariable_set (
 		{
 			// send error via TCP
 			sprintf(pcWriteBuffer, "Error: speed is out of range [1,100]p : %d\n\n\0", s1);
-		//	pcWriteBuffer[11+ 3] = "\0"; 
 			
-			////send( socket_0, buf, 11+3, 0);
-
 	       		return pdFALSE; 	
 		}	
 	
@@ -74,7 +76,6 @@ int handleVariable_set (
 				{	
 					sprintf(pcWriteBuffer, "Speed succsesfully set.\n\n");
 					xWriteBufferLen = 25; 	
-				//	//send( socket, buf, len, 0);
 
 
 					return pdPASS;
@@ -84,7 +85,6 @@ int handleVariable_set (
 				{
 					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
 			       		xWriteBufferLen = 19; 	
-//					//send( socket, buf, len, 0);
 
 					return pdFALSE;
 
@@ -99,7 +99,6 @@ int handleVariable_set (
 		
 				sprintf(pcWriteBuffer, "Error recieving response!\n\n");
 	 			xWriteBufferLen = 27; 	
-				//send( socket_0, buf, len, 0);
 
 				return pdFALSE; 	
 			}
@@ -113,8 +112,6 @@ int handleVariable_set (
 		
 			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
 	 		xWriteBufferLen = 22; 	
-			//send( socket, buf, len, 0);
-
 			return pdFALSE; 	
 		}
 	}
@@ -138,7 +135,6 @@ int handleVariable_set (
 			
 			xWriteBufferLen = 100; 
 			sprintf(pcWriteBuffer, "Error: Ramp time is out of range [15,300]s : %d\n\n\0", s1);
-			//send( socket_0, buf, len, 0);
 
 	       		return pdFALSE; 	
 		}	
@@ -158,7 +154,6 @@ int handleVariable_set (
 				{	
 					sprintf(pcWriteBuffer, "Up ramp succsesfully set.\n\n");
 					xWriteBufferLen = 27; 	
-					//send( socket, buf, len, 0);
 
 
 					return pdPASS;
@@ -168,7 +163,6 @@ int handleVariable_set (
 				{
 					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
 			       		xWriteBufferLen = 19; 	
-					//send( socket, buf, len, 0);
 
 					return pdFALSE;
 
@@ -185,7 +179,6 @@ int handleVariable_set (
 		
 			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
 	 		xWriteBufferLen = 22; 	
-			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
@@ -208,7 +201,6 @@ int handleVariable_set (
 			
 			xWriteBufferLen = 100; 
 			sprintf(pcWriteBuffer, "Error: Ramp time is out of range [15,300]s : %d\n\n\0", s1);
-			//send( socket_0, buf, len, 0);
 
 	       		return pdFALSE; 	
 		}	
@@ -228,7 +220,6 @@ int handleVariable_set (
 				{	
 					sprintf(pcWriteBuffer, "Down ramp succsesfully set.\n\n");
 					xWriteBufferLen = 29; 	
-					//send( socket, buf, len, 0);
 
 
 					return pdPASS;
@@ -238,7 +229,6 @@ int handleVariable_set (
 				{
 					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
 			       		xWriteBufferLen = 19; 	
-					//send( socket, buf, len, 0);
 
 					return pdFALSE;
 
@@ -255,7 +245,6 @@ int handleVariable_set (
 		
 			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
 	 		xWriteBufferLen = 22; 	
-			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
@@ -313,7 +302,6 @@ int handleVariable_get (
 				{
 					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
 			       		xWriteBufferLen = 19; 	
-					//send( socket, buf, len, 0);
 
 					return pdFALSE;
 
@@ -329,7 +317,6 @@ int handleVariable_get (
 				sprintf(pcWriteBuffer, "Error recieving response!\n\n");
 	 			xWriteBufferLen = 27; 	
 				//send( socket_0, buf, len, 0);
-
 				return pdFALSE; 	
 			}
 
@@ -342,7 +329,6 @@ int handleVariable_get (
 		
 			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
 	 		xWriteBufferLen = 22; 	
-			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
@@ -414,9 +400,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 
 		return pdPASS;
 	}
-
-
-    //	vTaskResume(motorHBHandle);
 
 
 	//================================================================================//
@@ -511,7 +494,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 							telegramR.data[5]/100,
 							telegramR.data[5] % 100);
 						xWriteBufferLen = 50 ; 	
-						//send( socket_0, buf, len, 0);
 
 					
 						return pdPASS;
@@ -521,7 +503,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 					{
 						sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
 			       			xWriteBufferLen = 19; 	
-						//send( socket_0, buf, len, 0);
 
 						return pdFALSE;
 
@@ -535,7 +516,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 		
 					sprintf(pcWriteBuffer, "Error recieving response!\n\n");
 	 				xWriteBufferLen = 27; 	
-					//send( socket_0, buf, len, 0);
 
 					return pdFALSE; 	
 				}	
@@ -548,7 +528,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 		
 				sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
 	 			xWriteBufferLen = 22; 	
-				//send( socket, buf, len, 0);
 
 				return pdFALSE; 	
 			}
@@ -588,7 +567,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 				{	
 					sprintf(pcWriteBuffer ,"Motor succsesfully stopped.\n\n");
 					xWriteBufferLen = 29 ; 	
-					//send( socket_0, buf, len, 0);
 
 					
 					return pdPASS;
@@ -612,7 +590,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 		
 				sprintf(pcWriteBuffer, "Error recieving response!\n\n");
 	 			xWriteBufferLen = 27; 	
-				//send( socket_0, buf, len, 0);
 
 				return pdFALSE; 	
 			}
@@ -625,7 +602,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 		
 			sprintf(pcWriteBuffer, "Error sending Queue!\n\n");
 	 		xWriteBufferLen = 22; 	
-			//send( socket, buf, len, 0);
 
 			return pdFALSE; 	
 		}
@@ -642,14 +618,12 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 			// send value to setSpeed_task via Queue 
 		if ( xQueueSend ( QSpd_handle, (void *)&telegramS, xDelay ) == pdPASS )
 		{	
-		//	vTaskDelay(500/portTICK_RATE_MS);		
 			if (  xQueueReceive ( QSpd_handle, &telegramR, xDelay) == pdPASS)
 			{
 				if ( telegramR.Qcmd == SUCCSESS) 
 				{	
 					sprintf(pcWriteBuffer , "Motor succsesfully started.\n\n");
 					xWriteBufferLen = 29; 	
-					//send( socket_0, buf, len, 0);
 
 					
 					return pdPASS;
@@ -659,7 +633,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 				{
 					sprintf(pcWriteBuffer, "MODBUS ERROR !!!.\n\n");
 			       		xWriteBufferLen = 19; 	
-					//send( socket_0, buf, len, 0);
 
 					return pdFALSE;
 
@@ -673,7 +646,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 		
 				sprintf(pcWriteBuffer, "Error recieving response!\n\n");
 	 			xWriteBufferLen = 27; 	
-				//send( socket_0, buf, len, 0);
 
 				return pdFALSE; 	
 			}
@@ -686,7 +658,6 @@ portBASE_TYPE prvMotorCommand ( 	int8_t *pcWriteBuffer,
 		
 			sprintf(pcWriteBuffer,"Error sending Queue!\n\n");
 	 		xWriteBufferLen = 22; 	
-			//send( socket_0, buf, len, 0);
 
 			return pdFALSE; 	
 		}
